@@ -1,0 +1,31 @@
+{
+  "timestamp_utc": "2026-09-17T11:59:04.474489+00:00",
+  "status": "ZENODO_INGEST_OK_CDS_PENDING",
+  "rows": 253286,
+  "unique_galaxy_ids": 253286,
+  "valid_coordinates": 253286,
+  "fallback_rows": 0,
+  "blocked_column_count": 117,
+  "source_sha256": "f8959f933d0ad88a8dbb5d1db2d003e131c2fb098778a3d45ad0416995355153",
+  "outputs": {
+    "SUBJECT_INDEX.parquet": {
+      "sha256": "91a123a4c9d4c6fd892fc7f7c4aa2f670b2eeebe95bd9f010ff851ce99b4a24f",
+      "bytes": 9269052
+    },
+    "CONFOUND_AUDIT_C0.parquet": {
+      "sha256": "4603f230b24f11dfae9e39172eda9025920f1034445859e0981631987fa4988f",
+      "bytes": 6666413
+    },
+    "INTERPRETATION_LOCKBOX/interpretation.parquet": {
+      "sha256": "4f0c6c6dc44f7b0ab192aefed98c582f7ff34872cb59a9433d76944f0e3cf7c7",
+      "bytes": 24584049
+    }
+  },
+  "limitations": [
+    "No CDS reconciliation yet",
+    "Missing or unknown confounds remain unavailable; not inferred",
+    "PNG path not reconstructed",
+    "No probe selected; no images downloaded",
+    "Raw and lockbox permissions protect routine access, not against the owning OS user"
+  ]
+}

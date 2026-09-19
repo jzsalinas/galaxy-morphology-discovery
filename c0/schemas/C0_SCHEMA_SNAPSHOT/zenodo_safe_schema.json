@@ -1,0 +1,18 @@
+{
+  "identity_fields": [
+    "iauname",
+    "ra",
+    "dec"
+  ],
+  "confound_fields": [
+    "petro_theta",
+    "petro_th50",
+    "petro_th90",
+    "elpetro_absmag_r",
+    "redshift",
+    "active_learning_on",
+    "upload_group"
+  ],
+  "blocked_column_count": 117,
+  "source_sha256": "f8959f933d0ad88a8dbb5d1db2d003e131c2fb098778a3d45ad0416995355153"
+}

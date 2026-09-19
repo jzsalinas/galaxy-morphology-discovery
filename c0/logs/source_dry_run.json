@@ -1,0 +1,52 @@
+{
+  "stage": "sources",
+  "sources": [
+    [
+      "S1",
+      "Galaxy Zoo official discovery",
+      "https://data.galaxyzoo.org/"
+    ],
+    [
+      "S2",
+      "Zenodo record metadata",
+      "https://zenodo.org/api/records/4196266"
+    ],
+    [
+      "S3",
+      "CDS byte dictionary",
+      "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/509/3966/ReadMe"
+    ],
+    [
+      "S4",
+      "Walmsley 2022 v2",
+      "https://arxiv.org/html/2102.08414v2"
+    ],
+    [
+      "S5",
+      "DR5 description",
+      "https://www.legacysurvey.org/dr5/description/"
+    ],
+    [
+      "S6",
+      "DR5 files",
+      "https://www.legacysurvey.org/dr5/files/"
+    ],
+    [
+      "S7",
+      "Viewer URL documentation",
+      "https://www.legacysurvey.org/viewer/urls"
+    ],
+    [
+      "S8",
+      "NSA official model candidate",
+      "https://data.sdss.org/datamodel/files/ATLAS_DATA/ATLAS_MAJOR_VERSION/nsa.html"
+    ],
+    [
+      "S9",
+      "SDSS DR8",
+      "https://www.sdss3.org/dr8/"
+    ]
+  ],
+  "max_per_response_bytes": 8388608,
+  "concurrency": 1
+}

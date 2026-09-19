@@ -1,0 +1,11 @@
+{
+  "timestamp_utc": "2026-09-18T00:51:26.568233+00:00",
+  "status": "C0_OPERATOR_SUPPORT_SMOKE_OK",
+  "exit_code": 0,
+  "reason": null,
+  "log": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/logs/C0_OPERATOR_SUPPORT_SMOKE.log",
+  "network_requests": 0,
+  "gate_c": "PENDING",
+  "io_read_bytes": 6759110,
+  "io_write_bytes": 82583
+}

@@ -1,0 +1,3380 @@
+{
+  "timestamp_utc": "2026-09-17T17:18:32.761462+00:00",
+  "provenance": {
+    "c0_pipeline/ranges.py": "de9fe8fb7ae781b97e8634b515b7a3c03d8d66b2fc1d620cbc98396cc457b9e2",
+    "c0_pipeline/range_plan.py": "11871d193fd5d57cb1a6695a76403806775022c4126a6a4a22f263dc1fab210a",
+    "c0_pipeline/range_experiment.py": "6cadbd390d29adabfd3329f39895f5163b0ffd58418cc1fef6713abd1a22af3c",
+    "c0/provenance/ASTROPY_DEPENDENCY_LOCK.json": "b6b54295326b7a26bf232d4ddab98ec5ec5656c378416fe097aa009bc9b3f902",
+    "c0/provenance/C0_DR5_RESOURCE_INVENTORY.json": "96e2ba5e33b78ea6052510508e5866fc7a8286884668b78b9ebeed8985d0a7e2",
+    "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36"
+  },
+  "status": "C0_RANGE_SUBSET_OK",
+  "resource_count": 42,
+  "objects": 12,
+  "additional_bytes": 53049810,
+  "additional_data_requests": 82,
+  "resources": [
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-image-g.fits.fz",
+      "etag": "\"b74080-5561a77c39c80\"",
+      "total_bytes": 12009600,
+      "prefix_sha256": "839edd2f7cfd4c12f5ccf6973cb9f0dd1aa492ecd628185f57fa01b4e0604c0f",
+      "tiles_sha256": "a3a8e54feef8651ca88dc5ecdc58044b60ac0c16256473ca574a11a7a9192359",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0111p012/g/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0111p012/g/tiles-5875767-6926103.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:13:10.491610+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 12009600,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0111p012/g/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"b74080-5561a77c39c80\"",
+          "content_range": "bytes 0-262143/12009600",
+          "declared_bytes": "262144",
+          "last_modified": "Sun, 06 Aug 2017 19:09:22 GMT",
+          "sha256": "839edd2f7cfd4c12f5ccf6973cb9f0dd1aa492ecd628185f57fa01b4e0604c0f"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:13:13.469111+00:00",
+          "metadata": false,
+          "range_start": 5875767,
+          "range_end": 6926103,
+          "resource_total_bytes": 12009600,
+          "observed_bytes": 1050337,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0111p012/g/tiles-5875767-6926103.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"b74080-5561a77c39c80\"",
+          "content_range": "bytes 5875767-6926103/12009600",
+          "declared_bytes": "1050337",
+          "last_modified": "Sun, 06 Aug 2017 19:09:22 GMT",
+          "sha256": "a3a8e54feef8651ca88dc5ecdc58044b60ac0c16256473ca574a11a7a9192359"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J004422.30+011527.7",
+          "probe_rank": 4,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/004.fits",
+          "hdu": 1,
+          "x0": 2112,
+          "y0": 1777,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 1.9856336218188693e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 12009600,
+            "start": 5875767,
+            "end": 6926103,
+            "bytes": 1050337,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 12,
+            "x0": 2112,
+            "y0": 1777,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-image-r.fits.fz",
+      "etag": "\"c885c0-5561a78b7c080\"",
+      "total_bytes": 13141440,
+      "prefix_sha256": "67f2d7e5c0a86a6172b50d3c254738c62110616f198f3bb86892211228a87896",
+      "tiles_sha256": "78188b86f563b307e7aee6765f445da050119f3ea582741cedd3918d74a3f44c",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0111p012/r/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0111p012/r/tiles-6431100-7570309.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:13:18.714994+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 13141440,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0111p012/r/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"c885c0-5561a78b7c080\"",
+          "content_range": "bytes 0-262143/13141440",
+          "declared_bytes": "262144",
+          "last_modified": "Sun, 06 Aug 2017 19:09:38 GMT",
+          "sha256": "67f2d7e5c0a86a6172b50d3c254738c62110616f198f3bb86892211228a87896"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:13:21.838581+00:00",
+          "metadata": false,
+          "range_start": 6431100,
+          "range_end": 7570309,
+          "resource_total_bytes": 13141440,
+          "observed_bytes": 1139210,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0111p012/r/tiles-6431100-7570309.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"c885c0-5561a78b7c080\"",
+          "content_range": "bytes 6431100-7570309/13141440",
+          "declared_bytes": "1139210",
+          "last_modified": "Sun, 06 Aug 2017 19:09:38 GMT",
+          "sha256": "78188b86f563b307e7aee6765f445da050119f3ea582741cedd3918d74a3f44c"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J004422.30+011527.7",
+          "probe_rank": 4,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/004.fits",
+          "hdu": 3,
+          "x0": 2112,
+          "y0": 1777,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 1.9856336218188693e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 13141440,
+            "start": 6431100,
+            "end": 7570309,
+            "bytes": 1139210,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 12,
+            "x0": 2112,
+            "y0": 1777,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-image-z.fits.fz",
+      "etag": "\"f13740-5561a79abe480\"",
+      "total_bytes": 15808320,
+      "prefix_sha256": "d7746c0502f32c5d1ff718057d667a170a233ecf548306e40820fb93563664c1",
+      "tiles_sha256": "a0ae4cb1707c1ca670600ae6ce1409faa697fdc2a183538d720a2017dec0f84b",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0111p012/z/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0111p012/z/tiles-7751630-9108202.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:13:27.683398+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 15808320,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0111p012/z/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"f13740-5561a79abe480\"",
+          "content_range": "bytes 0-262143/15808320",
+          "declared_bytes": "262144",
+          "last_modified": "Sun, 06 Aug 2017 19:09:54 GMT",
+          "sha256": "d7746c0502f32c5d1ff718057d667a170a233ecf548306e40820fb93563664c1"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:13:30.850894+00:00",
+          "metadata": false,
+          "range_start": 7751630,
+          "range_end": 9108202,
+          "resource_total_bytes": 15808320,
+          "observed_bytes": 1356573,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0111p012/z/tiles-7751630-9108202.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"f13740-5561a79abe480\"",
+          "content_range": "bytes 7751630-9108202/15808320",
+          "declared_bytes": "1356573",
+          "last_modified": "Sun, 06 Aug 2017 19:09:54 GMT",
+          "sha256": "a0ae4cb1707c1ca670600ae6ce1409faa697fdc2a183538d720a2017dec0f84b"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J004422.30+011527.7",
+          "probe_rank": 4,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/004.fits",
+          "hdu": 5,
+          "x0": 2112,
+          "y0": 1777,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 1.9856336218188693e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 15808320,
+            "start": 7751630,
+            "end": 9108202,
+            "bytes": 1356573,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 12,
+            "x0": 2112,
+            "y0": 1777,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-image-g.fits.fz",
+      "etag": "\"b778c0-556ae0c3a5140\"",
+      "total_bytes": 12024000,
+      "prefix_sha256": "009aba192db7395b2b243d1381eb90611fd1656db97f06ab2c9ee26dee148ce7",
+      "tiles_sha256": "ab652697008e0b1147e0219636f2f83f9cb4415decd5a24d6bef09d875527bb6",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0321m002/g/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0321m002/g/tiles-1655059-2343528.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:13:35.813379+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 12024000,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0321m002/g/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"b778c0-556ae0c3a5140\"",
+          "content_range": "bytes 0-262143/12024000",
+          "declared_bytes": "262144",
+          "last_modified": "Mon, 14 Aug 2017 03:13:33 GMT",
+          "sha256": "009aba192db7395b2b243d1381eb90611fd1656db97f06ab2c9ee26dee148ce7"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:13:38.630091+00:00",
+          "metadata": false,
+          "range_start": 1655059,
+          "range_end": 2343528,
+          "resource_total_bytes": 12024000,
+          "observed_bytes": 688470,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0321m002/g/tiles-1655059-2343528.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"b778c0-556ae0c3a5140\"",
+          "content_range": "bytes 1655059-2343528/12024000",
+          "declared_bytes": "688470",
+          "last_modified": "Mon, 14 Aug 2017 03:13:33 GMT",
+          "sha256": "ab652697008e0b1147e0219636f2f83f9cb4415decd5a24d6bef09d875527bb6"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J020804.81-002030.7",
+          "probe_rank": 10,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/010.fits",
+          "hdu": 1,
+          "x0": 3113,
+          "y0": 410,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 1.3011278534583636e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 12024000,
+            "start": 1655059,
+            "end": 2343528,
+            "bytes": 688470,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 9,
+            "x0": 3113,
+            "y0": 410,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-image-r.fits.fz",
+      "etag": "\"c46f80-556ae0d0ff0c0\"",
+      "total_bytes": 12873600,
+      "prefix_sha256": "885dedbd4bd7191e15f2b1375ab148bbc5e825a51167cb453e196e05be354de4",
+      "tiles_sha256": "415833855ab620ebbc95f2997eebb717fdd84dde32781f1da3820eb9916ab630",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0321m002/r/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0321m002/r/tiles-1799547-2543880.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:13:41.566289+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 12873600,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0321m002/r/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"c46f80-556ae0d0ff0c0\"",
+          "content_range": "bytes 0-262143/12873600",
+          "declared_bytes": "262144",
+          "last_modified": "Mon, 14 Aug 2017 03:13:47 GMT",
+          "sha256": "885dedbd4bd7191e15f2b1375ab148bbc5e825a51167cb453e196e05be354de4"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:13:45.723737+00:00",
+          "metadata": false,
+          "range_start": 1799547,
+          "range_end": 2543880,
+          "resource_total_bytes": 12873600,
+          "observed_bytes": 744334,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0321m002/r/tiles-1799547-2543880.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"c46f80-556ae0d0ff0c0\"",
+          "content_range": "bytes 1799547-2543880/12873600",
+          "declared_bytes": "744334",
+          "last_modified": "Mon, 14 Aug 2017 03:13:47 GMT",
+          "sha256": "415833855ab620ebbc95f2997eebb717fdd84dde32781f1da3820eb9916ab630"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J020804.81-002030.7",
+          "probe_rank": 10,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/010.fits",
+          "hdu": 3,
+          "x0": 3113,
+          "y0": 410,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 1.3011278534583636e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 12873600,
+            "start": 1799547,
+            "end": 2543880,
+            "bytes": 744334,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 9,
+            "x0": 3113,
+            "y0": 410,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-image-z.fits.fz",
+      "etag": "\"ef3d00-556ae0e31db80\"",
+      "total_bytes": 15678720,
+      "prefix_sha256": "cbc8d5b9664ab195891b5c15bdb6c8de0324507572ca641a7bcc7c77c38077aa",
+      "tiles_sha256": "f7548243452d8dacc457d3e96678ec1748a84c3cf76a015fe8a64c9e5069d0d4",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0321m002/z/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0321m002/z/tiles-2141642-3038467.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:13:50.147029+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 15678720,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0321m002/z/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"ef3d00-556ae0e31db80\"",
+          "content_range": "bytes 0-262143/15678720",
+          "declared_bytes": "262144",
+          "last_modified": "Mon, 14 Aug 2017 03:14:06 GMT",
+          "sha256": "cbc8d5b9664ab195891b5c15bdb6c8de0324507572ca641a7bcc7c77c38077aa"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:13:51.914145+00:00",
+          "metadata": false,
+          "range_start": 2141642,
+          "range_end": 3038467,
+          "resource_total_bytes": 15678720,
+          "observed_bytes": 896826,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0321m002/z/tiles-2141642-3038467.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"ef3d00-556ae0e31db80\"",
+          "content_range": "bytes 2141642-3038467/15678720",
+          "declared_bytes": "896826",
+          "last_modified": "Mon, 14 Aug 2017 03:14:06 GMT",
+          "sha256": "f7548243452d8dacc457d3e96678ec1748a84c3cf76a015fe8a64c9e5069d0d4"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J020804.81-002030.7",
+          "probe_rank": 10,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/010.fits",
+          "hdu": 5,
+          "x0": 3113,
+          "y0": 410,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 1.3011278534583636e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 15678720,
+            "start": 2141642,
+            "end": 3038467,
+            "bytes": 896826,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 9,
+            "x0": 3113,
+            "y0": 410,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-image-g.fits.fz",
+      "etag": "\"bcd540-559074b265600\"",
+      "total_bytes": 12375360,
+      "prefix_sha256": "482d7050706a015cba8179197c6c15bc3caaeb28d704514e746c6bb0ce3df7fe",
+      "tiles_sha256": "ca9906e2fda42a82797eec4f4adab3a97f62d34ef028d64bebe15da8faa3759a",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1710p257/g/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1710p257/g/tiles-8347487-9579967.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:13:57.230876+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 12375360,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1710p257/g/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"bcd540-559074b265600\"",
+          "content_range": "bytes 0-262143/12375360",
+          "declared_bytes": "262144",
+          "last_modified": "Wed, 13 Sep 2017 00:32:24 GMT",
+          "sha256": "482d7050706a015cba8179197c6c15bc3caaeb28d704514e746c6bb0ce3df7fe"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:14:00.253660+00:00",
+          "metadata": false,
+          "range_start": 8347487,
+          "range_end": 9579967,
+          "resource_total_bytes": 12375360,
+          "observed_bytes": 1232481,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1710p257/g/tiles-8347487-9579967.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"bcd540-559074b265600\"",
+          "content_range": "bytes 8347487-9579967/12375360",
+          "declared_bytes": "1232481",
+          "last_modified": "Wed, 13 Sep 2017 00:32:24 GMT",
+          "sha256": "ca9906e2fda42a82797eec4f4adab3a97f62d34ef028d64bebe15da8faa3759a"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J112354.17+254758.8",
+          "probe_rank": 8,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/008.fits",
+          "hdu": 1,
+          "x0": 1972,
+          "y0": 2354,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 1.8137045253245186e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 12375360,
+            "start": 8347487,
+            "end": 9579967,
+            "bytes": 1232481,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 16,
+            "x0": 1972,
+            "y0": 2354,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-image-r.fits.fz",
+      "etag": "\"cb1d80-559074b81e380\"",
+      "total_bytes": 13311360,
+      "prefix_sha256": "3dec60ddad1a9c8eeb7a0ca4b2b4dd9a28e415578de5d23d6764247a52708f22",
+      "tiles_sha256": "2a40ab4d4b8056c5dd54d0fa04c7652b766fbda150d77ea8490a16a553e8a760",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1710p257/r/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1710p257/r/tiles-8990597-10314647.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:14:04.288852+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 13311360,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1710p257/r/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"cb1d80-559074b81e380\"",
+          "content_range": "bytes 0-262143/13311360",
+          "declared_bytes": "262144",
+          "last_modified": "Wed, 13 Sep 2017 00:32:30 GMT",
+          "sha256": "3dec60ddad1a9c8eeb7a0ca4b2b4dd9a28e415578de5d23d6764247a52708f22"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:14:06.484865+00:00",
+          "metadata": false,
+          "range_start": 8990597,
+          "range_end": 10314647,
+          "resource_total_bytes": 13311360,
+          "observed_bytes": 1324051,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1710p257/r/tiles-8990597-10314647.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"cb1d80-559074b81e380\"",
+          "content_range": "bytes 8990597-10314647/13311360",
+          "declared_bytes": "1324051",
+          "last_modified": "Wed, 13 Sep 2017 00:32:30 GMT",
+          "sha256": "2a40ab4d4b8056c5dd54d0fa04c7652b766fbda150d77ea8490a16a553e8a760"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J112354.17+254758.8",
+          "probe_rank": 8,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/008.fits",
+          "hdu": 3,
+          "x0": 1972,
+          "y0": 2354,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 1.8137045253245186e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 13311360,
+            "start": 8990597,
+            "end": 10314647,
+            "bytes": 1324051,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 16,
+            "x0": 1972,
+            "y0": 2354,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-image-z.fits.fz",
+      "etag": "\"f9a740-559074c578300\"",
+      "total_bytes": 16361280,
+      "prefix_sha256": "6a2ff81e0c5291e59ba2d5c2e4557140f9e00cfceb547f615a807c91b116e0e9",
+      "tiles_sha256": "ca75d2eadf1539525cf72653f90b9851a95687fefe9bb241c8cab219993ab719",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1710p257/z/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1710p257/z/tiles-10695741-12093785.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:14:10.926423+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 16361280,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1710p257/z/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"f9a740-559074c578300\"",
+          "content_range": "bytes 0-262143/16361280",
+          "declared_bytes": "262144",
+          "last_modified": "Wed, 13 Sep 2017 00:32:44 GMT",
+          "sha256": "6a2ff81e0c5291e59ba2d5c2e4557140f9e00cfceb547f615a807c91b116e0e9"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:14:13.656649+00:00",
+          "metadata": false,
+          "range_start": 10695741,
+          "range_end": 12093785,
+          "resource_total_bytes": 16361280,
+          "observed_bytes": 1398045,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1710p257/z/tiles-10695741-12093785.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"f9a740-559074c578300\"",
+          "content_range": "bytes 10695741-12093785/16361280",
+          "declared_bytes": "1398045",
+          "last_modified": "Wed, 13 Sep 2017 00:32:44 GMT",
+          "sha256": "ca75d2eadf1539525cf72653f90b9851a95687fefe9bb241c8cab219993ab719"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J112354.17+254758.8",
+          "probe_rank": 8,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/008.fits",
+          "hdu": 5,
+          "x0": 1972,
+          "y0": 2354,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 1.8137045253245186e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 16361280,
+            "start": 10695741,
+            "end": 12093785,
+            "bytes": 1398045,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 16,
+            "x0": 1972,
+            "y0": 2354,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-image-g.fits.fz",
+      "etag": "\"c81540-55908995a5dc0\"",
+      "total_bytes": 13112640,
+      "prefix_sha256": "4f101f3ad974b6f184f4f32d5bbb4113546823fb0be6553d2307c7a111e2a159",
+      "tiles_sha256": "eb61dbaa2db4c7673367bca918643bacfd4e594b89e1f348b381d09727f76342",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1766m027/g/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1766m027/g/tiles-8498748-9633427.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:14:20.764566+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 13112640,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1766m027/g/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"c81540-55908995a5dc0\"",
+          "content_range": "bytes 0-262143/13112640",
+          "declared_bytes": "262144",
+          "last_modified": "Wed, 13 Sep 2017 02:05:51 GMT",
+          "sha256": "4f101f3ad974b6f184f4f32d5bbb4113546823fb0be6553d2307c7a111e2a159"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:14:23.956917+00:00",
+          "metadata": false,
+          "range_start": 8498748,
+          "range_end": 9633427,
+          "resource_total_bytes": 13112640,
+          "observed_bytes": 1134680,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1766m027/g/tiles-8498748-9633427.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"c81540-55908995a5dc0\"",
+          "content_range": "bytes 8498748-9633427/13112640",
+          "declared_bytes": "1134680",
+          "last_modified": "Wed, 13 Sep 2017 02:05:51 GMT",
+          "sha256": "eb61dbaa2db4c7673367bca918643bacfd4e594b89e1f348b381d09727f76342"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J114635.90-024152.0",
+          "probe_rank": 9,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/009.fits",
+          "hdu": 1,
+          "x0": 1326,
+          "y0": 2381,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 1.6197003309581897e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 13112640,
+            "start": 8498748,
+            "end": 9633427,
+            "bytes": 1134680,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 12,
+            "x0": 1326,
+            "y0": 2381,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-image-r.fits.fz",
+      "etag": "\"d8dec0-559089a023680\"",
+      "total_bytes": 14212800,
+      "prefix_sha256": "e8d74006597f15364f0467cad589a0f65a3918cddda27a0ec4944d761fca134d",
+      "tiles_sha256": "00fe3ad1918cbb268dc71335db702970f3a60639037117fce3298c46dd46a529",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1766m027/r/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1766m027/r/tiles-9205922-10432637.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:14:30.111300+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 14212800,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1766m027/r/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"d8dec0-559089a023680\"",
+          "content_range": "bytes 0-262143/14212800",
+          "declared_bytes": "262144",
+          "last_modified": "Wed, 13 Sep 2017 02:06:02 GMT",
+          "sha256": "e8d74006597f15364f0467cad589a0f65a3918cddda27a0ec4944d761fca134d"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:14:33.375366+00:00",
+          "metadata": false,
+          "range_start": 9205922,
+          "range_end": 10432637,
+          "resource_total_bytes": 14212800,
+          "observed_bytes": 1226716,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1766m027/r/tiles-9205922-10432637.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"d8dec0-559089a023680\"",
+          "content_range": "bytes 9205922-10432637/14212800",
+          "declared_bytes": "1226716",
+          "last_modified": "Wed, 13 Sep 2017 02:06:02 GMT",
+          "sha256": "00fe3ad1918cbb268dc71335db702970f3a60639037117fce3298c46dd46a529"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J114635.90-024152.0",
+          "probe_rank": 9,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/009.fits",
+          "hdu": 3,
+          "x0": 1326,
+          "y0": 2381,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 1.6197003309581897e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 14212800,
+            "start": 9205922,
+            "end": 10432637,
+            "bytes": 1226716,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 12,
+            "x0": 1326,
+            "y0": 2381,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-image-z.fits.fz",
+      "etag": "\"e5ca40-559089b42a5c0\"",
+      "total_bytes": 15059520,
+      "prefix_sha256": "c2427ade1495e6a1ce9f1287259b14b3ca491be00ddce945efab083576d6e8a7",
+      "tiles_sha256": "70ae100a8dafb017fada143d3d33904c3ffaf4662e66510a566b77ba11f0a653",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1766m027/z/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1766m027/z/tiles-9773601-11062318.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:14:38.370629+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 15059520,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1766m027/z/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"e5ca40-559089b42a5c0\"",
+          "content_range": "bytes 0-262143/15059520",
+          "declared_bytes": "262144",
+          "last_modified": "Wed, 13 Sep 2017 02:06:23 GMT",
+          "sha256": "c2427ade1495e6a1ce9f1287259b14b3ca491be00ddce945efab083576d6e8a7"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:14:41.615133+00:00",
+          "metadata": false,
+          "range_start": 9773601,
+          "range_end": 11062318,
+          "resource_total_bytes": 15059520,
+          "observed_bytes": 1288718,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1766m027/z/tiles-9773601-11062318.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"e5ca40-559089b42a5c0\"",
+          "content_range": "bytes 9773601-11062318/15059520",
+          "declared_bytes": "1288718",
+          "last_modified": "Wed, 13 Sep 2017 02:06:23 GMT",
+          "sha256": "70ae100a8dafb017fada143d3d33904c3ffaf4662e66510a566b77ba11f0a653"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J114635.90-024152.0",
+          "probe_rank": 9,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/009.fits",
+          "hdu": 5,
+          "x0": 1326,
+          "y0": 2381,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 1.6197003309581897e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 15059520,
+            "start": 9773601,
+            "end": 11062318,
+            "bytes": 1288718,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 12,
+            "x0": 1326,
+            "y0": 2381,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-image-g.fits.fz",
+      "etag": "\"997500-5575736388bc0\"",
+      "total_bytes": 10056960,
+      "prefix_sha256": "d351daf9a3bebaa1d3a11a1a6f19d08887fbe1468f635c3a7ae4fc113f2211d9",
+      "tiles_sha256": "ecd38268c2b4997c4142deee3f3b261856474052a8698cce64af8b90e001a169",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1831p085/g/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1831p085/g/tiles-6558217-7507568.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:14:48.562749+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 10056960,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1831p085/g/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"997500-5575736388bc0\"",
+          "content_range": "bytes 0-262143/10056960",
+          "declared_bytes": "262144",
+          "last_modified": "Tue, 22 Aug 2017 13:02:47 GMT",
+          "sha256": "d351daf9a3bebaa1d3a11a1a6f19d08887fbe1468f635c3a7ae4fc113f2211d9"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:14:50.376717+00:00",
+          "metadata": false,
+          "range_start": 6558217,
+          "range_end": 7507568,
+          "resource_total_bytes": 10056960,
+          "observed_bytes": 949352,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1831p085/g/tiles-6558217-7507568.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"997500-5575736388bc0\"",
+          "content_range": "bytes 6558217-7507568/10056960",
+          "declared_bytes": "949352",
+          "last_modified": "Tue, 22 Aug 2017 13:02:47 GMT",
+          "sha256": "ecd38268c2b4997c4142deee3f3b261856474052a8698cce64af8b90e001a169"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J121217.88+083054.4",
+          "probe_rank": 6,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/006.fits",
+          "hdu": 1,
+          "x0": 2774,
+          "y0": 1880,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 1.6627225931553567e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 10056960,
+            "start": 6558217,
+            "end": 7507568,
+            "bytes": 949352,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 16,
+            "x0": 2774,
+            "y0": 1880,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-image-r.fits.fz",
+      "etag": "\"d17180-5575736fee900\"",
+      "total_bytes": 13726080,
+      "prefix_sha256": "c2f2a0fabdd9456b1813f0c8400914da8460d438ae8666b9b86cf7da57876e84",
+      "tiles_sha256": "28c31afaca0539d998f034db529e7b7b7cf50dadbbe7fb4b7073e80eb1c2df18",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1831p085/r/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1831p085/r/tiles-7151915-8325224.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:14:52.776414+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 13726080,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1831p085/r/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"d17180-5575736fee900\"",
+          "content_range": "bytes 0-262143/13726080",
+          "declared_bytes": "262144",
+          "last_modified": "Tue, 22 Aug 2017 13:03:00 GMT",
+          "sha256": "c2f2a0fabdd9456b1813f0c8400914da8460d438ae8666b9b86cf7da57876e84"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:14:54.632592+00:00",
+          "metadata": false,
+          "range_start": 7151915,
+          "range_end": 8325224,
+          "resource_total_bytes": 13726080,
+          "observed_bytes": 1173310,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1831p085/r/tiles-7151915-8325224.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"d17180-5575736fee900\"",
+          "content_range": "bytes 7151915-8325224/13726080",
+          "declared_bytes": "1173310",
+          "last_modified": "Tue, 22 Aug 2017 13:03:00 GMT",
+          "sha256": "28c31afaca0539d998f034db529e7b7b7cf50dadbbe7fb4b7073e80eb1c2df18"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J121217.88+083054.4",
+          "probe_rank": 6,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/006.fits",
+          "hdu": 3,
+          "x0": 2774,
+          "y0": 1880,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 1.6627225931553567e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 13726080,
+            "start": 7151915,
+            "end": 8325224,
+            "bytes": 1173310,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 16,
+            "x0": 2774,
+            "y0": 1880,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-image-z.fits.fz",
+      "etag": "\"f0c6c0-5575738024f40\"",
+      "total_bytes": 15779520,
+      "prefix_sha256": "a646ebfdf6a5881ba41929537f1075494239f5c61d078fe77ffa97066556731f",
+      "tiles_sha256": "9263fb5589ee15ac69f725742e96e5fc9c773243fb91b1dc9d05511cf78625b4",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1831p085/z/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1831p085/z/tiles-8160554-9520890.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:14:56.861225+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 15779520,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1831p085/z/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"f0c6c0-5575738024f40\"",
+          "content_range": "bytes 0-262143/15779520",
+          "declared_bytes": "262144",
+          "last_modified": "Tue, 22 Aug 2017 13:03:17 GMT",
+          "sha256": "a646ebfdf6a5881ba41929537f1075494239f5c61d078fe77ffa97066556731f"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:14:58.744870+00:00",
+          "metadata": false,
+          "range_start": 8160554,
+          "range_end": 9520890,
+          "resource_total_bytes": 15779520,
+          "observed_bytes": 1360337,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1831p085/z/tiles-8160554-9520890.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"f0c6c0-5575738024f40\"",
+          "content_range": "bytes 8160554-9520890/15779520",
+          "declared_bytes": "1360337",
+          "last_modified": "Tue, 22 Aug 2017 13:03:17 GMT",
+          "sha256": "9263fb5589ee15ac69f725742e96e5fc9c773243fb91b1dc9d05511cf78625b4"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J121217.88+083054.4",
+          "probe_rank": 6,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/006.fits",
+          "hdu": 5,
+          "x0": 2774,
+          "y0": 1880,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 1.6627225931553567e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 15779520,
+            "start": 8160554,
+            "end": 9520890,
+            "bytes": 1360337,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 16,
+            "x0": 2774,
+            "y0": 1880,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-image-g.fits.fz",
+      "etag": "\"c25ec0-55758b2cbea00\"",
+      "total_bytes": 12738240,
+      "prefix_sha256": "63882e199844c0264cc1ff21f913b7093096b5f0d2c778474116c32457671194",
+      "tiles_sha256": "31a838ab4c3e19a1bd5a8c7ee5e89c8716c5f71e5f8dc073b6833864835147b5",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1850p132/g/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1850p132/g/tiles-751376-1481122.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:15:05.969343+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 12738240,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1850p132/g/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"c25ec0-55758b2cbea00\"",
+          "content_range": "bytes 0-262143/12738240",
+          "declared_bytes": "262144",
+          "last_modified": "Tue, 22 Aug 2017 14:49:12 GMT",
+          "sha256": "63882e199844c0264cc1ff21f913b7093096b5f0d2c778474116c32457671194"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:15:07.851961+00:00",
+          "metadata": false,
+          "range_start": 751376,
+          "range_end": 1481122,
+          "resource_total_bytes": 12738240,
+          "observed_bytes": 729747,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1850p132/g/tiles-751376-1481122.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"c25ec0-55758b2cbea00\"",
+          "content_range": "bytes 751376-1481122/12738240",
+          "declared_bytes": "729747",
+          "last_modified": "Tue, 22 Aug 2017 14:49:12 GMT",
+          "sha256": "31a838ab4c3e19a1bd5a8c7ee5e89c8716c5f71e5f8dc073b6833864835147b5"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J122031.42+130835.5",
+          "probe_rank": 3,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/003.fits",
+          "hdu": 7,
+          "x0": 0,
+          "y0": 205,
+          "height": 256,
+          "width": 174,
+          "equal": true,
+          "max_grid_error_pixels": 3.24385106658211e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 12738240,
+            "start": 751376,
+            "end": 1481122,
+            "bytes": 729747,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 6,
+            "x0": 0,
+            "y0": 205,
+            "width": 174,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-image-r.fits.fz",
+      "etag": "\"d7f280-55758b3b0cbc0\"",
+      "total_bytes": 14152320,
+      "prefix_sha256": "af752b08799b084dd35362221d81523640555044de4cbc54db254ae6f8642431",
+      "tiles_sha256": "89ef1ef21c2e95f2249e2d4302d5bc98f7bdc36819e172f0d1c7a3c10bf6c607",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1850p132/r/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1850p132/r/tiles-817438-1639139.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:15:12.078848+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 14152320,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1850p132/r/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"d7f280-55758b3b0cbc0\"",
+          "content_range": "bytes 0-262143/14152320",
+          "declared_bytes": "262144",
+          "last_modified": "Tue, 22 Aug 2017 14:49:27 GMT",
+          "sha256": "af752b08799b084dd35362221d81523640555044de4cbc54db254ae6f8642431"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:15:15.997806+00:00",
+          "metadata": false,
+          "range_start": 817438,
+          "range_end": 1639139,
+          "resource_total_bytes": 14152320,
+          "observed_bytes": 821702,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1850p132/r/tiles-817438-1639139.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"d7f280-55758b3b0cbc0\"",
+          "content_range": "bytes 817438-1639139/14152320",
+          "declared_bytes": "821702",
+          "last_modified": "Tue, 22 Aug 2017 14:49:27 GMT",
+          "sha256": "89ef1ef21c2e95f2249e2d4302d5bc98f7bdc36819e172f0d1c7a3c10bf6c607"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J122031.42+130835.5",
+          "probe_rank": 3,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/003.fits",
+          "hdu": 9,
+          "x0": 0,
+          "y0": 205,
+          "height": 256,
+          "width": 174,
+          "equal": true,
+          "max_grid_error_pixels": 3.24385106658211e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 14152320,
+            "start": 817438,
+            "end": 1639139,
+            "bytes": 821702,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 6,
+            "x0": 0,
+            "y0": 205,
+            "width": 174,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-image-z.fits.fz",
+      "etag": "\"f2aa80-55758b4a4efc0\"",
+      "total_bytes": 15903360,
+      "prefix_sha256": "a02e92d947be4ad81d8906f01c2f1665865618447a544378d15c3c8b9bd606c3",
+      "tiles_sha256": "d93f05c0495fe65c60ac6720f5f3d11c19c061d0b2bf6b7dc04caf607f502c0f",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1850p132/z/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1850p132/z/tiles-922399-1842743.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:15:20.252781+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 15903360,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1850p132/z/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"f2aa80-55758b4a4efc0\"",
+          "content_range": "bytes 0-262143/15903360",
+          "declared_bytes": "262144",
+          "last_modified": "Tue, 22 Aug 2017 14:49:43 GMT",
+          "sha256": "a02e92d947be4ad81d8906f01c2f1665865618447a544378d15c3c8b9bd606c3"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:15:21.998761+00:00",
+          "metadata": false,
+          "range_start": 922399,
+          "range_end": 1842743,
+          "resource_total_bytes": 15903360,
+          "observed_bytes": 920345,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1850p132/z/tiles-922399-1842743.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"f2aa80-55758b4a4efc0\"",
+          "content_range": "bytes 922399-1842743/15903360",
+          "declared_bytes": "920345",
+          "last_modified": "Tue, 22 Aug 2017 14:49:43 GMT",
+          "sha256": "d93f05c0495fe65c60ac6720f5f3d11c19c061d0b2bf6b7dc04caf607f502c0f"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J122031.42+130835.5",
+          "probe_rank": 3,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/003.fits",
+          "hdu": 11,
+          "x0": 0,
+          "y0": 205,
+          "height": 256,
+          "width": 174,
+          "equal": true,
+          "max_grid_error_pixels": 3.24385106658211e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 15903360,
+            "start": 922399,
+            "end": 1842743,
+            "bytes": 920345,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 6,
+            "x0": 0,
+            "y0": 205,
+            "width": 174,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-image-g.fits.fz",
+      "etag": "\"bef140-5590ce42a2480\"",
+      "total_bytes": 12513600,
+      "prefix_sha256": "669291c37444eebae9040b042798ffdc31a6d207f8227f5d1e4f39bbd21c175f",
+      "tiles_sha256": "38971caecbb0b05bc1758030165faede8521d2941ec3f1a70b2d0bb0a186109d",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1852p132/g/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1852p132/g/tiles-1050850-1762351.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:15:24.885443+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 12513600,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1852p132/g/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"bef140-5590ce42a2480\"",
+          "content_range": "bytes 0-262143/12513600",
+          "declared_bytes": "262144",
+          "last_modified": "Wed, 13 Sep 2017 07:13:06 GMT",
+          "sha256": "669291c37444eebae9040b042798ffdc31a6d207f8227f5d1e4f39bbd21c175f"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:15:26.669267+00:00",
+          "metadata": false,
+          "range_start": 1050850,
+          "range_end": 1762351,
+          "resource_total_bytes": 12513600,
+          "observed_bytes": 711502,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1852p132/g/tiles-1050850-1762351.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"bef140-5590ce42a2480\"",
+          "content_range": "bytes 1050850-1762351/12513600",
+          "declared_bytes": "711502",
+          "last_modified": "Wed, 13 Sep 2017 07:13:06 GMT",
+          "sha256": "38971caecbb0b05bc1758030165faede8521d2941ec3f1a70b2d0bb0a186109d"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J122031.42+130835.5",
+          "probe_rank": 3,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/003.fits",
+          "hdu": 1,
+          "x0": 3349,
+          "y0": 205,
+          "height": 256,
+          "width": 251,
+          "equal": true,
+          "max_grid_error_pixels": 4.460665883222895e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 12513600,
+            "start": 1050850,
+            "end": 1762351,
+            "bytes": 711502,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 9,
+            "x0": 3349,
+            "y0": 205,
+            "width": 251,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-image-r.fits.fz",
+      "etag": "\"d398c0-5590ce51e4880\"",
+      "total_bytes": 13867200,
+      "prefix_sha256": "c8a48bcd78613f1c3781e53abc8d3deb026def22ae1ee4cdf3c3f0e11d6506c2",
+      "tiles_sha256": "1094187195f74bd8ba564b62fa6190d8b4f30b13e250d9dc81597776f0441bae",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1852p132/r/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1852p132/r/tiles-1155120-1961274.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:15:29.970513+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 13867200,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1852p132/r/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"d398c0-5590ce51e4880\"",
+          "content_range": "bytes 0-262143/13867200",
+          "declared_bytes": "262144",
+          "last_modified": "Wed, 13 Sep 2017 07:13:22 GMT",
+          "sha256": "c8a48bcd78613f1c3781e53abc8d3deb026def22ae1ee4cdf3c3f0e11d6506c2"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:15:33.795345+00:00",
+          "metadata": false,
+          "range_start": 1155120,
+          "range_end": 1961274,
+          "resource_total_bytes": 13867200,
+          "observed_bytes": 806155,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1852p132/r/tiles-1155120-1961274.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"d398c0-5590ce51e4880\"",
+          "content_range": "bytes 1155120-1961274/13867200",
+          "declared_bytes": "806155",
+          "last_modified": "Wed, 13 Sep 2017 07:13:22 GMT",
+          "sha256": "1094187195f74bd8ba564b62fa6190d8b4f30b13e250d9dc81597776f0441bae"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J122031.42+130835.5",
+          "probe_rank": 3,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/003.fits",
+          "hdu": 3,
+          "x0": 3349,
+          "y0": 205,
+          "height": 256,
+          "width": 251,
+          "equal": true,
+          "max_grid_error_pixels": 4.460665883222895e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 13867200,
+            "start": 1155120,
+            "end": 1961274,
+            "bytes": 806155,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 9,
+            "x0": 3349,
+            "y0": 205,
+            "width": 251,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-image-z.fits.fz",
+      "etag": "\"f0bb80-5590ce6032a40\"",
+      "total_bytes": 15776640,
+      "prefix_sha256": "0e45277ab744b4f90cb7acc5c100b2356128506eae21bee2b4fbf3a0ec19da11",
+      "tiles_sha256": "51e3ee6d4ce8864aee639bce2b17efcd23783880dc56a99f613915a727b810ac",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1852p132/z/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1852p132/z/tiles-1323733-2250848.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:15:38.132277+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 15776640,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1852p132/z/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"f0bb80-5590ce6032a40\"",
+          "content_range": "bytes 0-262143/15776640",
+          "declared_bytes": "262144",
+          "last_modified": "Wed, 13 Sep 2017 07:13:37 GMT",
+          "sha256": "0e45277ab744b4f90cb7acc5c100b2356128506eae21bee2b4fbf3a0ec19da11"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:15:40.586622+00:00",
+          "metadata": false,
+          "range_start": 1323733,
+          "range_end": 2250848,
+          "resource_total_bytes": 15776640,
+          "observed_bytes": 927116,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1852p132/z/tiles-1323733-2250848.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"f0bb80-5590ce6032a40\"",
+          "content_range": "bytes 1323733-2250848/15776640",
+          "declared_bytes": "927116",
+          "last_modified": "Wed, 13 Sep 2017 07:13:37 GMT",
+          "sha256": "51e3ee6d4ce8864aee639bce2b17efcd23783880dc56a99f613915a727b810ac"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J122031.42+130835.5",
+          "probe_rank": 3,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/003.fits",
+          "hdu": 5,
+          "x0": 3349,
+          "y0": 205,
+          "height": 256,
+          "width": 251,
+          "equal": true,
+          "max_grid_error_pixels": 4.460665883222895e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 15776640,
+            "start": 1323733,
+            "end": 2250848,
+            "bytes": 927116,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 9,
+            "x0": 3349,
+            "y0": 205,
+            "width": 251,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-g.fits.fz",
+      "etag": "\"c9f900-55759cb88cf80\"",
+      "total_bytes": 13236480,
+      "prefix_sha256": "6de4c4fc6b50d486169475991ed38395f106cc96ec6dbf1f383c718cb7f5b623",
+      "tiles_sha256": "08f041159b69c4796ad35a575d39035393fd321d827497a9883f6e72ec3002c8",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_smoke/prefix.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_smoke/tiles.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T13:29:57.034719+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 13236480,
+          "observed_bytes": 262144,
+          "local_logical_path": "c0/probe/range_smoke/prefix.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"c9f900-55759cb88cf80\"",
+          "content_range": "bytes 0-262143/13236480",
+          "sha256": "6de4c4fc6b50d486169475991ed38395f106cc96ec6dbf1f383c718cb7f5b623"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T13:31:07.725854+00:00",
+          "metadata": false,
+          "range_start": 10849338,
+          "range_end": 11969290,
+          "resource_total_bytes": 13236480,
+          "observed_bytes": 1119953,
+          "local_logical_path": "c0/probe/range_smoke/tiles.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"c9f900-55759cb88cf80\"",
+          "content_range": "bytes 10849338-11969290/13236480",
+          "sha256": "08f041159b69c4796ad35a575d39035393fd321d827497a9883f6e72ec3002c8"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J122116.26+160544.1",
+          "probe_rank": 1,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/dr5_subimage_smoke.fits",
+          "hdu": 1,
+          "x0": 1762,
+          "y0": 2985,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 2.501424204638348e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 13236480,
+            "start": 10849338,
+            "end": 11969290,
+            "bytes": 1119953,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 16,
+            "x0": 1762,
+            "y0": 2985,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-r.fits.fz",
+      "etag": "\"d38d80-55759cd158a00\"",
+      "total_bytes": 13864320,
+      "prefix_sha256": "e62d4e859304266027d21001d47f03b2c47c836b83e838b6c15e4f1b92696331",
+      "tiles_sha256": "1796a6a56e51e5ec2e1fbf385a5459def0503269f399aec32169a4a0a23f1ee9",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1853p160/r/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1853p160/r/tiles-11347092-12538519.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:15:45.667524+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 13864320,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1853p160/r/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"d38d80-55759cd158a00\"",
+          "content_range": "bytes 0-262143/13864320",
+          "declared_bytes": "262144",
+          "last_modified": "Tue, 22 Aug 2017 16:08:08 GMT",
+          "sha256": "e62d4e859304266027d21001d47f03b2c47c836b83e838b6c15e4f1b92696331"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:15:48.741517+00:00",
+          "metadata": false,
+          "range_start": 11347092,
+          "range_end": 12538519,
+          "resource_total_bytes": 13864320,
+          "observed_bytes": 1191428,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1853p160/r/tiles-11347092-12538519.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"d38d80-55759cd158a00\"",
+          "content_range": "bytes 11347092-12538519/13864320",
+          "declared_bytes": "1191428",
+          "last_modified": "Tue, 22 Aug 2017 16:08:08 GMT",
+          "sha256": "1796a6a56e51e5ec2e1fbf385a5459def0503269f399aec32169a4a0a23f1ee9"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J122116.26+160544.1",
+          "probe_rank": 1,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/dr5_subimage_smoke.fits",
+          "hdu": 3,
+          "x0": 1762,
+          "y0": 2985,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 2.501424204638348e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 13864320,
+            "start": 11347092,
+            "end": 12538519,
+            "bytes": 1191428,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 16,
+            "x0": 1762,
+            "y0": 2985,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-z.fits.fz",
+      "etag": "\"e2e3c0-55759ce46b700\"",
+      "total_bytes": 14869440,
+      "prefix_sha256": "131ac46f554f90d77eadacfa4247644113e694a5d4249a07464b100c4af1edcd",
+      "tiles_sha256": "67cbf40c46bd3e032a3d0f9905c22d48a289ce04e60953bb3930f7f1e42b9cda",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1853p160/z/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1853p160/z/tiles-12238756-13491488.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:15:56.022780+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 14869440,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1853p160/z/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"e2e3c0-55759ce46b700\"",
+          "content_range": "bytes 0-262143/14869440",
+          "declared_bytes": "262144",
+          "last_modified": "Tue, 22 Aug 2017 16:08:28 GMT",
+          "sha256": "131ac46f554f90d77eadacfa4247644113e694a5d4249a07464b100c4af1edcd"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:15:58.596286+00:00",
+          "metadata": false,
+          "range_start": 12238756,
+          "range_end": 13491488,
+          "resource_total_bytes": 14869440,
+          "observed_bytes": 1252733,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1853p160/z/tiles-12238756-13491488.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"e2e3c0-55759ce46b700\"",
+          "content_range": "bytes 12238756-13491488/14869440",
+          "declared_bytes": "1252733",
+          "last_modified": "Tue, 22 Aug 2017 16:08:28 GMT",
+          "sha256": "67cbf40c46bd3e032a3d0f9905c22d48a289ce04e60953bb3930f7f1e42b9cda"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J122116.26+160544.1",
+          "probe_rank": 1,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/dr5_subimage_smoke.fits",
+          "hdu": 5,
+          "x0": 1762,
+          "y0": 2985,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 2.501424204638348e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 14869440,
+            "start": 12238756,
+            "end": 13491488,
+            "bytes": 1252733,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 16,
+            "x0": 1762,
+            "y0": 2985,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-image-g.fits.fz",
+      "etag": "\"c68040-5575e7724dc40\"",
+      "total_bytes": 13008960,
+      "prefix_sha256": "04d1a7a5bf4834e536a48ead52f93c8e852e17e6d5684231ece913784b35e481",
+      "tiles_sha256": "790ca44da5cf857d8217862f361d7e4c94236aa80338fd12744a76e195c076f7",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1949p190/g/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1949p190/g/tiles-7263839-7988207.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:16:06.514181+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 13008960,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1949p190/g/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"c68040-5575e7724dc40\"",
+          "content_range": "bytes 0-262143/13008960",
+          "declared_bytes": "262144",
+          "last_modified": "Tue, 22 Aug 2017 21:42:01 GMT",
+          "sha256": "04d1a7a5bf4834e536a48ead52f93c8e852e17e6d5684231ece913784b35e481"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:16:11.518165+00:00",
+          "metadata": false,
+          "range_start": 7263839,
+          "range_end": 7988207,
+          "resource_total_bytes": 13008960,
+          "observed_bytes": 724369,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1949p190/g/tiles-7263839-7988207.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"c68040-5575e7724dc40\"",
+          "content_range": "bytes 7263839-7988207/13008960",
+          "declared_bytes": "724369",
+          "last_modified": "Tue, 22 Aug 2017 21:42:01 GMT",
+          "sha256": "790ca44da5cf857d8217862f361d7e4c94236aa80338fd12744a76e195c076f7"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J130013.05+190137.2",
+          "probe_rank": 5,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/005.fits",
+          "hdu": 7,
+          "x0": 0,
+          "y0": 2043,
+          "height": 256,
+          "width": 78,
+          "equal": true,
+          "max_grid_error_pixels": 3.8297435915936427e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 13008960,
+            "start": 7263839,
+            "end": 7988207,
+            "bytes": 724369,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 3,
+            "x0": 0,
+            "y0": 2043,
+            "width": 78,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-image-r.fits.fz",
+      "etag": "\"d65240-5575e77ae3080\"",
+      "total_bytes": 14045760,
+      "prefix_sha256": "5b02add948af9edcae4e0b4a18fa29469e7e1fdeaf8103944cbd9bfbcda32623",
+      "tiles_sha256": "cc6398b255fc81bf79f6b7f291975338fd8258fc8cff831f50a702aea93b9794",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1949p190/r/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1949p190/r/tiles-7529043-8362226.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:16:14.147167+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 14045760,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1949p190/r/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"d65240-5575e77ae3080\"",
+          "content_range": "bytes 0-262143/14045760",
+          "declared_bytes": "262144",
+          "last_modified": "Tue, 22 Aug 2017 21:42:10 GMT",
+          "sha256": "5b02add948af9edcae4e0b4a18fa29469e7e1fdeaf8103944cbd9bfbcda32623"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:16:16.537144+00:00",
+          "metadata": false,
+          "range_start": 7529043,
+          "range_end": 8362226,
+          "resource_total_bytes": 14045760,
+          "observed_bytes": 833184,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1949p190/r/tiles-7529043-8362226.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"d65240-5575e77ae3080\"",
+          "content_range": "bytes 7529043-8362226/14045760",
+          "declared_bytes": "833184",
+          "last_modified": "Tue, 22 Aug 2017 21:42:10 GMT",
+          "sha256": "cc6398b255fc81bf79f6b7f291975338fd8258fc8cff831f50a702aea93b9794"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J130013.05+190137.2",
+          "probe_rank": 5,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/005.fits",
+          "hdu": 9,
+          "x0": 0,
+          "y0": 2043,
+          "height": 256,
+          "width": 78,
+          "equal": true,
+          "max_grid_error_pixels": 3.8297435915936427e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 14045760,
+            "start": 7529043,
+            "end": 8362226,
+            "bytes": 833184,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 3,
+            "x0": 0,
+            "y0": 2043,
+            "width": 78,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-image-z.fits.fz",
+      "etag": "\"f6e280-5575e78748dc0\"",
+      "total_bytes": 16179840,
+      "prefix_sha256": "0aa83394d262a460472e2f7c093a245897363b03982809f403d59ae61f1d30e2",
+      "tiles_sha256": "e649df7687f5f3d5124807b7639519efeea8eb6db184f59324e70f3544347059",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1949p190/z/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1949p190/z/tiles-9030831-9936727.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:16:21.990919+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 16179840,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1949p190/z/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"f6e280-5575e78748dc0\"",
+          "content_range": "bytes 0-262143/16179840",
+          "declared_bytes": "262144",
+          "last_modified": "Tue, 22 Aug 2017 21:42:23 GMT",
+          "sha256": "0aa83394d262a460472e2f7c093a245897363b03982809f403d59ae61f1d30e2"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:16:25.058157+00:00",
+          "metadata": false,
+          "range_start": 9030831,
+          "range_end": 9936727,
+          "resource_total_bytes": 16179840,
+          "observed_bytes": 905897,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1949p190/z/tiles-9030831-9936727.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"f6e280-5575e78748dc0\"",
+          "content_range": "bytes 9030831-9936727/16179840",
+          "declared_bytes": "905897",
+          "last_modified": "Tue, 22 Aug 2017 21:42:23 GMT",
+          "sha256": "e649df7687f5f3d5124807b7639519efeea8eb6db184f59324e70f3544347059"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J130013.05+190137.2",
+          "probe_rank": 5,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/005.fits",
+          "hdu": 11,
+          "x0": 0,
+          "y0": 2043,
+          "height": 256,
+          "width": 78,
+          "equal": true,
+          "max_grid_error_pixels": 3.8297435915936427e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 16179840,
+            "start": 9030831,
+            "end": 9936727,
+            "bytes": 905897,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 3,
+            "x0": 0,
+            "y0": 2043,
+            "width": 78,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-image-g.fits.fz",
+      "etag": "\"c62640-557b730dd6280\"",
+      "total_bytes": 12985920,
+      "prefix_sha256": "4caa0fc7be3b41d2991e8673aeb181e9689701afc20918d2c301d4453bfed362",
+      "tiles_sha256": "29cfa2d51bf793f474b81c560a989eca670228c12b2c67018f3354717d01089d",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1951p190/g/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1951p190/g/tiles-7532480-8286790.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:16:29.098952+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 12985920,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1951p190/g/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"c62640-557b730dd6280\"",
+          "content_range": "bytes 0-262143/12985920",
+          "declared_bytes": "262144",
+          "last_modified": "Sun, 27 Aug 2017 07:33:14 GMT",
+          "sha256": "4caa0fc7be3b41d2991e8673aeb181e9689701afc20918d2c301d4453bfed362"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:16:31.382105+00:00",
+          "metadata": false,
+          "range_start": 7532480,
+          "range_end": 8286790,
+          "resource_total_bytes": 12985920,
+          "observed_bytes": 754311,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1951p190/g/tiles-7532480-8286790.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"c62640-557b730dd6280\"",
+          "content_range": "bytes 7532480-8286790/12985920",
+          "declared_bytes": "754311",
+          "last_modified": "Sun, 27 Aug 2017 07:33:14 GMT",
+          "sha256": "29cfa2d51bf793f474b81c560a989eca670228c12b2c67018f3354717d01089d"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J130013.05+190137.2",
+          "probe_rank": 5,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/005.fits",
+          "hdu": 1,
+          "x0": 3250,
+          "y0": 2043,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 4.425810486675755e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 12985920,
+            "start": 7532480,
+            "end": 8286790,
+            "bytes": 754311,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 12,
+            "x0": 3250,
+            "y0": 2043,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-image-r.fits.fz",
+      "etag": "\"d041c0-557b73138f000\"",
+      "total_bytes": 13648320,
+      "prefix_sha256": "aef2369fb7aaa05fe69d2975d6809cc27dece536561da579cf6bdb006defdc96",
+      "tiles_sha256": "2d8d9b7b65a318f12d5613c9c7aeba5bf4c12c54ad4384d36e9f0656cf36ee10",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1951p190/r/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1951p190/r/tiles-7556418-8406797.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:16:34.866430+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 13648320,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1951p190/r/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"d041c0-557b73138f000\"",
+          "content_range": "bytes 0-262143/13648320",
+          "declared_bytes": "262144",
+          "last_modified": "Sun, 27 Aug 2017 07:33:20 GMT",
+          "sha256": "aef2369fb7aaa05fe69d2975d6809cc27dece536561da579cf6bdb006defdc96"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:16:37.669182+00:00",
+          "metadata": false,
+          "range_start": 7556418,
+          "range_end": 8406797,
+          "resource_total_bytes": 13648320,
+          "observed_bytes": 850380,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1951p190/r/tiles-7556418-8406797.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"d041c0-557b73138f000\"",
+          "content_range": "bytes 7556418-8406797/13648320",
+          "declared_bytes": "850380",
+          "last_modified": "Sun, 27 Aug 2017 07:33:20 GMT",
+          "sha256": "2d8d9b7b65a318f12d5613c9c7aeba5bf4c12c54ad4384d36e9f0656cf36ee10"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J130013.05+190137.2",
+          "probe_rank": 5,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/005.fits",
+          "hdu": 3,
+          "x0": 3250,
+          "y0": 2043,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 4.425810486675755e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 13648320,
+            "start": 7556418,
+            "end": 8406797,
+            "bytes": 850380,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 12,
+            "x0": 3250,
+            "y0": 2043,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-image-z.fits.fz",
+      "etag": "\"fb25c0-557b731ff4d40\"",
+      "total_bytes": 16459200,
+      "prefix_sha256": "57f196402fb8645ee8ca672a3a1361d458cbb9df1d8926244e7c622e17b426ab",
+      "tiles_sha256": "deb2ad79afb5d93b9e9c9809cc95e1ba696923cfa7e2557de535b3a03caf69cc",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1951p190/z/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1951p190/z/tiles-9544511-10515753.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:16:43.093928+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 16459200,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1951p190/z/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"fb25c0-557b731ff4d40\"",
+          "content_range": "bytes 0-262143/16459200",
+          "declared_bytes": "262144",
+          "last_modified": "Sun, 27 Aug 2017 07:33:33 GMT",
+          "sha256": "57f196402fb8645ee8ca672a3a1361d458cbb9df1d8926244e7c622e17b426ab"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:16:45.338444+00:00",
+          "metadata": false,
+          "range_start": 9544511,
+          "range_end": 10515753,
+          "resource_total_bytes": 16459200,
+          "observed_bytes": 971243,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1951p190/z/tiles-9544511-10515753.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"fb25c0-557b731ff4d40\"",
+          "content_range": "bytes 9544511-10515753/16459200",
+          "declared_bytes": "971243",
+          "last_modified": "Sun, 27 Aug 2017 07:33:33 GMT",
+          "sha256": "deb2ad79afb5d93b9e9c9809cc95e1ba696923cfa7e2557de535b3a03caf69cc"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J130013.05+190137.2",
+          "probe_rank": 5,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/005.fits",
+          "hdu": 5,
+          "x0": 3250,
+          "y0": 2043,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 4.425810486675755e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 16459200,
+            "start": 9544511,
+            "end": 10515753,
+            "bytes": 971243,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 12,
+            "x0": 3250,
+            "y0": 2043,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-image-g.fits.fz",
+      "etag": "\"bf1300-55763f8acb440\"",
+      "total_bytes": 12522240,
+      "prefix_sha256": "8be8ffc5c84d83c5527e93c91f0791946a9acd5ae56a03808f097cd14fd66112",
+      "tiles_sha256": "73e7834754913bd7cab2a9f6c49cb03368cc46c711d407f250db77b535520b7f",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1998m022/g/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1998m022/g/tiles-1370104-2480394.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:16:50.827727+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 12522240,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1998m022/g/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"bf1300-55763f8acb440\"",
+          "content_range": "bytes 0-262143/12522240",
+          "declared_bytes": "262144",
+          "last_modified": "Wed, 23 Aug 2017 04:16:09 GMT",
+          "sha256": "8be8ffc5c84d83c5527e93c91f0791946a9acd5ae56a03808f097cd14fd66112"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:16:53.695371+00:00",
+          "metadata": false,
+          "range_start": 1370104,
+          "range_end": 2480394,
+          "resource_total_bytes": 12522240,
+          "observed_bytes": 1110291,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1998m022/g/tiles-1370104-2480394.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"bf1300-55763f8acb440\"",
+          "content_range": "bytes 1370104-2480394/12522240",
+          "declared_bytes": "1110291",
+          "last_modified": "Wed, 23 Aug 2017 04:16:09 GMT",
+          "sha256": "73e7834754913bd7cab2a9f6c49cb03368cc46c711d407f250db77b535520b7f"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J131909.90-022034.9",
+          "probe_rank": 12,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/012.fits",
+          "hdu": 1,
+          "x0": 2820,
+          "y0": 392,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 2.569386920707161e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 12522240,
+            "start": 1370104,
+            "end": 2480394,
+            "bytes": 1110291,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 12,
+            "x0": 2820,
+            "y0": 392,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-image-r.fits.fz",
+      "etag": "\"c86400-55763fa2a2c80\"",
+      "total_bytes": 13132800,
+      "prefix_sha256": "511f6545076b7c82c51330e4e0789fbb68f212c1d9632336390aa96955089aba",
+      "tiles_sha256": "4fd7755d75c0ba4e84bb742957324db231f1357db32cfdf0633d0cff0e8c170b",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1998m022/r/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1998m022/r/tiles-1426918-2563873.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:16:56.369009+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 13132800,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1998m022/r/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"c86400-55763fa2a2c80\"",
+          "content_range": "bytes 0-262143/13132800",
+          "declared_bytes": "262144",
+          "last_modified": "Wed, 23 Aug 2017 04:16:34 GMT",
+          "sha256": "511f6545076b7c82c51330e4e0789fbb68f212c1d9632336390aa96955089aba"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:16:58.719515+00:00",
+          "metadata": false,
+          "range_start": 1426918,
+          "range_end": 2563873,
+          "resource_total_bytes": 13132800,
+          "observed_bytes": 1136956,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1998m022/r/tiles-1426918-2563873.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"c86400-55763fa2a2c80\"",
+          "content_range": "bytes 1426918-2563873/13132800",
+          "declared_bytes": "1136956",
+          "last_modified": "Wed, 23 Aug 2017 04:16:34 GMT",
+          "sha256": "4fd7755d75c0ba4e84bb742957324db231f1357db32cfdf0633d0cff0e8c170b"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J131909.90-022034.9",
+          "probe_rank": 12,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/012.fits",
+          "hdu": 3,
+          "x0": 2820,
+          "y0": 392,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 2.569386920707161e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 13132800,
+            "start": 1426918,
+            "end": 2563873,
+            "bytes": 1136956,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 12,
+            "x0": 2820,
+            "y0": 392,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-image-z.fits.fz",
+      "etag": "\"e46240-55763fc6e0200\"",
+      "total_bytes": 14967360,
+      "prefix_sha256": "b176ea168766765e2f591e971abbec19f8fe537b3d0113fae075d24db427ab76",
+      "tiles_sha256": "0dbc338ead2f9a468b9da1894ae00084b92ff5196ab45b01cb85523d93c68747",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1998m022/z/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1998m022/z/tiles-1593705-2870764.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:17:06.253177+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 14967360,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1998m022/z/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"e46240-55763fc6e0200\"",
+          "content_range": "bytes 0-262143/14967360",
+          "declared_bytes": "262144",
+          "last_modified": "Wed, 23 Aug 2017 04:17:12 GMT",
+          "sha256": "b176ea168766765e2f591e971abbec19f8fe537b3d0113fae075d24db427ab76"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:17:08.853387+00:00",
+          "metadata": false,
+          "range_start": 1593705,
+          "range_end": 2870764,
+          "resource_total_bytes": 14967360,
+          "observed_bytes": 1277060,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1998m022/z/tiles-1593705-2870764.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"e46240-55763fc6e0200\"",
+          "content_range": "bytes 1593705-2870764/14967360",
+          "declared_bytes": "1277060",
+          "last_modified": "Wed, 23 Aug 2017 04:17:12 GMT",
+          "sha256": "0dbc338ead2f9a468b9da1894ae00084b92ff5196ab45b01cb85523d93c68747"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J131909.90-022034.9",
+          "probe_rank": 12,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/012.fits",
+          "hdu": 5,
+          "x0": 2820,
+          "y0": 392,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 2.569386920707161e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 14967360,
+            "start": 1593705,
+            "end": 2870764,
+            "bytes": 1277060,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 12,
+            "x0": 2820,
+            "y0": 392,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-image-g.fits.fz",
+      "etag": "\"c2ad80-55779ff556880\"",
+      "total_bytes": 12758400,
+      "prefix_sha256": "57497480ed60b2a8dadde1aea005581bd0fedfc487fccf04dd6b768016d30648",
+      "tiles_sha256": "db874c2416451ba66737193b16a8c9180b45e6083da43099fa7ebeb66bc32d8d",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2139p050/g/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2139p050/g/tiles-3507662-4610842.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:17:15.623496+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 12758400,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2139p050/g/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"c2ad80-55779ff556880\"",
+          "content_range": "bytes 0-262143/12758400",
+          "declared_bytes": "262144",
+          "last_modified": "Thu, 24 Aug 2017 06:32:50 GMT",
+          "sha256": "57497480ed60b2a8dadde1aea005581bd0fedfc487fccf04dd6b768016d30648"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:17:19.518963+00:00",
+          "metadata": false,
+          "range_start": 3507662,
+          "range_end": 4610842,
+          "resource_total_bytes": 12758400,
+          "observed_bytes": 1103181,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2139p050/g/tiles-3507662-4610842.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"c2ad80-55779ff556880\"",
+          "content_range": "bytes 3507662-4610842/12758400",
+          "declared_bytes": "1103181",
+          "last_modified": "Thu, 24 Aug 2017 06:32:50 GMT",
+          "sha256": "db874c2416451ba66737193b16a8c9180b45e6083da43099fa7ebeb66bc32d8d"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J141538.99+045653.4",
+          "probe_rank": 2,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/002.fits",
+          "hdu": 1,
+          "x0": 2450,
+          "y0": 960,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 1.9546087121952433e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 12758400,
+            "start": 3507662,
+            "end": 4610842,
+            "bytes": 1103181,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 16,
+            "x0": 2450,
+            "y0": 960,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-image-r.fits.fz",
+      "etag": "\"cf8280-5577a00869580\"",
+      "total_bytes": 13599360,
+      "prefix_sha256": "373fce4712e296cabcfa280d0d4da5696ad4e57f4f197686b830e2cc7f338ded",
+      "tiles_sha256": "2edfd9ca56bbd61439c42baaa8cba6fc2c697880c67d44b580897594c4fe3cd7",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2139p050/r/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2139p050/r/tiles-3662339-4828767.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:17:22.690864+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 13599360,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2139p050/r/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"cf8280-5577a00869580\"",
+          "content_range": "bytes 0-262143/13599360",
+          "declared_bytes": "262144",
+          "last_modified": "Thu, 24 Aug 2017 06:33:10 GMT",
+          "sha256": "373fce4712e296cabcfa280d0d4da5696ad4e57f4f197686b830e2cc7f338ded"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:17:24.951346+00:00",
+          "metadata": false,
+          "range_start": 3662339,
+          "range_end": 4828767,
+          "resource_total_bytes": 13599360,
+          "observed_bytes": 1166429,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2139p050/r/tiles-3662339-4828767.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"cf8280-5577a00869580\"",
+          "content_range": "bytes 3662339-4828767/13599360",
+          "declared_bytes": "1166429",
+          "last_modified": "Thu, 24 Aug 2017 06:33:10 GMT",
+          "sha256": "2edfd9ca56bbd61439c42baaa8cba6fc2c697880c67d44b580897594c4fe3cd7"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J141538.99+045653.4",
+          "probe_rank": 2,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/002.fits",
+          "hdu": 3,
+          "x0": 2450,
+          "y0": 960,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 1.9546087121952433e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 13599360,
+            "start": 3662339,
+            "end": 4828767,
+            "bytes": 1166429,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 16,
+            "x0": 2450,
+            "y0": 960,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-image-z.fits.fz",
+      "etag": "\"e0b140-5577a01e58940\"",
+      "total_bytes": 14725440,
+      "prefix_sha256": "1e46aafd60760ce7a8b7dad4d0e381291ed225dcdfd0b4709f8b75130ef3de70",
+      "tiles_sha256": "f33f2fc7688d5a79bd548e860c36e1792cb46903d02c50beb91e72b856912341",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2139p050/z/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2139p050/z/tiles-3927983-5190063.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:17:32.634871+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 14725440,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2139p050/z/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"e0b140-5577a01e58940\"",
+          "content_range": "bytes 0-262143/14725440",
+          "declared_bytes": "262144",
+          "last_modified": "Thu, 24 Aug 2017 06:33:33 GMT",
+          "sha256": "1e46aafd60760ce7a8b7dad4d0e381291ed225dcdfd0b4709f8b75130ef3de70"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:17:35.145074+00:00",
+          "metadata": false,
+          "range_start": 3927983,
+          "range_end": 5190063,
+          "resource_total_bytes": 14725440,
+          "observed_bytes": 1262081,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2139p050/z/tiles-3927983-5190063.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"e0b140-5577a01e58940\"",
+          "content_range": "bytes 3927983-5190063/14725440",
+          "declared_bytes": "1262081",
+          "last_modified": "Thu, 24 Aug 2017 06:33:33 GMT",
+          "sha256": "f33f2fc7688d5a79bd548e860c36e1792cb46903d02c50beb91e72b856912341"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J141538.99+045653.4",
+          "probe_rank": 2,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/002.fits",
+          "hdu": 5,
+          "x0": 2450,
+          "y0": 960,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 1.9546087121952433e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 14725440,
+            "start": 3927983,
+            "end": 5190063,
+            "bytes": 1262081,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 16,
+            "x0": 2450,
+            "y0": 960,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-image-g.fits.fz",
+      "etag": "\"c2f100-5577dc79c6fc0\"",
+      "total_bytes": 12775680,
+      "prefix_sha256": "cad44f960439d92dd0bc57e4f358220f65332a4347dc0254f8a678f2c15fec86",
+      "tiles_sha256": "aa9c72795b93f84b488c8448503fb80c561e5be5985eae7b1e9f0530c133e399",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2205p137/g/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2205p137/g/tiles-3001928-3740477.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:17:40.875920+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 12775680,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2205p137/g/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"c2f100-5577dc79c6fc0\"",
+          "content_range": "bytes 0-262143/12775680",
+          "declared_bytes": "262144",
+          "last_modified": "Thu, 24 Aug 2017 11:03:35 GMT",
+          "sha256": "cad44f960439d92dd0bc57e4f358220f65332a4347dc0254f8a678f2c15fec86"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:17:46.237737+00:00",
+          "metadata": false,
+          "range_start": 3001928,
+          "range_end": 3740477,
+          "resource_total_bytes": 12775680,
+          "observed_bytes": 738550,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2205p137/g/tiles-3001928-3740477.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"c2f100-5577dc79c6fc0\"",
+          "content_range": "bytes 3001928-3740477/12775680",
+          "declared_bytes": "738550",
+          "last_modified": "Thu, 24 Aug 2017 11:03:35 GMT",
+          "sha256": "aa9c72795b93f84b488c8448503fb80c561e5be5985eae7b1e9f0530c133e399"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J144224.71+134122.1",
+          "probe_rank": 11,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/011.fits",
+          "hdu": 1,
+          "x0": 297,
+          "y0": 840,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 4.197422126891006e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 12775680,
+            "start": 3001928,
+            "end": 3740477,
+            "bytes": 738550,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 12,
+            "x0": 297,
+            "y0": 840,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-image-r.fits.fz",
+      "etag": "\"d0b240-5577dc8538ac0\"",
+      "total_bytes": 13677120,
+      "prefix_sha256": "709e978663e5c8cf36fefe53eb7aab065114723f5f0a5f9461365958853151b5",
+      "tiles_sha256": "8ff2c55e1b2f161feb1da92fd6873e621ba3f5b385393e5baf3d42b0f00856bc",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2205p137/r/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2205p137/r/tiles-3128910-3901714.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:17:50.232465+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 13677120,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2205p137/r/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"d0b240-5577dc8538ac0\"",
+          "content_range": "bytes 0-262143/13677120",
+          "declared_bytes": "262144",
+          "last_modified": "Thu, 24 Aug 2017 11:03:47 GMT",
+          "sha256": "709e978663e5c8cf36fefe53eb7aab065114723f5f0a5f9461365958853151b5"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:17:53.935231+00:00",
+          "metadata": false,
+          "range_start": 3128910,
+          "range_end": 3901714,
+          "resource_total_bytes": 13677120,
+          "observed_bytes": 772805,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2205p137/r/tiles-3128910-3901714.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"d0b240-5577dc8538ac0\"",
+          "content_range": "bytes 3128910-3901714/13677120",
+          "declared_bytes": "772805",
+          "last_modified": "Thu, 24 Aug 2017 11:03:47 GMT",
+          "sha256": "8ff2c55e1b2f161feb1da92fd6873e621ba3f5b385393e5baf3d42b0f00856bc"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J144224.71+134122.1",
+          "probe_rank": 11,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/011.fits",
+          "hdu": 3,
+          "x0": 297,
+          "y0": 840,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 4.197422126891006e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 13677120,
+            "start": 3128910,
+            "end": 3901714,
+            "bytes": 772805,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 12,
+            "x0": 297,
+            "y0": 840,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-image-z.fits.fz",
+      "etag": "\"f37500-5577dc9663340\"",
+      "total_bytes": 15955200,
+      "prefix_sha256": "fb262ddd9eb215220014e2a7800865841defd31a9b355b76c28e8d5c2fd3192b",
+      "tiles_sha256": "706e0dea67f3f61d7e2fae99e6748f66c93f1ec9802f49fdf8ab362831b9f223",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2205p137/z/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2205p137/z/tiles-3596861-4524556.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:17:58.199983+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 15955200,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2205p137/z/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"f37500-5577dc9663340\"",
+          "content_range": "bytes 0-262143/15955200",
+          "declared_bytes": "262144",
+          "last_modified": "Thu, 24 Aug 2017 11:04:05 GMT",
+          "sha256": "fb262ddd9eb215220014e2a7800865841defd31a9b355b76c28e8d5c2fd3192b"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:18:00.569664+00:00",
+          "metadata": false,
+          "range_start": 3596861,
+          "range_end": 4524556,
+          "resource_total_bytes": 15955200,
+          "observed_bytes": 927696,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2205p137/z/tiles-3596861-4524556.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"f37500-5577dc9663340\"",
+          "content_range": "bytes 3596861-4524556/15955200",
+          "declared_bytes": "927696",
+          "last_modified": "Thu, 24 Aug 2017 11:04:05 GMT",
+          "sha256": "706e0dea67f3f61d7e2fae99e6748f66c93f1ec9802f49fdf8ab362831b9f223"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J144224.71+134122.1",
+          "probe_rank": 11,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/011.fits",
+          "hdu": 5,
+          "x0": 297,
+          "y0": 840,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 4.197422126891006e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 15955200,
+            "start": 3596861,
+            "end": 4524556,
+            "bytes": 927696,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 12,
+            "x0": 297,
+            "y0": 840,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-image-g.fits.fz",
+      "etag": "\"bd9480-5558052b016c0\"",
+      "total_bytes": 12424320,
+      "prefix_sha256": "9728a58bf3a1e9237030e120bb2c654a0e990e91f6e59b5383ace189e126904b",
+      "tiles_sha256": "708ec0400c4c72dcc2ef8fc351ba2709b9c0238e0d6dac07fba9fcd712de674a",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2417p112/g/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2417p112/g/tiles-3203317-4240793.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:18:03.795754+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 12424320,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2417p112/g/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"bd9480-5558052b016c0\"",
+          "content_range": "bytes 0-262143/12424320",
+          "declared_bytes": "262144",
+          "last_modified": "Sun, 30 Jul 2017 03:15:15 GMT",
+          "sha256": "9728a58bf3a1e9237030e120bb2c654a0e990e91f6e59b5383ace189e126904b"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-image-g.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-image-g.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:18:11.553369+00:00",
+          "metadata": false,
+          "range_start": 3203317,
+          "range_end": 4240793,
+          "resource_total_bytes": 12424320,
+          "observed_bytes": 1037477,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2417p112/g/tiles-3203317-4240793.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"bd9480-5558052b016c0\"",
+          "content_range": "bytes 3203317-4240793/12424320",
+          "declared_bytes": "1037477",
+          "last_modified": "Sun, 30 Jul 2017 03:15:15 GMT",
+          "sha256": "708ec0400c4c72dcc2ef8fc351ba2709b9c0238e0d6dac07fba9fcd712de674a"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J160705.33+111201.9",
+          "probe_rank": 7,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/007.fits",
+          "hdu": 1,
+          "x0": 1233,
+          "y0": 992,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 1.6768994508328443e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 12424320,
+            "start": 3203317,
+            "end": 4240793,
+            "bytes": 1037477,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 12,
+            "x0": 1233,
+            "y0": 992,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-image-r.fits.fz",
+      "etag": "\"cece80-55580544c1380\"",
+      "total_bytes": 13553280,
+      "prefix_sha256": "da3e1e12f2d95806be7d275b89813600d2bb7a395267739a6d9e7102e1824d51",
+      "tiles_sha256": "66f8d2f1f29f869beb95b587414f340a47b9a2548388b8feacebe73ce055b4db",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2417p112/r/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2417p112/r/tiles-3503518-4636451.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:18:16.591690+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 13553280,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2417p112/r/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"cece80-55580544c1380\"",
+          "content_range": "bytes 0-262143/13553280",
+          "declared_bytes": "262144",
+          "last_modified": "Sun, 30 Jul 2017 03:15:42 GMT",
+          "sha256": "da3e1e12f2d95806be7d275b89813600d2bb7a395267739a6d9e7102e1824d51"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-image-r.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-image-r.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:18:18.571177+00:00",
+          "metadata": false,
+          "range_start": 3503518,
+          "range_end": 4636451,
+          "resource_total_bytes": 13553280,
+          "observed_bytes": 1132934,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2417p112/r/tiles-3503518-4636451.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"cece80-55580544c1380\"",
+          "content_range": "bytes 3503518-4636451/13553280",
+          "declared_bytes": "1132934",
+          "last_modified": "Sun, 30 Jul 2017 03:15:42 GMT",
+          "sha256": "66f8d2f1f29f869beb95b587414f340a47b9a2548388b8feacebe73ce055b4db"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J160705.33+111201.9",
+          "probe_rank": 7,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/007.fits",
+          "hdu": 3,
+          "x0": 1233,
+          "y0": 992,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 1.6768994508328443e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 13553280,
+            "start": 3503518,
+            "end": 4636451,
+            "bytes": 1132934,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 12,
+            "x0": 1233,
+            "y0": 992,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-image-z.fits.fz",
+      "etag": "\"e8c740-5558055ba4980\"",
+      "total_bytes": 15255360,
+      "prefix_sha256": "87eea39398306ce525de7c92444805524ce5538fa6794057fa41f5290922b2df",
+      "tiles_sha256": "c708ee0c8d1ce03113299193fddfd286c8727db3b9ce0494d7a38a9ebeb71cb4",
+      "prefix_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2417p112/z/prefix-0-262143.bin",
+      "tiles_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2417p112/z/tiles-3894296-5167189.bin",
+      "range_events": [
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:18:22.450759+00:00",
+          "metadata": false,
+          "range_start": 0,
+          "range_end": 262143,
+          "resource_total_bytes": 15255360,
+          "observed_bytes": 262144,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2417p112/z/prefix-0-262143.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"e8c740-5558055ba4980\"",
+          "content_range": "bytes 0-262143/15255360",
+          "declared_bytes": "262144",
+          "last_modified": "Sun, 30 Jul 2017 03:16:06 GMT",
+          "sha256": "87eea39398306ce525de7c92444805524ce5538fa6794057fa41f5290922b2df"
+        },
+        {
+          "source_id": "S6",
+          "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-image-z.fits.fz",
+          "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-image-z.fits.fz",
+          "retrieved_at_utc": "2026-09-17T17:18:24.936105+00:00",
+          "metadata": false,
+          "range_start": 3894296,
+          "range_end": 5167189,
+          "resource_total_bytes": 15255360,
+          "observed_bytes": 1272894,
+          "local_logical_path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2417p112/z/tiles-3894296-5167189.bin",
+          "access_result": "VERIFIED_RANGE",
+          "http_status": 206,
+          "etag": "\"e8c740-5558055ba4980\"",
+          "content_range": "bytes 3894296-5167189/15255360",
+          "declared_bytes": "1272894",
+          "last_modified": "Sun, 30 Jul 2017 03:16:06 GMT",
+          "sha256": "c708ee0c8d1ce03113299193fddfd286c8727db3b9ce0494d7a38a9ebeb71cb4"
+        }
+      ],
+      "comparisons": [
+        {
+          "galaxy_id": "GZD5:J160705.33+111201.9",
+          "probe_rank": 7,
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/subimages/007.fits",
+          "hdu": 5,
+          "x0": 1233,
+          "y0": 992,
+          "height": 256,
+          "width": 256,
+          "equal": true,
+          "max_grid_error_pixels": 1.6768994508328443e-10,
+          "official_bunit": "nanomaggy",
+          "section_plan": {
+            "total": 15255360,
+            "start": 3894296,
+            "end": 5167189,
+            "bytes": 1272894,
+            "unit": "nanomaggy",
+            "tile_shape": [
+              100,
+              100
+            ],
+            "selected_tiles": 12,
+            "x0": 1233,
+            "y0": 992,
+            "width": 256,
+            "height": 256
+          }
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Only supported RICE compressed layouts",
+    "No checksum of complete official coadd; fragment checksums and HTTP representation pinned",
+    "No ordinary resampled-cutout comparison; no Gate C0-C or C0-D approval",
+    "No Tractor, nexp or SDSS acquisition"
+  ]
+}

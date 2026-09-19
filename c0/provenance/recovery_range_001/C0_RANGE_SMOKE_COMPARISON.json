@@ -1,0 +1,12 @@
+{
+  "equal": true,
+  "max_abs_diff": 0.0,
+  "shape": [
+    256,
+    256
+  ],
+  "official_bunit": "nanomaggy",
+  "partial_bytes": 1382097,
+  "whole_file_bytes": 13236480,
+  "note": "Only official compressed coadd section compared with service subimage; normal resampled cutout comparison still pending."
+}

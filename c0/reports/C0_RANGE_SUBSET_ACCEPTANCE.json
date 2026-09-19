@@ -1,0 +1,11 @@
+{
+  "timestamp_utc": "2026-09-17T17:23:03.563330+00:00",
+  "status": "LOCAL_ARTIFACT_VERIFICATION_PASS",
+  "input_sha256": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+  "resources": 42,
+  "objects": 12,
+  "fragment_hashes_verified": 84,
+  "recorded_code_and_input_hashes_verified": true,
+  "network_requests": 0,
+  "gate_c_pending": true
+}

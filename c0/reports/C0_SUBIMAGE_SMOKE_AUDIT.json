@@ -1,0 +1,98 @@
+{
+  "sha256": "b8d46357fbc21996c5dee865793f9ee1e3c3737d90b4985662189e73230be471",
+  "hdu_count": 7,
+  "products": [
+    {
+      "hdu": 1,
+      "brick": "1853p160",
+      "band": "g",
+      "kind": "image",
+      "shape": [
+        256,
+        256
+      ],
+      "brick_x0": 1762,
+      "brick_y0": 2985,
+      "unit": null,
+      "finite_fraction": 1.0
+    },
+    {
+      "hdu": 2,
+      "brick": "1853p160",
+      "band": "g",
+      "kind": "invvar",
+      "shape": [
+        256,
+        256
+      ],
+      "brick_x0": 1762,
+      "brick_y0": 2985,
+      "unit": null,
+      "finite_fraction": 1.0,
+      "positive_weight_fraction": 1.0
+    },
+    {
+      "hdu": 3,
+      "brick": "1853p160",
+      "band": "r",
+      "kind": "image",
+      "shape": [
+        256,
+        256
+      ],
+      "brick_x0": 1762,
+      "brick_y0": 2985,
+      "unit": null,
+      "finite_fraction": 1.0
+    },
+    {
+      "hdu": 4,
+      "brick": "1853p160",
+      "band": "r",
+      "kind": "invvar",
+      "shape": [
+        256,
+        256
+      ],
+      "brick_x0": 1762,
+      "brick_y0": 2985,
+      "unit": null,
+      "finite_fraction": 1.0,
+      "positive_weight_fraction": 1.0
+    },
+    {
+      "hdu": 5,
+      "brick": "1853p160",
+      "band": "z",
+      "kind": "image",
+      "shape": [
+        256,
+        256
+      ],
+      "brick_x0": 1762,
+      "brick_y0": 2985,
+      "unit": null,
+      "finite_fraction": 1.0
+    },
+    {
+      "hdu": 6,
+      "brick": "1853p160",
+      "band": "z",
+      "kind": "invvar",
+      "shape": [
+        256,
+        256
+      ],
+      "brick_x0": 1762,
+      "brick_y0": 2985,
+      "unit": null,
+      "finite_fraction": 1.0,
+      "positive_weight_fraction": 1.0
+    }
+  ],
+  "status": "STRUCTURE_VERIFIED_CALIBRATION_PENDING",
+  "mask_status": "ABSENT_FROM_RESPONSE",
+  "nexp_status": "ABSENT_FROM_RESPONSE",
+  "psf_status": "ABSENT_FROM_RESPONSE",
+  "unit_status": "PENDING_OFFICIAL_COADD_COMPARISON"
+}

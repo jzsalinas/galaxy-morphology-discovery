@@ -1,0 +1,12 @@
+{
+  "timestamp_utc": "2026-09-17T12:59:28.497307+00:00",
+  "objects": 96,
+  "brick_associations": 118,
+  "unique_bricks": 118,
+  "additional_charged_bytes": 168871911,
+  "notes": [
+    "Brick association is not a source match",
+    "Units and official coadd comparison pending",
+    "Mask, nexp and PSF not supplied by this response"
+  ]
+}

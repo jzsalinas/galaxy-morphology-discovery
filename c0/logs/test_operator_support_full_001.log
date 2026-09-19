@@ -1,0 +1,18 @@
+........................E...WARNING: File may have been truncated: actual file length (14400) is smaller than the expected size (40320) [astropy.io.fits.file]
+.......................................
+======================================================================
+ERROR: test_native_roi_prevents_unnecessary_tile_request (test_operator_support.CostTests.test_native_roi_prevents_unnecessary_tile_request)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jzsalinas/Documents/galaxy-morphology-discovery/tests/test_operator_support.py", line 142, in test_native_roi_prevents_unnecessary_tile_request
+    r=support_for_resource(g,h,{0:[[20,29]]},res,[dict(x0=0,y0=0,width=4,height=4)])
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0_pipeline/operator_support.py", line 315, in support_for_resource
+    return dict(url=resource['url'],etag=resource['etag'],total_bytes=resource['total_bytes'],cached_ranges=cached,tile_shape=[ty,tx],source_shape=[int(h['ZNAXIS2']),int(h['ZNAXIS1'])],
+                                                                                                                                                        ~^^^^^^^^^^^
+KeyError: 'ZNAXIS2'
+
+----------------------------------------------------------------------
+Ran 67 tests in 1.670s
+
+FAILED (errors=1)

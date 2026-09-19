@@ -1,0 +1,9 @@
+{
+  "verification_utc": "2026-09-18T15:33:23.577632+00:00",
+  "protected_hashes_checked": 24,
+  "protected_hash_changes": [],
+  "c0_file_stats_checked": 6470,
+  "c0_inventory_size_mtime_changes": [],
+  "scope": "SHA256 for enumerated authorities and historical evidence; size/mtime/inventory for all c0 files, not a full rehash of raw data.",
+  "integrity_pass": true
+}

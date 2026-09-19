@@ -1,0 +1,10 @@
+{
+  "status": "C0_CACHED_SUPPORT_OK",
+  "reason": null,
+  "exit_code": 0,
+  "log": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/logs/C0_CACHED_SUPPORT_BATCH.log",
+  "read_bytes": 492583555,
+  "write_bytes": 108855059,
+  "network_requests": 0,
+  "gate_c": "PENDING"
+}

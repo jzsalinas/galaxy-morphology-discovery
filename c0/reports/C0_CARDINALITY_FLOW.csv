@@ -1,0 +1,9 @@
+stage,n_rows,n_unique_identifiers,n_unique_coordinates,n_duplicates,n_nulls,denominator_definition,evidence_type,notes
+Campaña reportada en artículo,262000,,,,,GZD-5 clasificada; cifra publicada redondeada,published,No equivale necesariamente al catálogo voluntario
+Catálogo Zenodo GZD-5,253286,253286,,,,Filas publicadas volunteers_5 record 4573248,observed_ingest,Checksum proveedor y SHA-256 verificados
+Catálogo CDS gzdv5.dat,253286,253286,,0,,Filas recuperadas CDS gzdv5.dat.gz,observed_reconciled,253286 matches únicos; cero ausencias y cero diferencias de coordenadas
+Índice tras proyección,253286,253286,,,,Identidad GZD-5 proyectada,observed_ingest,Coordenadas válidas para todas las filas; unicidad espacial aún no evaluada
+Imágenes PNG referenciadas,,,,,,,not_evaluated,No ejecutado; celdas vacías no significan cero
+Match único DR5,,,,,,,not_evaluated,No ejecutado; celdas vacías no significan cero
+Probe FITS válido,,,,,,,not_evaluated,No ejecutado; celdas vacías no significan cero
+Match SDSS DR8,,,,,,,not_evaluated,No ejecutado; celdas vacías no significan cero

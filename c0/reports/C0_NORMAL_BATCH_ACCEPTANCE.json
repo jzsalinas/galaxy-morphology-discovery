@@ -1,0 +1,24 @@
+{
+  "timestamp_utc": "2026-09-17T17:44:00.891082+00:00",
+  "status": "LOCAL_BATCH_ARTIFACT_VERIFICATION_PASS",
+  "result_sha256": "65f292baf46feb8016fba25de9ab9295553090b778820e7fb94a94118b9fb5f4",
+  "comparisons": 36,
+  "objects": 12,
+  "input_hashes_verified": true,
+  "checkpoint_contents_verified": true,
+  "provenance_current": true,
+  "total_pixels": 2359296,
+  "compared_pixels": 2050500,
+  "relative_l2_min": 7.204108629270602e-07,
+  "relative_l2_max": 5.965528323041554e-06,
+  "relative_l2_median": 2.1340413573073152e-06,
+  "all_observed_finite": true,
+  "gate_c": "PENDING_NOT_ASSESSED",
+  "equivalence_certified": false,
+  "network_requests": 0,
+  "accumulated_counters": {
+    "bytes": 465348528,
+    "data_requests": 383,
+    "all_requests": 936
+  }
+}

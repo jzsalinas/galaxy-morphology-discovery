@@ -1,0 +1,144 @@
+{
+  "stage": "E-OC1",
+  "mips_expected_sha256": "f7f27acbe42a0caecd1f0e4e2e86eedea6c546434d95c16143c0a7d122f38f24",
+  "mips_sha256_verified": true,
+  "evidence_status_definition": "PARTIALLY_SUFFICIENT means some relevant properties are documented, not that the full frozen question is affirmatively satisfied.",
+  "documents": [
+    {
+      "evidence_id": "DQ-DR5",
+      "requested_url": "https://www.legacysurvey.org/dr5/files/",
+      "final_url": "https://www.legacysurvey.org/dr5/files/",
+      "retrieval_utc": "2026-09-18T15:27:35.420602+00:00",
+      "http_status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 88349,
+      "etag": "\"6a98a93a-1591d\"",
+      "last_modified": "Wed, 02 Sep 2026 22:54:50 GMT",
+      "sha256": "b7818d98910f16b81e235994926f888e47bd4f2c6b58283d1ec7383c6d585e9e",
+      "local_snapshot_path": "e_oc1/evidence/DQ-DR5.html",
+      "content_encoding": "identity",
+      "authority": "Official Legacy Surveys DR5 files documentation",
+      "applicability_to_DR5": "Explicit DR5 page; product descriptions apply to DR5. Not an inspection of newly acquired FITS or a guarantee of every pixel state.",
+      "relevant_sections": [
+        "Summary Files: survey-bricks-dr5, ccds-annotated-dr5, depth summaries",
+        "Sweep Catalogs: ANYMASK/ALLMASK, FRACMASKED, PSFSIZE, FLUX_IVAR",
+        "Image Stacks: ccds, image, invvar, depth, galdepth, nexp"
+      ],
+      "claims_supported": [
+        "DOCUMENTED: coadd image is inverse-variance weighted, nanomaggies per pixel, resampled with Lanczos-3; stacked invvar is based on sum of input inverse variances.",
+        "DOCUMENTED: nexp counts contributing exposures; depth and galdepth describe source-flux detection sensitivity, not pixel-quality classes.",
+        "DOCUMENTED: ANYMASK/ALLMASK refer to the central pixel across exposures; FRACMASKED is profile-weighted; PSFSIZE is a weighted FWHM summary.",
+        "DOCUMENTED: CCD metadata and calibration-version columns are described."
+      ],
+      "claims_not_supported": [
+        "UNRESOLVED: spatial classification across a crop of unsupported, invalid, masked, saturated, interpolated, cosmic-ray, bleed, artifact and valid-zero states.",
+        "UNRESOLVED: documented full per-pixel DR5 coadd quality-mask product or independently sufficient alternative for A10. Absence from this document does not establish physical absence.",
+        "UNRESOLVED: positive ivar, nexp or finite values as sufficient evidence of clean pixels; source FLUX_IVAR as pixel inverse variance."
+      ],
+      "contradictions": [],
+      "evidence_status": "PARTIALLY_SUFFICIENT",
+      "integrity_status": "VERIFIED_LOCAL_BODY_AND_RETRIEVAL_RECORD",
+      "sufficiency_basis": "Useful affirmative statements are present, but the entire frozen question is not satisfied."
+    },
+    {
+      "evidence_id": "RES-DR5",
+      "requested_url": "https://www.legacysurvey.org/dr5/description/",
+      "final_url": "https://www.legacysurvey.org/dr5/description/",
+      "retrieval_utc": "2026-09-18T15:27:37.281595+00:00",
+      "http_status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 41199,
+      "etag": "\"6a98a939-a0ef\"",
+      "last_modified": "Wed, 02 Sep 2026 22:54:49 GMT",
+      "sha256": "7dd4e5ca9ae476508c09b35104a4846eeef10a72b076a1382d4a7a35c3fd1575",
+      "local_snapshot_path": "e_oc1/evidence/RES-DR5.html",
+      "content_encoding": "identity",
+      "authority": "Official Legacy Surveys DR5 description",
+      "applicability_to_DR5": "Explicit DR5 processing description; describes upstream coadds, not a certified deployed normal-cutout service operator.",
+      "relevant_sections": [
+        "PSF",
+        "Sky Level",
+        "Tractor Catalogs",
+        "Image Stacks",
+        "Obtaining Catalogs and Images"
+      ],
+      "claims_supported": [
+        "DOCUMENTED: convenience stacks use Lanczos-3 on TAN grids at 0.262 arcsec/pixel.",
+        "DOCUMENTED: explicit limitation against precision work; no project-specific adequacy threshold is supplied.",
+        "DOCUMENTED: Tractor fits individual exposures, avoiding interpolation and covariance complications; individual-CCD PSFs are spatial PSFEx models.",
+        "DOCUMENTED: upstream sky processing includes spatial spline sky estimation from masked medians over sliding 512-pixel boxes."
+      ],
+      "claims_not_supported": [
+        "UNRESOLVED: sufficient effective spatial coadd PSF, or demonstrated sufficient proxy, for MIPS A11/B4.",
+        "UNRESOLVED: quantitative coadd covariance/noise prescription and bounds on morphology effects satisfying B2.",
+        "UNRESOLVED: either universal morphological uselessness or project adequacy inferred from the precision warning.",
+        "UNRESOLVED: deployed normal-cutout commit or its second resampling operator."
+      ],
+      "contradictions": [
+        "DOCUMENTED: download guidance loosely describes native-scale cutout pixels as approximately those used by Tractor, while the processing sections distinguish stacks from individual exposures. INFERRED: this is not an identity guarantee and does not override the explicit product distinction."
+      ],
+      "evidence_status": "PARTIALLY_SUFFICIENT",
+      "integrity_status": "VERIFIED_LOCAL_BODY_AND_RETRIEVAL_RECORD",
+      "sufficiency_basis": "Useful affirmative statements are present, but the entire frozen question is not satisfied."
+    },
+    {
+      "evidence_id": "RIGHTS-DR5",
+      "requested_url": "https://www.legacysurvey.org/acknowledgment/",
+      "final_url": "https://www.legacysurvey.org/acknowledgment/",
+      "retrieval_utc": "2026-09-18T15:27:39.297632+00:00",
+      "http_status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 21688,
+      "etag": "\"6a98a937-54b8\"",
+      "last_modified": "Wed, 02 Sep 2026 22:54:47 GMT",
+      "sha256": "adb1c5b41ad8aee7544a23d1b499b317d97c82222b4f69f65efa3ad13f6a9a1c",
+      "local_snapshot_path": "e_oc1/evidence/RIGHTS-DR5.html",
+      "content_encoding": "identity",
+      "authority": "Official Legacy Surveys acknowledgment and image-usage statement",
+      "applicability_to_DR5": "General current statement, explicitly names DECaLS among produced image layers; not a DR5-specific FITS/auxiliary redistribution grant.",
+      "relevant_sections": [
+        "Usage of images from the Sky Viewer",
+        "Scientific publication acknowledgment",
+        "Short acknowledgment for DESI collaborators"
+      ],
+      "claims_supported": [
+        "DOCUMENTED: produced Legacy Surveys/DECaLS image layers are covered by the stated CC BY 4.0 image terms and visible-credit conditions.",
+        "DOCUMENTED: scientific publications using the data have prescribed acknowledgments.",
+        "DOCUMENTED: Sky Viewer hosts multiple surveys with their own terms; permissions cannot be generalized to all layers."
+      ],
+      "claims_not_supported": [
+        "UNRESOLVED: explicit scope for scientific FITS/coadd-derived cutout and associated-metadata redistribution.",
+        "UNRESOLVED: separate comprehensive permission for local preservation and the proposed scientific FITS operation; intended scientific use does not itself define that complete license scope.",
+        "UNRESOLVED: equivalence of rendered-image terms and scientific-dataset terms."
+      ],
+      "contradictions": [],
+      "evidence_status": "PARTIALLY_SUFFICIENT",
+      "integrity_status": "VERIFIED_LOCAL_BODY_AND_RETRIEVAL_RECORD",
+      "sufficiency_basis": "Useful affirmative statements are present, but the entire frozen question is not satisfied."
+    }
+  ],
+  "network_accounting": {
+    "logical_documents": 3,
+    "successful_http_gets": 3,
+    "http_redirects": 0,
+    "pre_http_dns_failures": 1,
+    "attempt_records": 4,
+    "downloaded_response_body_bytes": 151236,
+    "body_limit_bytes": 10485760,
+    "survey_data_requests": 0,
+    "survey_data_bytes": 0,
+    "scope": "Only the three authorized URLs; no linked resources. Body accounting excludes HTTP/TLS transport overhead."
+  },
+  "terminal_outcome": "NO_CURRENTLY_ADMISSIBLE_ROUTE_WITH_AVAILABLE_EVIDENCE",
+  "historical_C0": "CLOSED; global STOP; no Gate change",
+  "files_created": [
+    "E_OC1_EVIDENCE_REGISTER.json",
+    "E_OC1_SUFFICIENCY_REVIEW.md",
+    "e_oc1/evidence/DQ-DR5.html",
+    "e_oc1/evidence/RES-DR5.html",
+    "e_oc1/evidence/RIGHTS-DR5.html",
+    "e_oc1/evidence/retrieval.json",
+    "e_oc1/evidence/preservation_before.json",
+    "e_oc1/evidence/integrity_verification.json"
+  ]
+}

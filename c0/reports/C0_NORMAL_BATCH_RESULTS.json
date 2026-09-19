@@ -1,0 +1,1731 @@
+{
+  "status": "C0_NORMAL_BATCH_OK",
+  "timestamp_utc": "2026-09-17T17:41:52.170588+00:00",
+  "rows": [
+    {
+      "timestamp_utc": "2026-09-17T17:41:45.727167+00:00",
+      "probe_rank": 1,
+      "band": "g",
+      "bricks": [
+        {
+          "brick": "1853p160",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 8.928213053871481e-07,
+      "rms_residual": 3.3285044654656886e-08,
+      "relative_l2_residual": 2.2561545325609458e-06,
+      "mean_signed_residual": -5.746624900469399e-12,
+      "abs_residual_quantiles": {
+        "p50": 1.3619096389918053e-08,
+        "p95": 6.731737217549431e-08,
+        "p99": 1.100102741390067e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:45.885959+00:00",
+      "probe_rank": 1,
+      "band": "r",
+      "bricks": [
+        {
+          "brick": "1853p160",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 1.1910269855364142e-06,
+      "rms_residual": 5.100877783254232e-08,
+      "relative_l2_residual": 1.9902959556578224e-06,
+      "mean_signed_residual": 2.71204033740027e-11,
+      "abs_residual_quantiles": {
+        "p50": 2.0004549200456387e-08,
+        "p95": 1.0061808436330473e-07,
+        "p99": 1.7426039441589837e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:46.030902+00:00",
+      "probe_rank": 1,
+      "band": "z",
+      "bricks": [
+        {
+          "brick": "1853p160",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 2.3432220865871045e-06,
+      "rms_residual": 7.093104813201706e-08,
+      "relative_l2_residual": 1.741393914950904e-06,
+      "mean_signed_residual": 3.611885546523463e-10,
+      "abs_residual_quantiles": {
+        "p50": 2.5179510008814e-08,
+        "p95": 1.2854047263639256e-07,
+        "p99": 2.212066238202449e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:46.180368+00:00",
+      "probe_rank": 2,
+      "band": "g",
+      "bricks": [
+        {
+          "brick": "2139p050",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 4.454662353992056e-06,
+      "rms_residual": 5.999664927600432e-08,
+      "relative_l2_residual": 1.8046534433972278e-06,
+      "mean_signed_residual": -1.3023146569666926e-11,
+      "abs_residual_quantiles": {
+        "p50": 9.229440200487528e-09,
+        "p95": 4.4467452650967745e-08,
+        "p99": 7.651589045707189e-08
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:46.328375+00:00",
+      "probe_rank": 2,
+      "band": "r",
+      "bricks": [
+        {
+          "brick": "2139p050",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 8.830250048053045e-06,
+      "rms_residual": 1.1651217237662085e-07,
+      "relative_l2_residual": 1.8448223904834417e-06,
+      "mean_signed_residual": 1.4674071905123622e-11,
+      "abs_residual_quantiles": {
+        "p50": 1.4696460780543735e-08,
+        "p95": 7.194871444904814e-08,
+        "p99": 1.2842785812400507e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:46.485946+00:00",
+      "probe_rank": 2,
+      "band": "z",
+      "bricks": [
+        {
+          "brick": "2139p050",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 1.744954979265856e-05,
+      "rms_residual": 2.1628190776216142e-07,
+      "relative_l2_residual": 2.0572129674937657e-06,
+      "mean_signed_residual": -4.5485719886071774e-10,
+      "abs_residual_quantiles": {
+        "p50": 2.2891298586281278e-08,
+        "p95": 1.1622510319487817e-07,
+        "p99": 2.1674465650137666e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:46.733257+00:00",
+      "probe_rank": 3,
+      "band": "g",
+      "bricks": [
+        {
+          "brick": "1852p132",
+          "known_support_pixels": 61250,
+          "native_nonfinite_pixels": 0
+        },
+        {
+          "brick": "1850p132",
+          "known_support_pixels": 42000,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 40750,
+      "compared_pixels": 40750,
+      "excluded_unknown_support": 24786,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 2.26850683295865e-05,
+      "rms_residual": 2.415898146072947e-07,
+      "relative_l2_residual": 1.592128551474866e-06,
+      "mean_signed_residual": -1.4701332647401627e-09,
+      "abs_residual_quantiles": {
+        "p50": 7.713983320167817e-09,
+        "p95": 3.614274522636268e-08,
+        "p99": 6.642573007312908e-08
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:46.972549+00:00",
+      "probe_rank": 3,
+      "band": "r",
+      "bricks": [
+        {
+          "brick": "1852p132",
+          "known_support_pixels": 61250,
+          "native_nonfinite_pixels": 0
+        },
+        {
+          "brick": "1850p132",
+          "known_support_pixels": 42000,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 40750,
+      "compared_pixels": 40750,
+      "excluded_unknown_support": 24786,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 5.27798417842007e-05,
+      "rms_residual": 5.46732239925359e-07,
+      "relative_l2_residual": 1.7628656873425476e-06,
+      "mean_signed_residual": -1.9266709000735932e-09,
+      "abs_residual_quantiles": {
+        "p50": 1.5325065926344306e-08,
+        "p95": 7.466502888153454e-08,
+        "p99": 1.3291570792598443e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:47.234804+00:00",
+      "probe_rank": 3,
+      "band": "z",
+      "bricks": [
+        {
+          "brick": "1852p132",
+          "known_support_pixels": 61250,
+          "native_nonfinite_pixels": 0
+        },
+        {
+          "brick": "1850p132",
+          "known_support_pixels": 42000,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 40750,
+      "compared_pixels": 40750,
+      "excluded_unknown_support": 24786,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 0.00010941244132567363,
+      "rms_residual": 1.0961176398272136e-06,
+      "relative_l2_residual": 2.1737480808543386e-06,
+      "mean_signed_residual": -4.9141164459123365e-09,
+      "abs_residual_quantiles": {
+        "p50": 3.76925899383488e-08,
+        "p95": 1.802163745052638e-07,
+        "p99": 3.0549135513998904e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:47.395058+00:00",
+      "probe_rank": 4,
+      "band": "g",
+      "bricks": [
+        {
+          "brick": "0111p012",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 6.0060278890716745e-05,
+      "rms_residual": 5.786283576613913e-07,
+      "relative_l2_residual": 1.1748152099813236e-06,
+      "mean_signed_residual": -4.127113952250113e-10,
+      "abs_residual_quantiles": {
+        "p50": 1.0889515490963538e-08,
+        "p95": 5.318336471403721e-08,
+        "p99": 1.0323749706276483e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:47.547619+00:00",
+      "probe_rank": 4,
+      "band": "r",
+      "bricks": [
+        {
+          "brick": "0111p012",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 2.898559524222577e-05,
+      "rms_residual": 3.765721479454644e-07,
+      "relative_l2_residual": 2.0013728518090997e-06,
+      "mean_signed_residual": -8.092776150804513e-11,
+      "abs_residual_quantiles": {
+        "p50": 1.608379684905209e-08,
+        "p95": 7.92452827043984e-08,
+        "p99": 1.54991243851914e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:47.695506+00:00",
+      "probe_rank": 4,
+      "band": "z",
+      "bricks": [
+        {
+          "brick": "0111p012",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 1.272689215436884e-05,
+      "rms_residual": 1.8439652558295603e-07,
+      "relative_l2_residual": 1.7754588855335365e-06,
+      "mean_signed_residual": -1.430532866870003e-10,
+      "abs_residual_quantiles": {
+        "p50": 4.6428620723893994e-08,
+        "p95": 2.2974625348611686e-07,
+        "p99": 3.949554854726377e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:47.886923+00:00",
+      "probe_rank": 5,
+      "band": "g",
+      "bricks": [
+        {
+          "brick": "1951p190",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        },
+        {
+          "brick": "1949p190",
+          "known_support_pixels": 18000,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 17750,
+      "compared_pixels": 17750,
+      "excluded_unknown_support": 47786,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 2.2193914189609643e-07,
+      "rms_residual": 1.896363741255739e-08,
+      "relative_l2_residual": 5.645694982058112e-06,
+      "mean_signed_residual": 3.004643967238357e-10,
+      "abs_residual_quantiles": {
+        "p50": 9.254642066146984e-09,
+        "p95": 3.939391710792387e-08,
+        "p99": 6.347513666610383e-08
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:48.304453+00:00",
+      "probe_rank": 5,
+      "band": "r",
+      "bricks": [
+        {
+          "brick": "1951p190",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        },
+        {
+          "brick": "1949p190",
+          "known_support_pixels": 18000,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 17750,
+      "compared_pixels": 17750,
+      "excluded_unknown_support": 47786,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 4.486108342721673e-07,
+      "rms_residual": 5.4495330028356306e-08,
+      "relative_l2_residual": 5.965528323041554e-06,
+      "mean_signed_residual": 5.502005247478235e-10,
+      "abs_residual_quantiles": {
+        "p50": 2.6675175024697302e-08,
+        "p95": 1.1528726070776647e-07,
+        "p99": 1.7465209801152934e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:48.528844+00:00",
+      "probe_rank": 5,
+      "band": "z",
+      "bricks": [
+        {
+          "brick": "1951p190",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        },
+        {
+          "brick": "1949p190",
+          "known_support_pixels": 18000,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 17750,
+      "compared_pixels": 17750,
+      "excluded_unknown_support": 47786,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 9.286244243011943e-07,
+      "rms_residual": 9.47543486956315e-08,
+      "relative_l2_residual": 5.352740056798528e-06,
+      "mean_signed_residual": 7.349851109108147e-10,
+      "abs_residual_quantiles": {
+        "p50": 4.6246708852205887e-08,
+        "p95": 1.9834110891112087e-07,
+        "p99": 3.1108452299455e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:48.679317+00:00",
+      "probe_rank": 6,
+      "band": "g",
+      "bricks": [
+        {
+          "brick": "1831p085",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 3.856966265869399e-06,
+      "rms_residual": 4.134039195023781e-08,
+      "relative_l2_residual": 4.265498112325458e-06,
+      "mean_signed_residual": 1.1272119817248952e-10,
+      "abs_residual_quantiles": {
+        "p50": 1.5060732872418034e-08,
+        "p95": 7.287357644362781e-08,
+        "p99": 1.1725081963702947e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:48.832585+00:00",
+      "probe_rank": 6,
+      "band": "r",
+      "bricks": [
+        {
+          "brick": "1831p085",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 1.0943705852084484e-06,
+      "rms_residual": 3.986618955490432e-08,
+      "relative_l2_residual": 2.094334633760292e-06,
+      "mean_signed_residual": 5.4709631631896535e-11,
+      "abs_residual_quantiles": {
+        "p50": 1.5553356020854905e-08,
+        "p95": 7.551291828345023e-08,
+        "p99": 1.2622516266606183e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:48.980452+00:00",
+      "probe_rank": 6,
+      "band": "z",
+      "bricks": [
+        {
+          "brick": "1831p085",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 5.00897237953879e-06,
+      "rms_residual": 1.102443319495179e-07,
+      "relative_l2_residual": 2.2132451863613752e-06,
+      "mean_signed_residual": 7.785279636566218e-11,
+      "abs_residual_quantiles": {
+        "p50": 3.929489704110334e-08,
+        "p95": 1.8785763964008485e-07,
+        "p99": 3.044373158757851e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:49.191353+00:00",
+      "probe_rank": 7,
+      "band": "g",
+      "bricks": [
+        {
+          "brick": "2417p112",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 1.4805046546051415e-05,
+      "rms_residual": 1.7389020105416272e-07,
+      "relative_l2_residual": 1.6911341309387587e-06,
+      "mean_signed_residual": 5.837991404885296e-10,
+      "abs_residual_quantiles": {
+        "p50": 8.82779369179229e-09,
+        "p95": 4.373682014379222e-08,
+        "p99": 9.108253876397198e-08
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:49.341009+00:00",
+      "probe_rank": 7,
+      "band": "r",
+      "bricks": [
+        {
+          "brick": "2417p112",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 1.0004840844235474e-05,
+      "rms_residual": 1.6923874785810044e-07,
+      "relative_l2_residual": 1.129123289838209e-06,
+      "mean_signed_residual": 7.52696918648607e-10,
+      "abs_residual_quantiles": {
+        "p50": 1.4481324465747888e-08,
+        "p95": 7.431124063628525e-08,
+        "p99": 1.6733784560975774e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:49.510661+00:00",
+      "probe_rank": 7,
+      "band": "z",
+      "bricks": [
+        {
+          "brick": "2417p112",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 2.3509177054847896e-05,
+      "rms_residual": 3.1093338394352766e-07,
+      "relative_l2_residual": 1.2992126355876107e-06,
+      "mean_signed_residual": 1.0937729526359262e-09,
+      "abs_residual_quantiles": {
+        "p50": 2.926610206851728e-08,
+        "p95": 1.4770321255593187e-07,
+        "p99": 3.104362337054937e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:49.690322+00:00",
+      "probe_rank": 8,
+      "band": "g",
+      "bricks": [
+        {
+          "brick": "1710p257",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 4.4659437894089757e-07,
+      "rms_residual": 5.0878712377343843e-08,
+      "relative_l2_residual": 4.491502758539304e-06,
+      "mean_signed_residual": 7.508959197444138e-12,
+      "abs_residual_quantiles": {
+        "p50": 2.3062785833101625e-08,
+        "p95": 1.0881053988066533e-07,
+        "p99": 1.707946484180714e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:49.840781+00:00",
+      "probe_rank": 8,
+      "band": "r",
+      "bricks": [
+        {
+          "brick": "1710p257",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 1.1305034449959894e-06,
+      "rms_residual": 8.139262840339881e-08,
+      "relative_l2_residual": 3.826313836860621e-06,
+      "mean_signed_residual": -1.9567153539326487e-10,
+      "abs_residual_quantiles": {
+        "p50": 3.6417229449907385e-08,
+        "p95": 1.733452303874115e-07,
+        "p99": 2.7289324650087e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:50.003150+00:00",
+      "probe_rank": 8,
+      "band": "z",
+      "bricks": [
+        {
+          "brick": "1710p257",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 1.1036553341635825e-06,
+      "rms_residual": 1.1087685874730676e-07,
+      "relative_l2_residual": 3.276265683487323e-06,
+      "mean_signed_residual": -3.0212377744382447e-10,
+      "abs_residual_quantiles": {
+        "p50": 4.996792780389246e-08,
+        "p95": 2.3565833102194778e-07,
+        "p99": 3.7010343529387695e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:50.181349+00:00",
+      "probe_rank": 9,
+      "band": "g",
+      "bricks": [
+        {
+          "brick": "1766m027",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 4.961969051753279e-07,
+      "rms_residual": 3.380411847311266e-08,
+      "relative_l2_residual": 3.320324494176841e-06,
+      "mean_signed_residual": 6.999754010355953e-11,
+      "abs_residual_quantiles": {
+        "p50": 1.5428331690448167e-08,
+        "p95": 6.974159096992823e-08,
+        "p99": 1.1135092345618792e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:50.340899+00:00",
+      "probe_rank": 9,
+      "band": "r",
+      "bricks": [
+        {
+          "brick": "1766m027",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 6.474849421067574e-07,
+      "rms_residual": 6.222577430448609e-08,
+      "relative_l2_residual": 3.3639050985274395e-06,
+      "mean_signed_residual": 9.565523037452994e-11,
+      "abs_residual_quantiles": {
+        "p50": 2.807542164029453e-08,
+        "p95": 1.3075911188391312e-07,
+        "p99": 2.102105816235282e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:50.534827+00:00",
+      "probe_rank": 9,
+      "band": "z",
+      "bricks": [
+        {
+          "brick": "1766m027",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 1.0314633530073003e-06,
+      "rms_residual": 6.745466733831283e-08,
+      "relative_l2_residual": 2.3807536009675437e-06,
+      "mean_signed_residual": -1.2213359680287927e-11,
+      "abs_residual_quantiles": {
+        "p50": 2.998371734664468e-08,
+        "p95": 1.3877699641870722e-07,
+        "p99": 2.2477760190656865e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:50.740465+00:00",
+      "probe_rank": 10,
+      "band": "g",
+      "bricks": [
+        {
+          "brick": "0321m002",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 2.6770670219500303e-07,
+      "rms_residual": 1.8076561666980533e-08,
+      "relative_l2_residual": 2.6822430356348265e-06,
+      "mean_signed_residual": -1.353366619133937e-10,
+      "abs_residual_quantiles": {
+        "p50": 7.853113298973008e-09,
+        "p95": 3.7892632413468237e-08,
+        "p99": 6.035961450842058e-08
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:50.945328+00:00",
+      "probe_rank": 10,
+      "band": "r",
+      "bricks": [
+        {
+          "brick": "0321m002",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 9.323425792517881e-07,
+      "rms_residual": 3.196722685518421e-08,
+      "relative_l2_residual": 2.242300834136161e-06,
+      "mean_signed_residual": -1.756768628103993e-10,
+      "abs_residual_quantiles": {
+        "p50": 1.2384637763668965e-08,
+        "p95": 5.9391258326602076e-08,
+        "p99": 9.784622391098007e-08
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:51.123946+00:00",
+      "probe_rank": 10,
+      "band": "z",
+      "bricks": [
+        {
+          "brick": "0321m002",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 2.0365454821424933e-06,
+      "rms_residual": 8.684709491428251e-08,
+      "relative_l2_residual": 3.019438242826318e-06,
+      "mean_signed_residual": -3.540437128499621e-10,
+      "abs_residual_quantiles": {
+        "p50": 3.646351921099411e-08,
+        "p95": 1.7174166668724816e-07,
+        "p99": 2.793921518066611e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:51.279143+00:00",
+      "probe_rank": 11,
+      "band": "g",
+      "bricks": [
+        {
+          "brick": "2205p137",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 7.736325422502688e-06,
+      "rms_residual": 8.299789215371552e-08,
+      "relative_l2_residual": 7.719015559641964e-07,
+      "mean_signed_residual": 2.0857038234662472e-10,
+      "abs_residual_quantiles": {
+        "p50": 1.0131610777121616e-08,
+        "p95": 5.08487990658464e-08,
+        "p99": 9.167129589541946e-08
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:51.456802+00:00",
+      "probe_rank": 11,
+      "band": "r",
+      "bricks": [
+        {
+          "brick": "2205p137",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 9.914830719104373e-06,
+      "rms_residual": 1.336873036575519e-07,
+      "relative_l2_residual": 7.204108629270602e-07,
+      "mean_signed_residual": 1.2149638215836576e-10,
+      "abs_residual_quantiles": {
+        "p50": 1.6921910977579216e-08,
+        "p95": 9.011211725730432e-08,
+        "p99": 1.7154036080925927e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:51.606900+00:00",
+      "probe_rank": 11,
+      "band": "z",
+      "bricks": [
+        {
+          "brick": "2205p137",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 8.470057149878585e-05,
+      "rms_residual": 6.031292122531889e-07,
+      "relative_l2_residual": 1.3586563774594432e-06,
+      "mean_signed_residual": 4.6204942827501994e-09,
+      "abs_residual_quantiles": {
+        "p50": 4.1770555645544334e-08,
+        "p95": 2.2265235243976898e-07,
+        "p99": 4.0418950744559087e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:51.797192+00:00",
+      "probe_rank": 12,
+      "band": "g",
+      "bricks": [
+        {
+          "brick": "1998m022",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 2.952332854577744e-07,
+      "rms_residual": 2.603697746783986e-08,
+      "relative_l2_residual": 2.2452010541613046e-06,
+      "mean_signed_residual": -4.783544500597082e-12,
+      "abs_residual_quantiles": {
+        "p50": 1.1379148188604346e-08,
+        "p95": 5.523586985840903e-08,
+        "p99": 8.779503295271347e-08
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:51.987785+00:00",
+      "probe_rank": 12,
+      "band": "r",
+      "bricks": [
+        {
+          "brick": "1998m022",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 4.2364252944571135e-07,
+      "rms_residual": 3.060615627909813e-08,
+      "relative_l2_residual": 1.7078246359701404e-06,
+      "mean_signed_residual": -2.599960549387031e-10,
+      "abs_residual_quantiles": {
+        "p50": 1.3260582562134998e-08,
+        "p95": 6.262960348730917e-08,
+        "p99": 1.0120641974636619e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    },
+    {
+      "timestamp_utc": "2026-09-17T17:41:52.168182+00:00",
+      "probe_rank": 12,
+      "band": "z",
+      "bricks": [
+        {
+          "brick": "1998m022",
+          "known_support_pixels": 62500,
+          "native_nonfinite_pixels": 0
+        }
+      ],
+      "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+      "normal_bunit": null,
+      "total_pixels": 65536,
+      "known_support_pixels": 62500,
+      "compared_pixels": 62500,
+      "excluded_unknown_support": 3036,
+      "observed_nonfinite": 0,
+      "zero_finite_contributors_known": 0,
+      "exact_equal_pixels": 0,
+      "max_abs_residual": 1.4272811504900673e-06,
+      "rms_residual": 6.33750972865524e-08,
+      "relative_l2_residual": 2.3586970011456613e-06,
+      "mean_signed_residual": 2.9379981796070835e-10,
+      "abs_residual_quantiles": {
+        "p50": 2.6580209735809456e-08,
+        "p95": 1.2749681315208075e-07,
+        "p99": 2.1143361186527256e-07
+      },
+      "gate_assessment": "NOT_ASSIGNED",
+      "equivalence_demonstrated": false,
+      "limits": [
+        "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+        "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+        "Available subimage brick set; deployed brick availability/order not certified",
+        "Only common fully available 7x7 support; no extrapolation to excluded edges",
+        "No flux conservation, unit transfer or noise/coverage inference"
+      ],
+      "provenance": {
+        "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+        "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+        "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+        "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+        "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+        "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+      }
+    }
+  ],
+  "network_requests": 0,
+  "gate_assessment": "NOT_ASSIGNED",
+  "input_bytes": 30378240
+}

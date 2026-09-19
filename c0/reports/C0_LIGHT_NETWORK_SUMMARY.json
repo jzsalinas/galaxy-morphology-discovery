@@ -1,0 +1,9 @@
+{
+  "timestamp_utc": "2026-09-17T17:35:47.447011+00:00",
+  "charged_download_bytes": 465348528,
+  "all_http_requests": 936,
+  "nonmetadata_requests": 383,
+  "resources": 935,
+  "verified_responses": 329,
+  "verified_ranges": 84
+}

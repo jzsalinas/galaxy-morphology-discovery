@@ -1,0 +1,16 @@
+{
+  "total": 13236480,
+  "start": 10849338,
+  "end": 11969290,
+  "bytes": 1119953,
+  "unit": "nanomaggy",
+  "tile_shape": [
+    100,
+    100
+  ],
+  "selected_tiles": 16,
+  "x0": 1762,
+  "y0": 2985,
+  "width": 256,
+  "height": 256
+}

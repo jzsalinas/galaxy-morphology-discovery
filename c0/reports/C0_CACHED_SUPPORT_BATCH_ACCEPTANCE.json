@@ -1,0 +1,1809 @@
+{
+  "verified_checkpoints": 36,
+  "counters": {
+    "bytes": 465348528,
+    "data_requests": 383,
+    "all_requests": 936
+  },
+  "common_pixels": 2356992,
+  "variants": {
+    "analytic": {
+      "relative_l2_min": 6.93151277418597e-07,
+      "relative_l2_max": 0.0004655061342445404,
+      "groups": {
+        "all": {
+          "n": 2356992,
+          "rms": 6.195536309149165e-06,
+          "exact": 0,
+          "positive": 1179670,
+          "negative": 1177322
+        },
+        "edge3": {
+          "n": 106992,
+          "rms": 3.466676402528338e-06,
+          "exact": 0,
+          "positive": 53701,
+          "negative": 53291
+        },
+        "interior": {
+          "n": 2250000,
+          "rms": 6.29590862501918e-06,
+          "exact": 0,
+          "positive": 1125969,
+          "negative": 1124031
+        },
+        "overlap": {
+          "n": 190521,
+          "rms": 2.1782027931357083e-05,
+          "exact": 0,
+          "positive": 95365,
+          "negative": 95156
+        },
+        "single_brick": {
+          "n": 2166471,
+          "rms": 1.9021629419533463e-07,
+          "exact": 0,
+          "positive": 1084305,
+          "negative": 1082166
+        },
+        "quadrant_0_0": {
+          "n": 589824,
+          "rms": 6.744090868899236e-06,
+          "exact": 0,
+          "positive": 295814,
+          "negative": 294010
+        },
+        "quadrant_0_1": {
+          "n": 588672,
+          "rms": 9.101002789828218e-06,
+          "exact": 0,
+          "positive": 294779,
+          "negative": 293893
+        },
+        "quadrant_1_0": {
+          "n": 589824,
+          "rms": 4.536267486337335e-06,
+          "exact": 0,
+          "positive": 294839,
+          "negative": 294985
+        },
+        "quadrant_1_1": {
+          "n": 588672,
+          "rms": 2.161226772274218e-06,
+          "exact": 0,
+          "positive": 294238,
+          "negative": 294434
+        },
+        "intensity_q0": {
+          "n": 589248,
+          "rms": 7.789517745023223e-06,
+          "exact": 0,
+          "positive": 269456,
+          "negative": 319792
+        },
+        "intensity_q1": {
+          "n": 589248,
+          "rms": 5.5004681735997745e-06,
+          "exact": 0,
+          "positive": 290269,
+          "negative": 298979
+        },
+        "intensity_q2": {
+          "n": 589248,
+          "rms": 5.891228417947758e-06,
+          "exact": 0,
+          "positive": 304231,
+          "negative": 285017
+        },
+        "intensity_q3": {
+          "n": 589248,
+          "rms": 5.2820802275894716e-06,
+          "exact": 0,
+          "positive": 315714,
+          "negative": 273534
+        }
+      },
+      "full_exact_combinations": 0
+    },
+    "float_coords": {
+      "relative_l2_min": 7.984405848163076e-08,
+      "relative_l2_max": 0.00046547422858629557,
+      "groups": {
+        "all": {
+          "n": 2356992,
+          "rms": 6.190742604951703e-06,
+          "exact": 0,
+          "positive": 1171909,
+          "negative": 1185083
+        },
+        "edge3": {
+          "n": 106992,
+          "rms": 3.461054103259688e-06,
+          "exact": 0,
+          "positive": 53600,
+          "negative": 53392
+        },
+        "interior": {
+          "n": 2250000,
+          "rms": 6.29111420513107e-06,
+          "exact": 0,
+          "positive": 1118309,
+          "negative": 1131691
+        },
+        "overlap": {
+          "n": 190521,
+          "rms": 2.1774560610200218e-05,
+          "exact": 0,
+          "positive": 95175,
+          "negative": 95346
+        },
+        "single_brick": {
+          "n": 2166471,
+          "rms": 1.3686020039860562e-08,
+          "exact": 0,
+          "positive": 1076734,
+          "negative": 1089737
+        },
+        "quadrant_0_0": {
+          "n": 589824,
+          "rms": 6.740187800643751e-06,
+          "exact": 0,
+          "positive": 293034,
+          "negative": 296790
+        },
+        "quadrant_0_1": {
+          "n": 588672,
+          "rms": 9.100788788770347e-06,
+          "exact": 0,
+          "positive": 293593,
+          "negative": 295079
+        },
+        "quadrant_1_0": {
+          "n": 589824,
+          "rms": 4.528879008643625e-06,
+          "exact": 0,
+          "positive": 291560,
+          "negative": 298264
+        },
+        "quadrant_1_1": {
+          "n": 588672,
+          "rms": 2.134689931016595e-06,
+          "exact": 0,
+          "positive": 293722,
+          "negative": 294950
+        },
+        "intensity_q0": {
+          "n": 589248,
+          "rms": 7.78937290569691e-06,
+          "exact": 0,
+          "positive": 76509,
+          "negative": 512739
+        },
+        "intensity_q1": {
+          "n": 589248,
+          "rms": 5.500243258551355e-06,
+          "exact": 0,
+          "positive": 232371,
+          "negative": 356877
+        },
+        "intensity_q2": {
+          "n": 589248,
+          "rms": 5.890926745140708e-06,
+          "exact": 0,
+          "positive": 401851,
+          "negative": 187397
+        },
+        "intensity_q3": {
+          "n": 589248,
+          "rms": 5.260337624069198e-06,
+          "exact": 0,
+          "positive": 461178,
+          "negative": 128070
+        }
+      },
+      "full_exact_combinations": 0
+    },
+    "direct_lut": {
+      "relative_l2_min": 4.621222287193003e-08,
+      "relative_l2_max": 9.662166323840973e-08,
+      "groups": {
+        "all": {
+          "n": 2356992,
+          "rms": 1.0402960814387175e-08,
+          "exact": 1111398,
+          "positive": 622200,
+          "negative": 623394
+        },
+        "edge3": {
+          "n": 106992,
+          "rms": 1.4292407589860148e-08,
+          "exact": 50214,
+          "positive": 28460,
+          "negative": 28318
+        },
+        "interior": {
+          "n": 2250000,
+          "rms": 1.018106876948851e-08,
+          "exact": 1061184,
+          "positive": 593740,
+          "negative": 595076
+        },
+        "overlap": {
+          "n": 190521,
+          "rms": 1.5283176002761617e-08,
+          "exact": 104947,
+          "positive": 42544,
+          "negative": 43030
+        },
+        "single_brick": {
+          "n": 2166471,
+          "rms": 9.858898762800325e-09,
+          "exact": 1006451,
+          "positive": 579656,
+          "negative": 580364
+        },
+        "quadrant_0_0": {
+          "n": 589824,
+          "rms": 1.0130046325288958e-08,
+          "exact": 276280,
+          "positive": 156658,
+          "negative": 156886
+        },
+        "quadrant_0_1": {
+          "n": 588672,
+          "rms": 2.4558836720001616e-09,
+          "exact": 275000,
+          "positive": 156540,
+          "negative": 157132
+        },
+        "quadrant_1_0": {
+          "n": 589824,
+          "rms": 1.5515822840467973e-08,
+          "exact": 280692,
+          "positive": 154446,
+          "negative": 154686
+        },
+        "quadrant_1_1": {
+          "n": 588672,
+          "rms": 9.12403674326297e-09,
+          "exact": 279426,
+          "positive": 154556,
+          "negative": 154690
+        },
+        "intensity_q0": {
+          "n": 589248,
+          "rms": 9.774099370824823e-10,
+          "exact": 327744,
+          "positive": 130501,
+          "negative": 131003
+        },
+        "intensity_q1": {
+          "n": 589248,
+          "rms": 6.311210034080799e-10,
+          "exact": 205183,
+          "positive": 191698,
+          "negative": 192367
+        },
+        "intensity_q2": {
+          "n": 589248,
+          "rms": 5.851884212574008e-10,
+          "exact": 249801,
+          "positive": 169504,
+          "negative": 169943
+        },
+        "intensity_q3": {
+          "n": 589248,
+          "rms": 2.0765121849588945e-08,
+          "exact": 328670,
+          "positive": 130497,
+          "negative": 130081
+        }
+      },
+      "full_exact_combinations": 0
+    },
+    "spline_lut": {
+      "relative_l2_min": 4.6218737482992306e-08,
+      "relative_l2_max": 8.688413497589897e-08,
+      "groups": {
+        "all": {
+          "n": 2356992,
+          "rms": 1.0398747650117561e-08,
+          "exact": 1111404,
+          "positive": 622199,
+          "negative": 623389
+        },
+        "edge3": {
+          "n": 106992,
+          "rms": 1.4294362982044882e-08,
+          "exact": 50215,
+          "positive": 28460,
+          "negative": 28317
+        },
+        "interior": {
+          "n": 2250000,
+          "rms": 1.0176428385756653e-08,
+          "exact": 1061189,
+          "positive": 593739,
+          "negative": 595072
+        },
+        "overlap": {
+          "n": 190521,
+          "rms": 1.5283367292873635e-08,
+          "exact": 104942,
+          "positive": 42547,
+          "negative": 43032
+        },
+        "single_brick": {
+          "n": 2166471,
+          "rms": 9.854035842790002e-09,
+          "exact": 1006462,
+          "positive": 579652,
+          "negative": 580357
+        },
+        "quadrant_0_0": {
+          "n": 589824,
+          "rms": 1.0114368758770978e-08,
+          "exact": 276283,
+          "positive": 156662,
+          "negative": 156879
+        },
+        "quadrant_0_1": {
+          "n": 588672,
+          "rms": 2.4682694001257464e-09,
+          "exact": 275005,
+          "positive": 156534,
+          "negative": 157133
+        },
+        "quadrant_1_0": {
+          "n": 589824,
+          "rms": 1.5512629917968293e-08,
+          "exact": 280690,
+          "positive": 154447,
+          "negative": 154687
+        },
+        "quadrant_1_1": {
+          "n": 588672,
+          "rms": 9.124331196468578e-09,
+          "exact": 279426,
+          "positive": 154556,
+          "negative": 154690
+        },
+        "intensity_q0": {
+          "n": 589248,
+          "rms": 7.886340972806208e-10,
+          "exact": 327748,
+          "positive": 130498,
+          "negative": 131002
+        },
+        "intensity_q1": {
+          "n": 589248,
+          "rms": 4.130494087676905e-10,
+          "exact": 205182,
+          "positive": 191701,
+          "negative": 192365
+        },
+        "intensity_q2": {
+          "n": 589248,
+          "rms": 5.029500257011757e-10,
+          "exact": 249801,
+          "positive": 169509,
+          "negative": 169938
+        },
+        "intensity_q3": {
+          "n": 589248,
+          "rms": 2.0772344559087984e-08,
+          "exact": 328673,
+          "positive": 130491,
+          "negative": 130084
+        }
+      },
+      "full_exact_combinations": 0
+    }
+  },
+  "support": [
+    {
+      "rank": 1,
+      "band": "g",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 1,
+      "band": "r",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 1,
+      "band": "z",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 2,
+      "band": "g",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 2,
+      "band": "r",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 2,
+      "band": "z",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 4,
+      "band": "g",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 4,
+      "band": "r",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 4,
+      "band": "z",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 6,
+      "band": "g",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 6,
+      "band": "r",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 6,
+      "band": "z",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 7,
+      "band": "g",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 7,
+      "band": "r",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 7,
+      "band": "z",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 8,
+      "band": "g",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 8,
+      "band": "r",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 8,
+      "band": "z",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 9,
+      "band": "g",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 9,
+      "band": "r",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 9,
+      "band": "z",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 10,
+      "band": "g",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 10,
+      "band": "r",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 10,
+      "band": "z",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 11,
+      "band": "g",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 11,
+      "band": "r",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 11,
+      "band": "z",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 12,
+      "band": "g",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 12,
+      "band": "r",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 12,
+      "band": "z",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 3,
+      "band": "g",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 3,
+      "band": "r",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 3,
+      "band": "z",
+      "masks": {
+        "analytic": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 65536,
+          "missing": 0,
+          "outside": 0,
+          "evaluated": 65536,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 65536
+    },
+    {
+      "rank": 5,
+      "band": "g",
+      "masks": {
+        "analytic": {
+          "complete": 64768,
+          "missing": 768,
+          "outside": 0,
+          "evaluated": 64768,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 64768,
+          "missing": 768,
+          "outside": 0,
+          "evaluated": 64768,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 64768,
+          "missing": 768,
+          "outside": 0,
+          "evaluated": 64768,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 64768,
+          "missing": 768,
+          "outside": 0,
+          "evaluated": 64768,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 64768
+    },
+    {
+      "rank": 5,
+      "band": "r",
+      "masks": {
+        "analytic": {
+          "complete": 64768,
+          "missing": 768,
+          "outside": 0,
+          "evaluated": 64768,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 64768,
+          "missing": 768,
+          "outside": 0,
+          "evaluated": 64768,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 64768,
+          "missing": 768,
+          "outside": 0,
+          "evaluated": 64768,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 64768,
+          "missing": 768,
+          "outside": 0,
+          "evaluated": 64768,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 64768
+    },
+    {
+      "rank": 5,
+      "band": "z",
+      "masks": {
+        "analytic": {
+          "complete": 64768,
+          "missing": 768,
+          "outside": 0,
+          "evaluated": 64768,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "float_coords": {
+          "complete": 64768,
+          "missing": 768,
+          "outside": 0,
+          "evaluated": 64768,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "direct_lut": {
+          "complete": 64768,
+          "missing": 768,
+          "outside": 0,
+          "evaluated": 64768,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        },
+        "spline_lut": {
+          "complete": 64768,
+          "missing": 768,
+          "outside": 0,
+          "evaluated": 64768,
+          "excluded_rule": 0,
+          "nonfinite_contribution": 0
+        }
+      },
+      "common_pixels": 64768
+    }
+  ]
+}

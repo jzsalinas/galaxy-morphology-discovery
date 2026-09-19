@@ -1,0 +1,14 @@
+{
+  "timestamp_utc": "2026-09-17T12:38:56.381991+00:00",
+  "objects": 96,
+  "retrieved": 96,
+  "failures": 0,
+  "additional_charged_bytes": 75240000,
+  "status": "CUTOUT_STAGE_COMPLETE_NOT_C0_3_COMPLETE",
+  "pending": [
+    "Tractor matches and ambiguity audit",
+    "Documented flux calibration and 12 coadd comparisons",
+    "Auxiliary products",
+    "C0-C and C0-D formal evaluation"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "timestamp_utc": "2026-09-17T17:41:50.340899+00:00",
+  "probe_rank": 9,
+  "band": "r",
+  "bricks": [
+    {
+      "brick": "1766m027",
+      "known_support_pixels": 62500,
+      "native_nonfinite_pixels": 0
+    }
+  ],
+  "reference": "analytic_lanczos3_exact_astropy_wcs_equal_finite_brick_weights",
+  "normal_bunit": null,
+  "total_pixels": 65536,
+  "known_support_pixels": 62500,
+  "compared_pixels": 62500,
+  "excluded_unknown_support": 3036,
+  "observed_nonfinite": 0,
+  "zero_finite_contributors_known": 0,
+  "exact_equal_pixels": 0,
+  "max_abs_residual": 6.474849421067574e-07,
+  "rms_residual": 6.222577430448609e-08,
+  "relative_l2_residual": 3.3639050985274395e-06,
+  "mean_signed_residual": 9.565523037452994e-11,
+  "abs_residual_quantiles": {
+    "p50": 2.807542164029453e-08,
+    "p95": 1.3075911188391312e-07,
+    "p99": 2.102105816235282e-07
+  },
+  "gate_assessment": "NOT_ASSIGNED",
+  "equivalence_demonstrated": false,
+  "limits": [
+    "Analytic kernel instead of C LUT; float64 instead of viewer float32 accumulators",
+    "Exact Astropy WCS instead of deployed astrometry spline; deployment version unverified",
+    "Available subimage brick set; deployed brick availability/order not certified",
+    "Only common fully available 7x7 support; no extrapolation to excluded edges",
+    "No flux conservation, unit transfer or noise/coverage inference"
+  ],
+  "provenance": {
+    "c0/reports/C0_NORMAL_CUTOUT_PROTOCOL.md": "32b3493fa8340e52ee4b0b64d5d318bf172474ed3e7ee6d0fc3540945c8d8761",
+    "c0_pipeline/normal_cutout.py": "d2217ed622b64ad8206cc0ffe6d8364c4f565b2d7460e9eb2a2dd78234ab538b",
+    "c0/reports/C0_RANGE_SUBSET_RESULTS.json": "8e59033039b0da5d851e74404b821e318b09f0316848bfc6a98b2ebcdf3fb6d7",
+    "c0/probe/C0_SUBIMAGE_REPORT.parquet": "8a19ca46be23dca8e36a81b17c8d61bc4a3597a336d1d508e5a34769d4af7b36",
+    "c0/probe/C0_PROBE_FITS_REPORT.parquet": "7d18a6d74acbd3a96995c598496c39b9d8abafb0dc6bf673de05bd40620e5478",
+    "c0/provenance/C0_NORMAL_CODE_SOURCES.json": "6f3e769d3bda24f5c0d2dc98ebaf971d53c13aad539f10ed415e8c3748fd017e"
+  }
+}

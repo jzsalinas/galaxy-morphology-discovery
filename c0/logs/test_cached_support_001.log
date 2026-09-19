@@ -1,0 +1,6 @@
+................................WARNING: File may have been truncated: actual file length (14400) is smaller than the expected size (40320) [astropy.io.fits.file]
+.......................................
+----------------------------------------------------------------------
+Ran 71 tests in 0.680s
+
+OK

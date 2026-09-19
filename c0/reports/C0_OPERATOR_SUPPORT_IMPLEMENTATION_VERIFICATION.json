@@ -1,0 +1,24 @@
+{
+  "timestamp_utc": "2026-09-18T00:55:00.182954+00:00",
+  "status": "READY_FOR_HUMAN_OFFLINE_BATCH",
+  "hashes": {
+    "c0_pipeline/operator_support.py": "6a8b5cf82938e594fbef307a56d459788579aa88833f2c5d56c342d6ffc44135",
+    "tests/test_operator_support.py": "3878ec00700a87ebfdd44d5cd2c2ed03917fc5234cb14605dfc0e9d460ba4e3d",
+    "c0/logs/test_operator_support_full_002.log": "ad1256f7fc7f8461572d4905df5c606650b63c6a2783721f113383994c4a8ac2",
+    "c0/logs/test_operator_support_resume_001.log": "138817c1f6f8ac3b8475294e1cdedd480a1f821b50d2d92681a5e6ca29c32513",
+    "c0/reports/C0_OPERATOR_SUPPORT_SMOKE_RESULTS.json": "14cfb12a9833dc6de3c1e49bb63768048cd396734a9b113f81b20e27c926921e",
+    "c0/reports/C0_OPERATOR_SUPPORT_SMOKE_INVENTORY.json": "fb69d582583a00c592bd2a56a741a3738b2c39dbf38c7d27762c3e0e7ffaa08c",
+    "c0/reports/C0_OPERATOR_SUPPORT_HANDOFF.md": "1103bf3ba5a6329fab99a3494b992d28e00a07ba7d68086d6eba9f992773bddd"
+  },
+  "tests": 67,
+  "scientific_smoke_scope": "rank 1/g only; no full batch executed",
+  "resume_test": "completed checkpoint reused with run_job disabled",
+  "cumulative_counters": {
+    "bytes": 465348528,
+    "data_requests": 383,
+    "all_requests": 936
+  },
+  "network_requests": 0,
+  "gate_c": "PENDING",
+  "preserved_recovery_prototype_sha256": "36435a6463e55a3fae10166305e47e3c14dd584b93408ca321cb41aaa20f5d36"
+}

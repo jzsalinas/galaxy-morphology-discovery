@@ -1,0 +1,22 @@
+{
+  "timestamp_utc": "2026-09-17T01:13:28.973503+00:00",
+  "python": "3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]",
+  "platform": "Linux-7.0.0-31-generic-x86_64-with-glibc2.43",
+  "hash_algorithm": "SHA-256",
+  "http_client": "urllib.request standard library",
+  "fits_library": "NOT_INSTALLED",
+  "parquet_library": "NOT_INSTALLED",
+  "dependencies": {
+    "astropy": false,
+    "pyarrow": false,
+    "numpy": false
+  },
+  "disk_free_bytes": 253879062528,
+  "git": "Directory .git exists but is empty; not a functional repository. No repair authorized.",
+  "authority_checksums": {
+    "GALAXY_RESEARCH_SEED.md": "6f1fa8e895b6921f02f2298ed17c8808f9fdec92a9f340c3042031b908a38995",
+    "CODEX_PHASE_C0_SPEC.md": "1dfde2998fec1c03ac9f496d3bf813a9c12f3c9ce5ba8cc9f1f5cf3e21c290cb",
+    "C0_EXECUTION_DECISION_001.md": "dffa854fd8df0df5063eebd9452b113423c6e3555aaf0c484844849be9621959",
+    "AGENTS.md": "3ac4d102494633036ed91e93c334a5cec702c877ba9daa1a67dd9803e778d222"
+  }
+}

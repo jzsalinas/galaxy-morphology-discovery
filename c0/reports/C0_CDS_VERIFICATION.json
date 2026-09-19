@@ -1,0 +1,8 @@
+{
+  "timestamp_utc": "2026-09-17T12:13:17.532372+00:00",
+  "checks": {
+    "c0/quarantine/RAW_IMMUTABLE/gzdv5.dat.gz": true,
+    "c0/quarantine/SUBJECT_INDEX.parquet": true,
+    "c0/quarantine/CDS_IDENTITY_RECONCILIATION.parquet": true
+  }
+}

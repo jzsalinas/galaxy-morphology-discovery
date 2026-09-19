@@ -1,0 +1,15 @@
+{
+  "timestamp_utc": "2026-09-17T12:15:33.304243+00:00",
+  "responsible": "Codex",
+  "ledger_sha256": "d63a755387566c14e69e0492fc2f561d7837c3897dea889a66936da02716f8d3",
+  "evaluated": {
+    "C0-A": "PASS",
+    "C0-B": "PASS"
+  },
+  "global_decision": null,
+  "evidence": {
+    "C0_INGEST_VERIFICATION.json": "1ddf0e4ac35ec1f0e7d07fb056099671bc28d75d59e5da856dab43742b888efd",
+    "C0_CDS_VERIFICATION.json": "bf1ef932e98611d5c5a1b1d73c6466e7027cd8be5a7e1fab0943099f42482391",
+    "C0_CDS_RECONCILIATION_SUMMARY.json": "ce2ad053fde6528bef405c5d303a85a8d31967e74c5c9e7556261d7d8fef4bf7"
+  }
+}

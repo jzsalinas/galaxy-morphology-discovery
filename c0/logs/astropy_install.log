@@ -1,0 +1,8 @@
+Processing ./c0/dependencies/astropy-8.0.1-cp311-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Processing ./c0/dependencies/numpy-2.5.3-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+Processing ./c0/dependencies/packaging-26.3-py3-none-any.whl
+Processing ./c0/dependencies/pyerfa-2.0.1.5-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Processing ./c0/dependencies/pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+Processing ./c0/dependencies/astropy_iers_data-0.2026.9.14.0.56.43-py3-none-any.whl
+Installing collected packages: pyyaml, pyerfa, packaging, numpy, astropy-iers-data, astropy
+Successfully installed astropy-8.0.1 astropy-iers-data-0.2026.9.14.0.56.43 numpy-2.5.3 packaging-26.3 pyerfa-2.0.1.5 pyyaml-6.0.3

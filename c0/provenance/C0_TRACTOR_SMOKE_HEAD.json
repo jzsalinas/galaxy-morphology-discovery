@@ -1,0 +1,14 @@
+{
+  "source_id": "S6",
+  "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/185/tractor-1853p160.fits",
+  "retrieved_at_utc": "2026-09-17T13:08:06.683278+00:00",
+  "metadata": true,
+  "method": "HEAD",
+  "observed_bytes": 0,
+  "access_result": "METADATA_ONLY",
+  "http_status": 200,
+  "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/185/tractor-1853p160.fits",
+  "declared_bytes": "8893440",
+  "etag": "\"87b400-55759d6712b40\"",
+  "last_modified": "Tue, 22 Aug 2017 16:10:45 GMT"
+}

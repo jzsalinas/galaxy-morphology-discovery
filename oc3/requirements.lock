@@ -1,0 +1,5 @@
+# Observed local numerical test environment; no package installation performed.
+# Python 3.12.14. Standard-library-only CLI --help/--dry-run also tested on 3.14.4.
+numpy==2.5.3
+astropy==8.0.1
+pyarrow==25.0.1

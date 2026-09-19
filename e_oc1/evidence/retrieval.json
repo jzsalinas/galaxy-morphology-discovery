@@ -1,0 +1,105 @@
+{
+  "documents": [
+    {
+      "evidence_id": "DQ-DR5",
+      "requested_url": "https://www.legacysurvey.org/dr5/files/",
+      "final_url": "https://www.legacysurvey.org/dr5/files/",
+      "retrieval_utc": "2026-09-18T15:27:35.420602+00:00",
+      "http_status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 88349,
+      "etag": "\"6a98a93a-1591d\"",
+      "last_modified": "Wed, 02 Sep 2026 22:54:50 GMT",
+      "sha256": "b7818d98910f16b81e235994926f888e47bd4f2c6b58283d1ec7383c6d585e9e",
+      "local_snapshot_path": "e_oc1/evidence/DQ-DR5.html",
+      "content_encoding": "identity"
+    },
+    {
+      "evidence_id": "RES-DR5",
+      "requested_url": "https://www.legacysurvey.org/dr5/description/",
+      "final_url": "https://www.legacysurvey.org/dr5/description/",
+      "retrieval_utc": "2026-09-18T15:27:37.281595+00:00",
+      "http_status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 41199,
+      "etag": "\"6a98a939-a0ef\"",
+      "last_modified": "Wed, 02 Sep 2026 22:54:49 GMT",
+      "sha256": "7dd4e5ca9ae476508c09b35104a4846eeef10a72b076a1382d4a7a35c3fd1575",
+      "local_snapshot_path": "e_oc1/evidence/RES-DR5.html",
+      "content_encoding": "identity"
+    },
+    {
+      "evidence_id": "RIGHTS-DR5",
+      "requested_url": "https://www.legacysurvey.org/acknowledgment/",
+      "final_url": "https://www.legacysurvey.org/acknowledgment/",
+      "retrieval_utc": "2026-09-18T15:27:39.297632+00:00",
+      "http_status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 21688,
+      "etag": "\"6a98a937-54b8\"",
+      "last_modified": "Wed, 02 Sep 2026 22:54:47 GMT",
+      "sha256": "adb1c5b41ad8aee7544a23d1b499b317d97c82222b4f69f65efa3ad13f6a9a1c",
+      "local_snapshot_path": "e_oc1/evidence/RIGHTS-DR5.html",
+      "content_encoding": "identity"
+    }
+  ],
+  "requests": [
+    {
+      "url": "https://www.legacysurvey.org/dr5/files/",
+      "utc": "2026-09-18T15:27:02.557640+00:00",
+      "error": "<urlopen error [Errno -3] Temporary failure in name resolution>"
+    },
+    {
+      "url": "https://www.legacysurvey.org/dr5/files/",
+      "utc": "2026-09-18T15:27:35.420602+00:00",
+      "http_status": 200,
+      "headers": {
+        "Date": "Fri, 18 Sep 2026 15:27:36 GMT",
+        "Content-Type": "text/html; charset=utf-8",
+        "Content-Length": "88349",
+        "Connection": "close",
+        "Last-Modified": "Wed, 02 Sep 2026 22:54:50 GMT",
+        "ETag": "\"6a98a93a-1591d\"",
+        "Accept-Ranges": "bytes",
+        "Strict-Transport-Security": "max-age=15724800; includeSubDomains"
+      },
+      "body_bytes": 88349
+    },
+    {
+      "url": "https://www.legacysurvey.org/dr5/description/",
+      "utc": "2026-09-18T15:27:37.281595+00:00",
+      "http_status": 200,
+      "headers": {
+        "Date": "Fri, 18 Sep 2026 15:27:38 GMT",
+        "Content-Type": "text/html; charset=utf-8",
+        "Content-Length": "41199",
+        "Connection": "close",
+        "Last-Modified": "Wed, 02 Sep 2026 22:54:49 GMT",
+        "ETag": "\"6a98a939-a0ef\"",
+        "Accept-Ranges": "bytes",
+        "Strict-Transport-Security": "max-age=15724800; includeSubDomains"
+      },
+      "body_bytes": 41199
+    },
+    {
+      "url": "https://www.legacysurvey.org/acknowledgment/",
+      "utc": "2026-09-18T15:27:39.297632+00:00",
+      "http_status": 200,
+      "headers": {
+        "Date": "Fri, 18 Sep 2026 15:27:39 GMT",
+        "Content-Type": "text/html; charset=utf-8",
+        "Content-Length": "21688",
+        "Connection": "close",
+        "Last-Modified": "Wed, 02 Sep 2026 22:54:47 GMT",
+        "ETag": "\"6a98a937-54b8\"",
+        "Accept-Ranges": "bytes",
+        "Strict-Transport-Security": "max-age=15724800; includeSubDomains"
+      },
+      "body_bytes": 21688
+    }
+  ],
+  "downloaded_body_bytes": 151236,
+  "limit_bytes": 10485760,
+  "retries": 0,
+  "environment_retry_after_dns_failure": 1
+}

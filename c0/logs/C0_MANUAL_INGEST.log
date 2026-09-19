@@ -1,0 +1,15 @@
+START 2026-09-17T01:23:47.005429+00:00
+Processing ./c0/dependencies/pyarrow-25.0.1-cp312-cp312-manylinux_2_28_x86_64.whl
+Installing collected packages: pyarrow
+Successfully installed pyarrow-25.0.1
+FAILURE_TYPE=Stop
+REASON=CATALOG_FETCH_INCONCLUSIVE
+START 2026-09-17T01:29:11.656765+00:00
+Processing ./c0/dependencies/pyarrow-25.0.1-cp312-cp312-manylinux_2_28_x86_64.whl
+pyarrow is already installed with the same version as the provided wheel. Use --force-reinstall to force an installation of the wheel.
+FAILURE_TYPE=Stop
+REASON=CATALOG_FETCH_INCONCLUSIVE
+START 2026-09-17T11:56:44.447126+00:00
+Processing ./c0/dependencies/pyarrow-25.0.1-cp312-cp312-manylinux_2_28_x86_64.whl
+pyarrow is already installed with the same version as the provided wheel. Use --force-reinstall to force an installation of the wheel.
+END 2026-09-17T11:59:04.739299+00:00 0

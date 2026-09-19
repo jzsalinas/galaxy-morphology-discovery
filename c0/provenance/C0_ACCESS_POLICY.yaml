@@ -1,0 +1,24 @@
+{
+  "addendum": "C0_EXECUTION_DECISION_001.md",
+  "max_download_bytes": 2147483648,
+  "max_objects": 96,
+  "max_nonmetadata_requests": 1000,
+  "max_retries": 3,
+  "concurrency": 1,
+  "manual": {
+    "seconds": 300,
+    "download_bytes": 262144000,
+    "intensive_io_bytes": 1073741824,
+    "bulk": true
+  },
+  "zones": {
+    "RAW_IMMUTABLE": "c0/quarantine/RAW_IMMUTABLE",
+    "SUBJECT_INDEX": "c0/quarantine/SUBJECT_INDEX.parquet",
+    "CONFOUND_AUDIT": "c0/quarantine/CONFOUND_AUDIT_C0.parquet",
+    "INTERPRETATION_LOCKBOX": "c0/quarantine/INTERPRETATION_LOCKBOX"
+  },
+  "lockbox": "0700 directory; ingest process only; original catalogs 0400 after projections; same OS user is not a security boundary",
+  "logs": "No blocked column names or values; unknown columns rejected by selector",
+  "network": "Sequential; no automatic retries; every HTTP hop counted; persistent SQLite accounting; interrupted block reservations retained",
+  "gates": "Addendum overrides original global policy; dependent work stops on failure; no automatic rescue"
+}

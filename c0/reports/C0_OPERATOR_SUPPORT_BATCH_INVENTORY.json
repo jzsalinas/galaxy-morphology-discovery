@@ -1,0 +1,3048 @@
+{
+  "resources": [
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-image-g.fits.fz",
+      "etag": "\"b74080-5561a77c39c80\"",
+      "total_bytes": 12009600,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          5875767,
+          6926103
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0111p012/g/prefix-0-262143.bin",
+          "sha256": "839edd2f7cfd4c12f5ccf6973cb9f0dd1aa492ecd628185f57fa01b4e0604c0f"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0111p012/g/tiles-5875767-6926103.bin",
+          "sha256": "a3a8e54feef8651ca88dc5ecdc58044b60ac0c16256473ca574a11a7a9192359"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 2112,
+          "y0": 1777,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "0111p012",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 12008050,
+        "total": 12009600
+      },
+      "jobs": [
+        {
+          "rank": 4,
+          "band": "g"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-image-r.fits.fz",
+      "etag": "\"c885c0-5561a78b7c080\"",
+      "total_bytes": 13141440,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          6431100,
+          7570309
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0111p012/r/prefix-0-262143.bin",
+          "sha256": "67f2d7e5c0a86a6172b50d3c254738c62110616f198f3bb86892211228a87896"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0111p012/r/tiles-6431100-7570309.bin",
+          "sha256": "78188b86f563b307e7aee6765f445da050119f3ea582741cedd3918d74a3f44c"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 2112,
+          "y0": 1777,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "0111p012",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 13140624,
+        "total": 13141440
+      },
+      "jobs": [
+        {
+          "rank": 4,
+          "band": "r"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-image-z.fits.fz",
+      "etag": "\"f13740-5561a79abe480\"",
+      "total_bytes": 15808320,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          7751630,
+          9108202
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0111p012/z/prefix-0-262143.bin",
+          "sha256": "d7746c0502f32c5d1ff718057d667a170a233ecf548306e40820fb93563664c1"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0111p012/z/tiles-7751630-9108202.bin",
+          "sha256": "a0ae4cb1707c1ca670600ae6ce1409faa697fdc2a183538d720a2017dec0f84b"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 2112,
+          "y0": 1777,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "0111p012",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 15807788,
+        "total": 15808320
+      },
+      "jobs": [
+        {
+          "rank": 4,
+          "band": "z"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-image-g.fits.fz",
+      "etag": "\"b778c0-556ae0c3a5140\"",
+      "total_bytes": 12024000,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          1655059,
+          2343528
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0321m002/g/prefix-0-262143.bin",
+          "sha256": "009aba192db7395b2b243d1381eb90611fd1656db97f06ab2c9ee26dee148ce7"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0321m002/g/tiles-1655059-2343528.bin",
+          "sha256": "ab652697008e0b1147e0219636f2f83f9cb4415decd5a24d6bef09d875527bb6"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 3113,
+          "y0": 410,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "0321m002",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 12021180,
+        "total": 12024000
+      },
+      "jobs": [
+        {
+          "rank": 10,
+          "band": "g"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-image-r.fits.fz",
+      "etag": "\"c46f80-556ae0d0ff0c0\"",
+      "total_bytes": 12873600,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          1799547,
+          2543880
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0321m002/r/prefix-0-262143.bin",
+          "sha256": "885dedbd4bd7191e15f2b1375ab148bbc5e825a51167cb453e196e05be354de4"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0321m002/r/tiles-1799547-2543880.bin",
+          "sha256": "415833855ab620ebbc95f2997eebb717fdd84dde32781f1da3820eb9916ab630"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 3113,
+          "y0": 410,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "0321m002",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 12871027,
+        "total": 12873600
+      },
+      "jobs": [
+        {
+          "rank": 10,
+          "band": "r"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-image-z.fits.fz",
+      "etag": "\"ef3d00-556ae0e31db80\"",
+      "total_bytes": 15678720,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          2141642,
+          3038467
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0321m002/z/prefix-0-262143.bin",
+          "sha256": "cbc8d5b9664ab195891b5c15bdb6c8de0324507572ca641a7bcc7c77c38077aa"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/0321m002/z/tiles-2141642-3038467.bin",
+          "sha256": "f7548243452d8dacc457d3e96678ec1748a84c3cf76a015fe8a64c9e5069d0d4"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 3113,
+          "y0": 410,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "0321m002",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 15675934,
+        "total": 15678720
+      },
+      "jobs": [
+        {
+          "rank": 10,
+          "band": "z"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-image-g.fits.fz",
+      "etag": "\"bcd540-559074b265600\"",
+      "total_bytes": 12375360,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          8347487,
+          9579967
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1710p257/g/prefix-0-262143.bin",
+          "sha256": "482d7050706a015cba8179197c6c15bc3caaeb28d704514e746c6bb0ce3df7fe"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1710p257/g/tiles-8347487-9579967.bin",
+          "sha256": "ca9906e2fda42a82797eec4f4adab3a97f62d34ef028d64bebe15da8faa3759a"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 1972,
+          "y0": 2354,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "1710p257",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 12374416,
+        "total": 12375360
+      },
+      "jobs": [
+        {
+          "rank": 8,
+          "band": "g"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-image-r.fits.fz",
+      "etag": "\"cb1d80-559074b81e380\"",
+      "total_bytes": 13311360,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          8990597,
+          10314647
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1710p257/r/prefix-0-262143.bin",
+          "sha256": "3dec60ddad1a9c8eeb7a0ca4b2b4dd9a28e415578de5d23d6764247a52708f22"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1710p257/r/tiles-8990597-10314647.bin",
+          "sha256": "2a40ab4d4b8056c5dd54d0fa04c7652b766fbda150d77ea8490a16a553e8a760"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 1972,
+          "y0": 2354,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "1710p257",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 13311279,
+        "total": 13311360
+      },
+      "jobs": [
+        {
+          "rank": 8,
+          "band": "r"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-image-z.fits.fz",
+      "etag": "\"f9a740-559074c578300\"",
+      "total_bytes": 16361280,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          10695741,
+          12093785
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1710p257/z/prefix-0-262143.bin",
+          "sha256": "6a2ff81e0c5291e59ba2d5c2e4557140f9e00cfceb547f615a807c91b116e0e9"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1710p257/z/tiles-10695741-12093785.bin",
+          "sha256": "ca75d2eadf1539525cf72653f90b9851a95687fefe9bb241c8cab219993ab719"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 1972,
+          "y0": 2354,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "1710p257",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 16359464,
+        "total": 16361280
+      },
+      "jobs": [
+        {
+          "rank": 8,
+          "band": "z"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-image-g.fits.fz",
+      "etag": "\"c81540-55908995a5dc0\"",
+      "total_bytes": 13112640,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          8498748,
+          9633427
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1766m027/g/prefix-0-262143.bin",
+          "sha256": "4f101f3ad974b6f184f4f32d5bbb4113546823fb0be6553d2307c7a111e2a159"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1766m027/g/tiles-8498748-9633427.bin",
+          "sha256": "eb61dbaa2db4c7673367bca918643bacfd4e594b89e1f348b381d09727f76342"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 1326,
+          "y0": 2381,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "1766m027",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 13110124,
+        "total": 13112640
+      },
+      "jobs": [
+        {
+          "rank": 9,
+          "band": "g"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-image-r.fits.fz",
+      "etag": "\"d8dec0-559089a023680\"",
+      "total_bytes": 14212800,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          9205922,
+          10432637
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1766m027/r/prefix-0-262143.bin",
+          "sha256": "e8d74006597f15364f0467cad589a0f65a3918cddda27a0ec4944d761fca134d"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1766m027/r/tiles-9205922-10432637.bin",
+          "sha256": "00fe3ad1918cbb268dc71335db702970f3a60639037117fce3298c46dd46a529"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 1326,
+          "y0": 2381,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "1766m027",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 14211601,
+        "total": 14212800
+      },
+      "jobs": [
+        {
+          "rank": 9,
+          "band": "r"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-image-z.fits.fz",
+      "etag": "\"e5ca40-559089b42a5c0\"",
+      "total_bytes": 15059520,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          9773601,
+          11062318
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1766m027/z/prefix-0-262143.bin",
+          "sha256": "c2427ade1495e6a1ce9f1287259b14b3ca491be00ddce945efab083576d6e8a7"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1766m027/z/tiles-9773601-11062318.bin",
+          "sha256": "70ae100a8dafb017fada143d3d33904c3ffaf4662e66510a566b77ba11f0a653"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 1326,
+          "y0": 2381,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "1766m027",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 15057252,
+        "total": 15059520
+      },
+      "jobs": [
+        {
+          "rank": 9,
+          "band": "z"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-image-g.fits.fz",
+      "etag": "\"997500-5575736388bc0\"",
+      "total_bytes": 10056960,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          6558217,
+          7507568
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1831p085/g/prefix-0-262143.bin",
+          "sha256": "d351daf9a3bebaa1d3a11a1a6f19d08887fbe1468f635c3a7ae4fc113f2211d9"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1831p085/g/tiles-6558217-7507568.bin",
+          "sha256": "ecd38268c2b4997c4142deee3f3b261856474052a8698cce64af8b90e001a169"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 2774,
+          "y0": 1880,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "1831p085",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 10055259,
+        "total": 10056960
+      },
+      "jobs": [
+        {
+          "rank": 6,
+          "band": "g"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-image-r.fits.fz",
+      "etag": "\"d17180-5575736fee900\"",
+      "total_bytes": 13726080,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          7151915,
+          8325224
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1831p085/r/prefix-0-262143.bin",
+          "sha256": "c2f2a0fabdd9456b1813f0c8400914da8460d438ae8666b9b86cf7da57876e84"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1831p085/r/tiles-7151915-8325224.bin",
+          "sha256": "28c31afaca0539d998f034db529e7b7b7cf50dadbbe7fb4b7073e80eb1c2df18"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 2774,
+          "y0": 1880,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "1831p085",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 13724975,
+        "total": 13726080
+      },
+      "jobs": [
+        {
+          "rank": 6,
+          "band": "r"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-image-z.fits.fz",
+      "etag": "\"f0c6c0-5575738024f40\"",
+      "total_bytes": 15779520,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          8160554,
+          9520890
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1831p085/z/prefix-0-262143.bin",
+          "sha256": "a646ebfdf6a5881ba41929537f1075494239f5c61d078fe77ffa97066556731f"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1831p085/z/tiles-8160554-9520890.bin",
+          "sha256": "9263fb5589ee15ac69f725742e96e5fc9c773243fb91b1dc9d05511cf78625b4"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 2774,
+          "y0": 1880,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "1831p085",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 15776980,
+        "total": 15779520
+      },
+      "jobs": [
+        {
+          "rank": 6,
+          "band": "z"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-image-g.fits.fz",
+      "etag": "\"c25ec0-55758b2cbea00\"",
+      "total_bytes": 12738240,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          751376,
+          1481122
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1850p132/g/prefix-0-262143.bin",
+          "sha256": "63882e199844c0264cc1ff21f913b7093096b5f0d2c778474116c32457671194"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1850p132/g/tiles-751376-1481122.bin",
+          "sha256": "31a838ab4c3e19a1bd5a8c7ee5e89c8716c5f71e5f8dc073b6833864835147b5"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 0,
+          "y0": 205,
+          "width": 174,
+          "height": 256
+        }
+      ],
+      "brick": "1850p132",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 12735393,
+        "total": 12738240
+      },
+      "jobs": [
+        {
+          "rank": 3,
+          "band": "g"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-image-r.fits.fz",
+      "etag": "\"d7f280-55758b3b0cbc0\"",
+      "total_bytes": 14152320,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          817438,
+          1639139
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1850p132/r/prefix-0-262143.bin",
+          "sha256": "af752b08799b084dd35362221d81523640555044de4cbc54db254ae6f8642431"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1850p132/r/tiles-817438-1639139.bin",
+          "sha256": "89ef1ef21c2e95f2249e2d4302d5bc98f7bdc36819e172f0d1c7a3c10bf6c607"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 0,
+          "y0": 205,
+          "width": 174,
+          "height": 256
+        }
+      ],
+      "brick": "1850p132",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 14149452,
+        "total": 14152320
+      },
+      "jobs": [
+        {
+          "rank": 3,
+          "band": "r"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-image-z.fits.fz",
+      "etag": "\"f2aa80-55758b4a4efc0\"",
+      "total_bytes": 15903360,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          922399,
+          1842743
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1850p132/z/prefix-0-262143.bin",
+          "sha256": "a02e92d947be4ad81d8906f01c2f1665865618447a544378d15c3c8b9bd606c3"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1850p132/z/tiles-922399-1842743.bin",
+          "sha256": "d93f05c0495fe65c60ac6720f5f3d11c19c061d0b2bf6b7dc04caf607f502c0f"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 0,
+          "y0": 205,
+          "width": 174,
+          "height": 256
+        }
+      ],
+      "brick": "1850p132",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 15901475,
+        "total": 15903360
+      },
+      "jobs": [
+        {
+          "rank": 3,
+          "band": "z"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-image-g.fits.fz",
+      "etag": "\"bef140-5590ce42a2480\"",
+      "total_bytes": 12513600,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          1050850,
+          1762351
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1852p132/g/prefix-0-262143.bin",
+          "sha256": "669291c37444eebae9040b042798ffdc31a6d207f8227f5d1e4f39bbd21c175f"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1852p132/g/tiles-1050850-1762351.bin",
+          "sha256": "38971caecbb0b05bc1758030165faede8521d2941ec3f1a70b2d0bb0a186109d"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 3349,
+          "y0": 205,
+          "width": 251,
+          "height": 256
+        }
+      ],
+      "brick": "1852p132",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 12510877,
+        "total": 12513600
+      },
+      "jobs": [
+        {
+          "rank": 3,
+          "band": "g"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-image-r.fits.fz",
+      "etag": "\"d398c0-5590ce51e4880\"",
+      "total_bytes": 13867200,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          1155120,
+          1961274
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1852p132/r/prefix-0-262143.bin",
+          "sha256": "c8a48bcd78613f1c3781e53abc8d3deb026def22ae1ee4cdf3c3f0e11d6506c2"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1852p132/r/tiles-1155120-1961274.bin",
+          "sha256": "1094187195f74bd8ba564b62fa6190d8b4f30b13e250d9dc81597776f0441bae"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 3349,
+          "y0": 205,
+          "width": 251,
+          "height": 256
+        }
+      ],
+      "brick": "1852p132",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 13865055,
+        "total": 13867200
+      },
+      "jobs": [
+        {
+          "rank": 3,
+          "band": "r"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-image-z.fits.fz",
+      "etag": "\"f0bb80-5590ce6032a40\"",
+      "total_bytes": 15776640,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          1323733,
+          2250848
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1852p132/z/prefix-0-262143.bin",
+          "sha256": "0e45277ab744b4f90cb7acc5c100b2356128506eae21bee2b4fbf3a0ec19da11"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1852p132/z/tiles-1323733-2250848.bin",
+          "sha256": "51e3ee6d4ce8864aee639bce2b17efcd23783880dc56a99f613915a727b810ac"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 3349,
+          "y0": 205,
+          "width": 251,
+          "height": 256
+        }
+      ],
+      "brick": "1852p132",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 15776074,
+        "total": 15776640
+      },
+      "jobs": [
+        {
+          "rank": 3,
+          "band": "z"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-g.fits.fz",
+      "etag": "\"c9f900-55759cb88cf80\"",
+      "total_bytes": 13236480,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          10849338,
+          11969290
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_smoke/prefix.bin",
+          "sha256": "6de4c4fc6b50d486169475991ed38395f106cc96ec6dbf1f383c718cb7f5b623"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_smoke/tiles.bin",
+          "sha256": "08f041159b69c4796ad35a575d39035393fd321d827497a9883f6e72ec3002c8"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 1762,
+          "y0": 2985,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "1853p160",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 13234476,
+        "total": 13236480
+      },
+      "jobs": [
+        {
+          "rank": 1,
+          "band": "g"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-r.fits.fz",
+      "etag": "\"d38d80-55759cd158a00\"",
+      "total_bytes": 13864320,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          11347092,
+          12538519
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1853p160/r/prefix-0-262143.bin",
+          "sha256": "e62d4e859304266027d21001d47f03b2c47c836b83e838b6c15e4f1b92696331"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1853p160/r/tiles-11347092-12538519.bin",
+          "sha256": "1796a6a56e51e5ec2e1fbf385a5459def0503269f399aec32169a4a0a23f1ee9"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 1762,
+          "y0": 2985,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "1853p160",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 13861524,
+        "total": 13864320
+      },
+      "jobs": [
+        {
+          "rank": 1,
+          "band": "r"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-z.fits.fz",
+      "etag": "\"e2e3c0-55759ce46b700\"",
+      "total_bytes": 14869440,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          12238756,
+          13491488
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1853p160/z/prefix-0-262143.bin",
+          "sha256": "131ac46f554f90d77eadacfa4247644113e694a5d4249a07464b100c4af1edcd"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1853p160/z/tiles-12238756-13491488.bin",
+          "sha256": "67cbf40c46bd3e032a3d0f9905c22d48a289ce04e60953bb3930f7f1e42b9cda"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 1762,
+          "y0": 2985,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "1853p160",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 14869043,
+        "total": 14869440
+      },
+      "jobs": [
+        {
+          "rank": 1,
+          "band": "z"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-image-g.fits.fz",
+      "etag": "\"c68040-5575e7724dc40\"",
+      "total_bytes": 13008960,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          7263839,
+          7988207
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1949p190/g/prefix-0-262143.bin",
+          "sha256": "04d1a7a5bf4834e536a48ead52f93c8e852e17e6d5684231ece913784b35e481"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1949p190/g/tiles-7263839-7988207.bin",
+          "sha256": "790ca44da5cf857d8217862f361d7e4c94236aa80338fd12744a76e195c076f7"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 0,
+          "y0": 2043,
+          "width": 78,
+          "height": 256
+        }
+      ],
+      "brick": "1949p190",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 13008026,
+        "total": 13008960
+      },
+      "jobs": [
+        {
+          "rank": 5,
+          "band": "g"
+        }
+      ],
+      "ranges": [
+        {
+          "start": 8335334,
+          "end": 8345282,
+          "bytes": 9949,
+          "coverage": [
+            {
+              "rank": 5,
+              "band": "g",
+              "dependent_pixels": 237,
+              "newly_complete_if_only_this_range_added": 0,
+              "complete_if_other_dependencies_added": 237
+            }
+          ],
+          "resolves": "Missing native stencil samples for conditional full-cutout numerical comparison; NOT deployment or units"
+        }
+      ],
+      "minimum_payload_bytes": 9949,
+      "single_range_requests_at_minimum_bytes": 1,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 1
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-image-r.fits.fz",
+      "etag": "\"d65240-5575e77ae3080\"",
+      "total_bytes": 14045760,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          7529043,
+          8362226
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1949p190/r/prefix-0-262143.bin",
+          "sha256": "5b02add948af9edcae4e0b4a18fa29469e7e1fdeaf8103944cbd9bfbcda32623"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1949p190/r/tiles-7529043-8362226.bin",
+          "sha256": "cc6398b255fc81bf79f6b7f291975338fd8258fc8cff831f50a702aea93b9794"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 0,
+          "y0": 2043,
+          "width": 78,
+          "height": 256
+        }
+      ],
+      "brick": "1949p190",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 14043984,
+        "total": 14045760
+      },
+      "jobs": [
+        {
+          "rank": 5,
+          "band": "r"
+        }
+      ],
+      "ranges": [
+        {
+          "start": 8760970,
+          "end": 8772763,
+          "bytes": 11794,
+          "coverage": [
+            {
+              "rank": 5,
+              "band": "r",
+              "dependent_pixels": 237,
+              "newly_complete_if_only_this_range_added": 0,
+              "complete_if_other_dependencies_added": 237
+            }
+          ],
+          "resolves": "Missing native stencil samples for conditional full-cutout numerical comparison; NOT deployment or units"
+        }
+      ],
+      "minimum_payload_bytes": 11794,
+      "single_range_requests_at_minimum_bytes": 1,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 1
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-image-z.fits.fz",
+      "etag": "\"f6e280-5575e78748dc0\"",
+      "total_bytes": 16179840,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          9030831,
+          9936727
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1949p190/z/prefix-0-262143.bin",
+          "sha256": "0aa83394d262a460472e2f7c093a245897363b03982809f403d59ae61f1d30e2"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1949p190/z/tiles-9030831-9936727.bin",
+          "sha256": "e649df7687f5f3d5124807b7639519efeea8eb6db184f59324e70f3544347059"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 0,
+          "y0": 2043,
+          "width": 78,
+          "height": 256
+        }
+      ],
+      "brick": "1949p190",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 16179393,
+        "total": 16179840
+      },
+      "jobs": [
+        {
+          "rank": 5,
+          "band": "z"
+        }
+      ],
+      "ranges": [
+        {
+          "start": 10370289,
+          "end": 10382915,
+          "bytes": 12627,
+          "coverage": [
+            {
+              "rank": 5,
+              "band": "z",
+              "dependent_pixels": 237,
+              "newly_complete_if_only_this_range_added": 0,
+              "complete_if_other_dependencies_added": 237
+            }
+          ],
+          "resolves": "Missing native stencil samples for conditional full-cutout numerical comparison; NOT deployment or units"
+        }
+      ],
+      "minimum_payload_bytes": 12627,
+      "single_range_requests_at_minimum_bytes": 1,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 1
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-image-g.fits.fz",
+      "etag": "\"c62640-557b730dd6280\"",
+      "total_bytes": 12985920,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          7532480,
+          8286790
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1951p190/g/prefix-0-262143.bin",
+          "sha256": "4caa0fc7be3b41d2991e8673aeb181e9689701afc20918d2c301d4453bfed362"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1951p190/g/tiles-7532480-8286790.bin",
+          "sha256": "29cfa2d51bf793f474b81c560a989eca670228c12b2c67018f3354717d01089d"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 3250,
+          "y0": 2043,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "1951p190",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 12983375,
+        "total": 12985920
+      },
+      "jobs": [
+        {
+          "rank": 5,
+          "band": "g"
+        }
+      ],
+      "ranges": [
+        {
+          "start": 8604864,
+          "end": 8645075,
+          "bytes": 40212,
+          "coverage": [
+            {
+              "rank": 5,
+              "band": "g",
+              "dependent_pixels": 768,
+              "newly_complete_if_only_this_range_added": 531,
+              "complete_if_other_dependencies_added": 768
+            }
+          ],
+          "resolves": "Missing native stencil samples for conditional full-cutout numerical comparison; NOT deployment or units"
+        }
+      ],
+      "minimum_payload_bytes": 40212,
+      "single_range_requests_at_minimum_bytes": 1,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 1
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-image-r.fits.fz",
+      "etag": "\"d041c0-557b73138f000\"",
+      "total_bytes": 13648320,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          7556418,
+          8406797
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1951p190/r/prefix-0-262143.bin",
+          "sha256": "aef2369fb7aaa05fe69d2975d6809cc27dece536561da579cf6bdb006defdc96"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1951p190/r/tiles-7556418-8406797.bin",
+          "sha256": "2d8d9b7b65a318f12d5613c9c7aeba5bf4c12c54ad4384d36e9f0656cf36ee10"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 3250,
+          "y0": 2043,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "1951p190",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 13646656,
+        "total": 13648320
+      },
+      "jobs": [
+        {
+          "rank": 5,
+          "band": "r"
+        }
+      ],
+      "ranges": [
+        {
+          "start": 8763291,
+          "end": 8810434,
+          "bytes": 47144,
+          "coverage": [
+            {
+              "rank": 5,
+              "band": "r",
+              "dependent_pixels": 768,
+              "newly_complete_if_only_this_range_added": 531,
+              "complete_if_other_dependencies_added": 768
+            }
+          ],
+          "resolves": "Missing native stencil samples for conditional full-cutout numerical comparison; NOT deployment or units"
+        }
+      ],
+      "minimum_payload_bytes": 47144,
+      "single_range_requests_at_minimum_bytes": 1,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 1
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-image-z.fits.fz",
+      "etag": "\"fb25c0-557b731ff4d40\"",
+      "total_bytes": 16459200,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          9544511,
+          10515753
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1951p190/z/prefix-0-262143.bin",
+          "sha256": "57f196402fb8645ee8ca672a3a1361d458cbb9df1d8926244e7c622e17b426ab"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1951p190/z/tiles-9544511-10515753.bin",
+          "sha256": "deb2ad79afb5d93b9e9c9809cc95e1ba696923cfa7e2557de535b3a03caf69cc"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 3250,
+          "y0": 2043,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "1951p190",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 16457022,
+        "total": 16459200
+      },
+      "jobs": [
+        {
+          "rank": 5,
+          "band": "z"
+        }
+      ],
+      "ranges": [
+        {
+          "start": 10920730,
+          "end": 10971149,
+          "bytes": 50420,
+          "coverage": [
+            {
+              "rank": 5,
+              "band": "z",
+              "dependent_pixels": 768,
+              "newly_complete_if_only_this_range_added": 531,
+              "complete_if_other_dependencies_added": 768
+            }
+          ],
+          "resolves": "Missing native stencil samples for conditional full-cutout numerical comparison; NOT deployment or units"
+        }
+      ],
+      "minimum_payload_bytes": 50420,
+      "single_range_requests_at_minimum_bytes": 1,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 1
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-image-g.fits.fz",
+      "etag": "\"bf1300-55763f8acb440\"",
+      "total_bytes": 12522240,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          1370104,
+          2480394
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1998m022/g/prefix-0-262143.bin",
+          "sha256": "8be8ffc5c84d83c5527e93c91f0791946a9acd5ae56a03808f097cd14fd66112"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1998m022/g/tiles-1370104-2480394.bin",
+          "sha256": "73e7834754913bd7cab2a9f6c49cb03368cc46c711d407f250db77b535520b7f"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 2820,
+          "y0": 392,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "1998m022",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 12519374,
+        "total": 12522240
+      },
+      "jobs": [
+        {
+          "rank": 12,
+          "band": "g"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-image-r.fits.fz",
+      "etag": "\"c86400-55763fa2a2c80\"",
+      "total_bytes": 13132800,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          1426918,
+          2563873
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1998m022/r/prefix-0-262143.bin",
+          "sha256": "511f6545076b7c82c51330e4e0789fbb68f212c1d9632336390aa96955089aba"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1998m022/r/tiles-1426918-2563873.bin",
+          "sha256": "4fd7755d75c0ba4e84bb742957324db231f1357db32cfdf0633d0cff0e8c170b"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 2820,
+          "y0": 392,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "1998m022",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 13132214,
+        "total": 13132800
+      },
+      "jobs": [
+        {
+          "rank": 12,
+          "band": "r"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-image-z.fits.fz",
+      "etag": "\"e46240-55763fc6e0200\"",
+      "total_bytes": 14967360,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          1593705,
+          2870764
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1998m022/z/prefix-0-262143.bin",
+          "sha256": "b176ea168766765e2f591e971abbec19f8fe537b3d0113fae075d24db427ab76"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/1998m022/z/tiles-1593705-2870764.bin",
+          "sha256": "0dbc338ead2f9a468b9da1894ae00084b92ff5196ab45b01cb85523d93c68747"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 2820,
+          "y0": 392,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "1998m022",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 14966779,
+        "total": 14967360
+      },
+      "jobs": [
+        {
+          "rank": 12,
+          "band": "z"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-image-g.fits.fz",
+      "etag": "\"c2ad80-55779ff556880\"",
+      "total_bytes": 12758400,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          3507662,
+          4610842
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2139p050/g/prefix-0-262143.bin",
+          "sha256": "57497480ed60b2a8dadde1aea005581bd0fedfc487fccf04dd6b768016d30648"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2139p050/g/tiles-3507662-4610842.bin",
+          "sha256": "db874c2416451ba66737193b16a8c9180b45e6083da43099fa7ebeb66bc32d8d"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 2450,
+          "y0": 960,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "2139p050",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 12758049,
+        "total": 12758400
+      },
+      "jobs": [
+        {
+          "rank": 2,
+          "band": "g"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-image-r.fits.fz",
+      "etag": "\"cf8280-5577a00869580\"",
+      "total_bytes": 13599360,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          3662339,
+          4828767
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2139p050/r/prefix-0-262143.bin",
+          "sha256": "373fce4712e296cabcfa280d0d4da5696ad4e57f4f197686b830e2cc7f338ded"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2139p050/r/tiles-3662339-4828767.bin",
+          "sha256": "2edfd9ca56bbd61439c42baaa8cba6fc2c697880c67d44b580897594c4fe3cd7"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 2450,
+          "y0": 960,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "2139p050",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 13598942,
+        "total": 13599360
+      },
+      "jobs": [
+        {
+          "rank": 2,
+          "band": "r"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-image-z.fits.fz",
+      "etag": "\"e0b140-5577a01e58940\"",
+      "total_bytes": 14725440,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          3927983,
+          5190063
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2139p050/z/prefix-0-262143.bin",
+          "sha256": "1e46aafd60760ce7a8b7dad4d0e381291ed225dcdfd0b4709f8b75130ef3de70"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2139p050/z/tiles-3927983-5190063.bin",
+          "sha256": "f33f2fc7688d5a79bd548e860c36e1792cb46903d02c50beb91e72b856912341"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 2450,
+          "y0": 960,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "2139p050",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 14723079,
+        "total": 14725440
+      },
+      "jobs": [
+        {
+          "rank": 2,
+          "band": "z"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-image-g.fits.fz",
+      "etag": "\"c2f100-5577dc79c6fc0\"",
+      "total_bytes": 12775680,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          3001928,
+          3740477
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2205p137/g/prefix-0-262143.bin",
+          "sha256": "cad44f960439d92dd0bc57e4f358220f65332a4347dc0254f8a678f2c15fec86"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2205p137/g/tiles-3001928-3740477.bin",
+          "sha256": "aa9c72795b93f84b488c8448503fb80c561e5be5985eae7b1e9f0530c133e399"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 297,
+          "y0": 840,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "2205p137",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 12775669,
+        "total": 12775680
+      },
+      "jobs": [
+        {
+          "rank": 11,
+          "band": "g"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-image-r.fits.fz",
+      "etag": "\"d0b240-5577dc8538ac0\"",
+      "total_bytes": 13677120,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          3128910,
+          3901714
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2205p137/r/prefix-0-262143.bin",
+          "sha256": "709e978663e5c8cf36fefe53eb7aab065114723f5f0a5f9461365958853151b5"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2205p137/r/tiles-3128910-3901714.bin",
+          "sha256": "8ff2c55e1b2f161feb1da92fd6873e621ba3f5b385393e5baf3d42b0f00856bc"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 297,
+          "y0": 840,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "2205p137",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 13674527,
+        "total": 13677120
+      },
+      "jobs": [
+        {
+          "rank": 11,
+          "band": "r"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-image-z.fits.fz",
+      "etag": "\"f37500-5577dc9663340\"",
+      "total_bytes": 15955200,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          3596861,
+          4524556
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2205p137/z/prefix-0-262143.bin",
+          "sha256": "fb262ddd9eb215220014e2a7800865841defd31a9b355b76c28e8d5c2fd3192b"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2205p137/z/tiles-3596861-4524556.bin",
+          "sha256": "706e0dea67f3f61d7e2fae99e6748f66c93f1ec9802f49fdf8ab362831b9f223"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 297,
+          "y0": 840,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "2205p137",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 15953489,
+        "total": 15955200
+      },
+      "jobs": [
+        {
+          "rank": 11,
+          "band": "z"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-image-g.fits.fz",
+      "etag": "\"bd9480-5558052b016c0\"",
+      "total_bytes": 12424320,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          3203317,
+          4240793
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2417p112/g/prefix-0-262143.bin",
+          "sha256": "9728a58bf3a1e9237030e120bb2c654a0e990e91f6e59b5383ace189e126904b"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2417p112/g/tiles-3203317-4240793.bin",
+          "sha256": "708ec0400c4c72dcc2ef8fc351ba2709b9c0238e0d6dac07fba9fcd712de674a"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 1233,
+          "y0": 992,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "2417p112",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 12423849,
+        "total": 12424320
+      },
+      "jobs": [
+        {
+          "rank": 7,
+          "band": "g"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-image-r.fits.fz",
+      "etag": "\"cece80-55580544c1380\"",
+      "total_bytes": 13553280,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          3503518,
+          4636451
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2417p112/r/prefix-0-262143.bin",
+          "sha256": "da3e1e12f2d95806be7d275b89813600d2bb7a395267739a6d9e7102e1824d51"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2417p112/r/tiles-3503518-4636451.bin",
+          "sha256": "66f8d2f1f29f869beb95b587414f340a47b9a2548388b8feacebe73ce055b4db"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 1233,
+          "y0": 992,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "2417p112",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 13553089,
+        "total": 13553280
+      },
+      "jobs": [
+        {
+          "rank": 7,
+          "band": "r"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-image-z.fits.fz",
+      "etag": "\"e8c740-5558055ba4980\"",
+      "total_bytes": 15255360,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          3894296,
+          5167189
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2417p112/z/prefix-0-262143.bin",
+          "sha256": "87eea39398306ce525de7c92444805524ce5538fa6794057fa41f5290922b2df"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_c0/2417p112/z/tiles-3894296-5167189.bin",
+          "sha256": "c708ee0c8d1ce03113299193fddfd286c8727db3b9ce0494d7a38a9ebeb71cb4"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 1233,
+          "y0": 992,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "2417p112",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 15253141,
+        "total": 15255360
+      },
+      "jobs": [
+        {
+          "rank": 7,
+          "band": "z"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    }
+  ],
+  "coverage": [
+    {
+      "rank": 1,
+      "band": "g",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 1,
+      "band": "r",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 1,
+      "band": "z",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 2,
+      "band": "g",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 2,
+      "band": "r",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 2,
+      "band": "z",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 4,
+      "band": "g",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 4,
+      "band": "r",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 4,
+      "band": "z",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 6,
+      "band": "g",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 6,
+      "band": "r",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 6,
+      "band": "z",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 7,
+      "band": "g",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 7,
+      "band": "r",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 7,
+      "band": "z",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 8,
+      "band": "g",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 8,
+      "band": "r",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 8,
+      "band": "z",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 9,
+      "band": "g",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 9,
+      "band": "r",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 9,
+      "band": "z",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 10,
+      "band": "g",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 10,
+      "band": "r",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 10,
+      "band": "z",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 11,
+      "band": "g",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 11,
+      "band": "r",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 11,
+      "band": "z",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 12,
+      "band": "g",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 12,
+      "band": "r",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 12,
+      "band": "z",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 3,
+      "band": "g",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 3,
+      "band": "r",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 3,
+      "band": "z",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 5,
+      "band": "g",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 64768,
+      "missing_support_pixels": 768,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 5,
+      "band": "r",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 64768,
+      "missing_support_pixels": 768,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    },
+    {
+      "rank": 5,
+      "band": "z",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 64768,
+      "missing_support_pixels": 768,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    }
+  ],
+  "conditional_minimum_payload_bytes": 172146,
+  "single_range_requests_at_minimum_bytes": 6,
+  "theoretical_request_lower_bound_unverified_multipart": 6,
+  "absolute_minimum_requests": "UNRESOLVED: multipart support not established; minimizing requests and bytes are distinct objectives",
+  "remaining_byte_budget": 1682135120,
+  "remaining_data_requests": 617,
+  "within_global_budget": true,
+  "within_per_url_attempts": true,
+  "bounds": "Minimum union of missing compressed payload intervals for required samples under local spline/LUT support and known bricks, reusing native ROIs and verified range fragments. Includes no unnecessary geometric-envelope gaps.",
+  "not_proven": [
+    "Necessity of acquisition for Gate decision",
+    "Global service brick completeness",
+    "Actual deployed stencil",
+    "Multipart capability"
+  ],
+  "network_requests": 0,
+  "acquisition_authorized": false,
+  "gate_c": "PENDING"
+}

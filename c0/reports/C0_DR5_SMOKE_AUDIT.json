@@ -1,0 +1,41 @@
+{
+  "sha256": "3cb85aa09e5ad31b0010b430d581dab8dcf3859589677acaa172c954ea6253ee",
+  "hdu_count": 1,
+  "hdus": [
+    {
+      "index": 0,
+      "kind": "PrimaryHDU",
+      "shape": [
+        3,
+        256,
+        256
+      ],
+      "bitpix": -32
+    }
+  ],
+  "release": "DR5",
+  "survey": "DECaLS",
+  "bands": "grz",
+  "unit": null,
+  "unit_status": "INCONCLUSIVE_MISSING_BUNIT",
+  "coverage_status": "UNKNOWN_WITHOUT_COVERAGE_PRODUCT",
+  "auxiliary_status": "NOT_VERIFIED",
+  "center_error_pixels": 4.418442408711401e-09,
+  "pixel_scales_arcsec": [
+    0.26200000000000007,
+    0.26200000000000007
+  ],
+  "dtype": ">f4",
+  "byteorder": ">",
+  "finite_fraction": [
+    1.0,
+    1.0,
+    1.0
+  ],
+  "median": [
+    2.5523197109578177e-05,
+    -2.908126134570921e-06,
+    6.9297957452363335e-06
+  ],
+  "status": "REQUIRES_CALIBRATION_AND_COADD_CHECK"
+}

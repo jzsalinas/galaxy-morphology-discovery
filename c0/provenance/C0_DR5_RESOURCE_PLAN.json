@@ -1,0 +1,6170 @@
+[
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-image-g.fits.fz",
+    "product": "comparison_image",
+    "brickname": "0111p012",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J004422.30+011527.7"
+    ],
+    "probe_ranks": [
+      4
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-image-r.fits.fz",
+    "product": "comparison_image",
+    "brickname": "0111p012",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J004422.30+011527.7"
+    ],
+    "probe_ranks": [
+      4
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-image-z.fits.fz",
+    "product": "comparison_image",
+    "brickname": "0111p012",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J004422.30+011527.7"
+    ],
+    "probe_ranks": [
+      4
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-image-g.fits.fz",
+    "product": "comparison_image",
+    "brickname": "0321m002",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J020804.81-002030.7"
+    ],
+    "probe_ranks": [
+      10
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-image-r.fits.fz",
+    "product": "comparison_image",
+    "brickname": "0321m002",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J020804.81-002030.7"
+    ],
+    "probe_ranks": [
+      10
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-image-z.fits.fz",
+    "product": "comparison_image",
+    "brickname": "0321m002",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J020804.81-002030.7"
+    ],
+    "probe_ranks": [
+      10
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-image-g.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1710p257",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J112354.17+254758.8"
+    ],
+    "probe_ranks": [
+      8
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-image-r.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1710p257",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J112354.17+254758.8"
+    ],
+    "probe_ranks": [
+      8
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-image-z.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1710p257",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J112354.17+254758.8"
+    ],
+    "probe_ranks": [
+      8
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-image-g.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1766m027",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J114635.90-024152.0"
+    ],
+    "probe_ranks": [
+      9
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-image-r.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1766m027",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J114635.90-024152.0"
+    ],
+    "probe_ranks": [
+      9
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-image-z.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1766m027",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J114635.90-024152.0"
+    ],
+    "probe_ranks": [
+      9
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-image-g.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1831p085",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J121217.88+083054.4"
+    ],
+    "probe_ranks": [
+      6
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-image-r.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1831p085",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J121217.88+083054.4"
+    ],
+    "probe_ranks": [
+      6
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-image-z.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1831p085",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J121217.88+083054.4"
+    ],
+    "probe_ranks": [
+      6
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-image-g.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1850p132",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J122031.42+130835.5"
+    ],
+    "probe_ranks": [
+      3
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-image-r.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1850p132",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J122031.42+130835.5"
+    ],
+    "probe_ranks": [
+      3
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-image-z.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1850p132",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J122031.42+130835.5"
+    ],
+    "probe_ranks": [
+      3
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-image-g.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1852p132",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J122031.42+130835.5"
+    ],
+    "probe_ranks": [
+      3
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-image-r.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1852p132",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J122031.42+130835.5"
+    ],
+    "probe_ranks": [
+      3
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-image-z.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1852p132",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J122031.42+130835.5"
+    ],
+    "probe_ranks": [
+      3
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-g.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1853p160",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J122116.26+160544.1"
+    ],
+    "probe_ranks": [
+      1
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-r.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1853p160",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J122116.26+160544.1"
+    ],
+    "probe_ranks": [
+      1
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-z.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1853p160",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J122116.26+160544.1"
+    ],
+    "probe_ranks": [
+      1
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-image-g.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1949p190",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J130013.05+190137.2"
+    ],
+    "probe_ranks": [
+      5
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-image-r.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1949p190",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J130013.05+190137.2"
+    ],
+    "probe_ranks": [
+      5
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-image-z.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1949p190",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J130013.05+190137.2"
+    ],
+    "probe_ranks": [
+      5
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-image-g.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1951p190",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J130013.05+190137.2"
+    ],
+    "probe_ranks": [
+      5
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-image-r.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1951p190",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J130013.05+190137.2"
+    ],
+    "probe_ranks": [
+      5
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-image-z.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1951p190",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J130013.05+190137.2"
+    ],
+    "probe_ranks": [
+      5
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-image-g.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1998m022",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J131909.90-022034.9"
+    ],
+    "probe_ranks": [
+      12
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-image-r.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1998m022",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J131909.90-022034.9"
+    ],
+    "probe_ranks": [
+      12
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-image-z.fits.fz",
+    "product": "comparison_image",
+    "brickname": "1998m022",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J131909.90-022034.9"
+    ],
+    "probe_ranks": [
+      12
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-image-g.fits.fz",
+    "product": "comparison_image",
+    "brickname": "2139p050",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J141538.99+045653.4"
+    ],
+    "probe_ranks": [
+      2
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-image-r.fits.fz",
+    "product": "comparison_image",
+    "brickname": "2139p050",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J141538.99+045653.4"
+    ],
+    "probe_ranks": [
+      2
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-image-z.fits.fz",
+    "product": "comparison_image",
+    "brickname": "2139p050",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J141538.99+045653.4"
+    ],
+    "probe_ranks": [
+      2
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-image-g.fits.fz",
+    "product": "comparison_image",
+    "brickname": "2205p137",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J144224.71+134122.1"
+    ],
+    "probe_ranks": [
+      11
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-image-r.fits.fz",
+    "product": "comparison_image",
+    "brickname": "2205p137",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J144224.71+134122.1"
+    ],
+    "probe_ranks": [
+      11
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-image-z.fits.fz",
+    "product": "comparison_image",
+    "brickname": "2205p137",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J144224.71+134122.1"
+    ],
+    "probe_ranks": [
+      11
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-image-g.fits.fz",
+    "product": "comparison_image",
+    "brickname": "2417p112",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J160705.33+111201.9"
+    ],
+    "probe_ranks": [
+      7
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-image-r.fits.fz",
+    "product": "comparison_image",
+    "brickname": "2417p112",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J160705.33+111201.9"
+    ],
+    "probe_ranks": [
+      7
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-image-z.fits.fz",
+    "product": "comparison_image",
+    "brickname": "2417p112",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J160705.33+111201.9"
+    ],
+    "probe_ranks": [
+      7
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/002/0024p145/legacysurvey-0024p145-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "0024p145",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J001021.08+142649.1"
+    ],
+    "probe_ranks": [
+      59
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/002/0024p145/legacysurvey-0024p145-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "0024p145",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J001021.08+142649.1"
+    ],
+    "probe_ranks": [
+      59
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/002/0024p145/legacysurvey-0024p145-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "0024p145",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J001021.08+142649.1"
+    ],
+    "probe_ranks": [
+      59
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/002/0027p145/legacysurvey-0027p145-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "0027p145",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J001021.08+142649.1"
+    ],
+    "probe_ranks": [
+      59
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/002/0027p145/legacysurvey-0027p145-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "0027p145",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J001021.08+142649.1"
+    ],
+    "probe_ranks": [
+      59
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/002/0027p145/legacysurvey-0027p145-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "0027p145",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J001021.08+142649.1"
+    ],
+    "probe_ranks": [
+      59
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/004/0046p010/legacysurvey-0046p010-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "0046p010",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J001851.89+005405.9"
+    ],
+    "probe_ranks": [
+      50
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/004/0046p010/legacysurvey-0046p010-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "0046p010",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J001851.89+005405.9"
+    ],
+    "probe_ranks": [
+      50
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/004/0046p010/legacysurvey-0046p010-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "0046p010",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J001851.89+005405.9"
+    ],
+    "probe_ranks": [
+      50
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/007/0073p000/legacysurvey-0073p000-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "0073p000",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J002909.19-000619.3"
+    ],
+    "probe_ranks": [
+      91
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/007/0073p000/legacysurvey-0073p000-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "0073p000",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J002909.19-000619.3"
+    ],
+    "probe_ranks": [
+      91
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/007/0073p000/legacysurvey-0073p000-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "0073p000",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J002909.19-000619.3"
+    ],
+    "probe_ranks": [
+      91
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "0111p012",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J004422.30+011527.7"
+    ],
+    "probe_ranks": [
+      4
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "0111p012",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J004422.30+011527.7"
+    ],
+    "probe_ranks": [
+      4
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/011/0111p012/legacysurvey-0111p012-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "0111p012",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J004422.30+011527.7"
+    ],
+    "probe_ranks": [
+      4
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/012/0128p007/legacysurvey-0128p007-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "0128p007",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J005126.26+003907.1"
+    ],
+    "probe_ranks": [
+      63
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/012/0128p007/legacysurvey-0128p007-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "0128p007",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J005126.26+003907.1"
+    ],
+    "probe_ranks": [
+      63
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/012/0128p007/legacysurvey-0128p007-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "0128p007",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J005126.26+003907.1"
+    ],
+    "probe_ranks": [
+      63
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/013/0136m015/legacysurvey-0136m015-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "0136m015",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J005453.40-013434.9"
+    ],
+    "probe_ranks": [
+      34
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/013/0136m015/legacysurvey-0136m015-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "0136m015",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J005453.40-013434.9"
+    ],
+    "probe_ranks": [
+      34
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/013/0136m015/legacysurvey-0136m015-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "0136m015",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J005453.40-013434.9"
+    ],
+    "probe_ranks": [
+      34
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/014/0141m005/legacysurvey-0141m005-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "0141m005",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J005624.63-003303.1"
+    ],
+    "probe_ranks": [
+      13
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/014/0141m005/legacysurvey-0141m005-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "0141m005",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J005624.63-003303.1"
+    ],
+    "probe_ranks": [
+      13
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/014/0141m005/legacysurvey-0141m005-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "0141m005",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J005624.63-003303.1"
+    ],
+    "probe_ranks": [
+      13
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/017/0179m057/legacysurvey-0179m057-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "0179m057",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J011200.90-054450.0"
+    ],
+    "probe_ranks": [
+      33
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/017/0179m057/legacysurvey-0179m057-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "0179m057",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J011200.90-054450.0"
+    ],
+    "probe_ranks": [
+      33
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/017/0179m057/legacysurvey-0179m057-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "0179m057",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J011200.90-054450.0"
+    ],
+    "probe_ranks": [
+      33
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/018/0186m050/legacysurvey-0186m050-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "0186m050",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J011431.19-045429.0"
+    ],
+    "probe_ranks": [
+      70
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/018/0186m050/legacysurvey-0186m050-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "0186m050",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J011431.19-045429.0"
+    ],
+    "probe_ranks": [
+      70
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/018/0186m050/legacysurvey-0186m050-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "0186m050",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J011431.19-045429.0"
+    ],
+    "probe_ranks": [
+      70
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/019/0198p002/legacysurvey-0198p002-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "0198p002",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J012001.04+001630.3"
+    ],
+    "probe_ranks": [
+      36
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/019/0198p002/legacysurvey-0198p002-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "0198p002",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J012001.04+001630.3"
+    ],
+    "probe_ranks": [
+      36
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/019/0198p002/legacysurvey-0198p002-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "0198p002",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J012001.04+001630.3"
+    ],
+    "probe_ranks": [
+      36
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/020/0201p002/legacysurvey-0201p002-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "0201p002",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J012001.04+001630.3"
+    ],
+    "probe_ranks": [
+      36
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/020/0201p002/legacysurvey-0201p002-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "0201p002",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J012001.04+001630.3"
+    ],
+    "probe_ranks": [
+      36
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/020/0201p002/legacysurvey-0201p002-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "0201p002",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J012001.04+001630.3"
+    ],
+    "probe_ranks": [
+      36
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/021/0213p087/legacysurvey-0213p087-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "0213p087",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J012510.79+083844.9"
+    ],
+    "probe_ranks": [
+      22
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/021/0213p087/legacysurvey-0213p087-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "0213p087",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J012510.79+083844.9"
+    ],
+    "probe_ranks": [
+      22
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/021/0213p087/legacysurvey-0213p087-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "0213p087",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J012510.79+083844.9"
+    ],
+    "probe_ranks": [
+      22
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/021/0218p012/legacysurvey-0218p012-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "0218p012",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J012714.24+011526.5"
+    ],
+    "probe_ranks": [
+      56
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/021/0218p012/legacysurvey-0218p012-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "0218p012",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J012714.24+011526.5"
+    ],
+    "probe_ranks": [
+      56
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/021/0218p012/legacysurvey-0218p012-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "0218p012",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J012714.24+011526.5"
+    ],
+    "probe_ranks": [
+      56
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "0321m002",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J020804.81-002030.7"
+    ],
+    "probe_ranks": [
+      10
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "0321m002",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J020804.81-002030.7"
+    ],
+    "probe_ranks": [
+      10
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/032/0321m002/legacysurvey-0321m002-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "0321m002",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J020804.81-002030.7"
+    ],
+    "probe_ranks": [
+      10
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/117/1179p212/legacysurvey-1179p212-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1179p212",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J075205.01+211720.7"
+    ],
+    "probe_ranks": [
+      78
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/117/1179p212/legacysurvey-1179p212-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1179p212",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J075205.01+211720.7"
+    ],
+    "probe_ranks": [
+      78
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/117/1179p212/legacysurvey-1179p212-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1179p212",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J075205.01+211720.7"
+    ],
+    "probe_ranks": [
+      78
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/118/1184p180/legacysurvey-1184p180-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1184p180",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J075423.96+180733.6"
+    ],
+    "probe_ranks": [
+      26
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/118/1184p180/legacysurvey-1184p180-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1184p180",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J075423.96+180733.6"
+    ],
+    "probe_ranks": [
+      26
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/118/1184p180/legacysurvey-1184p180-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1184p180",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J075423.96+180733.6"
+    ],
+    "probe_ranks": [
+      26
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/118/1186p182/legacysurvey-1186p182-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1186p182",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J075423.96+180733.6"
+    ],
+    "probe_ranks": [
+      26
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/118/1186p182/legacysurvey-1186p182-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1186p182",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J075423.96+180733.6"
+    ],
+    "probe_ranks": [
+      26
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/118/1186p182/legacysurvey-1186p182-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1186p182",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J075423.96+180733.6"
+    ],
+    "probe_ranks": [
+      26
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/118/1187p180/legacysurvey-1187p180-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1187p180",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J075423.96+180733.6"
+    ],
+    "probe_ranks": [
+      26
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/118/1187p180/legacysurvey-1187p180-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1187p180",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J075423.96+180733.6"
+    ],
+    "probe_ranks": [
+      26
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/118/1187p180/legacysurvey-1187p180-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1187p180",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J075423.96+180733.6"
+    ],
+    "probe_ranks": [
+      26
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/123/1237p150/legacysurvey-1237p150-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1237p150",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J081511.23+145444.8"
+    ],
+    "probe_ranks": [
+      69
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/123/1237p150/legacysurvey-1237p150-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1237p150",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J081511.23+145444.8"
+    ],
+    "probe_ranks": [
+      69
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/123/1237p150/legacysurvey-1237p150-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1237p150",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J081511.23+145444.8"
+    ],
+    "probe_ranks": [
+      69
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/124/1243p177/legacysurvey-1243p177-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1243p177",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J081740.83+175122.8"
+    ],
+    "probe_ranks": [
+      93
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/124/1243p177/legacysurvey-1243p177-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1243p177",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J081740.83+175122.8"
+    ],
+    "probe_ranks": [
+      93
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/124/1243p177/legacysurvey-1243p177-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1243p177",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J081740.83+175122.8"
+    ],
+    "probe_ranks": [
+      93
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/134/1346p062/legacysurvey-1346p062-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1346p062",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J085829.80+061916.9"
+    ],
+    "probe_ranks": [
+      80
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/134/1346p062/legacysurvey-1346p062-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1346p062",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J085829.80+061916.9"
+    ],
+    "probe_ranks": [
+      80
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/134/1346p062/legacysurvey-1346p062-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1346p062",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J085829.80+061916.9"
+    ],
+    "probe_ranks": [
+      80
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/138/1385p225/legacysurvey-1385p225-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1385p225",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J091347.76+222330.3"
+    ],
+    "probe_ranks": [
+      84
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/138/1385p225/legacysurvey-1385p225-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1385p225",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J091347.76+222330.3"
+    ],
+    "probe_ranks": [
+      84
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/138/1385p225/legacysurvey-1385p225-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1385p225",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J091347.76+222330.3"
+    ],
+    "probe_ranks": [
+      84
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/139/1399p062/legacysurvey-1399p062-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1399p062",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J091929.57+061256.2"
+    ],
+    "probe_ranks": [
+      48
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/139/1399p062/legacysurvey-1399p062-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1399p062",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J091929.57+061256.2"
+    ],
+    "probe_ranks": [
+      48
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/139/1399p062/legacysurvey-1399p062-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1399p062",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J091929.57+061256.2"
+    ],
+    "probe_ranks": [
+      48
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/142/1429p090/legacysurvey-1429p090-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1429p090",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J093223.98+085917.4"
+    ],
+    "probe_ranks": [
+      44
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/142/1429p090/legacysurvey-1429p090-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1429p090",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J093223.98+085917.4"
+    ],
+    "probe_ranks": [
+      44
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/142/1429p090/legacysurvey-1429p090-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1429p090",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J093223.98+085917.4"
+    ],
+    "probe_ranks": [
+      44
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/143/1432p090/legacysurvey-1432p090-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1432p090",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J093223.98+085917.4"
+    ],
+    "probe_ranks": [
+      44
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/143/1432p090/legacysurvey-1432p090-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1432p090",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J093223.98+085917.4"
+    ],
+    "probe_ranks": [
+      44
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/143/1432p090/legacysurvey-1432p090-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1432p090",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J093223.98+085917.4"
+    ],
+    "probe_ranks": [
+      44
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/145/1450p040/legacysurvey-1450p040-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1450p040",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J094043.19+035735.0"
+    ],
+    "probe_ranks": [
+      54
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/145/1450p040/legacysurvey-1450p040-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1450p040",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J094043.19+035735.0"
+    ],
+    "probe_ranks": [
+      54
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/145/1450p040/legacysurvey-1450p040-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1450p040",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J094043.19+035735.0"
+    ],
+    "probe_ranks": [
+      54
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/145/1452p052/legacysurvey-1452p052-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1452p052",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J094053.99+051000.0"
+    ],
+    "probe_ranks": [
+      68
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/145/1452p052/legacysurvey-1452p052-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1452p052",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J094053.99+051000.0"
+    ],
+    "probe_ranks": [
+      68
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/145/1452p052/legacysurvey-1452p052-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1452p052",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J094053.99+051000.0"
+    ],
+    "probe_ranks": [
+      68
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/146/1468m005/legacysurvey-1468m005-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1468m005",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J094727.43-002750.6"
+    ],
+    "probe_ranks": [
+      25
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/146/1468m005/legacysurvey-1468m005-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1468m005",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J094727.43-002750.6"
+    ],
+    "probe_ranks": [
+      25
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/146/1468m005/legacysurvey-1468m005-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1468m005",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J094727.43-002750.6"
+    ],
+    "probe_ranks": [
+      25
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/147/1474p267/legacysurvey-1474p267-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1474p267",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J095007.95+264125.7"
+    ],
+    "probe_ranks": [
+      71
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/147/1474p267/legacysurvey-1474p267-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1474p267",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J095007.95+264125.7"
+    ],
+    "probe_ranks": [
+      71
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/147/1474p267/legacysurvey-1474p267-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1474p267",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J095007.95+264125.7"
+    ],
+    "probe_ranks": [
+      71
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/150/1503m027/legacysurvey-1503m027-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1503m027",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J100125.60-025005.0"
+    ],
+    "probe_ranks": [
+      32
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/150/1503m027/legacysurvey-1503m027-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1503m027",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J100125.60-025005.0"
+    ],
+    "probe_ranks": [
+      32
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/150/1503m027/legacysurvey-1503m027-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1503m027",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J100125.60-025005.0"
+    ],
+    "probe_ranks": [
+      32
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/152/1521m007/legacysurvey-1521m007-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1521m007",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J100844.53-004631.6"
+    ],
+    "probe_ranks": [
+      66
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/152/1521m007/legacysurvey-1521m007-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1521m007",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J100844.53-004631.6"
+    ],
+    "probe_ranks": [
+      66
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/152/1521m007/legacysurvey-1521m007-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1521m007",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J100844.53-004631.6"
+    ],
+    "probe_ranks": [
+      66
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/152/1522p095/legacysurvey-1522p095-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1522p095",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J100918.94+093323.1"
+    ],
+    "probe_ranks": [
+      67
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/152/1522p095/legacysurvey-1522p095-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1522p095",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J100918.94+093323.1"
+    ],
+    "probe_ranks": [
+      67
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/152/1522p095/legacysurvey-1522p095-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1522p095",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J100918.94+093323.1"
+    ],
+    "probe_ranks": [
+      67
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/155/1552p067/legacysurvey-1552p067-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1552p067",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J102032.36+065218.3"
+    ],
+    "probe_ranks": [
+      19
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/155/1552p067/legacysurvey-1552p067-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1552p067",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J102032.36+065218.3"
+    ],
+    "probe_ranks": [
+      19
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/155/1552p067/legacysurvey-1552p067-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1552p067",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J102032.36+065218.3"
+    ],
+    "probe_ranks": [
+      19
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/155/1552p070/legacysurvey-1552p070-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1552p070",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J102032.36+065218.3"
+    ],
+    "probe_ranks": [
+      19
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/155/1552p070/legacysurvey-1552p070-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1552p070",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J102032.36+065218.3"
+    ],
+    "probe_ranks": [
+      19
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/155/1552p070/legacysurvey-1552p070-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1552p070",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J102032.36+065218.3"
+    ],
+    "probe_ranks": [
+      19
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/156/1560m032/legacysurvey-1560m032-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1560m032",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J102450.29-032106.9"
+    ],
+    "probe_ranks": [
+      21
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/156/1560m032/legacysurvey-1560m032-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1560m032",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J102450.29-032106.9"
+    ],
+    "probe_ranks": [
+      21
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/156/1560m032/legacysurvey-1560m032-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1560m032",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J102450.29-032106.9"
+    ],
+    "probe_ranks": [
+      21
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/156/1561p165/legacysurvey-1561p165-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1561p165",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J102441.12+163215.4"
+    ],
+    "probe_ranks": [
+      64
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/156/1561p165/legacysurvey-1561p165-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1561p165",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J102441.12+163215.4"
+    ],
+    "probe_ranks": [
+      64
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/156/1561p165/legacysurvey-1561p165-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1561p165",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J102441.12+163215.4"
+    ],
+    "probe_ranks": [
+      64
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/156/1563m032/legacysurvey-1563m032-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1563m032",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J102450.29-032106.9"
+    ],
+    "probe_ranks": [
+      21
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/156/1563m032/legacysurvey-1563m032-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1563m032",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J102450.29-032106.9"
+    ],
+    "probe_ranks": [
+      21
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/156/1563m032/legacysurvey-1563m032-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1563m032",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J102450.29-032106.9"
+    ],
+    "probe_ranks": [
+      21
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/157/1570p037/legacysurvey-1570p037-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1570p037",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J102822.84+034552.3"
+    ],
+    "probe_ranks": [
+      23
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/157/1570p037/legacysurvey-1570p037-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1570p037",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J102822.84+034552.3"
+    ],
+    "probe_ranks": [
+      23
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/157/1570p037/legacysurvey-1570p037-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1570p037",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J102822.84+034552.3"
+    ],
+    "probe_ranks": [
+      23
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/162/1627p322/legacysurvey-1627p322-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1627p322",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J105040.12+322155.8"
+    ],
+    "probe_ranks": [
+      73
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/162/1627p322/legacysurvey-1627p322-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1627p322",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J105040.12+322155.8"
+    ],
+    "probe_ranks": [
+      73
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/162/1627p322/legacysurvey-1627p322-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1627p322",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J105040.12+322155.8"
+    ],
+    "probe_ranks": [
+      73
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/162/1627p325/legacysurvey-1627p325-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1627p325",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J105040.12+322155.8"
+    ],
+    "probe_ranks": [
+      73
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/162/1627p325/legacysurvey-1627p325-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1627p325",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J105040.12+322155.8"
+    ],
+    "probe_ranks": [
+      73
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/162/1627p325/legacysurvey-1627p325-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1627p325",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J105040.12+322155.8"
+    ],
+    "probe_ranks": [
+      73
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/163/1635p122/legacysurvey-1635p122-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1635p122",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J105432.52+121013.5"
+    ],
+    "probe_ranks": [
+      55
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/163/1635p122/legacysurvey-1635p122-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1635p122",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J105432.52+121013.5"
+    ],
+    "probe_ranks": [
+      55
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/163/1635p122/legacysurvey-1635p122-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1635p122",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J105432.52+121013.5"
+    ],
+    "probe_ranks": [
+      55
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/163/1637p122/legacysurvey-1637p122-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1637p122",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J105432.52+121013.5"
+    ],
+    "probe_ranks": [
+      55
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/163/1637p122/legacysurvey-1637p122-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1637p122",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J105432.52+121013.5"
+    ],
+    "probe_ranks": [
+      55
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/163/1637p122/legacysurvey-1637p122-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1637p122",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J105432.52+121013.5"
+    ],
+    "probe_ranks": [
+      55
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/165/1656p092/legacysurvey-1656p092-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1656p092",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J110314.27+091629.5"
+    ],
+    "probe_ranks": [
+      65
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/165/1656p092/legacysurvey-1656p092-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1656p092",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J110314.27+091629.5"
+    ],
+    "probe_ranks": [
+      65
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/165/1656p092/legacysurvey-1656p092-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1656p092",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J110314.27+091629.5"
+    ],
+    "probe_ranks": [
+      65
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/165/1659p092/legacysurvey-1659p092-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1659p092",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J110314.27+091629.5"
+    ],
+    "probe_ranks": [
+      65
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/165/1659p092/legacysurvey-1659p092-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1659p092",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J110314.27+091629.5"
+    ],
+    "probe_ranks": [
+      65
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/165/1659p092/legacysurvey-1659p092-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1659p092",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J110314.27+091629.5"
+    ],
+    "probe_ranks": [
+      65
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/166/1662p137/legacysurvey-1662p137-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1662p137",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J110435.16+134300.4"
+    ],
+    "probe_ranks": [
+      95
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/166/1662p137/legacysurvey-1662p137-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1662p137",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J110435.16+134300.4"
+    ],
+    "probe_ranks": [
+      95
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/166/1662p137/legacysurvey-1662p137-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1662p137",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J110435.16+134300.4"
+    ],
+    "probe_ranks": [
+      95
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/167/1671p000/legacysurvey-1671p000-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1671p000",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J110807.46-000027.0"
+    ],
+    "probe_ranks": [
+      30
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/167/1671p000/legacysurvey-1671p000-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1671p000",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J110807.46-000027.0"
+    ],
+    "probe_ranks": [
+      30
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/167/1671p000/legacysurvey-1671p000-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1671p000",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J110807.46-000027.0"
+    ],
+    "probe_ranks": [
+      30
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/167/1679p307/legacysurvey-1679p307-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1679p307",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J111138.35+304813.1"
+    ],
+    "probe_ranks": [
+      74
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/167/1679p307/legacysurvey-1679p307-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1679p307",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J111138.35+304813.1"
+    ],
+    "probe_ranks": [
+      74
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/167/1679p307/legacysurvey-1679p307-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1679p307",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J111138.35+304813.1"
+    ],
+    "probe_ranks": [
+      74
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1710p257",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J112354.17+254758.8"
+    ],
+    "probe_ranks": [
+      8
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1710p257",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J112354.17+254758.8"
+    ],
+    "probe_ranks": [
+      8
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/171/1710p257/legacysurvey-1710p257-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1710p257",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J112354.17+254758.8"
+    ],
+    "probe_ranks": [
+      8
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/172/1720m057/legacysurvey-1720m057-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1720m057",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J112828.00-054317.9"
+    ],
+    "probe_ranks": [
+      27
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/172/1720m057/legacysurvey-1720m057-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1720m057",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J112828.00-054317.9"
+    ],
+    "probe_ranks": [
+      27
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/172/1720m057/legacysurvey-1720m057-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1720m057",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J112828.00-054317.9"
+    ],
+    "probe_ranks": [
+      27
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/172/1721p197/legacysurvey-1721p197-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1721p197",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J112842.51+195313.2"
+    ],
+    "probe_ranks": [
+      89
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/172/1721p197/legacysurvey-1721p197-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1721p197",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J112842.51+195313.2"
+    ],
+    "probe_ranks": [
+      89
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/172/1721p197/legacysurvey-1721p197-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1721p197",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J112842.51+195313.2"
+    ],
+    "probe_ranks": [
+      89
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/172/1721p200/legacysurvey-1721p200-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1721p200",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J112842.51+195313.2"
+    ],
+    "probe_ranks": [
+      89
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/172/1721p200/legacysurvey-1721p200-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1721p200",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J112842.51+195313.2"
+    ],
+    "probe_ranks": [
+      89
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/172/1721p200/legacysurvey-1721p200-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1721p200",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J112842.51+195313.2"
+    ],
+    "probe_ranks": [
+      89
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/174/1742p117/legacysurvey-1742p117-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1742p117",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J113655.36+115054.0"
+    ],
+    "probe_ranks": [
+      35
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/174/1742p117/legacysurvey-1742p117-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1742p117",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J113655.36+115054.0"
+    ],
+    "probe_ranks": [
+      35
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/174/1742p117/legacysurvey-1742p117-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1742p117",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J113655.36+115054.0"
+    ],
+    "probe_ranks": [
+      35
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/175/1753p210/legacysurvey-1753p210-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1753p210",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J114151.20+205735.8"
+    ],
+    "probe_ranks": [
+      92
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/175/1753p210/legacysurvey-1753p210-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1753p210",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J114151.20+205735.8"
+    ],
+    "probe_ranks": [
+      92
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/175/1753p210/legacysurvey-1753p210-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1753p210",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J114151.20+205735.8"
+    ],
+    "probe_ranks": [
+      92
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/175/1755p210/legacysurvey-1755p210-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1755p210",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J114151.20+205735.8"
+    ],
+    "probe_ranks": [
+      92
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/175/1755p210/legacysurvey-1755p210-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1755p210",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J114151.20+205735.8"
+    ],
+    "probe_ranks": [
+      92
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/175/1755p210/legacysurvey-1755p210-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1755p210",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J114151.20+205735.8"
+    ],
+    "probe_ranks": [
+      92
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1761m032/legacysurvey-1761m032-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1761m032",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J114454.99-031124.4"
+    ],
+    "probe_ranks": [
+      17
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1761m032/legacysurvey-1761m032-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1761m032",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J114454.99-031124.4"
+    ],
+    "probe_ranks": [
+      17
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1761m032/legacysurvey-1761m032-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1761m032",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J114454.99-031124.4"
+    ],
+    "probe_ranks": [
+      17
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1761p037/legacysurvey-1761p037-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1761p037",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J114414.61+034319.3"
+    ],
+    "probe_ranks": [
+      58
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1761p037/legacysurvey-1761p037-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1761p037",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J114414.61+034319.3"
+    ],
+    "probe_ranks": [
+      58
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1761p037/legacysurvey-1761p037-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1761p037",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J114414.61+034319.3"
+    ],
+    "probe_ranks": [
+      58
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1765p090/legacysurvey-1765p090-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1765p090",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J114644.98+085605.4"
+    ],
+    "probe_ranks": [
+      15
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1765p090/legacysurvey-1765p090-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1765p090",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J114644.98+085605.4"
+    ],
+    "probe_ranks": [
+      15
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1765p090/legacysurvey-1765p090-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1765p090",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J114644.98+085605.4"
+    ],
+    "probe_ranks": [
+      15
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1766m027",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J114635.90-024152.0"
+    ],
+    "probe_ranks": [
+      9
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1766m027",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J114635.90-024152.0"
+    ],
+    "probe_ranks": [
+      9
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/176/1766m027/legacysurvey-1766m027-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1766m027",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J114635.90-024152.0"
+    ],
+    "probe_ranks": [
+      9
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/179/1793p027/legacysurvey-1793p027-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1793p027",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J115740.41+024154.6"
+    ],
+    "probe_ranks": [
+      76
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/179/1793p027/legacysurvey-1793p027-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1793p027",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J115740.41+024154.6"
+    ],
+    "probe_ranks": [
+      76
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/179/1793p027/legacysurvey-1793p027-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1793p027",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J115740.41+024154.6"
+    ],
+    "probe_ranks": [
+      76
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1831p085",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J121217.88+083054.4"
+    ],
+    "probe_ranks": [
+      6
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1831p085",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J121217.88+083054.4"
+    ],
+    "probe_ranks": [
+      6
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/183/1831p085/legacysurvey-1831p085-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1831p085",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J121217.88+083054.4"
+    ],
+    "probe_ranks": [
+      6
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1850p132",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J122031.42+130835.5"
+    ],
+    "probe_ranks": [
+      3
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1850p132",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J122031.42+130835.5"
+    ],
+    "probe_ranks": [
+      3
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1850p132/legacysurvey-1850p132-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1850p132",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J122031.42+130835.5"
+    ],
+    "probe_ranks": [
+      3
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1852p132",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J122031.42+130835.5"
+    ],
+    "probe_ranks": [
+      3
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1852p132",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J122031.42+130835.5"
+    ],
+    "probe_ranks": [
+      3
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1852p132/legacysurvey-1852p132-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1852p132",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J122031.42+130835.5"
+    ],
+    "probe_ranks": [
+      3
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1853p160",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J122116.26+160544.1"
+    ],
+    "probe_ranks": [
+      1
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1853p160",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J122116.26+160544.1"
+    ],
+    "probe_ranks": [
+      1
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1853p160",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J122116.26+160544.1"
+    ],
+    "probe_ranks": [
+      1
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/188/1888p042/legacysurvey-1888p042-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1888p042",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J123538.72+041244.8"
+    ],
+    "probe_ranks": [
+      52
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/188/1888p042/legacysurvey-1888p042-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1888p042",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J123538.72+041244.8"
+    ],
+    "probe_ranks": [
+      52
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/188/1888p042/legacysurvey-1888p042-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1888p042",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J123538.72+041244.8"
+    ],
+    "probe_ranks": [
+      52
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/192/1923p167/legacysurvey-1923p167-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1923p167",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J124917.50+163923.3"
+    ],
+    "probe_ranks": [
+      57
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/192/1923p167/legacysurvey-1923p167-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1923p167",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J124917.50+163923.3"
+    ],
+    "probe_ranks": [
+      57
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/192/1923p167/legacysurvey-1923p167-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1923p167",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J124917.50+163923.3"
+    ],
+    "probe_ranks": [
+      57
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/192/1924m047/legacysurvey-1924m047-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1924m047",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J124956.45-044439.6"
+    ],
+    "probe_ranks": [
+      46
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/192/1924m047/legacysurvey-1924m047-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1924m047",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J124956.45-044439.6"
+    ],
+    "probe_ranks": [
+      46
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/192/1924m047/legacysurvey-1924m047-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1924m047",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J124956.45-044439.6"
+    ],
+    "probe_ranks": [
+      46
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/193/1932p080/legacysurvey-1932p080-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1932p080",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J125236.26+080159.3"
+    ],
+    "probe_ranks": [
+      51
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/193/1932p080/legacysurvey-1932p080-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1932p080",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J125236.26+080159.3"
+    ],
+    "probe_ranks": [
+      51
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/193/1932p080/legacysurvey-1932p080-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1932p080",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J125236.26+080159.3"
+    ],
+    "probe_ranks": [
+      51
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1949p190",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J130013.05+190137.2"
+    ],
+    "probe_ranks": [
+      5
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1949p190",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J130013.05+190137.2"
+    ],
+    "probe_ranks": [
+      5
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1949p190",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J130013.05+190137.2"
+    ],
+    "probe_ranks": [
+      5
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1951p190",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J130013.05+190137.2"
+    ],
+    "probe_ranks": [
+      5
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1951p190",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J130013.05+190137.2"
+    ],
+    "probe_ranks": [
+      5
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1951p190",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J130013.05+190137.2"
+    ],
+    "probe_ranks": [
+      5
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/196/1961p055/legacysurvey-1961p055-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1961p055",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J130420.63+052710.4"
+    ],
+    "probe_ranks": [
+      77
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/196/1961p055/legacysurvey-1961p055-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1961p055",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J130420.63+052710.4"
+    ],
+    "probe_ranks": [
+      77
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/196/1961p055/legacysurvey-1961p055-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1961p055",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J130420.63+052710.4"
+    ],
+    "probe_ranks": [
+      77
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/196/1963p100/legacysurvey-1963p100-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1963p100",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J130527.05+100147.6"
+    ],
+    "probe_ranks": [
+      43
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/196/1963p100/legacysurvey-1963p100-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1963p100",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J130527.05+100147.6"
+    ],
+    "probe_ranks": [
+      43
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/196/1963p100/legacysurvey-1963p100-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1963p100",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J130527.05+100147.6"
+    ],
+    "probe_ranks": [
+      43
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/197/1976p137/legacysurvey-1976p137-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1976p137",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J131040.89+134128.5"
+    ],
+    "probe_ranks": [
+      29
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/197/1976p137/legacysurvey-1976p137-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1976p137",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J131040.89+134128.5"
+    ],
+    "probe_ranks": [
+      29
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/197/1976p137/legacysurvey-1976p137-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1976p137",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J131040.89+134128.5"
+    ],
+    "probe_ranks": [
+      29
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/198/1984p060/legacysurvey-1984p060-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1984p060",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J131331.24+055455.8"
+    ],
+    "probe_ranks": [
+      61
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/198/1984p060/legacysurvey-1984p060-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1984p060",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J131331.24+055455.8"
+    ],
+    "probe_ranks": [
+      61
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/198/1984p060/legacysurvey-1984p060-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1984p060",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J131331.24+055455.8"
+    ],
+    "probe_ranks": [
+      61
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "1998m022",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J131909.90-022034.9"
+    ],
+    "probe_ranks": [
+      12
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "1998m022",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J131909.90-022034.9"
+    ],
+    "probe_ranks": [
+      12
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/199/1998m022/legacysurvey-1998m022-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "1998m022",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J131909.90-022034.9"
+    ],
+    "probe_ranks": [
+      12
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/200/2000p072/legacysurvey-2000p072-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2000p072",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J131952.56+071203.8"
+    ],
+    "probe_ranks": [
+      88
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/200/2000p072/legacysurvey-2000p072-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2000p072",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J131952.56+071203.8"
+    ],
+    "probe_ranks": [
+      88
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/200/2000p072/legacysurvey-2000p072-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2000p072",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J131952.56+071203.8"
+    ],
+    "probe_ranks": [
+      88
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/200/2003p152/legacysurvey-2003p152-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2003p152",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J132045.57+151532.7"
+    ],
+    "probe_ranks": [
+      75
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/200/2003p152/legacysurvey-2003p152-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2003p152",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J132045.57+151532.7"
+    ],
+    "probe_ranks": [
+      75
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/200/2003p152/legacysurvey-2003p152-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2003p152",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J132045.57+151532.7"
+    ],
+    "probe_ranks": [
+      75
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/202/2021m035/legacysurvey-2021m035-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2021m035",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J132837.39-033356.0"
+    ],
+    "probe_ranks": [
+      60
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/202/2021m035/legacysurvey-2021m035-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2021m035",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J132837.39-033356.0"
+    ],
+    "probe_ranks": [
+      60
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/202/2021m035/legacysurvey-2021m035-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2021m035",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J132837.39-033356.0"
+    ],
+    "probe_ranks": [
+      60
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/203/2031p047/legacysurvey-2031p047-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2031p047",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J133226.11+044435.3"
+    ],
+    "probe_ranks": [
+      28
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/203/2031p047/legacysurvey-2031p047-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2031p047",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J133226.11+044435.3"
+    ],
+    "probe_ranks": [
+      28
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/203/2031p047/legacysurvey-2031p047-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2031p047",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J133226.11+044435.3"
+    ],
+    "probe_ranks": [
+      28
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/203/2031p100/legacysurvey-2031p100-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2031p100",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J133252.04+095921.7"
+    ],
+    "probe_ranks": [
+      85
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/203/2031p100/legacysurvey-2031p100-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2031p100",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J133252.04+095921.7"
+    ],
+    "probe_ranks": [
+      85
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/203/2031p100/legacysurvey-2031p100-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2031p100",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J133252.04+095921.7"
+    ],
+    "probe_ranks": [
+      85
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/206/2068p080/legacysurvey-2068p080-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2068p080",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J134748.49+075830.6"
+    ],
+    "probe_ranks": [
+      16
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/206/2068p080/legacysurvey-2068p080-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2068p080",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J134748.49+075830.6"
+    ],
+    "probe_ranks": [
+      16
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/206/2068p080/legacysurvey-2068p080-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2068p080",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J134748.49+075830.6"
+    ],
+    "probe_ranks": [
+      16
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/207/2072p187/legacysurvey-2072p187-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2072p187",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J134927.86+184108.3"
+    ],
+    "probe_ranks": [
+      94
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/207/2072p187/legacysurvey-2072p187-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2072p187",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J134927.86+184108.3"
+    ],
+    "probe_ranks": [
+      94
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/207/2072p187/legacysurvey-2072p187-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2072p187",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J134927.86+184108.3"
+    ],
+    "probe_ranks": [
+      94
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/209/2097m067/legacysurvey-2097m067-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2097m067",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J135908.69-064448.0"
+    ],
+    "probe_ranks": [
+      40
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/209/2097m067/legacysurvey-2097m067-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2097m067",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J135908.69-064448.0"
+    ],
+    "probe_ranks": [
+      40
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/209/2097m067/legacysurvey-2097m067-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2097m067",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J135908.69-064448.0"
+    ],
+    "probe_ranks": [
+      40
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/210/2108p162/legacysurvey-2108p162-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2108p162",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J140335.96+161645.2"
+    ],
+    "probe_ranks": [
+      96
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/210/2108p162/legacysurvey-2108p162-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2108p162",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J140335.96+161645.2"
+    ],
+    "probe_ranks": [
+      96
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/210/2108p162/legacysurvey-2108p162-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2108p162",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J140335.96+161645.2"
+    ],
+    "probe_ranks": [
+      96
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/212/2126p250/legacysurvey-2126p250-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2126p250",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J141058.12+250554.6"
+    ],
+    "probe_ranks": [
+      38
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/212/2126p250/legacysurvey-2126p250-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2126p250",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J141058.12+250554.6"
+    ],
+    "probe_ranks": [
+      38
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/212/2126p250/legacysurvey-2126p250-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2126p250",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J141058.12+250554.6"
+    ],
+    "probe_ranks": [
+      38
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/212/2128p250/legacysurvey-2128p250-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2128p250",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J141058.12+250554.6"
+    ],
+    "probe_ranks": [
+      38
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/212/2128p250/legacysurvey-2128p250-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2128p250",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J141058.12+250554.6"
+    ],
+    "probe_ranks": [
+      38
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/212/2128p250/legacysurvey-2128p250-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2128p250",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J141058.12+250554.6"
+    ],
+    "probe_ranks": [
+      38
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2139p050",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J141538.99+045653.4"
+    ],
+    "probe_ranks": [
+      2
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2139p050",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J141538.99+045653.4"
+    ],
+    "probe_ranks": [
+      2
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/213/2139p050/legacysurvey-2139p050-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2139p050",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J141538.99+045653.4"
+    ],
+    "probe_ranks": [
+      2
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/217/2171p017/legacysurvey-2171p017-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2171p017",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J142818.61+014806.5"
+    ],
+    "probe_ranks": [
+      18
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/217/2171p017/legacysurvey-2171p017-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2171p017",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J142818.61+014806.5"
+    ],
+    "probe_ranks": [
+      18
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/217/2171p017/legacysurvey-2171p017-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2171p017",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J142818.61+014806.5"
+    ],
+    "probe_ranks": [
+      18
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/218/2187p195/legacysurvey-2187p195-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2187p195",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J143539.23+193058.9"
+    ],
+    "probe_ranks": [
+      83
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/218/2187p195/legacysurvey-2187p195-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2187p195",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J143539.23+193058.9"
+    ],
+    "probe_ranks": [
+      83
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/218/2187p195/legacysurvey-2187p195-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2187p195",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J143539.23+193058.9"
+    ],
+    "probe_ranks": [
+      83
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/219/2190p195/legacysurvey-2190p195-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2190p195",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J143539.23+193058.9"
+    ],
+    "probe_ranks": [
+      83
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/219/2190p195/legacysurvey-2190p195-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2190p195",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J143539.23+193058.9"
+    ],
+    "probe_ranks": [
+      83
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/219/2190p195/legacysurvey-2190p195-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2190p195",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J143539.23+193058.9"
+    ],
+    "probe_ranks": [
+      83
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/219/2193p270/legacysurvey-2193p270-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2193p270",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J143751.45+270600.6"
+    ],
+    "probe_ranks": [
+      41
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/219/2193p270/legacysurvey-2193p270-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2193p270",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J143751.45+270600.6"
+    ],
+    "probe_ranks": [
+      41
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/219/2193p270/legacysurvey-2193p270-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2193p270",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J143751.45+270600.6"
+    ],
+    "probe_ranks": [
+      41
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/219/2196p270/legacysurvey-2196p270-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2196p270",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J143751.45+270600.6"
+    ],
+    "probe_ranks": [
+      41
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/219/2196p270/legacysurvey-2196p270-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2196p270",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J143751.45+270600.6"
+    ],
+    "probe_ranks": [
+      41
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/219/2196p270/legacysurvey-2196p270-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2196p270",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J143751.45+270600.6"
+    ],
+    "probe_ranks": [
+      41
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/219/2197p190/legacysurvey-2197p190-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2197p190",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J143837.76+185344.6"
+    ],
+    "probe_ranks": [
+      39
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/219/2197p190/legacysurvey-2197p190-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2197p190",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J143837.76+185344.6"
+    ],
+    "probe_ranks": [
+      39
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/219/2197p190/legacysurvey-2197p190-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2197p190",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J143837.76+185344.6"
+    ],
+    "probe_ranks": [
+      39
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2205p137",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J144224.71+134122.1"
+    ],
+    "probe_ranks": [
+      11
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2205p137",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J144224.71+134122.1"
+    ],
+    "probe_ranks": [
+      11
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/220/2205p137/legacysurvey-2205p137-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2205p137",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J144224.71+134122.1"
+    ],
+    "probe_ranks": [
+      11
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/222/2226p037/legacysurvey-2226p037-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2226p037",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J145106.77+034028.8"
+    ],
+    "probe_ranks": [
+      62
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/222/2226p037/legacysurvey-2226p037-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2226p037",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J145106.77+034028.8"
+    ],
+    "probe_ranks": [
+      62
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/222/2226p037/legacysurvey-2226p037-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2226p037",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J145106.77+034028.8"
+    ],
+    "probe_ranks": [
+      62
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/226/2266p072/legacysurvey-2266p072-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2266p072",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J150717.18+071105.3"
+    ],
+    "probe_ranks": [
+      90
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/226/2266p072/legacysurvey-2266p072-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2266p072",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J150717.18+071105.3"
+    ],
+    "probe_ranks": [
+      90
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/226/2266p072/legacysurvey-2266p072-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2266p072",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J150717.18+071105.3"
+    ],
+    "probe_ranks": [
+      90
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/226/2269p072/legacysurvey-2269p072-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2269p072",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J150717.18+071105.3"
+    ],
+    "probe_ranks": [
+      90
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/226/2269p072/legacysurvey-2269p072-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2269p072",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J150717.18+071105.3"
+    ],
+    "probe_ranks": [
+      90
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/226/2269p072/legacysurvey-2269p072-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2269p072",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J150717.18+071105.3"
+    ],
+    "probe_ranks": [
+      90
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/227/2273p057/legacysurvey-2273p057-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2273p057",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J150905.28+054403.2"
+    ],
+    "probe_ranks": [
+      20
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/227/2273p057/legacysurvey-2273p057-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2273p057",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J150905.28+054403.2"
+    ],
+    "probe_ranks": [
+      20
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/227/2273p057/legacysurvey-2273p057-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2273p057",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J150905.28+054403.2"
+    ],
+    "probe_ranks": [
+      20
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/227/2275p060/legacysurvey-2275p060-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2275p060",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J151040.40+055721.7"
+    ],
+    "probe_ranks": [
+      82
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/227/2275p060/legacysurvey-2275p060-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2275p060",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J151040.40+055721.7"
+    ],
+    "probe_ranks": [
+      82
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/227/2275p060/legacysurvey-2275p060-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2275p060",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J151040.40+055721.7"
+    ],
+    "probe_ranks": [
+      82
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/228/2280p235/legacysurvey-2280p235-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2280p235",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J151227.91+232254.9"
+    ],
+    "probe_ranks": [
+      47
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/228/2280p235/legacysurvey-2280p235-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2280p235",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J151227.91+232254.9"
+    ],
+    "probe_ranks": [
+      47
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/228/2280p235/legacysurvey-2280p235-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2280p235",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J151227.91+232254.9"
+    ],
+    "probe_ranks": [
+      47
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/228/2281p232/legacysurvey-2281p232-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2281p232",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J151227.91+232254.9"
+    ],
+    "probe_ranks": [
+      47
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/228/2281p232/legacysurvey-2281p232-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2281p232",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J151227.91+232254.9"
+    ],
+    "probe_ranks": [
+      47
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/228/2281p232/legacysurvey-2281p232-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2281p232",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J151227.91+232254.9"
+    ],
+    "probe_ranks": [
+      47
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/230/2306p277/legacysurvey-2306p277-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2306p277",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J152218.70+274207.9"
+    ],
+    "probe_ranks": [
+      14
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/230/2306p277/legacysurvey-2306p277-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2306p277",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J152218.70+274207.9"
+    ],
+    "probe_ranks": [
+      14
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/230/2306p277/legacysurvey-2306p277-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2306p277",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J152218.70+274207.9"
+    ],
+    "probe_ranks": [
+      14
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/234/2346p167/legacysurvey-2346p167-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2346p167",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J153900.30+164633.1"
+    ],
+    "probe_ranks": [
+      24
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/234/2346p167/legacysurvey-2346p167-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2346p167",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J153900.30+164633.1"
+    ],
+    "probe_ranks": [
+      24
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/234/2346p167/legacysurvey-2346p167-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2346p167",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J153900.30+164633.1"
+    ],
+    "probe_ranks": [
+      24
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/237/2372p037/legacysurvey-2372p037-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2372p037",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J154916.22+034832.5"
+    ],
+    "probe_ranks": [
+      81
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/237/2372p037/legacysurvey-2372p037-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2372p037",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J154916.22+034832.5"
+    ],
+    "probe_ranks": [
+      81
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/237/2372p037/legacysurvey-2372p037-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2372p037",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J154916.22+034832.5"
+    ],
+    "probe_ranks": [
+      81
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/237/2374p037/legacysurvey-2374p037-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2374p037",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J154916.22+034832.5"
+    ],
+    "probe_ranks": [
+      81
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/237/2374p037/legacysurvey-2374p037-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2374p037",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J154916.22+034832.5"
+    ],
+    "probe_ranks": [
+      81
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/237/2374p037/legacysurvey-2374p037-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2374p037",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J154916.22+034832.5"
+    ],
+    "probe_ranks": [
+      81
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/240/2407p187/legacysurvey-2407p187-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2407p187",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J160310.40+184125.2"
+    ],
+    "probe_ranks": [
+      79
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/240/2407p187/legacysurvey-2407p187-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2407p187",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J160310.40+184125.2"
+    ],
+    "probe_ranks": [
+      79
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/240/2407p187/legacysurvey-2407p187-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2407p187",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J160310.40+184125.2"
+    ],
+    "probe_ranks": [
+      79
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/240/2408p280/legacysurvey-2408p280-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2408p280",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J160332.67+275552.3"
+    ],
+    "probe_ranks": [
+      45
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/240/2408p280/legacysurvey-2408p280-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2408p280",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J160332.67+275552.3"
+    ],
+    "probe_ranks": [
+      45
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/240/2408p280/legacysurvey-2408p280-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2408p280",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J160332.67+275552.3"
+    ],
+    "probe_ranks": [
+      45
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2417p112",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J160705.33+111201.9"
+    ],
+    "probe_ranks": [
+      7
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2417p112",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J160705.33+111201.9"
+    ],
+    "probe_ranks": [
+      7
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/241/2417p112/legacysurvey-2417p112-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2417p112",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J160705.33+111201.9"
+    ],
+    "probe_ranks": [
+      7
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/246/2460p212/legacysurvey-2460p212-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2460p212",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J162350.23+210838.5"
+    ],
+    "probe_ranks": [
+      42
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/246/2460p212/legacysurvey-2460p212-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2460p212",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J162350.23+210838.5"
+    ],
+    "probe_ranks": [
+      42
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/246/2460p212/legacysurvey-2460p212-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2460p212",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J162350.23+210838.5"
+    ],
+    "probe_ranks": [
+      42
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/246/2463p112/legacysurvey-2463p112-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2463p112",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J162524.22+111856.3"
+    ],
+    "probe_ranks": [
+      86
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/246/2463p112/legacysurvey-2463p112-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2463p112",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J162524.22+111856.3"
+    ],
+    "probe_ranks": [
+      86
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/246/2463p112/legacysurvey-2463p112-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2463p112",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J162524.22+111856.3"
+    ],
+    "probe_ranks": [
+      86
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/251/2512p277/legacysurvey-2512p277-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2512p277",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J164432.46+274702.1"
+    ],
+    "probe_ranks": [
+      72
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/251/2512p277/legacysurvey-2512p277-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2512p277",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J164432.46+274702.1"
+    ],
+    "probe_ranks": [
+      72
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/251/2512p277/legacysurvey-2512p277-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2512p277",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J164432.46+274702.1"
+    ],
+    "probe_ranks": [
+      72
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/253/2534p260/legacysurvey-2534p260-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2534p260",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J165404.43+255310.2"
+    ],
+    "probe_ranks": [
+      37
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/253/2534p260/legacysurvey-2534p260-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2534p260",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J165404.43+255310.2"
+    ],
+    "probe_ranks": [
+      37
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/253/2534p260/legacysurvey-2534p260-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2534p260",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J165404.43+255310.2"
+    ],
+    "probe_ranks": [
+      37
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/253/2535p257/legacysurvey-2535p257-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2535p257",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J165404.43+255310.2"
+    ],
+    "probe_ranks": [
+      37
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/253/2535p257/legacysurvey-2535p257-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2535p257",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J165404.43+255310.2"
+    ],
+    "probe_ranks": [
+      37
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/253/2535p257/legacysurvey-2535p257-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2535p257",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J165404.43+255310.2"
+    ],
+    "probe_ranks": [
+      37
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/256/2563p210/legacysurvey-2563p210-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "2563p210",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J170524.12+210315.7"
+    ],
+    "probe_ranks": [
+      31
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/256/2563p210/legacysurvey-2563p210-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "2563p210",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J170524.12+210315.7"
+    ],
+    "probe_ranks": [
+      31
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/256/2563p210/legacysurvey-2563p210-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "2563p210",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J170524.12+210315.7"
+    ],
+    "probe_ranks": [
+      31
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/325/3259p062/legacysurvey-3259p062-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "3259p062",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J214334.16+060945.7"
+    ],
+    "probe_ranks": [
+      53
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/325/3259p062/legacysurvey-3259p062-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "3259p062",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J214334.16+060945.7"
+    ],
+    "probe_ranks": [
+      53
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/325/3259p062/legacysurvey-3259p062-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "3259p062",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J214334.16+060945.7"
+    ],
+    "probe_ranks": [
+      53
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/328/3281m077/legacysurvey-3281m077-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "3281m077",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J215213.84-075236.9"
+    ],
+    "probe_ranks": [
+      87
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/328/3281m077/legacysurvey-3281m077-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "3281m077",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J215213.84-075236.9"
+    ],
+    "probe_ranks": [
+      87
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/328/3281m077/legacysurvey-3281m077-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "3281m077",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J215213.84-075236.9"
+    ],
+    "probe_ranks": [
+      87
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/328/3281m080/legacysurvey-3281m080-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "3281m080",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J215213.84-075236.9"
+    ],
+    "probe_ranks": [
+      87
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/328/3281m080/legacysurvey-3281m080-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "3281m080",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J215213.84-075236.9"
+    ],
+    "probe_ranks": [
+      87
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/328/3281m080/legacysurvey-3281m080-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "3281m080",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J215213.84-075236.9"
+    ],
+    "probe_ranks": [
+      87
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/352/3521m020/legacysurvey-3521m020-nexp-g.fits.fz",
+    "product": "nexp",
+    "brickname": "3521m020",
+    "band": "g",
+    "galaxy_ids": [
+      "GZD5:J232845.26-020358.2"
+    ],
+    "probe_ranks": [
+      49
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/352/3521m020/legacysurvey-3521m020-nexp-r.fits.fz",
+    "product": "nexp",
+    "brickname": "3521m020",
+    "band": "r",
+    "galaxy_ids": [
+      "GZD5:J232845.26-020358.2"
+    ],
+    "probe_ranks": [
+      49
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/352/3521m020/legacysurvey-3521m020-nexp-z.fits.fz",
+    "product": "nexp",
+    "brickname": "3521m020",
+    "band": "z",
+    "galaxy_ids": [
+      "GZD5:J232845.26-020358.2"
+    ],
+    "probe_ranks": [
+      49
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/002/tractor-0024p145.fits",
+    "product": "tractor",
+    "brickname": "0024p145",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J001021.08+142649.1"
+    ],
+    "probe_ranks": [
+      59
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/002/tractor-0027p145.fits",
+    "product": "tractor",
+    "brickname": "0027p145",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J001021.08+142649.1"
+    ],
+    "probe_ranks": [
+      59
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/004/tractor-0046p010.fits",
+    "product": "tractor",
+    "brickname": "0046p010",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J001851.89+005405.9"
+    ],
+    "probe_ranks": [
+      50
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/007/tractor-0073p000.fits",
+    "product": "tractor",
+    "brickname": "0073p000",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J002909.19-000619.3"
+    ],
+    "probe_ranks": [
+      91
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/011/tractor-0111p012.fits",
+    "product": "tractor",
+    "brickname": "0111p012",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J004422.30+011527.7"
+    ],
+    "probe_ranks": [
+      4
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/012/tractor-0128p007.fits",
+    "product": "tractor",
+    "brickname": "0128p007",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J005126.26+003907.1"
+    ],
+    "probe_ranks": [
+      63
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/013/tractor-0136m015.fits",
+    "product": "tractor",
+    "brickname": "0136m015",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J005453.40-013434.9"
+    ],
+    "probe_ranks": [
+      34
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/014/tractor-0141m005.fits",
+    "product": "tractor",
+    "brickname": "0141m005",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J005624.63-003303.1"
+    ],
+    "probe_ranks": [
+      13
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/017/tractor-0179m057.fits",
+    "product": "tractor",
+    "brickname": "0179m057",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J011200.90-054450.0"
+    ],
+    "probe_ranks": [
+      33
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/018/tractor-0186m050.fits",
+    "product": "tractor",
+    "brickname": "0186m050",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J011431.19-045429.0"
+    ],
+    "probe_ranks": [
+      70
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/019/tractor-0198p002.fits",
+    "product": "tractor",
+    "brickname": "0198p002",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J012001.04+001630.3"
+    ],
+    "probe_ranks": [
+      36
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/020/tractor-0201p002.fits",
+    "product": "tractor",
+    "brickname": "0201p002",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J012001.04+001630.3"
+    ],
+    "probe_ranks": [
+      36
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/021/tractor-0213p087.fits",
+    "product": "tractor",
+    "brickname": "0213p087",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J012510.79+083844.9"
+    ],
+    "probe_ranks": [
+      22
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/021/tractor-0218p012.fits",
+    "product": "tractor",
+    "brickname": "0218p012",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J012714.24+011526.5"
+    ],
+    "probe_ranks": [
+      56
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/032/tractor-0321m002.fits",
+    "product": "tractor",
+    "brickname": "0321m002",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J020804.81-002030.7"
+    ],
+    "probe_ranks": [
+      10
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/117/tractor-1179p212.fits",
+    "product": "tractor",
+    "brickname": "1179p212",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J075205.01+211720.7"
+    ],
+    "probe_ranks": [
+      78
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/118/tractor-1184p180.fits",
+    "product": "tractor",
+    "brickname": "1184p180",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J075423.96+180733.6"
+    ],
+    "probe_ranks": [
+      26
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/118/tractor-1186p182.fits",
+    "product": "tractor",
+    "brickname": "1186p182",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J075423.96+180733.6"
+    ],
+    "probe_ranks": [
+      26
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/118/tractor-1187p180.fits",
+    "product": "tractor",
+    "brickname": "1187p180",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J075423.96+180733.6"
+    ],
+    "probe_ranks": [
+      26
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/123/tractor-1237p150.fits",
+    "product": "tractor",
+    "brickname": "1237p150",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J081511.23+145444.8"
+    ],
+    "probe_ranks": [
+      69
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/124/tractor-1243p177.fits",
+    "product": "tractor",
+    "brickname": "1243p177",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J081740.83+175122.8"
+    ],
+    "probe_ranks": [
+      93
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/134/tractor-1346p062.fits",
+    "product": "tractor",
+    "brickname": "1346p062",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J085829.80+061916.9"
+    ],
+    "probe_ranks": [
+      80
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/138/tractor-1385p225.fits",
+    "product": "tractor",
+    "brickname": "1385p225",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J091347.76+222330.3"
+    ],
+    "probe_ranks": [
+      84
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/139/tractor-1399p062.fits",
+    "product": "tractor",
+    "brickname": "1399p062",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J091929.57+061256.2"
+    ],
+    "probe_ranks": [
+      48
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/142/tractor-1429p090.fits",
+    "product": "tractor",
+    "brickname": "1429p090",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J093223.98+085917.4"
+    ],
+    "probe_ranks": [
+      44
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/143/tractor-1432p090.fits",
+    "product": "tractor",
+    "brickname": "1432p090",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J093223.98+085917.4"
+    ],
+    "probe_ranks": [
+      44
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/145/tractor-1450p040.fits",
+    "product": "tractor",
+    "brickname": "1450p040",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J094043.19+035735.0"
+    ],
+    "probe_ranks": [
+      54
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/145/tractor-1452p052.fits",
+    "product": "tractor",
+    "brickname": "1452p052",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J094053.99+051000.0"
+    ],
+    "probe_ranks": [
+      68
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/146/tractor-1468m005.fits",
+    "product": "tractor",
+    "brickname": "1468m005",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J094727.43-002750.6"
+    ],
+    "probe_ranks": [
+      25
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/147/tractor-1474p267.fits",
+    "product": "tractor",
+    "brickname": "1474p267",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J095007.95+264125.7"
+    ],
+    "probe_ranks": [
+      71
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/150/tractor-1503m027.fits",
+    "product": "tractor",
+    "brickname": "1503m027",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J100125.60-025005.0"
+    ],
+    "probe_ranks": [
+      32
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/152/tractor-1521m007.fits",
+    "product": "tractor",
+    "brickname": "1521m007",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J100844.53-004631.6"
+    ],
+    "probe_ranks": [
+      66
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/152/tractor-1522p095.fits",
+    "product": "tractor",
+    "brickname": "1522p095",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J100918.94+093323.1"
+    ],
+    "probe_ranks": [
+      67
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/155/tractor-1552p067.fits",
+    "product": "tractor",
+    "brickname": "1552p067",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J102032.36+065218.3"
+    ],
+    "probe_ranks": [
+      19
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/155/tractor-1552p070.fits",
+    "product": "tractor",
+    "brickname": "1552p070",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J102032.36+065218.3"
+    ],
+    "probe_ranks": [
+      19
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/156/tractor-1560m032.fits",
+    "product": "tractor",
+    "brickname": "1560m032",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J102450.29-032106.9"
+    ],
+    "probe_ranks": [
+      21
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/156/tractor-1561p165.fits",
+    "product": "tractor",
+    "brickname": "1561p165",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J102441.12+163215.4"
+    ],
+    "probe_ranks": [
+      64
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/156/tractor-1563m032.fits",
+    "product": "tractor",
+    "brickname": "1563m032",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J102450.29-032106.9"
+    ],
+    "probe_ranks": [
+      21
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/157/tractor-1570p037.fits",
+    "product": "tractor",
+    "brickname": "1570p037",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J102822.84+034552.3"
+    ],
+    "probe_ranks": [
+      23
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/162/tractor-1627p322.fits",
+    "product": "tractor",
+    "brickname": "1627p322",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J105040.12+322155.8"
+    ],
+    "probe_ranks": [
+      73
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/162/tractor-1627p325.fits",
+    "product": "tractor",
+    "brickname": "1627p325",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J105040.12+322155.8"
+    ],
+    "probe_ranks": [
+      73
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/163/tractor-1635p122.fits",
+    "product": "tractor",
+    "brickname": "1635p122",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J105432.52+121013.5"
+    ],
+    "probe_ranks": [
+      55
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/163/tractor-1637p122.fits",
+    "product": "tractor",
+    "brickname": "1637p122",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J105432.52+121013.5"
+    ],
+    "probe_ranks": [
+      55
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/165/tractor-1656p092.fits",
+    "product": "tractor",
+    "brickname": "1656p092",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J110314.27+091629.5"
+    ],
+    "probe_ranks": [
+      65
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/165/tractor-1659p092.fits",
+    "product": "tractor",
+    "brickname": "1659p092",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J110314.27+091629.5"
+    ],
+    "probe_ranks": [
+      65
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/166/tractor-1662p137.fits",
+    "product": "tractor",
+    "brickname": "1662p137",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J110435.16+134300.4"
+    ],
+    "probe_ranks": [
+      95
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/167/tractor-1671p000.fits",
+    "product": "tractor",
+    "brickname": "1671p000",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J110807.46-000027.0"
+    ],
+    "probe_ranks": [
+      30
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/167/tractor-1679p307.fits",
+    "product": "tractor",
+    "brickname": "1679p307",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J111138.35+304813.1"
+    ],
+    "probe_ranks": [
+      74
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/171/tractor-1710p257.fits",
+    "product": "tractor",
+    "brickname": "1710p257",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J112354.17+254758.8"
+    ],
+    "probe_ranks": [
+      8
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/172/tractor-1720m057.fits",
+    "product": "tractor",
+    "brickname": "1720m057",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J112828.00-054317.9"
+    ],
+    "probe_ranks": [
+      27
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/172/tractor-1721p197.fits",
+    "product": "tractor",
+    "brickname": "1721p197",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J112842.51+195313.2"
+    ],
+    "probe_ranks": [
+      89
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/172/tractor-1721p200.fits",
+    "product": "tractor",
+    "brickname": "1721p200",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J112842.51+195313.2"
+    ],
+    "probe_ranks": [
+      89
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/174/tractor-1742p117.fits",
+    "product": "tractor",
+    "brickname": "1742p117",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J113655.36+115054.0"
+    ],
+    "probe_ranks": [
+      35
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/175/tractor-1753p210.fits",
+    "product": "tractor",
+    "brickname": "1753p210",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J114151.20+205735.8"
+    ],
+    "probe_ranks": [
+      92
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/175/tractor-1755p210.fits",
+    "product": "tractor",
+    "brickname": "1755p210",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J114151.20+205735.8"
+    ],
+    "probe_ranks": [
+      92
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/176/tractor-1761m032.fits",
+    "product": "tractor",
+    "brickname": "1761m032",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J114454.99-031124.4"
+    ],
+    "probe_ranks": [
+      17
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/176/tractor-1761p037.fits",
+    "product": "tractor",
+    "brickname": "1761p037",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J114414.61+034319.3"
+    ],
+    "probe_ranks": [
+      58
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/176/tractor-1765p090.fits",
+    "product": "tractor",
+    "brickname": "1765p090",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J114644.98+085605.4"
+    ],
+    "probe_ranks": [
+      15
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/176/tractor-1766m027.fits",
+    "product": "tractor",
+    "brickname": "1766m027",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J114635.90-024152.0"
+    ],
+    "probe_ranks": [
+      9
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/179/tractor-1793p027.fits",
+    "product": "tractor",
+    "brickname": "1793p027",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J115740.41+024154.6"
+    ],
+    "probe_ranks": [
+      76
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/183/tractor-1831p085.fits",
+    "product": "tractor",
+    "brickname": "1831p085",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J121217.88+083054.4"
+    ],
+    "probe_ranks": [
+      6
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/185/tractor-1850p132.fits",
+    "product": "tractor",
+    "brickname": "1850p132",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J122031.42+130835.5"
+    ],
+    "probe_ranks": [
+      3
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/185/tractor-1852p132.fits",
+    "product": "tractor",
+    "brickname": "1852p132",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J122031.42+130835.5"
+    ],
+    "probe_ranks": [
+      3
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/185/tractor-1853p160.fits",
+    "product": "tractor",
+    "brickname": "1853p160",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J122116.26+160544.1"
+    ],
+    "probe_ranks": [
+      1
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/188/tractor-1888p042.fits",
+    "product": "tractor",
+    "brickname": "1888p042",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J123538.72+041244.8"
+    ],
+    "probe_ranks": [
+      52
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/192/tractor-1923p167.fits",
+    "product": "tractor",
+    "brickname": "1923p167",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J124917.50+163923.3"
+    ],
+    "probe_ranks": [
+      57
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/192/tractor-1924m047.fits",
+    "product": "tractor",
+    "brickname": "1924m047",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J124956.45-044439.6"
+    ],
+    "probe_ranks": [
+      46
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/193/tractor-1932p080.fits",
+    "product": "tractor",
+    "brickname": "1932p080",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J125236.26+080159.3"
+    ],
+    "probe_ranks": [
+      51
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/194/tractor-1949p190.fits",
+    "product": "tractor",
+    "brickname": "1949p190",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J130013.05+190137.2"
+    ],
+    "probe_ranks": [
+      5
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/195/tractor-1951p190.fits",
+    "product": "tractor",
+    "brickname": "1951p190",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J130013.05+190137.2"
+    ],
+    "probe_ranks": [
+      5
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/196/tractor-1961p055.fits",
+    "product": "tractor",
+    "brickname": "1961p055",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J130420.63+052710.4"
+    ],
+    "probe_ranks": [
+      77
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/196/tractor-1963p100.fits",
+    "product": "tractor",
+    "brickname": "1963p100",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J130527.05+100147.6"
+    ],
+    "probe_ranks": [
+      43
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/197/tractor-1976p137.fits",
+    "product": "tractor",
+    "brickname": "1976p137",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J131040.89+134128.5"
+    ],
+    "probe_ranks": [
+      29
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/198/tractor-1984p060.fits",
+    "product": "tractor",
+    "brickname": "1984p060",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J131331.24+055455.8"
+    ],
+    "probe_ranks": [
+      61
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/199/tractor-1998m022.fits",
+    "product": "tractor",
+    "brickname": "1998m022",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J131909.90-022034.9"
+    ],
+    "probe_ranks": [
+      12
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/200/tractor-2000p072.fits",
+    "product": "tractor",
+    "brickname": "2000p072",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J131952.56+071203.8"
+    ],
+    "probe_ranks": [
+      88
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/200/tractor-2003p152.fits",
+    "product": "tractor",
+    "brickname": "2003p152",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J132045.57+151532.7"
+    ],
+    "probe_ranks": [
+      75
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/202/tractor-2021m035.fits",
+    "product": "tractor",
+    "brickname": "2021m035",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J132837.39-033356.0"
+    ],
+    "probe_ranks": [
+      60
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/203/tractor-2031p047.fits",
+    "product": "tractor",
+    "brickname": "2031p047",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J133226.11+044435.3"
+    ],
+    "probe_ranks": [
+      28
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/203/tractor-2031p100.fits",
+    "product": "tractor",
+    "brickname": "2031p100",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J133252.04+095921.7"
+    ],
+    "probe_ranks": [
+      85
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/206/tractor-2068p080.fits",
+    "product": "tractor",
+    "brickname": "2068p080",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J134748.49+075830.6"
+    ],
+    "probe_ranks": [
+      16
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/207/tractor-2072p187.fits",
+    "product": "tractor",
+    "brickname": "2072p187",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J134927.86+184108.3"
+    ],
+    "probe_ranks": [
+      94
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/209/tractor-2097m067.fits",
+    "product": "tractor",
+    "brickname": "2097m067",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J135908.69-064448.0"
+    ],
+    "probe_ranks": [
+      40
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/210/tractor-2108p162.fits",
+    "product": "tractor",
+    "brickname": "2108p162",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J140335.96+161645.2"
+    ],
+    "probe_ranks": [
+      96
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/212/tractor-2126p250.fits",
+    "product": "tractor",
+    "brickname": "2126p250",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J141058.12+250554.6"
+    ],
+    "probe_ranks": [
+      38
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/212/tractor-2128p250.fits",
+    "product": "tractor",
+    "brickname": "2128p250",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J141058.12+250554.6"
+    ],
+    "probe_ranks": [
+      38
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/213/tractor-2139p050.fits",
+    "product": "tractor",
+    "brickname": "2139p050",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J141538.99+045653.4"
+    ],
+    "probe_ranks": [
+      2
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/217/tractor-2171p017.fits",
+    "product": "tractor",
+    "brickname": "2171p017",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J142818.61+014806.5"
+    ],
+    "probe_ranks": [
+      18
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/218/tractor-2187p195.fits",
+    "product": "tractor",
+    "brickname": "2187p195",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J143539.23+193058.9"
+    ],
+    "probe_ranks": [
+      83
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/219/tractor-2190p195.fits",
+    "product": "tractor",
+    "brickname": "2190p195",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J143539.23+193058.9"
+    ],
+    "probe_ranks": [
+      83
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/219/tractor-2193p270.fits",
+    "product": "tractor",
+    "brickname": "2193p270",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J143751.45+270600.6"
+    ],
+    "probe_ranks": [
+      41
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/219/tractor-2196p270.fits",
+    "product": "tractor",
+    "brickname": "2196p270",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J143751.45+270600.6"
+    ],
+    "probe_ranks": [
+      41
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/219/tractor-2197p190.fits",
+    "product": "tractor",
+    "brickname": "2197p190",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J143837.76+185344.6"
+    ],
+    "probe_ranks": [
+      39
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/220/tractor-2205p137.fits",
+    "product": "tractor",
+    "brickname": "2205p137",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J144224.71+134122.1"
+    ],
+    "probe_ranks": [
+      11
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/222/tractor-2226p037.fits",
+    "product": "tractor",
+    "brickname": "2226p037",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J145106.77+034028.8"
+    ],
+    "probe_ranks": [
+      62
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/226/tractor-2266p072.fits",
+    "product": "tractor",
+    "brickname": "2266p072",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J150717.18+071105.3"
+    ],
+    "probe_ranks": [
+      90
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/226/tractor-2269p072.fits",
+    "product": "tractor",
+    "brickname": "2269p072",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J150717.18+071105.3"
+    ],
+    "probe_ranks": [
+      90
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/227/tractor-2273p057.fits",
+    "product": "tractor",
+    "brickname": "2273p057",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J150905.28+054403.2"
+    ],
+    "probe_ranks": [
+      20
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/227/tractor-2275p060.fits",
+    "product": "tractor",
+    "brickname": "2275p060",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J151040.40+055721.7"
+    ],
+    "probe_ranks": [
+      82
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/228/tractor-2280p235.fits",
+    "product": "tractor",
+    "brickname": "2280p235",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J151227.91+232254.9"
+    ],
+    "probe_ranks": [
+      47
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/228/tractor-2281p232.fits",
+    "product": "tractor",
+    "brickname": "2281p232",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J151227.91+232254.9"
+    ],
+    "probe_ranks": [
+      47
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/230/tractor-2306p277.fits",
+    "product": "tractor",
+    "brickname": "2306p277",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J152218.70+274207.9"
+    ],
+    "probe_ranks": [
+      14
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/234/tractor-2346p167.fits",
+    "product": "tractor",
+    "brickname": "2346p167",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J153900.30+164633.1"
+    ],
+    "probe_ranks": [
+      24
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/237/tractor-2372p037.fits",
+    "product": "tractor",
+    "brickname": "2372p037",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J154916.22+034832.5"
+    ],
+    "probe_ranks": [
+      81
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/237/tractor-2374p037.fits",
+    "product": "tractor",
+    "brickname": "2374p037",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J154916.22+034832.5"
+    ],
+    "probe_ranks": [
+      81
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/240/tractor-2407p187.fits",
+    "product": "tractor",
+    "brickname": "2407p187",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J160310.40+184125.2"
+    ],
+    "probe_ranks": [
+      79
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/240/tractor-2408p280.fits",
+    "product": "tractor",
+    "brickname": "2408p280",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J160332.67+275552.3"
+    ],
+    "probe_ranks": [
+      45
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/241/tractor-2417p112.fits",
+    "product": "tractor",
+    "brickname": "2417p112",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J160705.33+111201.9"
+    ],
+    "probe_ranks": [
+      7
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/246/tractor-2460p212.fits",
+    "product": "tractor",
+    "brickname": "2460p212",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J162350.23+210838.5"
+    ],
+    "probe_ranks": [
+      42
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/246/tractor-2463p112.fits",
+    "product": "tractor",
+    "brickname": "2463p112",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J162524.22+111856.3"
+    ],
+    "probe_ranks": [
+      86
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/251/tractor-2512p277.fits",
+    "product": "tractor",
+    "brickname": "2512p277",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J164432.46+274702.1"
+    ],
+    "probe_ranks": [
+      72
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/253/tractor-2534p260.fits",
+    "product": "tractor",
+    "brickname": "2534p260",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J165404.43+255310.2"
+    ],
+    "probe_ranks": [
+      37
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/253/tractor-2535p257.fits",
+    "product": "tractor",
+    "brickname": "2535p257",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J165404.43+255310.2"
+    ],
+    "probe_ranks": [
+      37
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/256/tractor-2563p210.fits",
+    "product": "tractor",
+    "brickname": "2563p210",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J170524.12+210315.7"
+    ],
+    "probe_ranks": [
+      31
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/325/tractor-3259p062.fits",
+    "product": "tractor",
+    "brickname": "3259p062",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J214334.16+060945.7"
+    ],
+    "probe_ranks": [
+      53
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/328/tractor-3281m077.fits",
+    "product": "tractor",
+    "brickname": "3281m077",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J215213.84-075236.9"
+    ],
+    "probe_ranks": [
+      87
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/328/tractor-3281m080.fits",
+    "product": "tractor",
+    "brickname": "3281m080",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J215213.84-075236.9"
+    ],
+    "probe_ranks": [
+      87
+    ]
+  },
+  {
+    "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/352/tractor-3521m020.fits",
+    "product": "tractor",
+    "brickname": "3521m020",
+    "band": null,
+    "galaxy_ids": [
+      "GZD5:J232845.26-020358.2"
+    ],
+    "probe_ranks": [
+      49
+    ]
+  }
+]

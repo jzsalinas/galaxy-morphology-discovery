@@ -1,0 +1,18 @@
+{
+  "preexisting_file_count": 6587,
+  "metadata_comparison": "size and mtime_ns at original JavaScript Number precision",
+  "changed_metadata": [],
+  "missing": [],
+  "checked_document_hashes": 11,
+  "changed_authority_historical_hashes": [],
+  "production_evidence_files": {
+    "INPUTS": [],
+    "provenance": [],
+    "RAW_IMMUTABLE": [],
+    "TECHNICAL_INDEX": [],
+    "CONFOUND_AUDIT": [],
+    "reports": [],
+    "logs": [],
+    "crops": []
+  }
+}

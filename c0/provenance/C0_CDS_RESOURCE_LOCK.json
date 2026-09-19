@@ -1,0 +1,14 @@
+{
+  "source_id": "S3",
+  "url": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/509/3966/gzdv5.dat.gz",
+  "retrieved_at_utc": "2026-09-17T12:00:53.865469+00:00",
+  "metadata": true,
+  "method": "HEAD",
+  "observed_bytes": 0,
+  "access_result": "METADATA_ONLY",
+  "http_status": 200,
+  "final_url": "https://cdsarc.cds.unistra.fr/ftp/J/MNRAS/509/3966/gzdv5.dat.gz",
+  "declared_bytes": "32863685",
+  "etag": "\"1f575c5-62353a9c2af92\"",
+  "last_modified": "Mon, 30 Sep 2024 10:28:17 GMT"
+}

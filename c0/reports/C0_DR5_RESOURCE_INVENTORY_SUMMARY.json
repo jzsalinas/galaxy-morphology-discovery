@@ -1,0 +1,28 @@
+{
+  "timestamp_utc": "2026-09-17T13:27:27.515408+00:00",
+  "products": {
+    "comparison_image": {
+      "resources": 42,
+      "verified_size_resources": 42,
+      "known_bytes": 584127360,
+      "unresolved_resources": 0
+    },
+    "nexp": {
+      "resources": 354,
+      "verified_size_resources": 354,
+      "known_bytes": 44412480,
+      "unresolved_resources": 0
+    },
+    "tractor": {
+      "resources": 118,
+      "verified_size_resources": 118,
+      "known_bytes": 806607360,
+      "unresolved_resources": 0
+    }
+  },
+  "all_products_known_bytes": 1435147200,
+  "c0_charged_bytes": 409833756,
+  "c0_remaining_bytes": 1737649892,
+  "all_whole_files_fit_remaining": true,
+  "note": "HEAD sizes only; no product bodies acquired; negative fit result forbids whole-file plan, not a formal Gate F decision"
+}

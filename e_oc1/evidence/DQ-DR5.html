@@ -1,0 +1,2114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Legacy Survey Files | Legacy Survey</title>
+<link href="../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/rst.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/html4css1.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/code.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/colorbox.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/theme.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/custom.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="https://www.legacysurvey.org/dr5/files/">
+<link rel="icon" href="../../files/logo_script_32x32.png" sizes="32x32">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><!-- Start of Google Analytics --><script src="https://www.google-analytics.com/urchin.js" type="text/javascript">
+            </script><script type="text/javascript">
+            _uacct = "UA-5565065-29";
+            urchinTracker();
+            </script><!-- End of Google Analytics --><meta name="author" content="Legacy Survey">
+<meta property="og:site_name" content="Legacy Survey">
+<meta property="og:title" content="Legacy Survey Files">
+<meta property="og:url" content="https://www.legacysurvey.org/dr5/files/">
+<meta property="og:description" content="Contents
+
+Summary Files
+
+survey-bricks.fits.gz
+survey-bricks-dr5.fits.gz
+survey-ccds-nocuts.fits.gz
+survey-ccds-dr5.kd.fits
+ccds-annotated-dr5.fits.gz
+dr5-depth.fits.gz
+dr5-depth-summary.fits.gz
+
+
+Ext">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2022-08-01T18:16:38Z">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation"><div class="container">
+<!-- This keeps the margins nice -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://www.legacysurvey.org/">
+                <img src="../../files/logo_tiny.jpg" alt="Legacy Survey" id="logo"></a>
+        </div>
+<!-- /.navbar-header -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+<li>
+<a href="../../">Home</a>
+            </li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">DR11<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+<li>
+<a href="../../dr11/description">Description</a>
+                    </li>
+<li>
+<a href="../../dr11/files">Files</a>
+                    </li>
+<li>
+<a href="../../dr11/catalogs">Catalogs</a>
+                    </li>
+<li>
+<a href="../../dr11/bitmasks">Bitmasks</a>
+                    </li>
+<li>
+<a href="../../dr11/external">External Catalogs</a>
+                    </li>
+<li>
+<a href="../../dr11/issues">Known Issues</a>
+            </li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">Data<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+<li>
+<a href="https://data.desi.lbl.gov">DESI spectra</a>
+                    </li>
+<li>
+<a href="../../dr10">Data Release 10</a>
+                    </li>
+<li>
+<a href="../../dr9">Data Release 9</a>
+                    </li>
+<li>
+<a href="../../dr8">Data Release 8</a>
+                    </li>
+<li>
+<a href="../../dr7">Data Release 7</a>
+                    </li>
+<li>
+<a href="../../dr6">Data Release 6</a>
+                    </li>
+<li>
+<a href="../../dr5">Data Release 5</a>
+                    </li>
+<li>
+<a href="../../dr4">Data Release 4</a>
+                    </li>
+<li>
+<a href="../../dr3">Data Release 3</a>
+                    </li>
+<li>
+<a href="../../dr2">Data Release 2</a>
+                    </li>
+<li>
+<a href="../../dr1">Data Release 1</a>
+                    </li>
+<li>
+<a href="../../dr9/issues/#the-dr9sv-data-release">DR9sv</a>
+                    </li>
+<li>
+<a href="../../bass">BASS</a>
+                    </li>
+<li>
+<a href="../../decamls">DECaLS</a>
+                    </li>
+<li>
+<a href="../../mzls">MzLS</a>
+                    </li>
+<li>
+<a href="https://www.darkenergysurvey.org">DES</a>
+                    </li>
+<li>
+<a href="http://unwise.me">unWISE</a>
+                    </li>
+<li>
+<a href="../../rawdata">Raw Data</a>
+            </li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">Viewer<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+<li>
+<a href="https://www.legacysurvey.org/viewer">Go to the Sky Viewer</a>
+                    </li>
+<li>
+<a href="../../svtips">Sky Viewer Tips &amp; Tricks</a>
+                    </li>
+<li>
+<a href="https://www.legacysurvey.org/viewer/urls">List of Cutout/URL Patterns</a>
+            </li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">Gallery<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+<li>
+<a href="../../dr11/gallery">DR11</a>
+                    </li>
+<li>
+<a href="../../dr10/gallery">DR10</a>
+                    </li>
+<li>
+<a href="../../dr9/gallery">DR9</a>
+                    </li>
+<li>
+<a href="../../dr8/gallery">DR8</a>
+                    </li>
+<li>
+<a href="../../dr7/gallery">DR7</a>
+                    </li>
+<li>
+<a href="../../dr6/gallery">DR6</a>
+                    </li>
+<li>
+<a href="../gallery">DR5</a>
+                    </li>
+<li>
+<a href="../../dr2/gallery">DR4</a>
+                    </li>
+<li>
+<a href="../../dr2/gallery">DR3</a>
+                    </li>
+<li>
+<a href="../../dr2/gallery">DR2</a>
+            </li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">SGA<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+<li>
+<a href="https://sga.readthedocs.io/en/latest/">SGA-2025</a>
+                    </li>
+<li>
+<a href="../../sga/sga2020">SGA-2020</a>
+            </li>
+</ul>
+</li>
+<li>
+<a href="../../status">Status</a>
+                </li>
+<li>
+<a href="../../pubs">Publications</a>
+                </li>
+<li>
+<a href="../../contact">Contacts</a>
+                </li>
+<li>
+<a href="../../faq">FAQ</a>
+
+                
+            </li>
+</ul>
+<ul class="nav navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        <div class="row">
+            
+            
+<article class="storypage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name">Legacy Survey Files</h1>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <nav class="contents pull-right well" id="contents" role="doc-toc"><p class="topic-title"><a class="reference internal" href="#top">Contents</a></p>
+<ul class="simple">
+<li>
+<p><a class="reference internal" href="#summary-files" id="toc-entry-1">Summary Files</a></p>
+<ul>
+<li><p><a class="reference internal" href="#survey-bricks-fits-gz" id="toc-entry-2">survey-bricks.fits.gz</a></p></li>
+<li><p><a class="reference internal" href="#survey-bricks-dr5-fits-gz" id="toc-entry-3">survey-bricks-dr5.fits.gz</a></p></li>
+<li><p><a class="reference internal" href="#survey-ccds-nocuts-fits-gz" id="toc-entry-4">survey-ccds-nocuts.fits.gz</a></p></li>
+<li><p><a class="reference internal" href="#survey-ccds-dr5-kd-fits" id="toc-entry-5">survey-ccds-dr5.kd.fits</a></p></li>
+<li><p><a class="reference internal" href="#ccds-annotated-dr5-fits-gz" id="toc-entry-6">ccds-annotated-dr5.fits.gz</a></p></li>
+<li><p><a class="reference internal" href="#dr5-depth-fits-gz" id="toc-entry-7">dr5-depth.fits.gz</a></p></li>
+<li><p><a class="reference internal" href="#dr5-depth-summary-fits-gz" id="toc-entry-8">dr5-depth-summary.fits.gz</a></p></li>
+</ul>
+</li>
+<li>
+<p><a class="reference internal" href="#external-files" id="toc-entry-9">External Files</a></p>
+<ul>
+<li><p><a class="reference internal" href="#survey-dr5-specobj-dr14-fits" id="toc-entry-10">survey-dr5-specObj-dr14.fits</a></p></li>
+<li><p><a class="reference internal" href="#survey-dr5-dr12q-fits" id="toc-entry-11">survey-dr5-dr12Q.fits</a></p></li>
+<li><p><a class="reference internal" href="#survey-dr5-superset-dr12q-fits" id="toc-entry-12">survey-dr5-superset-dr12Q.fits</a></p></li>
+<li><p><a class="reference internal" href="#survey-dr5-dr7q-fits" id="toc-entry-13">survey-dr5-dr7Q.fits</a></p></li>
+</ul>
+</li>
+<li>
+<p><a class="reference internal" href="#tractor-catalogs" id="toc-entry-14">Tractor Catalogs</a></p>
+<ul>
+<li><p><a class="reference internal" href="#tractor-aaa-tractor-brick-fits" id="toc-entry-15">tractor/&lt;AAA&gt;/tractor-&lt;brick&gt;.fits</a></p></li>
+</ul>
+</li>
+<li>
+<p><a class="reference internal" href="#sweep-catalogs" id="toc-entry-16">Sweep Catalogs</a></p>
+<ul>
+<li><p><a class="reference internal" href="#sweep-5-0-sweep-brickmin-brickmax-fits" id="toc-entry-17">sweep/5.0/sweep-&lt;brickmin&gt;-&lt;brickmax&gt;.fits</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#image-stacks" id="toc-entry-18">Image Stacks</a></p></li>
+<li><p><a class="reference internal" href="#raw-data" id="toc-entry-19">Raw Data</a></p></li>
+</ul></nav><dl class="simple">
+<dt>Top level directory for web access:</dt>
+<dd>
+<p><a class="reference external" href="https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/">https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/</a></p>
+</dd>
+<dt>Top level directory local to NERSC computers (for collaborators):</dt>
+<dd>
+<p>/global/cfs/cdirs/cosmo/data/legacysurvey/dr5/</p>
+</dd>
+</dl>
+<section id="summary-files"><h2><a class="toc-backref" href="#toc-entry-1" role="doc-backlink">Summary Files</a></h2>
+<section id="survey-bricks-fits-gz"><h3><a class="toc-backref" href="#toc-entry-2" role="doc-backlink">survey-bricks.fits.gz</a></h3>
+<p>FITS binary table with the RA, DEC bounds of each geometrical "brick" on the sky.
+This includes all bricks on the sky, not just the ones in our footprint or with
+coverage in DR5.  For that information, see the next file description.</p>
+<table class="table table-bordered table-condensed">
+<thead><tr>
+<th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><p><code class="docutils literal">BRICKNAME</code></p></td>
+<td><p>char[8]</p></td>
+<td><p>Name of the brick.</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">BRICKID</code></p></td>
+<td><p>int32</p></td>
+<td><p>A unique integer with 1-to-1 mapping to <code class="docutils literal">brickname</code>.</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">BRICKQ</code></p></td>
+<td><p>int16</p></td>
+<td><p>A "priority" factor used for processing.</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">BRICKROW</code></p></td>
+<td><p>int32</p></td>
+<td><p>Dec row number.</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">BRICKCOL</code></p></td>
+<td><p>int32</p></td>
+<td><p>Number of the brick within a Dec row.</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">RA</code></p></td>
+<td><p>float64</p></td>
+<td><p>RA of the center of the brick.</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">DEC</code></p></td>
+<td><p>float64</p></td>
+<td><p>Dec of the center of the brick.</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">RA1</code></p></td>
+<td><p>float64</p></td>
+<td><p>Lower RA boundary.</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">RA2</code></p></td>
+<td><p>float64</p></td>
+<td><p>Upper RA boundary.</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">DEC1</code></p></td>
+<td><p>float64</p></td>
+<td><p>Lower Dec boundary.</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">DEC2</code></p></td>
+<td><p>float64</p></td>
+<td><p>Upper Dec boundary.</p></td>
+</tr>
+</tbody>
+</table></section><section id="survey-bricks-dr5-fits-gz"><h3><a class="toc-backref" href="#toc-entry-3" role="doc-backlink">survey-bricks-dr5.fits.gz</a></h3>
+<p>A FITS binary table with information that summarizes the contents of each brick for DR5.</p>
+<table class="table table-bordered table-condensed">
+<thead><tr>
+<th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><p><code class="docutils literal">brickname</code></p></td>
+<td><p>char[8]</p></td>
+<td><p>Name of the brick</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ra</code></p></td>
+<td><p>float64</p></td>
+<td><p>RA of the center of the brick</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">dec</code></p></td>
+<td><p>float64</p></td>
+<td><p>Dec of the center of the brick</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">nexp_g</code></p></td>
+<td><p>int16</p></td>
+<td><p>Median number of exposures in the unique area (i.e. <code class="docutils literal">BRICK_PRIMARY</code> area) of the brick in g-band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">nexp_r</code></p></td>
+<td><p>int16</p></td>
+<td><p>Median number of exposures in the unique area of the brick in r-band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">nexp_z</code></p></td>
+<td><p>int16</p></td>
+<td><p>Median number of exposures in the unique area of the brick in z-band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">nexphist_g</code></p></td>
+<td><p>int32[6]</p></td>
+<td><p>Histogram of number of pixels in the unique brick area with 0, 1, 2, 3, 4, or &gt; 5 exposures in g</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">nexphist_r</code></p></td>
+<td><p>int32[6]</p></td>
+<td><p>Histogram of number of pixels in the unique brick area with 0, 1, 2, 3, 4, or &gt; 5 exposures in r</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">nexphist_z</code></p></td>
+<td><p>int32[6]</p></td>
+<td><p>Histogram of number of pixels in the unique brick area with 0, 1, 2, 3, 4, or &gt; 5 exposures in z</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">nobjs</code></p></td>
+<td><p>int16</p></td>
+<td><p>Total number of <code class="docutils literal">BRICK_PRIMARY</code> objects in this brick, of all types</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">npsf</code></p></td>
+<td><p>int16</p></td>
+<td><p>Total number of <code class="docutils literal">BRICK_PRIMARY</code> objects in this brick, of type <code class="docutils literal">PSF</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">nsimp</code></p></td>
+<td><p>int16</p></td>
+<td><p>Total number of <code class="docutils literal">BRICK_PRIMARY</code> objects in this brick, of type <code class="docutils literal">SIMP</code> (there should be 0 such objects)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">nrex</code></p></td>
+<td><p>int16</p></td>
+<td><p>Total number of <code class="docutils literal">BRICK_PRIMARY</code> objects in this brick, of type <code class="docutils literal">REX</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">nexp</code></p></td>
+<td><p>int16</p></td>
+<td><p>Total number of <code class="docutils literal">BRICK_PRIMARY</code> objects in this brick, of type <code class="docutils literal">EXP</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ndev</code></p></td>
+<td><p>int16</p></td>
+<td><p>Total number of <code class="docutils literal">BRICK_PRIMARY</code> objects in this brick, of type <code class="docutils literal">DEV</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ncomp</code></p></td>
+<td><p>int16</p></td>
+<td><p>Total number of <code class="docutils literal">BRICK_PRIMARY</code> objects in this brick, of type <code class="docutils literal">COMP</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">psfsize_g</code></p></td>
+<td><p>float32</p></td>
+<td><p>Median PSF size, in arcsec, evaluated at the <code class="docutils literal">BRICK_PRIMARY</code> objects in this brick in g-band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">psfsize_r</code></p></td>
+<td><p>float32</p></td>
+<td><p>Median PSF size, in arcsec, evaluated at the <code class="docutils literal">BRICK_PRIMARY</code> objects in this brick in r-band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">psfsize_z</code></p></td>
+<td><p>float32</p></td>
+<td><p>Median PSF size, in arcsec, evaluated at the <code class="docutils literal">BRICK_PRIMARY</code> objects in this brick in z-band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">psfdepth_g</code></p></td>
+<td><p>float32</p></td>
+<td><p>5-sigma PSF detection depth in <span class="math">\(g\)</span>-band (AB mag), using PsfEx PSF model</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">psfdepth_r</code></p></td>
+<td><p>float32</p></td>
+<td><p>5-sigma PSF detection depth in <span class="math">\(r\)</span>-band (AB mag), using PsfEx PSF model</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">psfdepth_z</code></p></td>
+<td><p>float32</p></td>
+<td><p>5-sigma PSF detection depth in <span class="math">\(z\)</span>-band (AB mag), using PsfEx PSF model</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">galdepth_g</code></p></td>
+<td><p>float32</p></td>
+<td><p>5-sigma galaxy (0.45" round exp) detection depth in <span class="math">\(g\)</span>-band (AB) mag</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">galdepth_r</code></p></td>
+<td><p>float32</p></td>
+<td><p>5-sigma galaxy (0.45" round exp) detection depth in <span class="math">\(r\)</span>-band (AB) mag</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">galdepth_z</code></p></td>
+<td><p>float32</p></td>
+<td><p>5-sigma galaxy (0.45" round exp) detection depth in <span class="math">\(z\)</span>-band (AB) mag</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ebv</code></p></td>
+<td><p>float32</p></td>
+<td><p>Median SFD dust map E(B-V) extinction, in magnitudes, evaluated at <code class="docutils literal">BRICK_PRIMARY</code> objects in this brick</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">trans_g</code></p></td>
+<td><p>float32</p></td>
+<td><p>Median Milky Way dust transparency in <span class="math">\(g\)</span>-band, based on <code class="docutils literal">ebv</code>. See also <code class="docutils literal">MW_TRANSMISSION_G</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">trans_r</code></p></td>
+<td><p>float32</p></td>
+<td><p>Median Milky Way dust transparency in <span class="math">\(g\)</span>-band, based on <code class="docutils literal">ebv</code>. See also <code class="docutils literal">MW_TRANSMISSION_R</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">trans_z</code></p></td>
+<td><p>float32</p></td>
+<td><p>Median Milky Way dust transparency in <span class="math">\(z\)</span>-band, based on <code class="docutils literal">ebv</code>. See also <code class="docutils literal">MW_TRANSMISSION_Z</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ext_g</code></p></td>
+<td><p>float32</p></td>
+<td><p>Extinction in <span class="math">\(g\)</span>-band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ext_r</code></p></td>
+<td><p>float32</p></td>
+<td><p>Extinction in <span class="math">\(r\)</span>-band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ext_z</code></p></td>
+<td><p>float32</p></td>
+<td><p>Extinction in <span class="math">\(z\)</span>-band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">wise_nobs</code></p></td>
+<td><p>int16[4]</p></td>
+<td><p>Number of images that contributed to WISE calculations in each filter (not profile-weighted)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">trans_wise</code></p></td>
+<td><p>float32[4]</p></td>
+<td><p>Median Milky Way dust transparency in WISE bands, based on <code class="docutils literal">ebv</code>. See also, e.g., <code class="docutils literal">MW_TRANSMISSION_W1</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ext_w1</code></p></td>
+<td><p>float32</p></td>
+<td><p>Extinction in <span class="math">\(W1\)</span>-band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ext_w2</code></p></td>
+<td><p>float32</p></td>
+<td><p>Extinction in <span class="math">\(W2\)</span>-band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ext_w3</code></p></td>
+<td><p>float32</p></td>
+<td><p>Extinction in <span class="math">\(W3\)</span>-band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ext_w4</code></p></td>
+<td><p>float32</p></td>
+<td><p>Extinction in <span class="math">\(W4\)</span>-band</p></td>
+</tr>
+</tbody>
+</table>
+<p>Note that, for the <code class="docutils literal">nexphist</code> rows, pixels that are masked by the NOIRLab Community Pipeline as, e.g., cosmic rays or saturation, do
+NOT count toward the number of exposures. More information about the morphological types and <code class="docutils literal">MW_TRANSMISSION</code> can be found on
+the <a class="reference external" href="../catalogs">catalogs page</a>.</p>
+</section><section id="survey-ccds-nocuts-fits-gz"><h3><a class="toc-backref" href="#toc-entry-4" role="doc-backlink">survey-ccds-nocuts.fits.gz</a></h3>
+<p>A FITS binary table with almanac information about each individual CCD image.</p>
+<p>This file contains information regarding the photometric and astrometric zero points for each CCD of every image that is part of the DR5 data release. Photometric zero points for each CCD are computed by identifying stars and comparing their instrumental magnitudes
+to color-selected stars in the PanSTARRS "qz" catalog.</p>
+<p>The photometric zeropoints (<code class="docutils literal">zpt</code>, <code class="docutils literal">ccdzpt</code>, etc)
+are magnitude-like numbers (e.g. 25.04), and
+indicate the magnitude of a source that would contribute one count per
+second to the image.  For example, in an image with zeropoint of 25.04
+and exposure time of 30 seconds, a source of magnitude 22.5 would
+contribute
+<span class="math">\(30 * 10^{((25.04 - 22.5) / 2.5)} = 311.3\)</span>
+counts.</p>
+<table class="table table-bordered table-condensed">
+<thead><tr>
+<th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><p><code class="docutils literal">image_filename</code></p></td>
+<td><p>char[65]</p></td>
+<td><p>Path to FITS image, eg "decam/CP20140810_g_v2/c4d_140815_235218_ooi_g_v2.fits.fz"</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">image_hdu</code></p></td>
+<td><p>int16</p></td>
+<td><p>FITS HDU number in the <code class="docutils literal">image_filename</code> file where this image can be found</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">camera</code></p></td>
+<td><p>char[7]</p></td>
+<td><p>The camera that took this image</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">expnum</code></p></td>
+<td><p>int32</p></td>
+<td><p>Exposure number, eg 348224</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccdname</code></p></td>
+<td><p>char[4]</p></td>
+<td><p>CCD name (see Legacy Survey camera layout), eg "N10", "S7"</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">object</code></p></td>
+<td><p>char[35]</p></td>
+<td><p>Name listed in the object tag from the CCD header</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">propid</code></p></td>
+<td><p>char[10]</p></td>
+<td><p>Proposal ID of the program that took this image, eg "2014B-0404"</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">filter</code></p></td>
+<td><p>char[1]</p></td>
+<td><p>Filter used for observation, eg "<span class="math">\(g\)</span>", "<span class="math">\(r\)</span>", "<span class="math">\(z\)</span>"</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">exptime</code></p></td>
+<td><p>float32</p></td>
+<td><p>Exposure time in seconds, eg 30</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">mjd_obs</code></p></td>
+<td><p>float64</p></td>
+<td><p>Date of observation in MJD (in UTC system), eg 56884.99373389</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">fwhm</code></p></td>
+<td><p>float32</p></td>
+<td><p>(use "seeing" instead)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">width</code></p></td>
+<td><p>int16</p></td>
+<td><p>Width in pixels of this image, eg 2046</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">height</code></p></td>
+<td><p>int16</p></td>
+<td><p>Height in pixels of this image, eg 4096</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ra_bore</code></p></td>
+<td><p>float64</p></td>
+<td><p>Telescope boresight RA  of this exposure (deg)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">dec_bore</code></p></td>
+<td><p>float64</p></td>
+<td><p>Telescope boresight Dec of this exposure (deg)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">crpix1</code></p></td>
+<td><p>float32</p></td>
+<td><p>Astrometric header value: X reference pixel</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">crpix2</code></p></td>
+<td><p>float32</p></td>
+<td><p>Astrometric header value: Y reference pixel</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">crval1</code></p></td>
+<td><p>float64</p></td>
+<td><p>Astrometric header value: RA of reference pixel</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">crval2</code></p></td>
+<td><p>float64</p></td>
+<td><p>Astrometric header value: Dec of reference pixel</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">cd1_1</code></p></td>
+<td><p>float32</p></td>
+<td><p>Astrometric header value: transformation matrix</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">cd1_2</code></p></td>
+<td><p>float32</p></td>
+<td><p>Astrometric header value: transformation matrix</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">cd2_1</code></p></td>
+<td><p>float32</p></td>
+<td><p>Astrometric header value: transformation matrix</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">cd2_2</code></p></td>
+<td><p>float32</p></td>
+<td><p>Astrometric header value: transformation matrix</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ra</code></p></td>
+<td><p>float64</p></td>
+<td><p>Approximate RA center of this CCD (deg)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">dec</code></p></td>
+<td><p>float64</p></td>
+<td><p>Approximate Dec center of this CCD (deg)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">skyrms</code></p></td>
+<td><p>float32</p></td>
+<td><p>Sky rms for the entire image (in counts)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccdzpt</code></p></td>
+<td><p>float32</p></td>
+<td><p>Zeropoint for the CCD (AB mag)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">zpt</code></p></td>
+<td><p>float32</p></td>
+<td><p>Median zero point for the entire image (median of all CCDs of the image), eg 25.0927</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccdraoff</code></p></td>
+<td><p>float32</p></td>
+<td><p>Median astrometric offset for the CCD &lt;GAIA-Legacy Survey&gt; in arcsec</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccddecoff</code></p></td>
+<td><p>float32</p></td>
+<td><p>Median astrometric offset for the CCD &lt;GAIA-Legacy Survey&gt; in arcsec</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccdnmatch</code></p></td>
+<td><p>int16</p></td>
+<td><p>Number of stars matched to Pan-STARRS (and used to compute the photometric zero points)</p></td>
+</tr>
+</tbody>
+</table></section><section id="survey-ccds-dr5-kd-fits"><h3><a class="toc-backref" href="#toc-entry-5" role="doc-backlink">survey-ccds-dr5.kd.fits</a></h3>
+<p>As for the <strong>survey-ccds-nocuts.fits.gz</strong> file but limited by the depth of each observation. This file contains the CCDs actually used for the DR5 reductions. Columns are the same as for <strong>survey-ccds-nocuts.fits.gz</strong> except for two additional boolean columns <code class="docutils literal">depth_cut_ok</code> and <code class="docutils literal">has_zeropoint</code>, which are always <code class="docutils literal">True</code> for this file.</p>
+</section><section id="ccds-annotated-dr5-fits-gz"><h3><a class="toc-backref" href="#toc-entry-6" role="doc-backlink">ccds-annotated-dr5.fits.gz</a></h3>
+<p>A version of the <strong>survey-ccds-nocuts.fits.gz</strong> file with additional information
+gathered during calibration pre-processing before running the Tractor
+reductions.</p>
+<p>Includes all of the columns in the <strong>survey-ccds-dr5.kd.fits</strong> file plus the following:</p>
+<table class="table table-bordered table-condensed">
+<thead><tr>
+<th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><p><code class="docutils literal">seeing</code></p></td>
+<td><p>float32</p></td>
+<td><p>Seeing in arcseconds determined by fitting a 2-dimensional gaussian to the median PSF of stars on the CCD, eg 1.1019</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">date_obs</code></p></td>
+<td><p>char[10]</p></td>
+<td><p>Date of observation start, eg "2014-08-15".  Can be combined with <code class="docutils literal">ut</code>, or use <code class="docutils literal">mjd_obs</code> instead</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ut</code></p></td>
+<td><p>char[15]</p></td>
+<td><p>Time of observation start, eg "23:50:58.608241"</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ha</code></p></td>
+<td><p>char[13]</p></td>
+<td><p>Hour angle of the observation (HH:MM:SS)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">airmass</code></p></td>
+<td><p>float32</p></td>
+<td><p>Airmass, eg 1.35</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">avsky</code></p></td>
+<td><p>float32</p></td>
+<td><p>Average sky level in this image, in ADU, eg 36.9324. <code class="docutils literal">avsky</code> is <a class="reference external" href="../../avsky">detailed more here</a></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">arawgain</code></p></td>
+<td><p>float32</p></td>
+<td><p>Average gain for this CCD, eg 4.34</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccdnum</code></p></td>
+<td><p>int16</p></td>
+<td><p>CCD number (see Legacy Survey camera layout), eg 1</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccdzpta</code></p></td>
+<td><p>float32</p></td>
+<td><p>Zeropoint for amp A (AB mag)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccdzptb</code></p></td>
+<td><p>float32</p></td>
+<td><p>Zeropoint for amp B (AB mag)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccdphoff</code></p></td>
+<td><p>float32</p></td>
+<td><p>(ignore; depends on the nominal zeropoint, measured at the start of each survey rather than now)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccdphrms</code></p></td>
+<td><p>float32</p></td>
+<td><p>Photometric rms for the CCD (in mag)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccdskyrms</code></p></td>
+<td><p>float32</p></td>
+<td><p>Sky rms for the CCD (in counts)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccdskymag</code></p></td>
+<td><p>float32</p></td>
+<td><p>Mean sky background in AB mag/arcsec<sup>2</sup> on each CCD; measured from the CP-processed frames as -2.5*alog10(<code class="docutils literal">ccdskycounts</code>/<code class="docutils literal">pixscale</code>/<code class="docutils literal">pixscale</code>/<code class="docutils literal">exptime</code>) + <code class="docutils literal">ccdzpt</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccdskycounts</code></p></td>
+<td><p>float32</p></td>
+<td><p>Mean sky count level per pixel in the CP-processed frames measured (with iterative rejection) for each CCD in the image section [500:1500,1500:2500]</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccdrarms</code></p></td>
+<td><p>float32</p></td>
+<td><p>rms in astrometric offset for the CCD &lt;GAIA-Legacy Survey&gt; in arcsec</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccddecrms</code></p></td>
+<td><p>float32</p></td>
+<td><p>rms in astrometric offset for the CCD &lt;GAIA-Legacy Survey&gt; in arcsec</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccdtransp</code></p></td>
+<td><p>float32</p></td>
+<td><p>(ignore; depends on the nominal zeropoint, measured at the the start of survey rather than now)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccdnstar</code></p></td>
+<td><p>int16</p></td>
+<td><p>Number of stars found on the CCD</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccdnmatcha</code></p></td>
+<td><p>int16</p></td>
+<td><p>Number of stars in amp A matched</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccdnmatchb</code></p></td>
+<td><p>int16</p></td>
+<td><p>Number of stars in amp B matched</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccdmdncol</code></p></td>
+<td><p>float32</p></td>
+<td><p>Median (g-i) color from the PS1 catalog of the matched stars</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">temp</code></p></td>
+<td><p>char[32]</p></td>
+<td><p>Outside temperature in <sup>o</sup>C listed in the <code class="docutils literal">OUTTEMP</code> tag in the CCD image header</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">expid</code></p></td>
+<td><p>char[12]</p></td>
+<td><p>Exposure ID string, eg "00348224-S29" (from <code class="docutils literal">expnum</code> and <code class="docutils literal">ccdname</code>)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">photometric</code></p></td>
+<td><p>boolean</p></td>
+<td><p>True if this CCD was considered photometric and used in the DR5 reductions</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">blacklist_ok</code></p></td>
+<td><p>boolean</p></td>
+<td><p>For processing purposes, certain programs (Proposal IDs) are blacklisted if they include many images over a single patch of sky. <code class="docutils literal">True</code> if this CCD was <em>not</em> blacklisted.</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">good_region</code></p></td>
+<td><p>int16[4]</p></td>
+<td><p>If only a subset of the CCD images was used, this array of x0,x1,y0,y1 values gives the coordinates that were used, [x0,x1), [y0,y1).  -1 for no cut (most CCDs).</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ra0</code></p></td>
+<td><p>float64</p></td>
+<td><p>RA  coordinate of pixel (1,1)...Note that the <a class="reference external" href="../../ccdordering">ordering of the CCD corners is detailed here</a></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">dec0</code></p></td>
+<td><p>float64</p></td>
+<td><p>Dec coordinate of pixel (1,1)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ra1</code></p></td>
+<td><p>float64</p></td>
+<td><p>RA  coordinate of pixel (1,H)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">dec1</code></p></td>
+<td><p>float64</p></td>
+<td><p>Dec coordinate of pixel (1,H)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ra2</code></p></td>
+<td><p>float64</p></td>
+<td><p>RA  coordinate of pixel (W,H)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">dec2</code></p></td>
+<td><p>float64</p></td>
+<td><p>Dec coordinate of pixel (W,H)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ra3</code></p></td>
+<td><p>float64</p></td>
+<td><p>RA  coordinate of pixel (W,1)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">dec3</code></p></td>
+<td><p>float64</p></td>
+<td><p>Dec coordinate of pixel (W,1)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">dra</code></p></td>
+<td><p>float32</p></td>
+<td><p>Maximum distance from RA,Dec center to the edge midpoints, in RA</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ddec</code></p></td>
+<td><p>float32</p></td>
+<td><p>Maximum distance from RA,Dec center to the edge midpoints, in Dec</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ra_center</code></p></td>
+<td><p>float64</p></td>
+<td><p>RA coordinate of CCD center</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">dec_center</code></p></td>
+<td><p>float64</p></td>
+<td><p>Dec coordinate of CCD center</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">sig1</code></p></td>
+<td><p>float32</p></td>
+<td><p>Median per-pixel error standard deviation, in nanomaggies.</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">meansky</code></p></td>
+<td><p>float32</p></td>
+<td><p>Our pipeline (not the CP) estimate of the sky level, average over the image, in ADU.</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">stdsky</code></p></td>
+<td><p>float32</p></td>
+<td><p>Standard deviation of our sky level</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">maxsky</code></p></td>
+<td><p>float32</p></td>
+<td><p>Max of our sky level</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">minsky</code></p></td>
+<td><p>float32</p></td>
+<td><p>Min of our sky level</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">pixscale_mean</code></p></td>
+<td><p>float32</p></td>
+<td><p>Pixel scale (via sqrt of area of a 10x10 pixel patch evaluated in a 5x5 grid across the image), in arcsec/pixel.</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">pixscale_std</code></p></td>
+<td><p>float32</p></td>
+<td><p>Standard deviation of pixel scale</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">pixscale_max</code></p></td>
+<td><p>float32</p></td>
+<td><p>Max of pixel scale</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">pixscale_min</code></p></td>
+<td><p>float32</p></td>
+<td><p>Min of pixel scale</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">psfnorm_mean</code></p></td>
+<td><p>float32</p></td>
+<td><p>PSF norm = 1/sqrt of N_eff = sqrt(sum(psf_i^2)) for normalized PSF pixels i; mean of the PSF model evaluated on a 5x5 grid of points across the image.  Point-source detection standard deviation is <code class="docutils literal">sig1 / psfnorm</code>.</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">psfnorm_std</code></p></td>
+<td><p>float32</p></td>
+<td><p>Standard deviation of PSF norm</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">galnorm_mean</code></p></td>
+<td><p>float32</p></td>
+<td><p>Norm of the PSF model convolved by a 0.45" exponential galaxy.</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">galnorm_std</code></p></td>
+<td><p>float32</p></td>
+<td><p>Standard deviation of galaxy norm.</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">psf_mx2</code></p></td>
+<td><p>float32</p></td>
+<td><p>PSF model second moment in x (pixels^2)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">psf_my2</code></p></td>
+<td><p>float32</p></td>
+<td><p>PSF model second moment in y (pixels^2)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">psf_mxy</code></p></td>
+<td><p>float32</p></td>
+<td><p>PSF model second moment in x-y (pixels^2)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">psf_a</code></p></td>
+<td><p>float32</p></td>
+<td><p>PSF model major axis (pixels)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">psf_b</code></p></td>
+<td><p>float32</p></td>
+<td><p>PSF model minor axis (pixels)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">psf_theta</code></p></td>
+<td><p>float32</p></td>
+<td><p>PSF position angle (deg)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">psf_ell</code></p></td>
+<td><p>float32</p></td>
+<td><p>PSF ellipticity 1 - minor/major</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">humidity</code></p></td>
+<td><p>float32</p></td>
+<td><p>Percent humidity outside</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">outtemp</code></p></td>
+<td><p>float32</p></td>
+<td><p>Outside temperate (deg C).</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">tileid</code></p></td>
+<td><p>int32</p></td>
+<td><p>tile number, 0 for data from programs other than MzLS or DECaLS</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">tilepass</code></p></td>
+<td><p>uint8</p></td>
+<td><p>tile pass number, 1, 2 or 3, if this was an MzLS or DECaLS observation, or 0 for data from other programs. Set by the observers (the meaning of <code class="docutils literal">tilepass</code> is on the <a class="reference external" href="../../status">status page</a>)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">tileebv</code></p></td>
+<td><p>float32</p></td>
+<td><p>Mean SFD E(B-V) extinction in the tile, 0 for data from programs other than BASS, MzLS or DECaLS</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">plver</code></p></td>
+<td><p>char[6]</p></td>
+<td><p>Community Pipeline (CP) PLVER version string</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ebv</code></p></td>
+<td><p>float32</p></td>
+<td><p>SFD E(B-V) extinction for CCD center</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">decam_extinction</code></p></td>
+<td><p>float32[6]</p></td>
+<td><p>Extinction for optical filters <span class="math">\(ugrizY\)</span></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">wise_extinction</code></p></td>
+<td><p>float32[4]</p></td>
+<td><p>Extinction for WISE bands W1,W2,W3,W4</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">psfdepth</code></p></td>
+<td><p>float32</p></td>
+<td><p>5-sigma PSF detection depth in AB mag, using PsfEx PSF model</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">galdepth</code></p></td>
+<td><p>float32</p></td>
+<td><p>5-sigma galaxy (0.45" round exp) detection depth in AB mag</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">gausspsfdepth</code></p></td>
+<td><p>float32</p></td>
+<td><p>5-sigma PSF detection depth in AB mag, using Gaussian PSF approximation (using <code class="docutils literal">seeing</code> value)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">gaussgaldepth</code></p></td>
+<td><p>float32</p></td>
+<td><p>5-sigma galaxy detection depth in AB mag, using Gaussian PSF approximation</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">psf_sampling</code></p></td>
+<td><p>float32</p></td>
+<td><p>(ignore)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccd_cuts</code></p></td>
+<td><p>int32</p></td>
+<td><p>(ignore)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">annotated</code></p></td>
+<td><p>boolean</p></td>
+<td><p>(ignore)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">new_photometric</code></p></td>
+<td><p>boolean</p></td>
+<td><p>see the <code class="docutils literal">Update to <span class="pre">ccds-annotated-</span> <span class="pre">file...</span></code> note on the <a class="reference external" href="../issues">issues page</a></p></td>
+</tr>
+</tbody>
+</table></section><section id="dr5-depth-fits-gz"><h3><a class="toc-backref" href="#toc-entry-7" role="doc-backlink">dr5-depth.fits.gz</a></h3>
+<p>A concatenation of the depth histograms for each brick, from the
+<code class="docutils literal"><span class="pre">coadd/*/*/*-depth.fits</span></code> tables.  HDU1 contains histograms that describe the
+number of pixels in each brick with a 5-sigma AB depth in the given magnitude
+bin. HDU2 contains the bin edges of the histograms.</p>
+<ul class="simple">
+<li><p>HDU1</p></li>
+</ul>
+<table class="table table-bordered table-condensed">
+<thead><tr>
+<th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><p><code class="docutils literal">counts_ptsrc_g</code></p></td>
+<td><p>int32[50]</p></td>
+<td><p>Histogram of pixels for point source depth in <span class="math">\(g\)</span> band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">counts_gal_g</code></p></td>
+<td><p>int32[50]</p></td>
+<td><p>Histogram of pixels for canonical galaxy depth in <span class="math">\(g\)</span> band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">counts_ptsrc_r</code></p></td>
+<td><p>int32[50]</p></td>
+<td><p>Histogram of pixels for point source depth in <span class="math">\(r\)</span> band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">counts_gal_r</code></p></td>
+<td><p>int32[50]</p></td>
+<td><p>Histogram of pixels for canonical galaxy depth in <span class="math">\(r\)</span> band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">counts_ptsrc_z</code></p></td>
+<td><p>int32[50]</p></td>
+<td><p>Histogram of pixels for point source depth in <span class="math">\(z\)</span> band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">counts_gal_z</code></p></td>
+<td><p>int32[50]</p></td>
+<td><p>Histogram of pixels for canonical galaxy depth in <span class="math">\(z\)</span> band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">brickname</code></p></td>
+<td><p>char[8]</p></td>
+<td><p>Name of the brick</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>HDU2</p></li>
+</ul>
+<table class="table table-bordered table-condensed">
+<thead><tr>
+<th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><p><code class="docutils literal">depthlo</code></p></td>
+<td><p>float32</p></td>
+<td><p>Lower bin edge for each histogram in HDU1 (5-sigma AB depth)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">depthhi</code></p></td>
+<td><p>float32</p></td>
+<td><p>Upper bin edge for each histogram in HDU1 (5-sigma AB depth)</p></td>
+</tr>
+</tbody>
+</table></section><section id="dr5-depth-summary-fits-gz"><h3><a class="toc-backref" href="#toc-entry-8" role="doc-backlink">dr5-depth-summary.fits.gz</a></h3>
+<p>A summary of the depth histogram of the whole DR5 survey.  FITS table with the following columns:</p>
+<table class="table table-bordered table-condensed">
+<thead><tr>
+<th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><p><code class="docutils literal">depthlo</code></p></td>
+<td><p>float32</p></td>
+<td><p>Lower limit of the depth bin</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">depthhi</code></p></td>
+<td><p>float32</p></td>
+<td><p>Upper limit of the depth bin</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">counts_ptsrc_g</code></p></td>
+<td><p>int64</p></td>
+<td><p>Number of pixels in histogram for point source depth in <span class="math">\(g\)</span> band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">counts_gal_g</code></p></td>
+<td><p>int64</p></td>
+<td><p>Number of pixels in histogram for canonical galaxy depth in <span class="math">\(g\)</span> band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">counts_ptsrc_r</code></p></td>
+<td><p>int64</p></td>
+<td><p>Number of pixels in histogram for point source depth in <span class="math">\(r\)</span> band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">counts_gal_r</code></p></td>
+<td><p>int64</p></td>
+<td><p>Number of pixels in histogram for canonical galaxy depth in <span class="math">\(r\)</span> band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">counts_ptsrc_z</code></p></td>
+<td><p>int64</p></td>
+<td><p>Number of pixels in histogram for point source depth in <span class="math">\(z\)</span> band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">counts_gal_z</code></p></td>
+<td><p>int64</p></td>
+<td><p>Number of pixels in histogram for canonical galaxy depth in <span class="math">\(z\)</span> band</p></td>
+</tr>
+</tbody>
+</table>
+<p>The depth histogram goes from magnitude of 20.1 to 24.9 in steps of
+0.1 mag.  The first and last bins are "catch-all" bins: 0 to 20.1 and
+24.9 to 100, respectively.  The histograms count the number of pixels
+in each brick's unique area with the given depth.  These numbers can
+be turned into values in square degrees using the brick pixel area of
+0.262 arcseconds square.  These depth estimates take into account the
+small-scale masking (cosmic rays, edges, saturated pixels) and
+detailed PSF model.</p>
+</section></section><section id="external-files"><h2><a class="toc-backref" href="#toc-entry-9" role="doc-backlink">External Files</a></h2>
+<dl class="simple">
+<dt>The Legacy Survey photometric catalogs have been matched to the following external spectroscopic files from the SDSS, which can be accessed through the web at:</dt>
+<dd>
+<p><a class="reference external" href="https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/external/">https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/external/</a></p>
+</dd>
+<dt>Or on the NERSC computers (for collaborators) at:</dt>
+<dd>
+<p>/global/cfs/cdirs/cosmo/data/legacysurvey/dr5/external/</p>
+</dd>
+</dl>
+<p>Each row of each external-match file contains the full record of the nearest object in our Tractored survey
+imaging catalogs, matched at a radius of 1.0 arcsec. The structure of the imaging catalog files
+is documented on the <a class="reference external" href="../catalogs">catalogs page</a>. If no match is found, then <code class="docutils literal">OBJID</code> is set to -1.</p>
+<p>In addition to the columns from the Tractor catalogs, we have added columns from the SDSS files that can be used to track objects uniquely. These are typically some combination of <code class="docutils literal">PLATE</code>, <code class="docutils literal">FIBER</code>, <code class="docutils literal">MJD</code> (or <code class="docutils literal">SMJD</code>) and, in some cases, <code class="docutils literal">RERUN</code>.</p>
+<section id="survey-dr5-specobj-dr14-fits"><h3><a class="toc-backref" href="#toc-entry-10" role="doc-backlink">survey-dr5-specObj-dr14.fits</a></h3>
+<p>HDU1 (the only HDU) contains Tractored survey
+photometry that is row-by-row-matched to the SDSS DR14 spectrosopic
+pipeline file such that the photometric parameters in row "N" of
+<strong>survey-dr5-specObj-dr14.fits</strong> matches the spectroscopic parameters in row "N" of
+specObj-dr14.fits. The spectroscopic file
+is documented in the SDSS DR14 <a class="reference external" href="https://data.sdss3.org/datamodel/files/SPECTRO_REDUX/specObj.html">data model for specObj-dr14.fits</a>.</p>
+</section><section id="survey-dr5-dr12q-fits"><h3><a class="toc-backref" href="#toc-entry-11" role="doc-backlink">survey-dr5-dr12Q.fits</a></h3>
+<p>HDU1 (the only HDU) contains Tractored survey
+photometry that is row-by-row-matched to the SDSS DR12
+visually inspected quasar catalog (<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2017A%26A...597A..79P/abstract">Paris et al. 2017</a>)
+such that the photometric parameters in row "N" of
+<strong>survey-dr5-dr12Q.fits</strong> matches the spectroscopic parameters in row "N" of
+DR12Q.fits. The spectroscopic file
+is documented in the SDSS DR12 <a class="reference external" href="https://data.sdss3.org/datamodel/files/BOSS_QSO/DR12Q/DR12Q.html">data model for DR12Q.fits</a>.</p>
+</section><section id="survey-dr5-superset-dr12q-fits"><h3><a class="toc-backref" href="#toc-entry-12" role="doc-backlink">survey-dr5-superset-dr12Q.fits</a></h3>
+<p>HDU1 (the only HDU) contains Tractored survey
+photometry that is row-by-row-matched to the superset of all SDSS DR12 spectroscopically
+confirmed objects that were visually inspected as possible quasars
+(<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2017A%26A...597A..79P/abstract">Paris et al. 2017</a>) such that the photometric parameters in row "N" of
+<strong>survey-dr5-Superset_dr12Q.fits</strong> matches the spectroscopic parameters in row "N" of
+Superset_DR12Q.fits. The spectroscopic file
+is documented in the SDSS DR12 <a class="reference external" href="https://data.sdss3.org/datamodel/files/BOSS_QSO/DR12Q/DR12Q_superset.html">data model for Superset_DR12Q.fits</a>.</p>
+</section><section id="survey-dr5-dr7q-fits"><h3><a class="toc-backref" href="#toc-entry-13" role="doc-backlink">survey-dr5-dr7Q.fits</a></h3>
+<p>HDU1 (the only HDU) contains Tractored survey
+photometry that is row-by-row-matched to the SDSS DR7
+visually inspected quasar catalog (<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2010AJ....139.2360S/abstract">Schneider et al. 2010</a>)
+such that the photometric parameters in row "N" of
+<strong>survey-dr5-dr7Q.fits</strong> matches the spectroscopic parameters in row "N" of
+DR7qso.fit. The spectroscopic file
+is documented on the <a class="reference external" href="https://classic.sdss.org/dr7/products/value_added/qsocat_dr7.html">DR7 quasar catalog description page</a>.</p>
+</section></section><section id="tractor-catalogs"><h2><a class="toc-backref" href="#toc-entry-14" role="doc-backlink">Tractor Catalogs</a></h2>
+<p>In the file listings outlined below:</p>
+<ul class="simple">
+<li><p>brick names (<strong>&lt;brick&gt;</strong>) have the format <cite>&lt;AAAa&gt;c&lt;BBB&gt;</cite> where <cite>A</cite>, <cite>a</cite> and <cite>B</cite> are digits and <cite>c</cite> is either the letter <cite>m</cite> or <cite>p</cite> (e.g. <cite>1126p222</cite>). The names are derived from the (RA, Dec) center of the brick. The first four digits are <span class="math">\(int(RA \times 10)\)</span>, followed by <cite>p</cite> to denote positive Dec or <cite>m</cite> to denote negative Dec ("plus"/"minus"), followed by three digits of <span class="math">\(int(Dec \times 10)\)</span>. For example the case <cite>1126p222</cite> corresponds to (RA, Dec) = (112.6°, +22.2°).</p></li>
+<li><p><strong>&lt;brickmin&gt;</strong> and <strong>&lt;brickmax&gt;</strong> denote the corners of a rectangle in (RA, Dec). Explicitly, <strong>&lt;brickmin&gt;</strong> has the format <cite>&lt;AAA&gt;c&lt;BBB&gt;</cite> where <cite>&lt;AAA&gt;</cite> denotes three digits of the minimum <span class="math">\(int(RA)\)</span> in degrees, &lt;BBB&gt; denotes three digits of the minimum <span class="math">\(int(Dec)\)</span> in degrees, and <cite>c</cite> uses the <cite>p</cite>/<cite>m</cite> ("plus"/"minus") format outlined in the previous bullet point. The convention is similar for  <strong>&lt;brickmax&gt;</strong> and the maximum RA and Dec. For example <cite>000m010-010m005</cite> would correspond to a survey region limited by <span class="math">\(0^\circ \leq RA &lt; 10^\circ\)</span> and <span class="math">\(-10^\circ \leq Dec &lt; -5^\circ\)</span>.</p></li>
+<li><p>sub-directories are listed by the RA of the brick center, and sub-directory names (<strong>&lt;AAA&gt;</strong>) correspond to RA. For example <cite>002</cite> corresponds to brick centers between an RA of 2° and an RA of 3°.</p></li>
+<li><p><strong>&lt;filter&gt;</strong> denotes the <span class="math">\(g\)</span>, <span class="math">\(r\)</span> or <span class="math">\(z\)</span> band, using the corresponding letter.</p></li>
+</ul>
+<p>Note that it is not possible to go from a brick name back to an <em>exact</em> (RA, Dec) center (the bricks are not on 0.1° grid
+lines). The exact brick center for a given brick name can be derived from columns in the
+<strong>survey-bricks.fits.gz</strong> file (i.e. <code class="docutils literal">brickname</code>, <code class="docutils literal">ra</code>, <code class="docutils literal">dec</code>).</p>
+<section id="tractor-aaa-tractor-brick-fits"><h3><a class="toc-backref" href="#toc-entry-15" role="doc-backlink">tractor/&lt;AAA&gt;/tractor-&lt;brick&gt;.fits</a></h3>
+<p>FITS binary table containing Tractor photometry, documented on the
+<a class="reference external" href="../catalogs">catalogs page</a>.</p>
+<p>Users interested in database access to the Tractor Catalogs can contact the Astro Data Lab <a class="brackets" href="#footnote-1" id="footnote-reference-1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> at <a class="reference external" href="mailto:datalab@noirlab.edu">datalab@noirlab.edu</a>.</p>
+</section></section><section id="sweep-catalogs"><h2><a class="toc-backref" href="#toc-entry-16" role="doc-backlink">Sweep Catalogs</a></h2>
+<section id="sweep-5-0-sweep-brickmin-brickmax-fits"><h3><a class="toc-backref" href="#toc-entry-17" role="doc-backlink">sweep/5.0/sweep-&lt;brickmin&gt;-&lt;brickmax&gt;.fits</a></h3>
+<p>The sweeps are light-weight FITS binary tables (containing a subset of the most commonly used
+Tractor measurements) of all the Tractor catalogs for which <code class="docutils literal"><span class="pre">BRICK_PRIMARY==T</span></code> in rectangles of RA, Dec. In addition to the columns listed below, the columns pertaining to optical data
+also have <span class="math">\(U\)</span>, <span class="math">\(I\)</span> and <span class="math">\(Y\)</span>-band entries (e.g. <code class="docutils literal">FLUX_U</code>, <code class="docutils literal">FLUX_I</code>, <code class="docutils literal">FLUX_Y</code>), but, in DR5, these extra columns contain only zeros.</p>
+<table class="table table-bordered table-condensed">
+<thead><tr>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Units</p></th>
+<th class="head"><p>Description</p></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><p><code class="docutils literal">RELEASE</code></p></td>
+<td><p>int32</p></td>
+<td></td>
+<td><p>Unique integer denoting the camera and filter set used (<a class="reference external" href="../../release">RELEASE is documented here</a>)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">BRICKID</code></p></td>
+<td><p>int32</p></td>
+<td></td>
+<td><p>Brick ID [1,662174]</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">BRICKNAME</code></p></td>
+<td><p>char[8]</p></td>
+<td></td>
+<td><p>Name of brick, encoding the brick sky position, eg "1126p222" near RA=112.6, Dec=+22.2</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">OBJID</code></p></td>
+<td><p>int32</p></td>
+<td></td>
+<td><p>Catalog object number within this brick; a unique identifier hash is <code class="docutils literal">BRICKID,OBJID</code>; <code class="docutils literal">OBJID</code> spans [0,N-1] and is contiguously enumerated within each blob</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">TYPE</code></p></td>
+<td><p>char[4]</p></td>
+<td></td>
+<td><p>Morphological model: "PSF"=stellar, "REX"="round exponential galaxy" = round EXP galaxy with a variable radius, "EXP"=exponential, "DEV"=deVauc, "COMP"=composite.  Note that in some FITS readers, a trailing space may be appended for "PSF ", "EXP " and "DEV " since the column data type is a 4-character string</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">RA</code></p></td>
+<td><p>float64</p></td>
+<td><p>deg</p></td>
+<td><p>Right ascension at equinox J2000</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">DEC</code></p></td>
+<td><p>float64</p></td>
+<td><p>deg</p></td>
+<td><p>Declination at equinox J2000</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">RA_IVAR</code></p></td>
+<td><p>float32</p></td>
+<td><p>1/deg²</p></td>
+<td><p>Inverse variance of <code class="docutils literal">RA</code> (no cosine term!), excluding astrometric calibration errors</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">DEC_IVAR</code></p></td>
+<td><p>float32</p></td>
+<td><p>1/deg²</p></td>
+<td><p>Inverse variance of <code class="docutils literal">DEC</code>, excluding astrometric calibration errors</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">DCHISQ</code></p></td>
+<td><p>float32[5]</p></td>
+<td></td>
+<td><p>Difference in χ² between successively more-complex model fits: PSF, REX, DEV, EXP, COMP.  The difference is versus no source.</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">EBV</code></p></td>
+<td><p>float32</p></td>
+<td><p>mag</p></td>
+<td><p>Galactic extinction E(B-V) reddening from SFD98, used to compute <code class="docutils literal">MW_TRANSMISSION</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FLUX_G</code></p></td>
+<td><p>float32</p></td>
+<td><p>nanomaggies</p></td>
+<td><p>model flux in <span class="math">\(g\)</span></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FLUX_R</code></p></td>
+<td><p>float32</p></td>
+<td><p>nanomaggies</p></td>
+<td><p>model flux in <span class="math">\(r\)</span></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FLUX_Z</code></p></td>
+<td><p>float32</p></td>
+<td><p>nanomaggies</p></td>
+<td><p>model flux in <span class="math">\(z\)</span></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FLUX_W1</code></p></td>
+<td><p>float32</p></td>
+<td><p>nanomaggies</p></td>
+<td><p>WISE model flux in <span class="math">\(W1\)</span></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FLUX_W2</code></p></td>
+<td><p>float32</p></td>
+<td><p>nanomaggies</p></td>
+<td><p>WISE model flux in <span class="math">\(W2\)</span></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FLUX_W3</code></p></td>
+<td><p>float32</p></td>
+<td><p>nanomaggies</p></td>
+<td><p>WISE model flux in <span class="math">\(W3\)</span></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FLUX_W4</code></p></td>
+<td><p>float32</p></td>
+<td><p>nanomaggies</p></td>
+<td><p>WISE model flux in <span class="math">\(W4\)</span></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FLUX_IVAR_G</code></p></td>
+<td><p>float32</p></td>
+<td><p>1/nanomaggies²</p></td>
+<td><p>Inverse variance of <code class="docutils literal">FLUX_G</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FLUX_IVAR_R</code></p></td>
+<td><p>float32</p></td>
+<td><p>1/nanomaggies²</p></td>
+<td><p>Inverse variance of <code class="docutils literal">FLUX_R</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FLUX_IVAR_Z</code></p></td>
+<td><p>float32</p></td>
+<td><p>1/nanomaggies²</p></td>
+<td><p>Inverse variance of <code class="docutils literal">FLUX_Z</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FLUX_IVAR_W1</code></p></td>
+<td><p>float32</p></td>
+<td><p>1/nanomaggies²</p></td>
+<td><p>Inverse variance of <code class="docutils literal">FLUX_W1</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FLUX_IVAR_W2</code></p></td>
+<td><p>float32</p></td>
+<td><p>1/nanomaggies²</p></td>
+<td><p>Inverse variance of <code class="docutils literal">FLUX_W2</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FLUX_IVAR_W3</code></p></td>
+<td><p>float32</p></td>
+<td><p>1/nanomaggies²</p></td>
+<td><p>Inverse variance of <code class="docutils literal">FLUX_W3</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FLUX_IVAR_W4</code></p></td>
+<td><p>float32</p></td>
+<td><p>1/nanomaggies²</p></td>
+<td><p>Inverse variance of <code class="docutils literal">FLUX_W4</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">MW_TRANSMISSION_G</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Galactic transmission in <span class="math">\(g\)</span> filter in linear units [0,1]</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">MW_TRANSMISSION_R</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Galactic transmission in <span class="math">\(r\)</span> filter in linear units [0,1]</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">MW_TRANSMISSION_Z</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Galactic transmission in <span class="math">\(z\)</span> filter in linear units [0,1]</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">MW_TRANSMISSION_W1</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Galactic transmission in <span class="math">\(W1\)</span> filter in linear units [0,1]</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">MW_TRANSMISSION_W2</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Galactic transmission in <span class="math">\(W2\)</span> filter in linear units [0,1]</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">MW_TRANSMISSION_W3</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Galactic transmission in <span class="math">\(W3\)</span> filter in linear units [0,1]</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">MW_TRANSMISSION_W4</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Galactic transmission in <span class="math">\(W4\)</span> filter in linear units [0,1]</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">NOBS_G</code></p></td>
+<td><p>int16</p></td>
+<td></td>
+<td><p>Number of images that contribute to the central pixel in <span class="math">\(g\)</span>: filter for this object (not profile-weighted)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">NOBS_R</code></p></td>
+<td><p>int16</p></td>
+<td></td>
+<td><p>Number of images that contribute to the central pixel in <span class="math">\(r\)</span>: filter for this object (not profile-weighted)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">NOBS_Z</code></p></td>
+<td><p>int16</p></td>
+<td></td>
+<td><p>Number of images that contribute to the central pixel in <span class="math">\(z\)</span>: filter for this object (not profile-weighted)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">NOBS_W1</code></p></td>
+<td><p>int16</p></td>
+<td></td>
+<td><p>Number of images that contribute to the central pixel in <span class="math">\(W1\)</span>: filter for this object (not profile-weighted)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">NOBS_W2</code></p></td>
+<td><p>int16</p></td>
+<td></td>
+<td><p>Number of images that contribute to the central pixel in <span class="math">\(W2\)</span>: filter for this object (not profile-weighted)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">NOBS_W3</code></p></td>
+<td><p>int16</p></td>
+<td></td>
+<td><p>Number of images that contribute to the central pixel in <span class="math">\(W3\)</span>: filter for this object (not profile-weighted)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">NOBS_W4</code></p></td>
+<td><p>int16</p></td>
+<td></td>
+<td><p>Number of images that contribute to the central pixel in <span class="math">\(W4\)</span>: filter for this object (not profile-weighted)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">RCHISQ_G</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Profile-weighted χ² of model fit normalized by the number of pixels in <span class="math">\(g\)</span></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">RCHISQ_R</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Profile-weighted χ² of model fit normalized by the number of pixels in <span class="math">\(r\)</span></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">RCHISQ_Z</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Profile-weighted χ² of model fit normalized by the number of pixels in <span class="math">\(z\)</span></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">RCHISQ_W1</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Profile-weighted χ² of model fit normalized by the number of pixels in <span class="math">\(W1\)</span></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">RCHISQ_W2</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Profile-weighted χ² of model fit normalized by the number of pixels in <span class="math">\(W2\)</span></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">RCHISQ_W3</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Profile-weighted χ² of model fit normalized by the number of pixels in <span class="math">\(W3\)</span></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">RCHISQ_W4</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Profile-weighted χ² of model fit normalized by the number of pixels in <span class="math">\(W4\)</span></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FRACFLUX_G</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Profile-weighted fraction of the flux from other sources divided by the total flux in <span class="math">\(g\)</span> (typically [0,1])</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FRACFLUX_R</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Profile-weighted fraction of the flux from other sources divided by the total flux in <span class="math">\(r\)</span> (typically [0,1])</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FRACFLUX_Z</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Profile-weighted fraction of the flux from other sources divided by the total flux in <span class="math">\(z\)</span> (typically [0,1])</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FRACFLUX_W1</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Profile-weighted fraction of the flux from other sources divided by the total flux in <span class="math">\(W1\)</span> (typically [0,1])</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FRACFLUX_W2</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Profile-weighted fraction of the flux from other sources divided by the total flux in <span class="math">\(W2\)</span> (typically [0,1])</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FRACFLUX_W3</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Profile-weighted fraction of the flux from other sources divided by the total flux in <span class="math">\(W3\)</span> (typically [0,1])</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FRACFLUX_W4</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Profile-weighted fraction of the flux from other sources divided by the total flux in <span class="math">\(W4\)</span> (typically [0,1])</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FRACMASKED_G</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Profile-weighted fraction of pixels masked from all observations of this object in <span class="math">\(g\)</span>, strictly between [0,1]</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FRACMASKED_R</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Profile-weighted fraction of pixels masked from all observations of this object in <span class="math">\(r\)</span>, strictly between [0,1]</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FRACMASKED_Z</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Profile-weighted fraction of pixels masked from all observations of this object in <span class="math">\(z\)</span>, strictly between [0,1]</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FRACIN_G</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Fraction of a source's flux within the blob in <span class="math">\(g\)</span>, near unity for real sources</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FRACIN_R</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Fraction of a source's flux within the blob in <span class="math">\(r\)</span>, near unity for real sources</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FRACIN_Z</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Fraction of a source's flux within the blob in <span class="math">\(z\)</span>, near unity for real sources</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ANYMASK_G</code></p></td>
+<td><p>int16</p></td>
+<td></td>
+<td><p>Bitwise mask set if the central pixel from any image satisfies each condition in <span class="math">\(g\)</span></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ANYMASK_R</code></p></td>
+<td><p>int16</p></td>
+<td></td>
+<td><p>Bitwise mask set if the central pixel from any image satisfies each condition in <span class="math">\(r\)</span></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ANYMASK_Z</code></p></td>
+<td><p>int16</p></td>
+<td></td>
+<td><p>Bitwise mask set if the central pixel from any image satisfies each condition in <span class="math">\(z\)</span></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ALLMASK_G</code></p></td>
+<td><p>int16</p></td>
+<td></td>
+<td><p>Bitwise mask set if the central pixel from all images satisfy each condition in <span class="math">\(g\)</span></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ALLMASK_R</code></p></td>
+<td><p>int16</p></td>
+<td></td>
+<td><p>Bitwise mask set if the central pixel from all images satisfy each condition in <span class="math">\(r\)</span></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ALLMASK_Z</code></p></td>
+<td><p>int16</p></td>
+<td></td>
+<td><p>Bitwise mask set if the central pixel from all images satisfy each condition in <span class="math">\(z\)</span></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">WISEMASK_W1</code></p></td>
+<td><p>uint8</p></td>
+<td></td>
+<td><p>W1 bright star bitmask, <span class="math">\(2^0\)</span> <span class="math">\((2^1)\)</span> for southward (northward) scans</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">WISEMASK_W2</code></p></td>
+<td><p>uint8</p></td>
+<td></td>
+<td><p>W2 bright star bitmask, <span class="math">\(2^0\)</span> <span class="math">\((2^1)\)</span> for southward (northward) scans</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">PSFSIZE_G</code></p></td>
+<td><p>float32</p></td>
+<td><p>arcsec</p></td>
+<td><p>Weighted average PSF FWHM in the <span class="math">\(g\)</span> band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">PSFSIZE_R</code></p></td>
+<td><p>float32</p></td>
+<td><p>arcsec</p></td>
+<td><p>Weighted average PSF FWHM in the <span class="math">\(r\)</span> band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">PSFSIZE_Z</code></p></td>
+<td><p>float32</p></td>
+<td><p>arcsec</p></td>
+<td><p>Weighted average PSF FWHM in the <span class="math">\(z\)</span> band</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">PSFDEPTH_G</code></p></td>
+<td><p>float32</p></td>
+<td><p>1/nanomaggies²</p></td>
+<td><p>For a <span class="math">\(5\sigma\)</span> point source detection limit in <span class="math">\(g\)</span>, <span class="math">\(5/\sqrt(\mathrm{PSFDEPTH\_G})\)</span> gives flux in nanomaggies and <span class="math">\(-2.5[\log_{10}(5 / \sqrt(\mathrm{PSFDEPTH\_G})) - 9]\)</span> gives corresponding magnitude</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">PSFDEPTH_R</code></p></td>
+<td><p>float32</p></td>
+<td><p>1/nanomaggies²</p></td>
+<td><p>For a <span class="math">\(5\sigma\)</span> point source detection limit in <span class="math">\(g\)</span>, <span class="math">\(5/\sqrt(\mathrm{PSFDEPTH\_R})\)</span> gives flux in nanomaggies and <span class="math">\(-2.5[\log_{10}(5 / \sqrt(\mathrm{PSFDEPTH\_R})) - 9]\)</span> gives corresponding magnitude</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">PSFDEPTH_Z</code></p></td>
+<td><p>float32</p></td>
+<td><p>1/nanomaggies²</p></td>
+<td><p>For a <span class="math">\(5\sigma\)</span> point source detection limit in <span class="math">\(g\)</span>, <span class="math">\(5/\sqrt(\mathrm{PSFDEPTH\_Z})\)</span> gives flux in nanomaggies and <span class="math">\(-2.5[\log_{10}(5 / \sqrt(\mathrm{PSFDEPTH\_Z})) - 9]\)</span> gives corresponding magnitude</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">GALDEPTH_G</code></p></td>
+<td><p>float32</p></td>
+<td><p>1/nanomaggies²</p></td>
+<td><p>As for <code class="docutils literal">PSFDEPTH_G</code> but for a galaxy (0.45" exp, round) detection sensitivity</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">GALDEPTH_R</code></p></td>
+<td><p>float32</p></td>
+<td><p>1/nanomaggies²</p></td>
+<td><p>As for <code class="docutils literal">PSFDEPTH_R</code> but for a galaxy (0.45" exp, round) detection sensitivity</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">GALDEPTH_Z</code></p></td>
+<td><p>float32</p></td>
+<td><p>1/nanomaggies²</p></td>
+<td><p>As for <code class="docutils literal">PSFDEPTH_Z</code> but for a galaxy (0.45" exp, round) detection sensitivity</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">WISE_COADD_ID</code></p></td>
+<td><p>char[8]</p></td>
+<td></td>
+<td><p>unWISE coadd file name for the center of each object</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FRACDEV</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Fraction of model in deVauc [0,1]</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">FRACDEV_IVAR</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Inverse variance of <code class="docutils literal">FRACDEV</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">SHAPEDEV_R</code></p></td>
+<td><p>float32</p></td>
+<td><p>arcsec</p></td>
+<td><p>Half-light radius of deVaucouleurs model (&gt;0)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">SHAPEDEV_R_IVAR</code></p></td>
+<td><p>float32</p></td>
+<td><p>1/arcsec</p></td>
+<td><p>Inverse variance of <code class="docutils literal">SHAPEDEV_R</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">SHAPEDEV_E1</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Ellipticity component 1</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">SHAPEDEV_E1_IVAR</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Inverse variance of <code class="docutils literal">SHAPEDEV_E1</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">SHAPEDEV_E2</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Ellipticity component 2</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">SHAPEDEV_E2_IVAR</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Inverse variance of <code class="docutils literal">SHAPEDEV_E2</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">SHAPEEXP_R</code></p></td>
+<td><p>float32</p></td>
+<td><p>arcsec</p></td>
+<td><p>Half-light radius of exponential model (&gt;0)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">SHAPEEXP_R_IVAR</code></p></td>
+<td><p>float32</p></td>
+<td><p>1/arcsec2</p></td>
+<td><p>Inverse variance of <code class="docutils literal">SHAPEEXP_R</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">SHAPEEXP_E1</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Ellipticity component 1</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">SHAPEEXP_E1_IVAR</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Inverse variance of <code class="docutils literal">SHAPEEXP_E1</code></p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">SHAPEEXP_E2</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Ellipticity component 2</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">SHAPEEXP_E2_IVAR</code></p></td>
+<td><p>float32</p></td>
+<td></td>
+<td><p>Inverse variance of <code class="docutils literal">SHAPEEXP_E2</code></p></td>
+</tr>
+</tbody>
+</table></section></section><section id="image-stacks"><h2><a class="toc-backref" href="#toc-entry-18" role="doc-backlink">Image Stacks</a></h2>
+<p>Image stacks are on tangent-plane (WCS TAN) projections, 3600 ×
+3600 pixels, at 0.262 arcseconds per pixel.</p>
+<ul>
+<li><dl>
+<dt>coadd/&lt;AAA&gt;/&lt;brick&gt;/legacysurvey-&lt;brick&gt;-ccds.fits</dt>
+<dd>
+<p>FITS binary table with the list of CCD images that were used in this brick.
+Contains the same columns as <strong>survey-ccds-dr5.kd.fits</strong>, and also contains
+the additional columns:</p>
+<table class="table table-bordered table-condensed">
+<thead><tr>
+<th class="head"><p>Column</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><p><code class="docutils literal">ccd_cuts</code></p></td>
+<td><p>int32</p></td>
+<td><p>(ignore)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccd_x0</code></p></td>
+<td><p>int16</p></td>
+<td><p>Minimum x image coordinate overlapping this brick</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccd_y0</code></p></td>
+<td><p>int16</p></td>
+<td><p>Minimum y image coordinate overlapping this brick</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccd_x1</code></p></td>
+<td><p>int16</p></td>
+<td><p>Maximum x image coordinate overlapping this brick</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">ccd_y1</code></p></td>
+<td><p>int16</p></td>
+<td><p>Maximum y image coordinate overlapping this brick</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">brick_x0</code></p></td>
+<td><p>int16</p></td>
+<td><p>Minimum x brick image coordinate overlapped by this image</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">brick_x1</code></p></td>
+<td><p>int16</p></td>
+<td><p>Maximum x brick image coordinate overlapped by this image</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">brick_y0</code></p></td>
+<td><p>int16</p></td>
+<td><p>Minimum y brick image coordinate overlapped by this image</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">brick_y1</code></p></td>
+<td><p>int16</p></td>
+<td><p>Maximum y brick image coordinate overlapped by this image</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">sig1</code></p></td>
+<td><p>float64</p></td>
+<td><p>(ignore)</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">psfnorm</code></p></td>
+<td><p>float32</p></td>
+<td><p>Same as <code class="docutils literal">psfnorm</code> in the <strong>ccds-annotated-</strong> file</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">galnorm</code></p></td>
+<td><p>float64</p></td>
+<td><p>Same as <code class="docutils literal">galnorm</code> in the <strong>ccds-annotated-</strong> file</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">plver</code></p></td>
+<td><p>char[6]</p></td>
+<td><p>Community Pipeline (CP) version</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">skyver</code></p></td>
+<td><p>char[17]</p></td>
+<td><p>Git version of the sky calibration code</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">wcsver</code></p></td>
+<td><p>char[1]</p></td>
+<td><p>Git version of the WCS calibration code</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">psfver</code></p></td>
+<td><p>char[17]</p></td>
+<td><p>Git version of the PSF calibration code</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">skyplver</code></p></td>
+<td><p>char[8]</p></td>
+<td><p>CP version of the input to sky calibration</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">wcsplver</code></p></td>
+<td><p>char[6]</p></td>
+<td><p>CP version of the input to WCS calibration</p></td>
+</tr>
+<tr>
+<td><p><code class="docutils literal">psfplver</code></p></td>
+<td><p>char[6]</p></td>
+<td><p>CP version of the input to PSF calibration</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl></li>
+<li><dl class="simple">
+<dt>coadd/&lt;AAA&gt;/&lt;brick&gt;/legacysurvey-&lt;brick&gt;-image-&lt;filter&gt;.fits</dt>
+<dd>
+<p>Stacked image centered on a brick location covering 0.25° × 0.25°.  The primary HDU contains the coadded image (inverse-variance weighted coadd), in
+units of nanomaggies per pixel.</p>
+<ul class="simple">
+<li><p>NOTE: These are not the images used by Tractor, which operates on the
+single-epoch images.</p></li>
+<li><p>NOTE: that these images are resampled using Lanczos-3 resampling.</p></li>
+</ul>
+</dd>
+</dl></li>
+<li><dl class="simple">
+<dt>coadd/&lt;AAA&gt;/&lt;brick&gt;/legacysurvey-&lt;brick&gt;-invvar-&lt;filter&gt;.fits</dt>
+<dd>
+<p>Corresponding stacked inverse variance image based on the sum of the
+inverse-variances of the individual input images in units of 1/(nanomaggies)² per pixel.</p>
+<ul class="simple">
+<li><p>NOTE: These are not the inverse variance maps used by Tractor, which operates
+on the single-epoch images.</p></li>
+</ul>
+</dd>
+</dl></li>
+<li><dl class="simple">
+<dt>coadd/&lt;AAA&gt;/&lt;brick&gt;/legacysurvey-&lt;brick&gt;-model-&lt;filter&gt;.fits.gz</dt>
+<dd>
+<p>Stacked model image centered on a brick location covering 0.25° × 0.25°.</p>
+<ul class="simple">
+<li><p>The Tractor's idea of what the coadded images should look like; the Tractor's model prediction.</p></li>
+</ul>
+</dd>
+</dl></li>
+<li><dl class="simple">
+<dt>coadd/&lt;AAA&gt;/&lt;brick&gt;/legacysurvey-&lt;brick&gt;-chi2-&lt;filter&gt;.fits</dt>
+<dd>
+<p>Stacked χ² image, which is approximately the summed χ² values from the single-epoch images.</p>
+</dd>
+</dl></li>
+<li><dl class="simple">
+<dt>coadd/&lt;AAA&gt;/&lt;brick&gt;/legacysurvey-&lt;brick&gt;-depth-&lt;filter&gt;.fits.gz</dt>
+<dd>
+<p>Stacked depth map in units of the point-source flux inverse-variance at each pixel.</p>
+<ul class="simple">
+<li><p>The 5σ point-source depth can be computed as <span class="math">\(5 / \sqrt(\mathrm{depth\_ivar})\)</span> .</p></li>
+</ul>
+</dd>
+</dl></li>
+<li><dl class="simple">
+<dt>coadd/&lt;AAA&gt;/&lt;brick&gt;/legacysurvey-&lt;brick&gt;-galdepth-&lt;filter&gt;.fits.gz</dt>
+<dd>
+<p>Stacked depth map in units of the canonical galaxy flux inverse-variance at each pixel.
+The canonical galaxy is an exponential profile with effective radius 0.45" and round shape.</p>
+<ul class="simple">
+<li><p>The 5σ galaxy depth can be computed as <span class="math">\(5 / \sqrt(\mathrm{galdepth\_ivar})\)</span> .</p></li>
+</ul>
+</dd>
+</dl></li>
+<li><dl class="simple">
+<dt>coadd/&lt;AAA&gt;/&lt;brick&gt;/legacysurvey-&lt;brick&gt;-nexp-&lt;filter&gt;.fits.gz</dt>
+<dd>
+<p>Number of exposures contributing to each pixel of the stacked images.</p>
+</dd>
+</dl></li>
+<li><dl class="simple">
+<dt>coadd/&lt;AAA&gt;/&lt;brick&gt;/legacysurvey-&lt;brick&gt;-image.jpg</dt>
+<dd>
+<p>JPEG image of calibrated image using the <span class="math">\(g,r,z\)</span> filters as the colors.</p>
+</dd>
+</dl></li>
+<li><dl class="simple">
+<dt>coadd/&lt;AAA&gt;/&lt;brick&gt;/legacysurvey-&lt;brick&gt;-model.jpg</dt>
+<dd>
+<p>JPEG image of the Tractor's model image using the <span class="math">\(g,r,z\)</span> filters as the colors.</p>
+</dd>
+</dl></li>
+<li><dl class="simple">
+<dt>coadd/&lt;AAA&gt;/&lt;brick&gt;/legacysurvey-&lt;brick&gt;-resid.jpg</dt>
+<dd>
+<p>JPEG image of the residual image (data minus model) using the <span class="math">\(g,r,z\)</span> filters as
+the colors.</p>
+</dd>
+</dl></li>
+</ul></section><section id="raw-data"><h2><a class="toc-backref" href="#toc-entry-19" role="doc-backlink">Raw Data</a></h2>
+<p>See the <a class="reference external" href="../../rawdata">raw data page</a>.</p>
+<div class="line-block">
+<div class="line"><br></div>
+</div>
+<p><strong>Footnotes</strong></p>
+<aside class="footnote-list brackets"><aside class="footnote brackets" id="footnote-1" role="doc-footnote"><span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#footnote-reference-1">1</a><span class="fn-bracket">]</span></span>
+<p>The Astro Data Lab is part of the Community Science and Data Center (CSDC) of NSF's National Optical Infrared Astronomy Research Laboratory.</p>
+</aside></aside></section>
+</div>
+    
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha384-3lJUsx1TJHt7BA4udB5KPnDrlkO8T6J6v/op7ui0BbCjvZ9WqV4Xm6DTP6kQ/iBH" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$latex ','$'], ['\\(','\\)']]}});
+        </script></article>
+</div>
+        <!--End of body content-->
+
+        <footer><hr>
+<p class="text-muted">Contents © 2026  <a href="mailto:no-reply@legacysurvey.org">Legacy Survey</a> |
+Powered by <a href="https://getnikola.com" rel="nofollow">Nikola</a> |
+Theme is <a href="https://bootswatch.com/3/readable/">Readable</a> |
+<a href="https://github.com/legacysurvey/legacysurvey">Source</a> |
+Version is 11.0.1</p>
+
+            
+        </footer>
+</div>
+</div>
+
+
+            <script src="../../assets/js/jquery-3.5.1.min.js"></script><script src="../../assets/js/bootstrap.min.js"></script><script src="../../assets/js/moment-with-locales.min.js"></script><script src="../../assets/js/fancydates.js"></script><script src="../../assets/js/jquery.colorbox-min.js"></script><script>jQuery("a.image-reference,!.islink").colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script><!-- fancy dates --><script>
+    moment.locale("en");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates -->
+</body>
+</html>

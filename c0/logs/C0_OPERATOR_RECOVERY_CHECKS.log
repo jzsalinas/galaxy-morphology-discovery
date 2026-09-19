@@ -1,0 +1,2 @@
+HELPER_CHECKS_OK: interval union/subtraction and cubic polynomial reproduction
+NOT_TESTED: C build, viewer numerical equivalence, complete geometry, support inventory, CLI

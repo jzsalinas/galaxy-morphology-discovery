@@ -1,0 +1,95 @@
+{
+  "resources": [
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-g.fits.fz",
+      "etag": "\"c9f900-55759cb88cf80\"",
+      "total_bytes": 13236480,
+      "cached_ranges": [
+        [
+          0,
+          262143
+        ],
+        [
+          10849338,
+          11969290
+        ]
+      ],
+      "local_fragments": [
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_smoke/prefix.bin",
+          "sha256": "6de4c4fc6b50d486169475991ed38395f106cc96ec6dbf1f383c718cb7f5b623"
+        },
+        {
+          "path": "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0/probe/range_smoke/tiles.bin",
+          "sha256": "08f041159b69c4796ad35a575d39035393fd321d827497a9883f6e72ec3002c8"
+        }
+      ],
+      "native_regions": [
+        {
+          "x0": 1762,
+          "y0": 2985,
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "brick": "1853p160",
+      "tile_shape": [
+        100,
+        100
+      ],
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "heap_bounds": {
+        "table_start": 14400,
+        "table_end": 45503,
+        "heap_start": 45504,
+        "heap_end": 13234476,
+        "total": 13236480
+      },
+      "jobs": [
+        {
+          "rank": 1,
+          "band": "g"
+        }
+      ],
+      "ranges": [],
+      "minimum_payload_bytes": 0,
+      "single_range_requests_at_minimum_bytes": 0,
+      "used_url_attempts": 3,
+      "remaining_url_attempts": 1,
+      "single_range_plan_within_current_url_attempts": true,
+      "unknown_multipart_request_lower_bound": 0
+    }
+  ],
+  "coverage": [
+    {
+      "rank": 1,
+      "band": "g",
+      "candidate_active_pixels": 65536,
+      "currently_supported_pixels": 65536,
+      "missing_support_pixels": 0,
+      "supported_after_all_proposed_ranges": 65536,
+      "outside_all_known_candidate_bricks": 0
+    }
+  ],
+  "conditional_minimum_payload_bytes": 0,
+  "single_range_requests_at_minimum_bytes": 0,
+  "theoretical_request_lower_bound_unverified_multipart": 0,
+  "absolute_minimum_requests": "UNRESOLVED: multipart support not established; minimizing requests and bytes are distinct objectives",
+  "remaining_byte_budget": 1682135120,
+  "remaining_data_requests": 617,
+  "within_global_budget": true,
+  "within_per_url_attempts": true,
+  "bounds": "Minimum union of missing compressed payload intervals for required samples under local spline/LUT support and known bricks, reusing native ROIs and verified range fragments. Includes no unnecessary geometric-envelope gaps.",
+  "not_proven": [
+    "Necessity of acquisition for Gate decision",
+    "Global service brick completeness",
+    "Actual deployed stencil",
+    "Multipart capability"
+  ],
+  "network_requests": 0,
+  "acquisition_authorized": false,
+  "gate_c": "PENDING"
+}

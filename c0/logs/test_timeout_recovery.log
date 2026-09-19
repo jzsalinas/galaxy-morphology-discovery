@@ -1,0 +1,23 @@
+test_critical_inconclusive_stops (test_gates.GateTests.test_critical_inconclusive_stops) ... ok
+test_d_requires_verified_revision (test_gates.GateTests.test_d_requires_verified_revision) ... ok
+test_f_requires_verified_pilot (test_gates.GateTests.test_f_requires_verified_pilot) ... ok
+test_legal_stop (test_gates.GateTests.test_legal_stop) ... ok
+test_o3_failure_does_not_kill_core (test_gates.GateTests.test_o3_failure_does_not_kill_core) ... ok
+test_cache_avoids_request (test_http.HTTPTests.test_cache_avoids_request) ... ok
+test_oversized_rejected_before_read (test_http.HTTPTests.test_oversized_rejected_before_read) ... ok
+test_redirect_count (test_http.HTTPTests.test_redirect_count) ... ok
+test_stream_cap (test_http.HTTPTests.test_stream_cap) ... ok
+test_timeout_keeps_budget_and_records_stage (test_http.HTTPTests.test_timeout_keeps_budget_and_records_stage) ... ok
+test_truncation_is_not_cached (test_http.HTTPTests.test_truncation_is_not_cached) ... ok
+test_synthetic_quarantine_and_repeat (test_ingest_smoke.IngestSmoke.test_synthetic_quarantine_and_repeat) ... ok
+test_fallback_preserves_source_row (test_safety.IdentityTests.test_fallback_preserves_source_row) ... ok
+test_bytes_boundary_persists (test_safety.Safety.test_bytes_boundary_persists) ... ok
+test_false_products (test_safety.Safety.test_false_products) ... ok
+test_no_leak (test_safety.Safety.test_no_leak) ... ok
+test_object_limit_and_dedup (test_safety.Safety.test_object_limit_and_dedup) ... ok
+test_requests_and_retries (test_safety.Safety.test_requests_and_retries) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.206s
+
+OK

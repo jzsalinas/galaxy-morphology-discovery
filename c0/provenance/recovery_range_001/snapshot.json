@@ -1,0 +1,75 @@
+{
+  "timestamp_utc": "2026-09-17T17:03:38.074381+00:00",
+  "files": {
+    "c0_pipeline/ranges.py": {
+      "bytes": 3417,
+      "sha256": "665dc1cd48b7b4e9bc7095794cb1d016c6f1855f2ec22acb68611724c05d1eb6"
+    },
+    "c0/probe/range_smoke/plan.json": {
+      "bytes": 232,
+      "sha256": "9839900121582d5805cf18c2fb754cf071c2220bde6ce4fbfd6a0d3aaba6633f"
+    },
+    "c0/reports/C0_RANGE_SMOKE_COMPARISON.json": {
+      "bytes": 305,
+      "sha256": "072dc3c1d5a07fbab88c0482ab91abc0a7eeea953c9c1f7ee3b21d113a3829a5"
+    },
+    "c0/reports/C0_LIGHT_NETWORK_SUMMARY.json": {
+      "bytes": 205,
+      "sha256": "2ef0733377e977f1e9769c50883da0e7d1458542452d8718c285188063ab7090"
+    },
+    "c0/provenance/C0_REMOTE_FILE_MANIFEST.csv": {
+      "bytes": 358200,
+      "sha256": "f25217fc0018385ca6fd13433e8e9755ab3d5c78c91587f7bad35bd89d6462c1"
+    },
+    "c0/probe/range_smoke/prefix.bin": {
+      "bytes": 262144,
+      "sha256": "6de4c4fc6b50d486169475991ed38395f106cc96ec6dbf1f383c718cb7f5b623"
+    },
+    "c0/probe/range_smoke/tiles.bin": {
+      "bytes": 1119953,
+      "sha256": "08f041159b69c4796ad35a575d39035393fd321d827497a9883f6e72ec3002c8"
+    }
+  },
+  "counters": {
+    "bytes": 411215853,
+    "data_requests": 301,
+    "all_requests": 845
+  },
+  "range_events": [
+    {
+      "source_id": "S6",
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-g.fits.fz",
+      "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-g.fits.fz",
+      "retrieved_at_utc": "2026-09-17T13:29:57.034719+00:00",
+      "metadata": false,
+      "range_start": 0,
+      "range_end": 262143,
+      "resource_total_bytes": 13236480,
+      "observed_bytes": 262144,
+      "local_logical_path": "c0/probe/range_smoke/prefix.bin",
+      "access_result": "VERIFIED_RANGE",
+      "http_status": 206,
+      "etag": "\"c9f900-55759cb88cf80\"",
+      "content_range": "bytes 0-262143/13236480",
+      "sha256": "6de4c4fc6b50d486169475991ed38395f106cc96ec6dbf1f383c718cb7f5b623"
+    },
+    {
+      "source_id": "S6",
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-g.fits.fz",
+      "final_url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/185/1853p160/legacysurvey-1853p160-image-g.fits.fz",
+      "retrieved_at_utc": "2026-09-17T13:31:07.725854+00:00",
+      "metadata": false,
+      "range_start": 10849338,
+      "range_end": 11969290,
+      "resource_total_bytes": 13236480,
+      "observed_bytes": 1119953,
+      "local_logical_path": "c0/probe/range_smoke/tiles.bin",
+      "access_result": "VERIFIED_RANGE",
+      "http_status": 206,
+      "etag": "\"c9f900-55759cb88cf80\"",
+      "content_range": "bytes 10849338-11969290/13236480",
+      "sha256": "08f041159b69c4796ad35a575d39035393fd321d827497a9883f6e72ec3002c8"
+    }
+  ],
+  "git": "Not a functional repository; no status/diff available; no repair performed"
+}

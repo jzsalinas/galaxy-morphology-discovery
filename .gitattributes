@@ -1,0 +1,7 @@
+# Binary research artifacts. No LFS filters and no text normalization rules.
+*.sqlite binary
+*.parquet binary
+*.fits binary
+*.fits.gz binary
+*.part binary
+*.npz binary

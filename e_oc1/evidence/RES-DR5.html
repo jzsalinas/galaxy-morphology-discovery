@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Release Description | Legacy Survey</title>
+<link href="../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/rst.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/html4css1.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/code.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/colorbox.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/theme.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/custom.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="https://www.legacysurvey.org/dr5/description/">
+<link rel="icon" href="../../files/logo_script_32x32.png" sizes="32x32">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><!-- Start of Google Analytics --><script src="https://www.google-analytics.com/urchin.js" type="text/javascript">
+            </script><script type="text/javascript">
+            _uacct = "UA-5565065-29";
+            urchinTracker();
+            </script><!-- End of Google Analytics --><meta name="author" content="Legacy Survey">
+<meta property="og:site_name" content="Legacy Survey">
+<meta property="og:title" content="Data Release Description">
+<meta property="og:url" content="https://www.legacysurvey.org/dr5/description/">
+<meta property="og:description" content="Contents
+
+Contents of DR5
+Obtaining Images and Raw Data
+Source Detection
+PSF
+Sky Level
+Tractor Catalogs
+Morphological Classification
+Tractor Implementation Details
+Photometry
+Galactic Extinction
+Astro">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-08-31T12:32:43Z">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation"><div class="container">
+<!-- This keeps the margins nice -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://www.legacysurvey.org/">
+                <img src="../../files/logo_tiny.jpg" alt="Legacy Survey" id="logo"></a>
+        </div>
+<!-- /.navbar-header -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+<li>
+<a href="../../">Home</a>
+            </li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">DR11<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+<li>
+<a href="../../dr11/description">Description</a>
+                    </li>
+<li>
+<a href="../../dr11/files">Files</a>
+                    </li>
+<li>
+<a href="../../dr11/catalogs">Catalogs</a>
+                    </li>
+<li>
+<a href="../../dr11/bitmasks">Bitmasks</a>
+                    </li>
+<li>
+<a href="../../dr11/external">External Catalogs</a>
+                    </li>
+<li>
+<a href="../../dr11/issues">Known Issues</a>
+            </li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">Data<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+<li>
+<a href="https://data.desi.lbl.gov">DESI spectra</a>
+                    </li>
+<li>
+<a href="../../dr10">Data Release 10</a>
+                    </li>
+<li>
+<a href="../../dr9">Data Release 9</a>
+                    </li>
+<li>
+<a href="../../dr8">Data Release 8</a>
+                    </li>
+<li>
+<a href="../../dr7">Data Release 7</a>
+                    </li>
+<li>
+<a href="../../dr6">Data Release 6</a>
+                    </li>
+<li>
+<a href="../../dr5">Data Release 5</a>
+                    </li>
+<li>
+<a href="../../dr4">Data Release 4</a>
+                    </li>
+<li>
+<a href="../../dr3">Data Release 3</a>
+                    </li>
+<li>
+<a href="../../dr2">Data Release 2</a>
+                    </li>
+<li>
+<a href="../../dr1">Data Release 1</a>
+                    </li>
+<li>
+<a href="../../dr9/issues/#the-dr9sv-data-release">DR9sv</a>
+                    </li>
+<li>
+<a href="../../bass">BASS</a>
+                    </li>
+<li>
+<a href="../../decamls">DECaLS</a>
+                    </li>
+<li>
+<a href="../../mzls">MzLS</a>
+                    </li>
+<li>
+<a href="https://www.darkenergysurvey.org">DES</a>
+                    </li>
+<li>
+<a href="http://unwise.me">unWISE</a>
+                    </li>
+<li>
+<a href="../../rawdata">Raw Data</a>
+            </li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">Viewer<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+<li>
+<a href="https://www.legacysurvey.org/viewer">Go to the Sky Viewer</a>
+                    </li>
+<li>
+<a href="../../svtips">Sky Viewer Tips &amp; Tricks</a>
+                    </li>
+<li>
+<a href="https://www.legacysurvey.org/viewer/urls">List of Cutout/URL Patterns</a>
+            </li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">Gallery<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+<li>
+<a href="../../dr11/gallery">DR11</a>
+                    </li>
+<li>
+<a href="../../dr10/gallery">DR10</a>
+                    </li>
+<li>
+<a href="../../dr9/gallery">DR9</a>
+                    </li>
+<li>
+<a href="../../dr8/gallery">DR8</a>
+                    </li>
+<li>
+<a href="../../dr7/gallery">DR7</a>
+                    </li>
+<li>
+<a href="../../dr6/gallery">DR6</a>
+                    </li>
+<li>
+<a href="../gallery">DR5</a>
+                    </li>
+<li>
+<a href="../../dr2/gallery">DR4</a>
+                    </li>
+<li>
+<a href="../../dr2/gallery">DR3</a>
+                    </li>
+<li>
+<a href="../../dr2/gallery">DR2</a>
+            </li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">SGA<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+<li>
+<a href="https://sga.readthedocs.io/en/latest/">SGA-2025</a>
+                    </li>
+<li>
+<a href="../../sga/sga2020">SGA-2020</a>
+            </li>
+</ul>
+</li>
+<li>
+<a href="../../status">Status</a>
+                </li>
+<li>
+<a href="../../pubs">Publications</a>
+                </li>
+<li>
+<a href="../../contact">Contacts</a>
+                </li>
+<li>
+<a href="../../faq">FAQ</a>
+
+                
+            </li>
+</ul>
+<ul class="nav navbar-nav navbar-right"></ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        <div class="row">
+            
+            
+<article class="storypage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name">Data Release Description</h1>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <nav class="contents pull-right well" id="contents" role="doc-toc"><p class="topic-title"><a class="reference internal" href="#top">Contents</a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#contents-of-dr5" id="toc-entry-1">Contents of DR5</a></p></li>
+<li><p><a class="reference internal" href="#obtaining-images-and-raw-data" id="toc-entry-2">Obtaining Images and Raw Data</a></p></li>
+<li><p><a class="reference internal" href="#source-detection" id="toc-entry-3">Source Detection</a></p></li>
+<li><p><a class="reference internal" href="#psf" id="toc-entry-4">PSF</a></p></li>
+<li><p><a class="reference internal" href="#sky-level" id="toc-entry-5">Sky Level</a></p></li>
+<li><p><a class="reference internal" href="#tractor-catalogs" id="toc-entry-6">Tractor Catalogs</a></p></li>
+<li><p><a class="reference internal" href="#morphological-classification" id="toc-entry-7">Morphological Classification</a></p></li>
+<li><p><a class="reference internal" href="#tractor-implementation-details" id="toc-entry-8">Tractor Implementation Details</a></p></li>
+<li><p><a class="reference internal" href="#photometry" id="toc-entry-9">Photometry</a></p></li>
+<li><p><a class="reference internal" href="#galactic-extinction" id="toc-entry-10">Galactic Extinction</a></p></li>
+<li><p><a class="reference internal" href="#astrometry" id="toc-entry-11">Astrometry</a></p></li>
+<li><p><a class="reference internal" href="#image-stacks" id="toc-entry-12">Image Stacks</a></p></li>
+<li><p><a class="reference internal" href="#depths" id="toc-entry-13">Depths</a></p></li>
+<li><p><a class="reference internal" href="#code-versions" id="toc-entry-14">Code Versions</a></p></li>
+<li><p><a class="reference internal" href="#glossary" id="toc-entry-15">Glossary</a></p></li>
+</ul></nav><p>The Legacy Surveys are producing an inference model of the 14,000 square degrees
+of extragalactic sky visible from the northern hemisphere in three optical bands
+(<span class="math">\(g,r,z\)</span>) and four infrared bands.  The sky coverage is approximately bounded by
+-18° &lt; δ &lt; +84° in celestial coordinates and <span class="math">\(|b|\)</span> &gt; 18° in Galactic coordinates. To achieve this goal, the Legacy Surveys are conducting
+3 imaging projects on different telescopes, described in more depth at the following links:</p>
+<table class="table table-bordered table-condensed"><tbody><tr>
+<td><p><em>The Beijing-Arizona Sky Survey</em> (<a class="reference external" href="../../bass">BASS</a>)</p></td>
+<td><p><em>The DECam Legacy Survey</em> (<a class="reference external" href="../../decamls">DECaLS</a>)</p></td>
+<td><p><em>The Mayall z-band Legacy Survey</em> (<a class="reference external" href="../../mzls">MzLS</a>)</p></td>
+</tr></tbody></table>
+<section id="contents-of-dr5"><h2><a class="toc-backref" href="#toc-entry-1" role="doc-backlink">Contents of DR5</a></h2>
+<p>Data Release 5 (DR5) is the fifth public data release of the Legacy Surveys. It is the
+fourth public data release of images and catalogs from the DECam Legacy Survey (<a class="reference external" href="../../decamls">DECaLS</a>;
+DR4 comprised the first release of data from <a class="reference external" href="../../bass">BASS</a> and <a class="reference external" href="../../mzls">MzLS</a>).
+DR5 imaging is first reduced through the <a class="reference external" href="https://legacy.noirlab.edu/noao/staff/fvaldes/CPDocPrelim/PL201_3.html">NOIRLab Community Pipeline</a> before being processed
+using the <a class="reference external" href="https://github.com/dstndstn/tractor">Tractor</a>.</p>
+<p>Images from <a class="reference external" href="../../decamls">DECaLS</a>
+<span class="math">\(g,r,z\)</span>-band observations (survey program 0404; <a class="reference external" href="https://legacy.noirlab.edu/perl/abstract?2014B-0404">https://legacy.noirlab.edu/perl/abstract?2014B-0404</a>)
+are included from August 2014 through May 2017. DR5 also includes DECam data from a range of
+non-DECaLS surveys, including observations that were conducted from September 2012 to May 2017.</p>
+<p>The table below indicates the area covered in DR5 for different
+numbers of passes and in different filters.
+These are precise area estimates derived from the geometry of
+CCDs that contribute to the Legacy Surveys footprint.</p>
+<table class="table table-bordered table-condensed">
+<thead><tr>
+<th class="head"><p>Band/Number of Passes</p></th>
+<th class="head"><p>≥ 1</p></th>
+<th class="head"><p>≥ 2</p></th>
+<th class="head"><p>≥ 3</p></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><p><span class="math">\(g\)</span>-band</p></td>
+<td><p>7107 deg<sup>2</sup></p></td>
+<td><p>4807 deg<sup>2</sup></p></td>
+<td><p>2808 deg<sup>2</sup></p></td>
+</tr>
+<tr>
+<td><p><span class="math">\(r\)</span>-band</p></td>
+<td><p>7700 deg<sup>2</sup></p></td>
+<td><p>5406 deg<sup>2</sup></p></td>
+<td><p>3364 deg<sup>2</sup></p></td>
+</tr>
+<tr>
+<td><p><span class="math">\(z\)</span>-band</p></td>
+<td><p>9972 deg<sup>2</sup></p></td>
+<td><p>7867 deg<sup>2</sup></p></td>
+<td><p>5333 deg<sup>2</sup></p></td>
+</tr>
+<tr>
+<td><p>All bands jointly</p></td>
+<td><p>6473 deg<sup>2</sup></p></td>
+<td><p>3931 deg<sup>2</sup></p></td>
+<td><p>1930 deg<sup>2</sup></p></td>
+</tr>
+</tbody>
+</table>
+<p>There are approximately 680 million unique sources in DR5 spread over 176,811 bricks.</p>
+<p>DR5 includes the stacked images and the Tractor-based catalogs.
+The size of the DR5 data distribution is:</p>
+<table class="table table-bordered table-condensed">
+<thead><tr>
+<th class="head"><p>Size*</p></th>
+<th class="head"><p>Directory</p></th>
+<th class="head"><p>Description</p></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><p>186 GB</p></td>
+<td><p><a class="reference external" href="https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/calib/">calib/</a></p></td>
+<td><p>Calibration files</p></td>
+</tr>
+<tr>
+<td><p>18 TB</p></td>
+<td><p><a class="reference external" href="https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/">coadd/</a></p></td>
+<td><p>Co-added images, including χ², depth, image, model, nexp, and Quality Assurance PNG plots</p></td>
+</tr>
+<tr>
+<td><p>8.1 GB</p></td>
+<td><p><a class="reference external" href="https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/external/">external/</a></p></td>
+<td><p>Matches to other catalogs (SDSS, etc.)</p></td>
+</tr>
+<tr>
+<td><p>830 MB</p></td>
+<td><p><a class="reference external" href="https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/gallery/">gallery/</a></p></td>
+<td><p>Images of notable galaxies (NGC, etc.)</p></td>
+</tr>
+<tr>
+<td><p>38 GB</p></td>
+<td><p><a class="reference external" href="https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/logs/">logs/</a></p></td>
+<td><p>Log files generated by Tractor processing</p></td>
+</tr>
+<tr>
+<td><p>383 GB</p></td>
+<td><p><a class="reference external" href="https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/metrics/">metrics/</a></p></td>
+<td><p>Metrics</p></td>
+</tr>
+<tr>
+<td><p>318 GB</p></td>
+<td><p><a class="reference external" href="https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/sweep/">sweep/</a></p></td>
+<td><p>Repackaged versions of the Tractor catalogs</p></td>
+</tr>
+<tr>
+<td><p>969 GB</p></td>
+<td><p><a class="reference external" href="https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/tractor/">tractor/</a></p></td>
+<td><p>Tractor catalogs</p></td>
+</tr>
+</tbody>
+</table>
+<p>*Note that although the <em>contents</em> of a directory should be fixed for each Data Release, the <em>size</em> of a directory can change. This is typically due to updated file compression. So, the listed directory sizes should be viewed as (very reasonable) estimates.</p>
+<p>For all of the Legacy Surveys, including <a class="reference external" href="../../decamls">DECaLS</a>, co-added images and
+<a class="reference external" href="https://github.com/dstndstn/tractor">Tractor</a> catalogs are presented in "bricks" of approximate
+size 0.25° × 0.25°.  Each brick is defined in terms of a box in RA,Dec
+coordinates.  For the image stacks, we use a simple tangent-plane (WCS TAN)
+projection around the brick center. The projections for the <span class="math">\(g,r,z\)</span> filters are identical.
+There are 662,174 bricks spread over the sky, meaning that each brick has an average
+area of 0.0623 deg<sup>2</sup>. The brick images have some overlap.
+The co-added images should be
+used with caution, as noted below in the <em>Image Stacks</em> section.</p>
+</section><section id="obtaining-images-and-raw-data"><h2><a class="toc-backref" href="#toc-entry-2" role="doc-backlink">Obtaining Images and Raw Data</a></h2>
+<p>Images, for all 3 of the Legacy Surveys can be viewed
+directly using <a class="reference external" href="https://www.legacysurvey.org/viewer">the Sky viewer</a>
+and raw data can be obtained through <a class="reference external" href="https://astroarchive.noirlab.edu/portal/search/">the NOIRLab portal</a> (see also the information near
+the bottom of the <a class="reference external" href="../files">files</a> page).</p>
+<p>Sections of <a class="reference external" href="../../decamls">DECaLS</a> for DR5 can be obtained as JPEGs or FITS files using
+the cutout service, as follows:</p>
+<p>JPEG: <a class="reference external" href="https://www.legacysurvey.org/viewer/jpeg-cutout?ra=190.1086&amp;dec=1.2005&amp;layer=decals-dr5&amp;pixscale=0.262">https://www.legacysurvey.org/viewer/jpeg-cutout?ra=190.1086&amp;dec=1.2005&amp;layer=decals-dr5&amp;pixscale=0.262</a></p>
+<p>FITS: <a class="reference external" href="https://www.legacysurvey.org/viewer/fits-cutout?ra=190.1086&amp;dec=1.2005&amp;layer=decals-dr5&amp;pixscale=0.262&amp;bands=grz">https://www.legacysurvey.org/viewer/fits-cutout?ra=190.1086&amp;dec=1.2005&amp;layer=decals-dr5&amp;pixscale=0.262&amp;bands=grz</a></p>
+<p>where "bands" is a string such as "<span class="math">\(grz\)</span>","<span class="math">\(gz\)</span>","<span class="math">\(g\)</span>", etc. The
+size of the image can also be specified using <span class="math">\(width\)</span>, <span class="math">\(height\)</span> and <span class="math">\(size\)</span>,
+where <span class="math">\(size\)</span> forces <span class="math">\(width\)</span> and <span class="math">\(height\)</span> to be equal. For example:</p>
+<p><a class="reference external" href="https://www.legacysurvey.org/viewer/jpeg-cutout?ra=190.1086&amp;dec=1.2005&amp;width=100&amp;layer=decals-dr5&amp;pixscale=0.262">https://www.legacysurvey.org/viewer/jpeg-cutout?ra=190.1086&amp;dec=1.2005&amp;width=100&amp;layer=decals-dr5&amp;pixscale=0.262</a></p>
+<p><a class="reference external" href="https://www.legacysurvey.org/viewer/jpeg-cutout?ra=190.1086&amp;dec=1.2005&amp;height=100&amp;layer=decals-dr5&amp;pixscale=0.262">https://www.legacysurvey.org/viewer/jpeg-cutout?ra=190.1086&amp;dec=1.2005&amp;height=100&amp;layer=decals-dr5&amp;pixscale=0.262</a></p>
+<p><a class="reference external" href="https://www.legacysurvey.org/viewer/jpeg-cutout?ra=190.1086&amp;dec=1.2005&amp;size=100&amp;layer=decals-dr5&amp;pixscale=0.262">https://www.legacysurvey.org/viewer/jpeg-cutout?ra=190.1086&amp;dec=1.2005&amp;size=100&amp;layer=decals-dr5&amp;pixscale=0.262</a></p>
+<p>It is possible to retrieve multiple cutouts from the command line using standard utilites such as <a class="reference external" href="https://www.gnu.org/software/wget/manual/wget.html#Overview">wget</a>.</p>
+<p>As of the writing of this documentation the maximum size for cutouts (in number of pixels) is 512.
+Pixscale=0.262 will return (approximately) the native pixels used by the <a class="reference external" href="https://github.com/dstndstn/tractor">Tractor</a>.
+For information on how to recover <a class="reference external" href="../../bass">BASS</a> and <a class="reference external" href="../../mzls">MzLS</a> cutouts, see the <a class="reference external" href="../../dr4/description">DR4 description</a> page.</p>
+<p>See also the <a class="reference external" href="https://www.legacysurvey.org/viewer/urls">list of URL/cutout patterns that are supported by the viewer</a>.</p>
+</section><section id="source-detection"><h2><a class="toc-backref" href="#toc-entry-3" role="doc-backlink">Source Detection</a></h2>
+<p>The source detection uses a PSF- and SED-matched-filter detection on
+the stacked images, with a 6σ detection limit.
+The <a class="reference external" href="https://github.com/dstndstn/tractor">Tractor</a> fitting step is initialized with these positions, although
+these positions can be changed during the fits and
+low-S/N sources can be removed.</p>
+<p>For source detection, each image is convolved by its PSF model,
+then a weighted stack
+of these is created in order to optimize the point-source detection
+efficiency.  Next, SED-matched combinations of the three bands are
+created, for two SEDs: "flat" (a source with AB color zero), and
+"red", a source with AB color <span class="math">\(g-r = 1\)</span>, <span class="math">\(r-z = 1\)</span>.  Sources above 6σ
+are detected in each of these two SED-matched filters, as well as in each band independently.</p>
+<p>As of DR5, source detection is run first in <span class="math">\(z\)</span>, then in <span class="math">\(r\)</span>, <span class="math">\(g\)</span>, "flat"
+and finally in "red". In <a class="reference external" href="../../dr4">DR4</a>, <a class="reference external" href="../../dr3">DR3</a> and earlier data releases,
+source detection was run first in <span class="math">\(g\)</span>, then in <span class="math">\(r\)</span>, <span class="math">\(z\)</span>, "flat"
+and finally in "red".</p>
+</section><section id="psf"><h2><a class="toc-backref" href="#toc-entry-4" role="doc-backlink">PSF</a></h2>
+<p>The Tractor makes use of the PSF on each individual exposure. The PSF for
+the individual exposures are first computed independently for each CCD
+using <a class="reference external" href="http://www.astromatic.net/software/psfex">PSFEx</a>, generating spatially-varying pixelized models.</p>
+<p>The configuration files for SExtractor and <a class="reference external" href="http://www.astromatic.net/software/psfex">PSFEx</a> that we used for a given
+iteration of our codebase are available <a class="reference external" href="https://github.com/legacysurvey/legacypipe-dir/tree/master/calib/se-config">on our github page</a>.</p>
+</section><section id="sky-level"><h2><a class="toc-backref" href="#toc-entry-5" role="doc-backlink">Sky Level</a></h2>
+<p>The Community Pipeline removes a sky level that includes a sky pattern, an illumination correction,
+and a single scaled fringe pattern. These steps are described on the <a class="reference external" href="https://legacy.noirlab.edu/noao/staff/fvaldes/CPDocPrelim/PL201_3.html">NOIRLab Community Pipeline</a>
+page.
+This makes the sky level in the processed images near zero, and removes most pattern artifacts.
+A constant sky level is then added back to the image that is the mean of what was removed.</p>
+<p>Additionally, we compute and remove a spatially varying (spline) sky
+model, by detecting and masking sources, then computing medians in
+sliding 512-pixel boxes. The stacked images have this sky level
+removed.</p>
+</section><section id="tractor-catalogs"><h2><a class="toc-backref" href="#toc-entry-6" role="doc-backlink">Tractor Catalogs</a></h2>
+<p>The Tractor code runs within the geometrical region
+of a brick. This fitting is performed on the individual exposures
+that overlap the brick, without making use of the image stacks.
+This preserves the full information content of the data set in the fits,
+handles masked pixels without the need for uncertain interpolation techniques,
+and fits to data points without the complication of pixel covariances.</p>
+</section><section id="morphological-classification"><h2><a class="toc-backref" href="#toc-entry-7" role="doc-backlink">Morphological Classification</a></h2>
+<p>The Tractor fitting can allow any of the source properties or
+image calibration parameters (such as the PSF) to float.
+Only the source properties were allowed to float in DR5.
+These are continuous properties for the object centers, fluxes,
+and the shape parameters. There is also the discrete choice of which
+model type to use. In DR5, five morphological types are used: point sources,
+round exponential galaxies with a variable radius ("REX"), deVaucouleurs profiles
+(elliptical galaxies), exponential profiles (spiral galaxies), and composite
+profiles that are deVaucouleurs + exponential (with the same source center).
+The total numbers of the different morphological types in DR5 are:</p>
+<table class="table table-bordered table-condensed">
+<thead><tr>
+<th class="head"><p>Number of Sources</p></th>
+<th class="head"><p>Primary Objects of Type</p></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><p>679,755,904</p></td>
+<td><p><em>All</em></p></td>
+</tr>
+<tr>
+<td><p>371,088,269</p></td>
+<td><p><code class="docutils literal">PSF</code></p></td>
+</tr>
+<tr>
+<td><p>222,184,611</p></td>
+<td><p><code class="docutils literal">REX</code></p></td>
+</tr>
+<tr>
+<td><p>61,380,049</p></td>
+<td><p><code class="docutils literal">EXP</code></p></td>
+</tr>
+<tr>
+<td><p>22,036,854</p></td>
+<td><p><code class="docutils literal">DEV</code></p></td>
+</tr>
+<tr>
+<td><p>3,066,121</p></td>
+<td><p><code class="docutils literal">COMP</code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Note that the "REX" model replaces the "SIMP" model used in
+<a class="reference external" href="../../dr4">DR4</a>, <a class="reference external" href="../../dr3">DR3</a> and earlier data releases.</p>
+<p>The decision to retain an object in the catalog and to re-classify it using
+models more complicated than a point source is made using the penalized
+changes to χ² in the image after subtracting the models for
+other sources.
+Here, the χ² value is calculated as a sum across all optical bands
+(i.e. <span class="math">\(g\)</span>, <span class="math">\(r\)</span> and <span class="math">\(z\)</span> for DR5).
+The "PSF" and "REX" models are computed for
+every source and the better of these two is used when deciding whether to keep
+the source. A source is retained if its penalized χ² is improved by 25;
+this corresponds to a χ² difference of 27 (because of the penalty
+of 2 for the source centroid).  Sources below this threshold are removed.
+The source is classified as the better of "point source (PSF)" or "round exponential galaxy (REX)"
+unless the penalized χ²
+is improved by 9 (<em>i.e.</em>, approximately a 3σ improvement) by treating
+it as a deVaucouleurs or exponential profile.
+The classification is a composite of deVaucouleurs + exponential if it is both a
+better fit to a single profile over the point source, and the composite improves
+the penalized χ² by another 9.  These choices implicitly mean
+that any extended source classifications have to be at least 5.8σ detections
+and that composite profiles must be at least 6.5σ detections.</p>
+<p>The fluxes are not constrained to be positive-valued.  This allows
+the fitting of very low signal-to-noise sources without introducing
+biases at the faint end.  It also allows the stacking of fluxes
+at the catalog level.</p>
+</section><section id="tractor-implementation-details"><h2><a class="toc-backref" href="#toc-entry-8" role="doc-backlink">Tractor Implementation Details</a></h2>
+<p>Tractor fundamentally treats the fitting as a χ² minimization
+problem.  The current core routine uses the sparse least squares
+solver from the <a class="reference external" href="https://www.scipy.org">SciPy</a> package, or the open source
+<a class="reference external" href="http://ceres-solver.org">Ceres solver</a>, originally developed by Google.</p>
+<p>The galaxy profiles (the exponential and deVaucouleurs profiles mentioned above
+under <em>Morphological Classification</em>) are approximated
+with <a class="reference external" href="https://arxiv.org/abs/1210.6563">mixture-of-gaussian</a> (MoG) models
+and are convolved by the pixelized PSF models using a new Fourier-space
+method (Lang, in prep).
+The galaxy profile approximation introduces errors in these
+models typically at the level of <span class="math">\(10^{-4}\)</span> or smaller.
+The PSF models are treated as pixel-convolved quantities,
+and are evaluated at the integral pixel coordinates without integrating
+any functions over the pixels.</p>
+<p>The Tractor algorithm could be run with both the source parameters
+and the calibration parameters allowed to float, at the cost of
+more compute time and the necessity to use much larger blobs because
+of the non-locality of the calibrations.  A more practical approach
+would be to iterate between fitting source parameters in brick space,
+and fitting calibration parameters in exposure space.  Such iterations
+will be considered and tested for future data releases.
+Another practical issue is that the current PSF models may allow
+too much freedom.</p>
+</section><section id="photometry"><h2><a class="toc-backref" href="#toc-entry-9" role="doc-backlink">Photometry</a></h2>
+<p>The flux calibration for <a class="reference external" href="../../decamls">DECaLS</a> is on the AB natural system of the DECam instrument.
+An AB system reports the same flux in any band for a source whose spectrum is
+constant in units of erg/s/cm²/Hz. A source with a spectrum of
+<span class="math">\(f = 10^{-(48.6+22.5)/2.5}\)</span> erg/s/cm²/Hz
+would be reported to have an integrated flux of 1 nanomaggie in any filter.
+The natural system means that we have not
+applied color terms to any of the photometry, but report fluxes as observed in the DECam filters.</p>
+<p>Zero point magnitudes for the CP version 2 reductions of the DECam images
+were computed by comparing 7″ diameter aperture photometry to
+<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2016ApJ...822...66F/abstract">PS1 photometry</a>, where the latter was modified with color terms
+to place the PS1 photometry on the DECam system.  The same color terms
+are applied to all CCDs.
+Zero points are computed separately for each CCD, but not for each amplifier.
+The color terms to convert from PS1 to DECam were computed for stars
+in the color range <span class="math">\(0.4 &lt; (g-i) &lt; 2.7\)</span> as follows:</p>
+<div class="math">
+\begin{align*}
+             (g-i) &amp; = &amp; g_{\mathrm{PS}} - i_{\mathrm{PS}} \\
+g_{\mathrm{DECam}} &amp; = &amp; g_{\mathrm{PS}} + 0.04709 (g-i) + 0.00084 (g-i)^2 - 0.00340 (g-i)^3 \\
+r_{\mathrm{DECam}} &amp; = &amp; r_{\mathrm{PS}} - 0.09939 (g-i) + 0.04509 (g-i)^2 - 0.01488 (g-i)^3 \\
+z_{\mathrm{DECam}} &amp; = &amp; z_{\mathrm{PS}} - 0.13404 (g-i) + 0.06591 (g-i)^2 - 0.01695 (g-i)^3 \\
+\end{align*}
+</div>
+<p>The brightnesses of objects are all stored as linear fluxes in units of nanomaggies.  The conversion
+from linear fluxes to magnitudes is <span class="math">\(m = 22.5 - 2.5 \log_{10}(\mathrm{flux})\)</span>. These linear fluxes
+are well-defined even at the faint end, and the errors on the linear fluxes should
+be very close to a normal distribution.  The fluxes can be negative for faint objects, and indeed we
+expect many such cases for the faintest objects.</p>
+<p>DR5 also contains WISE fluxes force-photometered at the position of Legacy Survey sources.
+The WISE Level 1 images and the unWISE image stacks are on a Vega system.
+Where WISE fluxes are reported as being on the AB system for Legacy Surveys <a class="reference external" href="../files">files</a> and <a class="reference external" href="../catalogs">catalogs</a>, we
+have converted from a Vega to an AB system using the <a class="reference external" href="http://wise2.ipac.caltech.edu/docs/release/allsky/expsup/sec4_4h.html#conv2ab">recommended conversions by the WISE team</a>. Namely,
+<span class="math">\(\mathrm{Flux}_{\mathrm{AB}} = \mathrm{Flux}_{\mathrm{Vega}} * 10^{-(\Delta m/2.5)}\)</span>
+where <span class="math">\(\Delta m\)</span> = 2.699, 3.339, 5.174, and 6.620 mag in the W1, W2, W3 and W4 bands.
+For example, a WISE W1 image should be multiplied by <span class="math">\(10^{-2.699/2.5} = 0.083253\)</span> to
+give units consistent with the Tractor catalogs. These conversion factors are recorded in the
+Tractor catalog headers ("WISEAB1", etc). The result is that
+the DECam and WISE fluxes we provide should all be within a few percent of being on an AB system.</p>
+</section><section id="galactic-extinction"><h2><a class="toc-backref" href="#toc-entry-10" role="doc-backlink">Galactic Extinction</a></h2>
+<p>The most recent values of the Galactic extinction coefficients are available on the <a class="reference external" href="../../dr8/catalogs/#galactic-extinction-coefficients">DR8 catalogs</a> page.</p>
+</section><section id="astrometry"><h2><a class="toc-backref" href="#toc-entry-11" role="doc-backlink">Astrometry</a></h2>
+<p>Our astrometry uses the <a class="reference external" href="https://gaia.esac.esa.int/documentation/GDR1/index.html">Gaia Data Release 1</a> system. Positions of sources are tied to predicted Gaia positions at
+the epoch of the corresponding Legacy Survey observation. The residuals are typically smaller than ±0.03″.</p>
+<p>Astrometric calibration of <a class="reference external" href="../../decamls">DECaLS</a> data is conducted using Gaia astrometric positions of stars matched to Pan-STARRS-1 (PS1).
+The same matched objects are used for both astrometric and photometric calibration. There are some areas of sky where Gaia
+has "holes," i.e., where stars brighter than the Gaia magnitude limit are missing from the Gaia catalog. As a result, in
+some regions of the survey there are fewer matches to a given bright magnitude limit in the PS1-Gaia catalog than there
+are in the PS1 catalog that was used for astrometric calibration in, e.g., <a class="reference external" href="../../dr3">DR3</a> of the Legacy Surveys.</p>
+</section><section id="image-stacks"><h2><a class="toc-backref" href="#toc-entry-12" role="doc-backlink">Image Stacks</a></h2>
+<p>The image stacks are provided for convenience, but were not used in the Tractor fits.
+These images are oversized by approximately 260 pixels in each dimension.
+These are tangent projections centered at each brick center, North up, with dimensions of 3600 × 3600
+and a scale of 0.262″/pix.  The image stacks are computed using Lanczos-3
+interpolation. These stacks should not be used for "precision" work.</p>
+</section><section id="depths"><h2><a class="toc-backref" href="#toc-entry-13" role="doc-backlink">Depths</a></h2>
+<p>As of <a class="reference external" href="../../dr2">DR2</a> of the Legacy Surveys, the median 5σ point source (AB) depths for areas with 3 observations
+in DECaLS was <span class="math">\(g=24.65\)</span>, <span class="math">\(r=23.61\)</span>, <span class="math">\(z=22.84\)</span>. DR5 should reach similar depths.
+This is based upon the formal errors in the Tractor catalogs for point sources; those
+errors need further confirmation. This can be compared to the predicted proposed
+depths for 2 observations at 1.5″ seeing of <span class="math">\(g=24.7\)</span>, <span class="math">\(r=23.9\)</span>, <span class="math">\(z=23.0\)</span>.</p>
+</section><section id="code-versions"><h2><a class="toc-backref" href="#toc-entry-14" role="doc-backlink">Code Versions</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/legacysurvey/legacypipe">LegacyPipe</a>: mixture of dr5.0 versions ranging from git version string <code class="docutils literal">7e360d0</code> (26/7/2017) to (untagged) version <code class="docutils literal">0a71f89</code> (28/8/2017). The version used is documented in the Tractor header card <code class="docutils literal">LEGPIPEV</code>.</p></li>
+<li><p><a class="reference external" href="https://github.com/dstndstn/astrometry.net">Astrometry.net</a>: 0.72, git version <code class="docutils literal">d0af7bf</code> (11/7/2017)</p></li>
+<li><p><a class="reference external" href="https://github.com/dstndstn/tractor">Tractor</a>: dr5.2, git version <code class="docutils literal">5df5875</code> (18/7/2017)</p></li>
+<li><p>NOIRLab Community Pipeline: mixture of versions; recorded as <code class="docutils literal">PLVER</code>.</p></li>
+</ul>
+<!-- * SourceExtractor 2.19.5, PSFEx 3.17.1 --></section><section id="glossary"><h2><a class="toc-backref" href="#toc-entry-15" role="doc-backlink">Glossary</a></h2>
+<dl class="simple">
+<dt>BASS</dt>
+<dd>
+<p><a class="reference external" href="https://www.legacysurvey.org/bass">Beijing-Arizona Sky Survey</a>.</p>
+</dd>
+<dt>Blob</dt>
+<dd>
+<p>Continguous region of pixels above a detection threshold and neighboring
+pixels; Tractor is optimized within blobs.</p>
+</dd>
+<dt>Brick</dt>
+<dd>
+<p>A region bounded by lines of constant RA and DEC; reductions
+are performed within bricks of size approximately 0.25° × 0.25°.</p>
+</dd>
+<dt>CP</dt>
+<dd>
+<p>Community Pipeline (reduction pipeline operated by NOIRLab;
+<a class="reference external" href="https://legacy.noirlab.edu/noao/staff/fvaldes/CPDocPrelim/PL201_3.html">https://legacy.noirlab.edu/noao/staff/fvaldes/CPDocPrelim/PL201_3.html</a>).</p>
+</dd>
+<dt>DECaLS</dt>
+<dd>
+<p><a class="reference external" href="https://www.legacysurvey.org/decamls">Dark Energy Camera Legacy Survey</a>.</p>
+</dd>
+<dt>DR2</dt>
+<dd>
+<p><a class="reference external" href="../../dr2">Legacy Survey Data Release 2</a>.</p>
+</dd>
+<dt>DR3</dt>
+<dd>
+<p><a class="reference external" href="../../dr3">Legacy Survey Data Release 3</a>.</p>
+</dd>
+<dt>DR4</dt>
+<dd>
+<p><a class="reference external" href="../../dr4">Legacy Survey Data Release 4</a>.</p>
+</dd>
+<dt>DR5</dt>
+<dd>
+<p><a class="reference external" href="../../dr5">Legacy Survey Data Release 5</a>.</p>
+</dd>
+<dt>DECam</dt>
+<dd>
+<p>Dark Energy Camera on the Blanco 4-meter telescope.</p>
+</dd>
+<dt>maggie</dt>
+<dd>
+<p>Linear flux units, where an object with an AB magnitude of 0 has a
+flux of 1.0 maggie.  A convenient unit is the nanomaggie: a flux of 1 nanomaggie
+corresponds to an AB magnitude of 22.5.</p>
+</dd>
+<dt>MoG</dt>
+<dd>
+<p>Mixture-of-gaussian model to approximate the galaxy models (<a class="reference external" href="https://arxiv.org/abs/1210.6563">https://arxiv.org/abs/1210.6563</a>).</p>
+</dd>
+<dt>MzLS</dt>
+<dd>
+<p><a class="reference external" href="https://www.legacysurvey.org/mzls">Mayall z-band Legacy Survey</a>.</p>
+</dd>
+<dt>NOIRLab</dt>
+<dd>
+<p><a class="reference external" href="https://www.aura-astronomy.org/centers/nsfs-oir-lab">The NSF's National Optical-Infrared Astronomy Research Laboratory</a>.</p>
+</dd>
+<dt>nanomaggie</dt>
+<dd>
+<p>Linear flux units, where an object with an AB magnitude of 22.5 has a flux
+of <span class="math">\(1 \times 10^{-9}\)</span> maggie or 1.0 nanomaggie.</p>
+</dd>
+<dt>PSF</dt>
+<dd>
+<p>Point spread function.</p>
+</dd>
+<dt>PSFEx</dt>
+<dd>
+<p><a class="reference external" href="http://www.astromatic.net/software/psfex">Emmanuel Bertin's PSF fitting code</a>.</p>
+</dd>
+<dt>SDSS</dt>
+<dd>
+<p><a class="reference external" href="https://www.sdss.org">Sloan Digital Sky Survey</a>.</p>
+</dd>
+<dt>SDSS DR12</dt>
+<dd>
+<p><a class="reference external" href="https://www.sdss.org/dr12/">Sloan Digital Sky Survey Data Release 12</a>.</p>
+</dd>
+<dt>SDSS DR13</dt>
+<dd>
+<p><a class="reference external" href="https://www.sdss.org/dr13/">Sloan Digital Sky Survey Data Release 13</a>.</p>
+</dd>
+<dt>SED</dt>
+<dd>
+<p>Spectral energy distribution.</p>
+</dd>
+<dt>SourceExtractor</dt>
+<dd>
+<p><a class="reference external" href="http://www.astromatic.net/software/sextractor">Source Extractor reduction code</a>.</p>
+</dd>
+<dt>SFD98</dt>
+<dd>
+<p>Schlegel, Finkbeiner &amp; Davis 1998 extinction maps (<a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1998ApJ...500..525S/abstract">https://ui.adsabs.harvard.edu/abs/1998ApJ...500..525S/abstract</a>).</p>
+</dd>
+<dt>Tractor</dt>
+<dd>
+<p><a class="reference external" href="https://github.com/dstndstn/tractor">Dustin Lang's inference code</a>.</p>
+</dd>
+<dt>unWISE</dt>
+<dd>
+<p>New coadds of the WISE imaging, at original full resolution
+(<a class="reference external" href="http://unwise.me">http://unwise.me</a>, <a class="reference external" href="https://arxiv.org/abs/1405.0308">https://arxiv.org/abs/1405.0308</a>).</p>
+</dd>
+<dt>WISE</dt>
+<dd>
+<p><a class="reference external" href="http://wise.ssl.berkeley.edu">Wide Infrared Survey Explorer</a>.</p>
+</dd>
+</dl></section>
+</div>
+    
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha384-3lJUsx1TJHt7BA4udB5KPnDrlkO8T6J6v/op7ui0BbCjvZ9WqV4Xm6DTP6kQ/iBH" crossorigin="anonymous"></script><script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$latex ','$'], ['\\(','\\)']]}});
+        </script></article>
+</div>
+        <!--End of body content-->
+
+        <footer><hr>
+<p class="text-muted">Contents © 2026  <a href="mailto:no-reply@legacysurvey.org">Legacy Survey</a> |
+Powered by <a href="https://getnikola.com" rel="nofollow">Nikola</a> |
+Theme is <a href="https://bootswatch.com/3/readable/">Readable</a> |
+<a href="https://github.com/legacysurvey/legacysurvey">Source</a> |
+Version is 11.0.1</p>
+
+            
+        </footer>
+</div>
+</div>
+
+
+            <script src="../../assets/js/jquery-3.5.1.min.js"></script><script src="../../assets/js/bootstrap.min.js"></script><script src="../../assets/js/moment-with-locales.min.js"></script><script src="../../assets/js/fancydates.js"></script><script src="../../assets/js/jquery.colorbox-min.js"></script><script>jQuery("a.image-reference,!.islink").colorbox({rel:"gal",maxWidth:"100%",maxHeight:"100%",scalePhotos:true});</script><!-- fancy dates --><script>
+    moment.locale("en");
+    fancydates(0, "YYYY-MM-DD HH:mm");
+    </script><!-- end fancy dates -->
+</body>
+</html>

@@ -1,0 +1,18 @@
+........WARNING: File may have been truncated: actual file length (14400) is smaller than the expected size (40320) [astropy.io.fits.file]
+....E..
+======================================================================
+ERROR: setUpClass (test_operator_support.KernelTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/jzsalinas/Documents/galaxy-morphology-discovery/tests/test_operator_support.py", line 81, in setUpClass
+    def setUpClass(cls):cls.fn,cls.build=build_kernel()
+                                         ^^^^^^^^^^^^^^
+  File "/home/jzsalinas/Documents/galaxy-morphology-discovery/c0_pipeline/operator_support.py", line 78, in build_kernel
+    if source.count('lanczos_resample_one_, L)')!=1:raise Stop('UNEXPECTED_AUDITED_C_BOUNDARY')
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+c0_pipeline.core.Stop: UNEXPECTED_AUDITED_C_BOUNDARY
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.363s
+
+FAILED (errors=1)

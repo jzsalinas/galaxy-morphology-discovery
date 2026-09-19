@@ -1,0 +1,38 @@
+test_missing_unit_remains_inconclusive (test_fits_audit.FITSTests.test_missing_unit_remains_inconclusive) ... ok
+test_release_and_wcs_required (test_fits_audit.FITSTests.test_release_and_wcs_required) ... ok
+test_wrong_center_rejected (test_fits_audit.FITSTests.test_wrong_center_rejected) ... ok
+test_critical_inconclusive_stops (test_gates.GateTests.test_critical_inconclusive_stops) ... ok
+test_d_requires_verified_revision (test_gates.GateTests.test_d_requires_verified_revision) ... ok
+test_f_requires_verified_pilot (test_gates.GateTests.test_f_requires_verified_pilot) ... ok
+test_legal_stop (test_gates.GateTests.test_legal_stop) ... ok
+test_o3_failure_does_not_kill_core (test_gates.GateTests.test_o3_failure_does_not_kill_core) ... ok
+test_cache_avoids_request (test_http.HTTPTests.test_cache_avoids_request) ... ok
+test_oversized_rejected_before_read (test_http.HTTPTests.test_oversized_rejected_before_read) ... ok
+test_redirect_count (test_http.HTTPTests.test_redirect_count) ... ok
+test_stream_cap (test_http.HTTPTests.test_stream_cap) ... ok
+test_timeout_keeps_budget_and_records_stage (test_http.HTTPTests.test_timeout_keeps_budget_and_records_stage) ... ok
+test_truncation_is_not_cached (test_http.HTTPTests.test_truncation_is_not_cached) ... ok
+test_synthetic_quarantine_and_repeat (test_ingest_smoke.IngestSmoke.test_synthetic_quarantine_and_repeat) ... ok
+test_absent_active_does_not_invent_values (test_probe.ProbeTests.test_absent_active_does_not_invent_values) ... ok
+test_impossible_active_quota_stops (test_probe.ProbeTests.test_impossible_active_quota_stops) ... ok
+test_no_silent_size_imputation (test_probe.ProbeTests.test_no_silent_size_imputation) ... ok
+test_quota_and_row_order (test_probe.ProbeTests.test_quota_and_row_order) ... ok
+test_rejects_extra_column (test_probe.ProbeTests.test_rejects_extra_column) ... ok
+test_only_identity (test_reconcile.ParserTests.test_only_identity) ... ok
+test_short_record (test_reconcile.ParserTests.test_short_record) ... ok
+test_duplicate_missing_and_coordinate_difference (test_reconcile.ReconcileTests.test_duplicate_missing_and_coordinate_difference) ... ok
+test_dedup_preserves_all_object_links (test_resource_inventory.InventoryTests.test_dedup_preserves_all_object_links) ... ok
+test_head_never_downloads_large_resource (test_resource_inventory.InventoryTests.test_head_never_downloads_large_resource) ... ok
+test_fallback_preserves_source_row (test_safety.IdentityTests.test_fallback_preserves_source_row) ... ok
+test_bytes_boundary_persists (test_safety.Safety.test_bytes_boundary_persists) ... ok
+test_false_products (test_safety.Safety.test_false_products) ... ok
+test_no_leak (test_safety.Safety.test_no_leak) ... ok
+test_object_limit_and_dedup (test_safety.Safety.test_object_limit_and_dedup) ... ok
+test_requests_and_retries (test_safety.Safety.test_requests_and_retries) ... ok
+test_bad_ivar_rejected (test_subimage.SubimageTests.test_bad_ivar_rejected) ... ok
+test_maps_are_not_calibration_proof (test_subimage.SubimageTests.test_maps_are_not_calibration_proof) ... ok
+
+----------------------------------------------------------------------
+Ran 33 tests in 0.518s
+
+OK

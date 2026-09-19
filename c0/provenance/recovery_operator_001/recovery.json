@@ -1,0 +1,25 @@
+{
+  "timestamp_utc": "2026-09-18T00:33:33.832283+00:00",
+  "prototype_sha256": "36435a6463e55a3fae10166305e47e3c14dd584b93408ca321cb41aaa20f5d36",
+  "lines": 179,
+  "syntax": "VALID",
+  "functions": [
+    "union",
+    "subtract",
+    "spline_axis",
+    "build_kernel",
+    "c_values",
+    "geometry",
+    "coordinates",
+    "descriptor_table",
+    "stats",
+    "stratify"
+  ],
+  "cli_present": false,
+  "operator_execution_artifacts_present": false,
+  "kernel_build_present": false,
+  "network_requests": 0,
+  "normal_batch_sha256": "65f292baf46feb8016fba25de9ab9295553090b778820e7fb94a94118b9fb5f4",
+  "normal_batch_checkpoints_verified": 36,
+  "normal_input_hashes_verified": true
+}

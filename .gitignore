@@ -1,0 +1,44 @@
+# Python caches
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+c0/.venv/
+oc3/.venv/
+.venv/
+venv/
+
+# Downloaded or recreatable dependencies and provider metadata
+c0/dependencies/
+c0/provenance/raw_metadata/
+
+# Large C0 runtime and provider evidence
+c0/probe/
+
+# Large C0 quarantine payloads and derived row-level tables
+c0/quarantine/RAW_IMMUTABLE/
+c0/quarantine/INTERPRETATION_LOCKBOX/
+c0/quarantine/CDS_IDENTITY_RECONCILIATION.parquet
+c0/quarantine/SUBJECT_INDEX.parquet
+c0/quarantine/CONFOUND_AUDIT_C0.parquet
+
+# Large generated C0 comparison payloads
+c0/reports/operator_support/batch/
+c0/reports/cached_support/batch/
+c0/reports/operator_support/smoke/
+c0/reports/cached_support/smoke/
+c0/reports/C0_OPERATOR_SUPPORT_BATCH_RESULTS.json
+c0/reports/C0_CACHED_SUPPORT_BATCH_RESULTS.json
+c0/reports/C0_BOUNDED_AUDIT_RESULTS.json
+
+# Future real OC-3 metadata-bootstrap runtime
+oc3/metadata_bootstrap/
+
+# Generic temporary acquisition state
+**/STAGING/
+
+# Disposable local files
+.DS_Store

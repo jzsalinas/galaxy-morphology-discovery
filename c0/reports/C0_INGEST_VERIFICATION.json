@@ -1,0 +1,51 @@
+{
+  "timestamp_utc": "2026-09-17T12:00:09.783626+00:00",
+  "checks": {
+    "SUBJECT_INDEX.parquet": {
+      "sha256_matches": true,
+      "size_matches": true,
+      "mode": "0o400",
+      "rows_from_footer": 253286,
+      "safe_columns": [
+        "iauname",
+        "ra_deg",
+        "dec_deg",
+        "source_row",
+        "galaxy_id",
+        "identity_method",
+        "gzd_campaign",
+        "source_record_version",
+        "source_sha256",
+        "png_path",
+        "campaign_evidence"
+      ]
+    },
+    "CONFOUND_AUDIT_C0.parquet": {
+      "sha256_matches": true,
+      "size_matches": true,
+      "mode": "0o400",
+      "rows_from_footer": 253286,
+      "safe_columns": [
+        "petro_theta",
+        "petro_th50",
+        "petro_th90",
+        "elpetro_absmag_r",
+        "redshift",
+        "active_learning_on",
+        "upload_group",
+        "galaxy_id",
+        "source_row"
+      ]
+    },
+    "INTERPRETATION_LOCKBOX/interpretation.parquet": {
+      "sha256_matches": true,
+      "size_matches": true,
+      "mode": "0o400"
+    },
+    "raw": {
+      "sha256_matches": true,
+      "provider_md5_matches": true
+    },
+    "lockbox_directory_mode": "0o700"
+  }
+}

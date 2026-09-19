@@ -1,0 +1,69 @@
+{
+  "timestamp_utc": "2026-09-17T17:43:29.911709+00:00",
+  "kind": "LOCAL_GEOMETRY_AND_TILE_TABLE_ONLY",
+  "normal_sha256": "db1ce57ff960734150853322a0f9c97a55a24830dd7c280204d0bca0eeed5865",
+  "rows": [
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/194/1949p190/legacysurvey-1949p190-image-g.fits.fz",
+      "prefix_sha256": "04d1a7a5bf4834e536a48ead52f93c8e852e17e6d5684231ece913784b35e481",
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "normal_pixels_with_nearest_center_in_brick": 20224,
+      "planned_region": {
+        "total": 13008960,
+        "start": 7263839,
+        "end": 8345282,
+        "bytes": 1081444,
+        "unit": "nanomaggy",
+        "tile_shape": [
+          100,
+          100
+        ],
+        "selected_tiles": 4,
+        "x0": 0,
+        "y0": 2041,
+        "width": 81,
+        "height": 262
+      },
+      "cached_start": 7263839,
+      "cached_end": 7988207,
+      "required_envelope_is_cached": false
+    },
+    {
+      "url": "https://portal.nersc.gov/cfs/cosmo/data/legacysurvey/dr5/coadd/195/1951p190/legacysurvey-1951p190-image-g.fits.fz",
+      "prefix_sha256": "4caa0fc7be3b41d2991e8673aeb181e9689701afc20918d2c301d4453bfed362",
+      "source_shape": [
+        3600,
+        3600
+      ],
+      "normal_pixels_with_nearest_center_in_brick": 65536,
+      "planned_region": {
+        "total": 12985920,
+        "start": 7532480,
+        "end": 8645075,
+        "bytes": 1112596,
+        "unit": "nanomaggy",
+        "tile_shape": [
+          100,
+          100
+        ],
+        "selected_tiles": 16,
+        "x0": 3248,
+        "y0": 2041,
+        "width": 262,
+        "height": 262
+      },
+      "cached_start": 7532480,
+      "cached_end": 8286790,
+      "required_envelope_is_cached": false
+    }
+  ],
+  "network_requests": 0,
+  "limits": [
+    "No new image pixels decoded or compared",
+    "Nearest-center geometric membership is not verified coverage",
+    "Analytic WCS only; no deployed boundary rule certified"
+  ]
+}

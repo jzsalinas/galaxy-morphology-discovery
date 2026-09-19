@@ -1,0 +1,8 @@
+{
+  "version": "25.0.1",
+  "filename": "pyarrow-25.0.1-cp312-cp312-manylinux_2_28_x86_64.whl",
+  "url": "https://files.pythonhosted.org/packages/60/c9/711ca85d79f1ec98f29a5eae2b051e25b4ecec5de3e3c0e2d5c5dcb15664/pyarrow-25.0.1-cp312-cp312-manylinux_2_28_x86_64.whl",
+  "size": 50102437,
+  "sha256": "5389cdf79447ed1515c9e31620e6e1e2302249564d603f2ad727d4f6d313e4c3",
+  "python": "/home/jzsalinas/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3"
+}
