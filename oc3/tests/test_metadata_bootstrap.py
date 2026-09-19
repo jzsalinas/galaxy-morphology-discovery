@@ -11,6 +11,7 @@ import socket
 import struct
 import subprocess
 import tempfile
+from types import MappingProxyType
 import unittest
 
 import numpy as np
@@ -86,20 +87,52 @@ def get_response(item: MetadataResource, body=b"DATA", **changes) -> TransportRe
 
 
 def synthetic_rights(aggregate: str) -> RightsBinding:
-    return RightsBinding("ALLOWED_FOR_THIS_PROTOCOL", "ALLOWED_FOR_THIS_PROTOCOL", False,
-                         "DISABLED_UNRESOLVED", BOOTSTRAP_SCOPE, aggregate,
-                         ENVIRONMENT_FINGERPRINT, ("synthetic:test",), True, True)
+    value = {
+        "binding_type": RIGHTS_BINDING_TYPE,
+        "schema_version": 1,
+        "canonicalization": CANONICALIZATION_VERSION,
+        "attempt_id": ATTEMPT_ID,
+        "scope": BOOTSTRAP_SCOPE,
+        "local_scientific_acquisition": "ALLOWED_FOR_THIS_PROTOCOL",
+        "local_preservation": "ALLOWED_FOR_THIS_PROTOCOL",
+        "redistribution": False,
+        "FITS_OR_DERIVED_REDISTRIBUTION": "DISABLED_UNRESOLVED",
+        "execution_plan_sha256": EXECUTION_PLAN_SHA256,
+        "base_spec_sha256": BASE_SPEC_SHA256,
+        "clarification_sha256": CLARIFICATION_001_SHA256,
+        "implementation_aggregate": aggregate,
+        "environment_fingerprint": ENVIRONMENT_FINGERPRINT,
+        "resources": resource_binding_values(),
+        "reviewed_evidence": [{
+            "path": "OC3_METADATA_BOOTSTRAP_ONLY_EXECUTION_SPEC.md",
+            "sha256": BASE_SPEC_SHA256,
+        }],
+        "reviewed": True,
+        "synthetic_only": True,
+    }
+    raw = canonical(value) + b"\n"
+    return RightsBinding(MappingProxyType(value), hashlib.sha256(raw).hexdigest(), True)
 
 
 def synthetic_auth(argv, aggregate, rights_sha, *, resume=False):
     value = {
-        "kind": "RESUME_NETWORK_AUTHORIZATION" if resume else "FIRST_RUN_NETWORK_AUTHORIZATION",
+        "authorization_type": RESUME_AUTHORIZATION_TYPE if resume else FIRST_AUTHORIZATION_TYPE,
+        "authorization_state": "FINAL_HUMAN_AUTHORIZATION",
+        "schema_version": 1,
+        "canonicalization": CANONICALIZATION_VERSION,
         "authorized": True, "scope": BOOTSTRAP_SCOPE, "attempt_id": ATTEMPT_ID,
-        "attempt_directory": ATTEMPT_RELATIVE_DIRECTORY, "spec_sha256": BASE_SPEC_SHA256,
+        "authorized_by": "SYNTHETIC_TEST_HARNESS",
+        "authorized_at_utc": "2026-09-19T00:00:00Z",
+        "attempt_directory": ATTEMPT_RELATIVE_DIRECTORY,
+        "execution_mode": RESUME_EXECUTION_MODE if resume else FIRST_EXECUTION_MODE,
+        "execution_plan_sha256": EXECUTION_PLAN_SHA256,
+        "base_spec_sha256": BASE_SPEC_SHA256,
         "clarification_sha256": CLARIFICATION_001_SHA256,
         "implementation_aggregate": aggregate, "environment_fingerprint": ENVIRONMENT_FINGERPRINT,
-        "patch_model": PATCH_MODEL, "command_argv": list(argv),
+        "patch_model": PATCH_MODEL, "resources": resource_binding_values(),
+        "resource_caps": resource_cap_values(), "command_argv": list(argv),
         "command_sha256": command_sha256(argv), "rights_binding_sha256": rights_sha,
+        "negative_capabilities": dict(NEGATIVE_CAPABILITIES),
         "synthetic_only": True,
     }
     if resume:

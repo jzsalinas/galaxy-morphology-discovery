@@ -18,7 +18,7 @@ import sqlite3
 import struct
 import time
 from types import MappingProxyType
-from typing import Iterable, Iterator, Mapping, Protocol
+from typing import Callable, Iterable, Iterator, Mapping, Protocol
 
 from .core import canonical, file_hash, hash_object, implementation_hash
 from .metadata_value_semantics import (
@@ -45,9 +45,20 @@ PHYSICAL_CONTRACT_DOCUMENT_SHA256 = "bdf38d98866de8a7a9ee1c4e495dafea9492e8fc298
 AMENDMENT_004_SHA256 = "842d7b62e3a5408c88d534b3e531a6e2d85a4eb66593f2b0c9bf91bb7fe3fe48"
 POST_PROBE_001_SHA256 = "930909ebdfffff58bc0c88cbbab9c619128cb4ab7adb8df9ec6a88e82324e155"
 PRE_METADATA_BOOTSTRAP_INFRASTRUCTURE = "f3f64a05c581e2c74d2cb80c2a2e499ab7c76cbd8eba7ad7f9e5f40a49e48581"
+PRE_METADATA_BOOTSTRAP_GATE_ACTIVATION = "084706171e4b74a13a8d2ed57ee5d61b73953d746e6aab23081ef77d78673407"
 ENVIRONMENT_FINGERPRINT = "b49e26767922123113707a13434821d6bf1d7711f28a2b9de7e5ce46d64e3bdf"
+EXECUTION_PLAN_SHA256 = "0e246d5fce5d71c2aa109cba913f1eb9bd397259e492e279870c6d4ccf163b20"
+CANONICAL_PROJECT_DIRECTORY = "/home/jzsalinas/Documents/galaxy-morphology-discovery"
+CANONICAL_SCRIPT_RELATIVE_PATH = "oc3/oc3_metadata_bootstrap.py"
+RIGHTS_BINDING_TYPE = "METADATA_BOOTSTRAP_RIGHTS_BINDING"
+FIRST_AUTHORIZATION_TYPE = "METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION"
+RESUME_AUTHORIZATION_TYPE = "METADATA_BOOTSTRAP_RESUME_AUTHORIZATION"
+FIRST_EXECUTION_MODE = "FIRST_RUN_NETWORK"
+RESUME_EXECUTION_MODE = "NETWORK_RESUME"
+CANONICALIZATION_VERSION = "CANONICAL_JSON_SORTED_KEYS_COMPACT_UTF8_LF_V1"
 
 AUTHORITY_BINDINGS = MappingProxyType({
+    "OC3_METADATA_BOOTSTRAP_EXECUTION_PLAN_001.md": EXECUTION_PLAN_SHA256,
     "OC3_METADATA_BOOTSTRAP_ONLY_EXECUTION_SPEC.md": BASE_SPEC_SHA256,
     "OC3_METADATA_BOOTSTRAP_ONLY_EXECUTION_SPEC_CLARIFICATION_001.md": CLARIFICATION_001_SHA256,
     "OC3_METADATA_VALUE_SEMANTICS_AND_INTEGRITY_SPEC.md": VALUE_SEMANTICS_SPEC_SHA256,
@@ -183,65 +194,162 @@ def _sha256_text(value: object) -> bool:
     return isinstance(value, str) and re.fullmatch(r"[0-9a-f]{64}", value) is not None
 
 
+def resource_binding_values() -> list[dict[str, object]]:
+    return [
+        {
+            "accept_encoding": "identity",
+            "allowed_methods": ["HEAD", "GET"],
+            "compression": resource.compression,
+            "expected_etag": resource.expected_etag,
+            "expected_length": resource.expected_length,
+            "expected_last_modified": resource.expected_last_modified,
+            "expected_provider_full_file_sha256":
+                PRODUCTION_PHYSICAL_CONTRACTS[role].expected_provider_full_file_sha256,
+            "provider_checksum_status": PRODUCTION_PHYSICAL_CONTRACTS[role].checksum_status,
+            "range_allowed": False,
+            "redirects_allowed": False,
+            "role": role.value,
+            "url": resource.url,
+        }
+        for role, resource in RESOURCES.items()
+    ]
+
+
+def resource_cap_values() -> dict[str, object]:
+    return dict(vars(RESOURCE_CAPS))
+
+
+NEGATIVE_CAPABILITIES = MappingProxyType({
+    "automatic_resume": False,
+    "background_execution": False,
+    "forbidden_field_observation": False,
+    "mirror_or_fallback": False,
+    "oc3_start": False,
+    "patch_row_decode": False,
+    "range_requests": False,
+    "redirects": False,
+    "release_substitution": False,
+    "redistribution": False,
+    "row_persistence": False,
+    "selection": False,
+})
+
+
+RIGHTS_FIELDS = frozenset({
+    "binding_type", "schema_version", "canonicalization", "attempt_id", "scope",
+    "local_scientific_acquisition", "local_preservation", "redistribution",
+    "FITS_OR_DERIVED_REDISTRIBUTION", "execution_plan_sha256",
+    "base_spec_sha256", "clarification_sha256", "implementation_aggregate",
+    "environment_fingerprint", "resources", "reviewed_evidence", "reviewed",
+    "synthetic_only",
+})
+EVIDENCE_REFERENCE_FIELDS = frozenset({"path", "sha256"})
+
+
+def _strict_object(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError("duplicate JSON key")
+        result[key] = value
+    return result
+
+
+def _load_canonical_json(path: Path, error_code: str) -> tuple[dict, str]:
+    try:
+        raw = Path(path).read_bytes()
+        if len(raw) > 1024 * 1024:
+            raise ValueError("governance input too large")
+        value = json.loads(raw.decode("utf-8"), object_pairs_hook=_strict_object)
+        if not isinstance(value, dict) or raw != canonical(value) + b"\n":
+            raise ValueError("non-canonical JSON")
+    except (OSError, UnicodeError, ValueError, TypeError) as exc:
+        raise BootstrapError(error_code) from exc
+    return value, hashlib.sha256(raw).hexdigest()
+
+
 @dataclass(frozen=True)
 class RightsBinding:
-    local_scientific_acquisition: str
-    local_preservation: str
-    redistribution: bool
-    fits_or_derived_redistribution: str
-    scope: str
-    implementation_aggregate: str
-    environment_fingerprint: str
-    evidence_refs: tuple[str, ...]
-    reviewed: bool
+    value: MappingProxyType
+    sha256: str
     synthetic_only: bool
 
+    def __post_init__(self) -> None:
+        if (not isinstance(self.value, MappingProxyType) or
+                self.sha256 != hashlib.sha256(canonical(dict(self.value)) + b"\n").hexdigest()):
+            raise BootstrapError("METADATA_RIGHTS_BINDING_INVALID")
+
     def object(self) -> dict:
-        return {
-            "environment_fingerprint": self.environment_fingerprint,
-            "evidence_refs": list(self.evidence_refs),
-            "fits_or_derived_redistribution": self.fits_or_derived_redistribution,
-            "implementation_aggregate": self.implementation_aggregate,
-            "local_preservation": self.local_preservation,
-            "local_scientific_acquisition": self.local_scientific_acquisition,
-            "redistribution": self.redistribution,
-            "reviewed": self.reviewed,
-            "scope": self.scope,
-            "synthetic_only": self.synthetic_only,
-        }
+        return dict(self.value)
 
     @property
-    def sha256(self) -> str:
-        return hash_object(self.object())
+    def redistribution(self) -> bool:
+        return self.value["redistribution"]
+
+
+def load_rights_binding(path: Path) -> RightsBinding:
+    value, source_sha256 = _load_canonical_json(path, "METADATA_RIGHTS_BINDING_INVALID")
+    synthetic = value.get("synthetic_only")
+    if type(synthetic) is not bool:
+        raise BootstrapError("METADATA_RIGHTS_BINDING_INVALID")
+    return RightsBinding(MappingProxyType(value), source_sha256, synthetic)
 
 
 def validate_rights(binding: RightsBinding, *, implementation_aggregate: str,
-                    allow_synthetic: bool) -> RightsBinding:
+                    allow_synthetic: bool, project: Path | None = None) -> RightsBinding:
     if not isinstance(binding, RightsBinding):
         raise BootstrapError("METADATA_RIGHTS_BINDING_REQUIRED")
-    expected = (
-        "ALLOWED_FOR_THIS_PROTOCOL", "ALLOWED_FOR_THIS_PROTOCOL", False,
-        "DISABLED_UNRESOLVED", BOOTSTRAP_SCOPE, implementation_aggregate,
-        ENVIRONMENT_FINGERPRINT,
-    )
-    observed = (
-        binding.local_scientific_acquisition, binding.local_preservation,
-        binding.redistribution, binding.fits_or_derived_redistribution,
-        binding.scope, binding.implementation_aggregate,
-        binding.environment_fingerprint,
-    )
-    if observed != expected or not binding.reviewed or not binding.evidence_refs:
+    value = binding.value
+    if set(value) != RIGHTS_FIELDS:
+        raise BootstrapError("METADATA_RIGHTS_BINDING_INVALID")
+    if (
+        value["binding_type"] != RIGHTS_BINDING_TYPE or
+        value["schema_version"] != 1 or
+        value["canonicalization"] != CANONICALIZATION_VERSION or
+        value["attempt_id"] != ATTEMPT_ID or
+        value["scope"] != BOOTSTRAP_SCOPE or
+        value["local_scientific_acquisition"] != "ALLOWED_FOR_THIS_PROTOCOL" or
+        value["local_preservation"] != "ALLOWED_FOR_THIS_PROTOCOL" or
+        value["redistribution"] is not False or
+        value["FITS_OR_DERIVED_REDISTRIBUTION"] != "DISABLED_UNRESOLVED" or
+        value["execution_plan_sha256"] != EXECUTION_PLAN_SHA256 or
+        value["base_spec_sha256"] != BASE_SPEC_SHA256 or
+        value["clarification_sha256"] != CLARIFICATION_001_SHA256 or
+        value["implementation_aggregate"] != implementation_aggregate or
+        value["environment_fingerprint"] != ENVIRONMENT_FINGERPRINT or
+        value["resources"] != resource_binding_values() or
+        value["reviewed"] is not True or
+        type(value["synthetic_only"]) is not bool or
+        not _sha256_text(binding.sha256)
+    ):
         raise BootstrapError("METADATA_RIGHTS_BINDING_INVALID")
     if binding.synthetic_only and not allow_synthetic:
         raise BootstrapError("METADATA_RIGHTS_BINDING_INVALID")
+    evidence = value["reviewed_evidence"]
+    if not isinstance(evidence, list) or not evidence:
+        raise BootstrapError("METADATA_RIGHTS_BINDING_INVALID")
+    project = Path(project or CANONICAL_PROJECT_DIRECTORY).resolve()
+    for reference in evidence:
+        if not isinstance(reference, dict) or set(reference) != EVIDENCE_REFERENCE_FIELDS:
+            raise BootstrapError("METADATA_RIGHTS_BINDING_INVALID")
+        relative = reference["path"]
+        expected_sha = reference["sha256"]
+        if not isinstance(relative, str) or not relative or not _sha256_text(expected_sha):
+            raise BootstrapError("METADATA_RIGHTS_BINDING_INVALID")
+        candidate = (project / relative).resolve()
+        if not candidate.is_relative_to(project) or not candidate.is_file() or file_hash(candidate) != expected_sha:
+            raise BootstrapError("METADATA_RIGHTS_BINDING_INVALID")
     return binding
 
 
 FIRST_AUTH_FIELDS = frozenset({
-    "kind", "authorized", "scope", "attempt_id", "attempt_directory",
-    "spec_sha256", "clarification_sha256", "implementation_aggregate",
-    "environment_fingerprint", "patch_model", "command_argv", "command_sha256",
-    "rights_binding_sha256", "synthetic_only",
+    "authorization_type", "authorization_state", "schema_version", "canonicalization",
+    "authorized", "authorized_by", "authorized_at_utc", "scope", "attempt_id",
+    "attempt_directory", "execution_mode", "execution_plan_sha256",
+    "base_spec_sha256", "clarification_sha256", "implementation_aggregate",
+    "environment_fingerprint", "patch_model", "resources", "resource_caps",
+    "command_argv", "command_sha256", "rights_binding_sha256",
+    "negative_capabilities", "synthetic_only",
 })
 RESUME_AUTH_FIELDS = FIRST_AUTH_FIELDS | frozenset({
     "first_run_authorization_sha256", "ledger_identity", "ledger_watermark",
@@ -268,20 +376,39 @@ def validate_authorization(value: object, *, argv: Iterable[str], resume: bool,
     if set(value) != expected_fields:
         raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
     argv = tuple(argv)
-    expected_kind = "RESUME_NETWORK_AUTHORIZATION" if resume else "FIRST_RUN_NETWORK_AUTHORIZATION"
-    if (value["kind"] != expected_kind or value["scope"] != BOOTSTRAP_SCOPE or
+    expected_kind = RESUME_AUTHORIZATION_TYPE if resume else FIRST_AUTHORIZATION_TYPE
+    expected_mode = RESUME_EXECUTION_MODE if resume else FIRST_EXECUTION_MODE
+    if (value["authorization_type"] != expected_kind or
+            value["authorization_state"] != "FINAL_HUMAN_AUTHORIZATION" or
+            value["schema_version"] != 1 or
+            value["canonicalization"] != CANONICALIZATION_VERSION or
+            value["scope"] != BOOTSTRAP_SCOPE or
             value["attempt_id"] != ATTEMPT_ID or
             value["attempt_directory"] != ATTEMPT_RELATIVE_DIRECTORY or
-            value["spec_sha256"] != BASE_SPEC_SHA256 or
+            value["execution_mode"] != expected_mode or
+            value["execution_plan_sha256"] != EXECUTION_PLAN_SHA256 or
+            value["base_spec_sha256"] != BASE_SPEC_SHA256 or
             value["clarification_sha256"] != CLARIFICATION_001_SHA256 or
             value["implementation_aggregate"] != implementation_aggregate or
             value["environment_fingerprint"] != ENVIRONMENT_FINGERPRINT or
             value["patch_model"] != PATCH_MODEL or
+            value["resources"] != resource_binding_values() or
+            value["resource_caps"] != resource_cap_values() or
+            value["negative_capabilities"] != dict(NEGATIVE_CAPABILITIES) or
             tuple(value["command_argv"]) != argv or
             value["command_sha256"] != command_sha256(argv) or
             value["rights_binding_sha256"] != rights_sha256 or
             type(value["authorized"]) is not bool or
             type(value["synthetic_only"]) is not bool):
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    if (not isinstance(value["authorized_by"], str) or not value["authorized_by"].strip() or
+            not isinstance(value["authorized_at_utc"], str)):
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    try:
+        timestamp = datetime.fromisoformat(value["authorized_at_utc"].replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE") from exc
+    if timestamp.tzinfo is None or timestamp.utcoffset() != timezone.utc.utcoffset(timestamp):
         raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
     has_resume = "--resume" in argv
     if has_resume != resume:
@@ -305,8 +432,9 @@ def validate_authorization(value: object, *, argv: Iterable[str], resume: bool,
         roles = {role.value for role in RESOURCE_ORDER}
         if completed & pending or completed | pending != roles:
             raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
-    raw = canonical(value)
-    return ValidatedAuthorization(expected_kind, MappingProxyType(dict(value)),
+    raw = canonical(value) + b"\n"
+    validated_kind = "RESUME_NETWORK_AUTHORIZATION" if resume else "FIRST_RUN_NETWORK_AUTHORIZATION"
+    return ValidatedAuthorization(validated_kind, MappingProxyType(dict(value)),
                                   hashlib.sha256(raw).hexdigest(), value["synthetic_only"])
 
 
@@ -355,6 +483,7 @@ class SyntheticTransport:
 
 
 _REAL_TRANSPORT_TOKEN = object()
+_ACTIVATION_GATE_TOKEN = object()
 
 
 class RealHttpTransport:
@@ -407,14 +536,148 @@ class RealHttpTransport:
 def construct_real_transport(*, execute_network: bool, offline: bool,
                              rights: RightsBinding | None,
                              authorization: ValidatedAuthorization | None,
-                             implementation_aggregate: str) -> RealHttpTransport:
-    if offline or not execute_network or rights is None or authorization is None:
+                             implementation_aggregate: str,
+                             gate_token: object | None = None) -> RealHttpTransport:
+    if (gate_token is not _ACTIVATION_GATE_TOKEN or offline or not execute_network or
+            rights is None or authorization is None):
         raise BootstrapError("METADATA_REAL_TRANSPORT_GATE_REQUIRED")
     validate_rights(rights, implementation_aggregate=implementation_aggregate,
-                    allow_synthetic=False)
+                    allow_synthetic=False, project=Path(CANONICAL_PROJECT_DIRECTORY))
     if authorization.synthetic_only:
         raise BootstrapError("METADATA_REAL_TRANSPORT_GATE_REQUIRED")
     return RealHttpTransport(_REAL_TRANSPORT_TOKEN)
+
+
+def _validate_command_vector(command: Iterable[str], *, authorization_path: Path,
+                             rights_path: Path, resume: bool) -> tuple[str, ...]:
+    values = tuple(command)
+    script = str((Path(CANONICAL_PROJECT_DIRECTORY) / CANONICAL_SCRIPT_RELATIVE_PATH).resolve())
+    expected = (
+        script,
+        "--execute-network",
+        "--authorization", str(Path(authorization_path)),
+        "--rights-binding", str(Path(rights_path)),
+    ) + (("--resume",) if resume else ())
+    if (values != expected or not Path(authorization_path).is_absolute() or
+            not Path(rights_path).is_absolute()):
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    return values
+
+
+def _verify_gate_authorities(project: Path, trace: list[str]) -> str:
+    project = Path(project).resolve()
+    if project != Path(CANONICAL_PROJECT_DIRECTORY).resolve():
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORITY_FAILURE")
+    trace.append("01_project_identity")
+    plan = project / "OC3_METADATA_BOOTSTRAP_EXECUTION_PLAN_001.md"
+    if not plan.is_file() or file_hash(plan) != EXECUTION_PLAN_SHA256:
+        raise BootstrapError("METADATA_BOOTSTRAP_EXECUTION_PLAN_AUTHORITY_FAILURE")
+    trace.append("02_execution_plan_authority")
+    for name, expected in AUTHORITY_BINDINGS.items():
+        path = project / name
+        if not path.is_file() or file_hash(path) != expected:
+            raise BootstrapError("METADATA_BOOTSTRAP_AUTHORITY_FAILURE")
+    trace.append("03_spec_and_clarification")
+    aggregate = implementation_hash(project)
+    if not _sha256_text(aggregate):
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORITY_FAILURE")
+    trace.append("04_implementation_aggregate")
+    try:
+        environment = json.loads((project / "oc3/environment_setup/ENVIRONMENT.json").read_text())
+    except (OSError, ValueError) as exc:
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORITY_FAILURE") from exc
+    if environment.get("environment_sha256") != ENVIRONMENT_FINGERPRINT:
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORITY_FAILURE")
+    trace.append("05_environment_fingerprint")
+    if ATTEMPT_ID != "OC3-METADATA-BOOTSTRAP-001":
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORITY_FAILURE")
+    trace.append("06_attempt_identity")
+    return aggregate
+
+
+def activate_network_transport(*, project: Path, command: Iterable[str],
+                               authorization_path: Path | None,
+                               rights_path: Path | None, resume: bool,
+                               allow_synthetic: bool = False,
+                               transport_factory: Callable[..., object] | None = None,
+                               gate_trace: list[str] | None = None) -> object:
+    """Validate every local authority before creating any network capability.
+
+    ``allow_synthetic`` and ``transport_factory`` exist for the offline regression
+    harness only and are not exposed by the CLI.
+    """
+    trace = gate_trace if gate_trace is not None else []
+    project = Path(project).resolve()
+    aggregate = _verify_gate_authorities(project, trace)
+    attempt = project / ATTEMPT_RELATIVE_DIRECTORY
+    if resume:
+        if not attempt.is_dir():
+            raise BootstrapError("METADATA_LOCAL_STATE_CONFLICT")
+    elif attempt.exists():
+        raise BootstrapError("METADATA_LOCAL_STATE_CONFLICT")
+    trace.append("07_attempt_state")
+    if rights_path is None or not Path(rights_path).is_file():
+        raise BootstrapError("PREFLIGHT_BLOCKED_MANIFEST_OR_RIGHTS")
+    rights = load_rights_binding(Path(rights_path))
+    validate_rights(rights, implementation_aggregate=aggregate,
+                    allow_synthetic=allow_synthetic, project=project)
+    trace.append("08_rights_binding")
+    if authorization_path is None or not Path(authorization_path).is_file():
+        raise BootstrapError("PREFLIGHT_BLOCKED_MANIFEST_OR_RIGHTS")
+    authorization_value, _ = _load_canonical_json(
+        Path(authorization_path), "METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    if set(authorization_value) != (RESUME_AUTH_FIELDS if resume else FIRST_AUTH_FIELDS):
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    trace.append("09_human_authorization")
+    if authorization_value["rights_binding_sha256"] != rights.sha256:
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    trace.append("10_authorization_rights_binding")
+    if (rights.value["execution_plan_sha256"] != EXECUTION_PLAN_SHA256 or
+            authorization_value["execution_plan_sha256"] != EXECUTION_PLAN_SHA256):
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    trace.append("11_plan_bindings")
+    if (rights.value["resources"] != resource_binding_values() or
+            authorization_value["resources"] != resource_binding_values() or
+            authorization_value["resource_caps"] != resource_cap_values()):
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    trace.append("12_resources_and_caps")
+    if authorization_value["patch_model"] != PATCH_MODEL:
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    trace.append("13_patch_model")
+    command = _validate_command_vector(command, authorization_path=Path(authorization_path),
+                                       rights_path=Path(rights_path), resume=resume)
+    if tuple(authorization_value["command_argv"]) != command:
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    trace.append("14_command_vector")
+    if authorization_value["command_sha256"] != command_sha256(command):
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    trace.append("15_command_sha256")
+    if authorization_value["authorized"] is not True:
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    trace.append("16_authorized_true")
+    expected_mode = RESUME_EXECUTION_MODE if resume else FIRST_EXECUTION_MODE
+    if authorization_value["execution_mode"] != expected_mode:
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    trace.append("17_execution_mode")
+    if (("--resume" in command) is not resume):
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    trace.append("18_resume_mode")
+    if authorization_value["negative_capabilities"] != dict(NEGATIVE_CAPABILITIES):
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    trace.append("19_negative_capabilities")
+    authorization = validate_authorization(
+        authorization_value, argv=command, resume=resume,
+        implementation_aggregate=aggregate, rights_sha256=rights.sha256,
+        require_authorized=True, allow_synthetic=allow_synthetic,
+    )
+    factory = transport_factory or construct_real_transport
+    result = factory(
+        execute_network=True, offline=False, rights=rights,
+        authorization=authorization, implementation_aggregate=aggregate,
+        gate_token=_ACTIVATION_GATE_TOKEN,
+    )
+    trace.append("20_real_transport_construction")
+    return result
 
 
 def _headers(response: TransportResponse) -> dict[str, str]:

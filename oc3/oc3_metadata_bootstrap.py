@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """Fail-closed CLI for the frozen OC-3 metadata bootstrap stage.
 
-This revision implements local inspection and dry-run only.  Network execution
-also requires a separately reviewed execution-plan artifact, which intentionally
-does not exist yet.
+Real transport capability is constructed only after the frozen plan, rights,
+human authorization, exact command, implementation, and environment gates pass.
 """
 from __future__ import annotations
 
@@ -13,7 +12,8 @@ from pathlib import Path
 import sys
 
 from oc3lib.metadata_bootstrap import (
-    ATTEMPT_ID, BOOTSTRAP_SCOPE, BootstrapError, dry_run_plan,
+    ATTEMPT_ID, BOOTSTRAP_SCOPE, BootstrapError, activate_network_transport,
+    dry_run_plan,
 )
 
 
@@ -41,10 +41,21 @@ def main(argv: list[str] | None = None) -> int:
     project = Path(__file__).resolve().parents[1]
     try:
         if args.execute_network:
-            # The frozen task explicitly forbids creating the reviewed execution
-            # plan in this implementation turn.  Fail before reading credentials,
-            # constructing transport, DNS, sockets, or attempt storage.
-            raise BootstrapError("PREFLIGHT_BLOCKED_MANIFEST_OR_RIGHTS")
+            activate_network_transport(
+                project=project,
+                command=command,
+                authorization_path=args.authorization,
+                rights_path=args.rights_binding,
+                resume=args.resume,
+            )
+            print(json.dumps({
+                "attempt_id": ATTEMPT_ID,
+                "network_requests_started": 0,
+                "network_transport_constructed": True,
+                "scope": BOOTSTRAP_SCOPE,
+                "state": "AUTHORIZED_TRANSPORT_READY",
+            }, sort_keys=True, separators=(",", ":")))
+            return 0
         plan = dry_run_plan(project, command)
         plan.update({
             "attempt_id": ATTEMPT_ID,
