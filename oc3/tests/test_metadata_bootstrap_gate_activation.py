@@ -49,9 +49,9 @@ class GateActivationTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory(prefix="oc3_gate_activation_")
         root = Path(self.temp.name)
-        self.rights_path = (root / "rights.json").resolve()
-        self.auth_path = (root / "authorization.json").resolve()
-        self.candidate_path = (root / "candidate.json").resolve()
+        self.rights_path = (root / "METADATA_BOOTSTRAP_RIGHTS_BINDING_003.json").resolve()
+        self.auth_path = (root / "METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_002.json").resolve()
+        self.candidate_path = (root / "METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_CANDIDATE_002.json").resolve()
         self.aggregate = implementation_hash(PROJECT)
         self.command = (
             str(SCRIPT), "--execute-network", "--authorization", str(self.auth_path),
@@ -347,6 +347,37 @@ def c76(t):
     c41(t)
 def c77(t):
     t.assertEqual(FIRST_AUTH_FIELDS,FINAL_AUTH_COMMON_FIELDS|{"authorization_candidate_path","authorization_candidate_sha256"}); t.assertFalse({"authorization_candidate_path","authorization_candidate_sha256"}&RESUME_AUTH_FIELDS)
+def c78(t):
+    t.assertTrue(t.auth_path.name.endswith("_002.json")); t.assertTrue(t.candidate_path.name.endswith("_002.json")); t.prepare(); t.assertEqual(t.activate(),"SYNTHETIC_TRANSPORT_FACTORY_REACHED")
+def c79(t):
+    rights=t.prepare(); project=Path(t.temp.name)
+    for name in ("OC3_METADATA_BOOTSTRAP_EXECUTION_PLAN_001_POST_ACTIVATION_REVIEW.md","OC3_METADATA_BOOTSTRAP_RIGHTS_REVIEW_001.md"):
+        (project/name).write_bytes((PROJECT/name).read_bytes())
+    candidate=load_authorization_candidate(t.candidate_path)
+    validated=validate_authorization_candidate(candidate,argv=t.command,implementation_aggregate=t.aggregate,rights_sha256=rights,authorization_path=t.auth_path,rights_path=t.rights_path,project=project,allow_synthetic_paths=False)
+    t.assertEqual(validated.validation_state,VALID_CANDIDATE_STATE)
+def c80(t):
+    t.prepare(candidate_changes={"final_authorization_path":str(t.auth_path.with_name("METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_003.json"))}); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate); t.assertEqual(t.factory_calls,[])
+def c81(t):
+    t.prepare(auth_changes={"authorization_candidate_sha256":"0"*64}); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate); t.assertEqual(t.factory_calls,[])
+def c82(t):
+    missing=t.candidate_path.with_name("METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_CANDIDATE_003.json"); t.prepare(auth_changes={"authorization_candidate_path":str(missing)}); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate); t.assertEqual(t.factory_calls,[])
+def c83(t):
+    t.prepare(); wrong=t.auth_path.with_name("METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_003.json"); command=(str(SCRIPT),"--execute-network","--authorization",str(wrong),"--rights-binding",str(t.rights_path)); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",activate_network_transport,project=PROJECT,command=command,authorization_path=t.auth_path,rights_path=t.rights_path,resume=False,allow_synthetic=True,transport_factory=t.factory); t.assertEqual(t.factory_calls,[])
+def c84(t):
+    relative=Path("oc3/METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_CANDIDATE_002.json"); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",bootstrap._validate_versioned_authorization_artifact_path,relative,project=Path(t.temp.name),candidate=True)
+def c85(t):
+    project=Path(t.temp.name)/"project"; project.mkdir(); outside=Path(t.temp.name)/"METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_CANDIDATE_002.json"; outside.write_text("{}\n"); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",bootstrap._validate_versioned_authorization_artifact_path,outside.resolve(),project=project,candidate=True)
+def c86(t):
+    project=Path(t.temp.name)/"project"; project.mkdir(); outside=Path(t.temp.name)/"outside.json"; outside.write_text("{}\n"); link=project/"METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_CANDIDATE_002.json"; link.symlink_to(outside); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",bootstrap._validate_versioned_authorization_artifact_path,link,project=project,candidate=True)
+def c87(t):
+    historical=PROJECT/"oc3/METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_CANDIDATE_001.json"; rights=t.write(t.rights_path,t.rights()); command=(str(SCRIPT),"--execute-network","--authorization",str(historical),"--rights-binding",str(t.rights_path)); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",activate_network_transport,project=PROJECT,command=command,authorization_path=historical,rights_path=t.rights_path,resume=False,allow_synthetic=True,transport_factory=t.factory); t.assertEqual(t.factory_calls,[])
+def c88(t):
+    expected={"METADATA_BOOTSTRAP_RIGHTS_BINDING_002.json":"372279185e4cfb73882f2acebcb9faf051e74294728f950b082563693b898d54","METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_CANDIDATE_001.json":"4c377cde700c390bc2272c93d2bc6246f642719ddaa455890c14c0ecdea34c7e","METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_001.json":"3c827c10626af16ef127f811d76b86bc82b8bdd5c3bcb5147c0c2ac31f90d561"}; t.assertEqual({name:file_hash(PROJECT/"oc3"/name) for name in expected},expected)
+def c89(t):
+    t.prepare(auth_changes={"scope":"WRONG"}); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate); t.assertEqual(t.factory_calls,[])
+def c90(t):
+    project=Path(t.temp.name)/"project"; project.mkdir(); candidate=project/"METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_CANDIDATE_002.json"; final=project/"METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_002.json"; candidate.write_text("{}\n"); final.write_text("{}\n"); t.assertEqual(bootstrap._validate_versioned_authorization_artifact_path(candidate.resolve(),project=project,candidate=True),candidate.resolve()); t.assertEqual(bootstrap._validate_versioned_authorization_artifact_path(final.resolve(),project=project,candidate=False),final.resolve())
 
 
 CASES = [
@@ -356,6 +387,7 @@ CASES = [
     ("command_vector_accept",c25),("command_mutation_reject",c26),("command_hash_reject",c27),("first_auth_resume_reject",c28),("resume_auth_first_reject",c29),("transport_before_gates_forbidden",c30),("valid_gates_reach_factory",c31),("factory_gate_order",c32),
     ("canonical_missing_artifacts_blocked",c33),("blocked_no_attempt",c34),("blocked_no_ledger",c35),("blocked_zero_dns_socket",c36),("offline_no_transport",c37),("dry_run_no_transport",c38),("model_b_unchanged",c39),("production_decode_false",c40),("probe_001_exact",c41),("no_selector",c42),("no_real_attempt",c43),("replay_firewall_contract",c44),
     ("candidate_valid_offline",c45),("candidate_unknown_key_reject",c46),("candidate_missing_key_reject",c47),("candidate_noncanonical_reject",c48),("candidate_type_reject",c49),("candidate_state_reject",c50),("candidate_authorized_key_reject",c51),("candidate_human_field_reject",c52),("candidate_command_hash_reject",c53),("candidate_rights_reject",c54),("candidate_implementation_reject",c55),("candidate_resource_reject",c56),("candidate_cap_reject",c57),("candidate_negative_reject",c58),("candidate_final_path_reject",c59),("candidate_no_transport",c60),("candidate_as_authorization_reject",c61),("final_schema_v1_reject",c62),("final_candidate_path_required",c63),("final_candidate_sha_required",c64),("candidate_absent_reject",c65),("candidate_sha_mismatch_reject",c66),("candidate_final_mismatch_reject",c67),("candidate_final_equivalence_pass",c68),("final_authorized_false_reject",c69),("final_human_identity_required",c70),("final_human_time_required",c71),("final_argv_mismatch_reject",c72),("factory_untouched_before_candidate",c73),("scientific_contract_unchanged",c74),("candidate_no_attempt_state",c75),("candidate_probe_001_exact",c76),("first_resume_schema_separation",c77),
+    ("versioned_002_activation_pass",c78),("versioned_candidate_valid_offline",c79),("versioned_candidate_final_path_exact",c80),("versioned_candidate_sha_exact",c81),("wrong_candidate_path_reject",c82),("wrong_final_argv_path_reject",c83),("relative_artifact_path_reject",c84),("outside_project_artifact_reject",c85),("symlink_escape_reject",c86),("historical_candidate_as_final_reject",c87),("historical_authorization_artifacts_immutable",c88),("versioned_transport_before_gates_forbidden",c89),("versioned_filename_policy_accept",c90),
 ]
 
 for index, (label, function) in enumerate(CASES, 1):

@@ -53,10 +53,13 @@ RIGHTS_REVIEW_SHA256 = "81dc0a0ec485b7f8d9007781e9845735ec057483b45421442d112c3a
 CANDIDATE_SPEC_SHA256 = "b340a3d4a9123da0eb5cd54426eca2d6aced8089fb90f905b91f966852a250fa"
 CANDIDATE_BINDING_AMENDMENT_SHA256 = "dc457220b80cf3e061224fcdeaf720a0be1b6fce8f1dff72c4ec247665a6712c"
 ORCHESTRATOR_AMENDMENT_SHA256 = "58573761b8482865c25eb58f1768279a20c65726e68a9c1e1eca6b7fdb111aec"
+AUTHORIZATION_VERSIONING_AMENDMENT_SHA256 = "54d9d5a18f5dfd24ad98be4ac1f55415380a08030464637938e3161111bd256d"
 CANONICAL_PROJECT_DIRECTORY = "/home/jzsalinas/Documents/galaxy-morphology-discovery"
 CANONICAL_SCRIPT_RELATIVE_PATH = "oc3/oc3_metadata_bootstrap.py"
-AUTHORIZATION_CANDIDATE_RELATIVE_PATH = "oc3/METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_CANDIDATE_001.json"
-FINAL_AUTHORIZATION_RELATIVE_PATH = "oc3/METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_001.json"
+AUTHORIZATION_CANDIDATE_FILENAME = re.compile(
+    r"^METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_CANDIDATE_[0-9]{3,}\.json$")
+FINAL_AUTHORIZATION_FILENAME = re.compile(
+    r"^METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_[0-9]{3,}\.json$")
 CANDIDATE_TYPE = "METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_CANDIDATE"
 CANDIDATE_STATE = "PENDING_HUMAN_REVIEW"
 VALID_CANDIDATE_STATE = "AUTHORIZATION_CANDIDATE_VALID_FOR_HUMAN_REVIEW"
@@ -74,6 +77,7 @@ AUTHORITY_BINDINGS = MappingProxyType({
     "OC3_METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_CANDIDATE_SPEC.md": CANDIDATE_SPEC_SHA256,
     "OC3_METADATA_BOOTSTRAP_FINAL_AUTHORIZATION_CANDIDATE_BINDING_AMENDMENT_001.md": CANDIDATE_BINDING_AMENDMENT_SHA256,
     "OC3_METADATA_BOOTSTRAP_ORCHESTRATOR_AMENDMENT_001.md": ORCHESTRATOR_AMENDMENT_SHA256,
+    "OC3_METADATA_BOOTSTRAP_AUTHORIZATION_ARTIFACT_VERSIONING_AMENDMENT_001.md": AUTHORIZATION_VERSIONING_AMENDMENT_SHA256,
     "OC3_METADATA_BOOTSTRAP_ONLY_EXECUTION_SPEC.md": BASE_SPEC_SHA256,
     "OC3_METADATA_BOOTSTRAP_ONLY_EXECUTION_SPEC_CLARIFICATION_001.md": CLARIFICATION_001_SHA256,
     "OC3_METADATA_VALUE_SEMANTICS_AND_INTEGRITY_SPEC.md": VALUE_SEMANTICS_SPEC_SHA256,
@@ -405,6 +409,24 @@ def load_authorization_candidate(path: Path) -> AuthorizationCandidate:
     return AuthorizationCandidate(MappingProxyType(value), source_sha256)
 
 
+def _validate_versioned_authorization_artifact_path(
+        path: Path, *, project: Path, candidate: bool) -> Path:
+    """Require one explicit canonical in-project versioned artifact path."""
+    supplied = Path(path)
+    project = Path(project).resolve()
+    pattern = AUTHORIZATION_CANDIDATE_FILENAME if candidate else FINAL_AUTHORIZATION_FILENAME
+    if not supplied.is_absolute():
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    try:
+        resolved = supplied.resolve(strict=True)
+    except OSError as exc:
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE") from exc
+    if (str(supplied) != str(resolved) or not resolved.is_relative_to(project) or
+            not resolved.is_file() or pattern.fullmatch(resolved.name) is None):
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    return resolved
+
+
 def _valid_utc(value: object, *, require_z: bool = False) -> bool:
     if not isinstance(value, str) or not value or (require_z and not value.endswith("Z")):
         return False
@@ -432,11 +454,9 @@ def validate_authorization_candidate(
     authorization_path = Path(authorization_path)
     rights_path = Path(rights_path)
     argv = tuple(argv)
-    expected_final = (project / FINAL_AUTHORIZATION_RELATIVE_PATH).resolve()
     if not allow_synthetic_paths:
-        if (authorization_path.resolve() != expected_final or
-                str(authorization_path) != str(expected_final)):
-            raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+        _validate_versioned_authorization_artifact_path(
+            authorization_path, project=project, candidate=False)
     if (
         value["schema_version"] != 1 or type(value["schema_version"]) is not int or
         value["canonicalization"] != CANONICALIZATION_VERSION or
@@ -811,13 +831,11 @@ def activate_network_transport(*, project: Path, command: Iterable[str],
         if not isinstance(raw_candidate_path, str) or not raw_candidate_path:
             raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
         candidate_path = Path(raw_candidate_path)
-        expected_candidate_path = (project / AUTHORIZATION_CANDIDATE_RELATIVE_PATH).resolve()
-        if (not candidate_path.is_absolute() or not candidate_path.is_file() or
-                (not allow_synthetic and
-                 (str(candidate_path) != str(expected_candidate_path) or
-                  candidate_path.resolve() != expected_candidate_path or
-                  not candidate_path.resolve().is_relative_to(project)))):
+        if (not candidate_path.is_absolute() or not candidate_path.is_file()):
             raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+        if not allow_synthetic:
+            candidate_path = _validate_versioned_authorization_artifact_path(
+                candidate_path, project=project, candidate=True)
         trace.append("20_authorization_candidate_path")
         candidate = load_authorization_candidate(candidate_path)
         if (not _sha256_text(authorization_value["authorization_candidate_sha256"]) or
