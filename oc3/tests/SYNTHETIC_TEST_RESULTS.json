@@ -1,9 +1,9 @@
 {
-  "synthetic_only": true,
-  "real_network_requests": 0,
-  "tests": 100,
-  "passed": 100,
   "failed": 0,
+  "passed": 610,
+  "real_network_requests": 0,
+  "seconds": 48.949,
   "skipped": 0,
-  "seconds": 10.96
+  "synthetic_only": true,
+  "tests": 610
 }

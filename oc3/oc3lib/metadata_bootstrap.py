@@ -5,7 +5,7 @@ remains disabled; this module owns a separately gated selective bootstrap path.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, fields, is_dataclass
 from datetime import datetime, timezone
 import gzip
 import hashlib
@@ -23,7 +23,7 @@ from typing import Callable, Iterable, Iterator, Mapping, Protocol
 from .core import canonical, file_hash, hash_object, implementation_hash
 from .metadata_value_semantics import (
     AcquisitionBoundLocalSha256, EXPECTED_PATCH_REPRESENTATION,
-    LocallyComputedFullFileSha256, PatchRepresentationIdentity,
+    BRICKNAME_SEMANTICS_VERSION, LocallyComputedFullFileSha256, PatchRepresentationIdentity,
     ValidatedBrickname, validate_brickname, validate_patch_representation,
     validate_provider_full_file_integrity,
 )
@@ -52,6 +52,7 @@ PLAN_POST_ACTIVATION_REVIEW_SHA256 = "a232a58f91705215d5322945460549b7b53789bf63
 RIGHTS_REVIEW_SHA256 = "81dc0a0ec485b7f8d9007781e9845735ec057483b45421442d112c3ad5e38d2e"
 CANDIDATE_SPEC_SHA256 = "b340a3d4a9123da0eb5cd54426eca2d6aced8089fb90f905b91f966852a250fa"
 CANDIDATE_BINDING_AMENDMENT_SHA256 = "dc457220b80cf3e061224fcdeaf720a0be1b6fce8f1dff72c4ec247665a6712c"
+ORCHESTRATOR_AMENDMENT_SHA256 = "58573761b8482865c25eb58f1768279a20c65726e68a9c1e1eca6b7fdb111aec"
 CANONICAL_PROJECT_DIRECTORY = "/home/jzsalinas/Documents/galaxy-morphology-discovery"
 CANONICAL_SCRIPT_RELATIVE_PATH = "oc3/oc3_metadata_bootstrap.py"
 AUTHORIZATION_CANDIDATE_RELATIVE_PATH = "oc3/METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_CANDIDATE_001.json"
@@ -72,6 +73,7 @@ AUTHORITY_BINDINGS = MappingProxyType({
     "OC3_METADATA_BOOTSTRAP_RIGHTS_REVIEW_001.md": RIGHTS_REVIEW_SHA256,
     "OC3_METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_CANDIDATE_SPEC.md": CANDIDATE_SPEC_SHA256,
     "OC3_METADATA_BOOTSTRAP_FINAL_AUTHORIZATION_CANDIDATE_BINDING_AMENDMENT_001.md": CANDIDATE_BINDING_AMENDMENT_SHA256,
+    "OC3_METADATA_BOOTSTRAP_ORCHESTRATOR_AMENDMENT_001.md": ORCHESTRATOR_AMENDMENT_SHA256,
     "OC3_METADATA_BOOTSTRAP_ONLY_EXECUTION_SPEC.md": BASE_SPEC_SHA256,
     "OC3_METADATA_BOOTSTRAP_ONLY_EXECUTION_SPEC_CLARIFICATION_001.md": CLARIFICATION_001_SHA256,
     "OC3_METADATA_VALUE_SEMANTICS_AND_INTEGRITY_SPEC.md": VALUE_SEMANTICS_SPEC_SHA256,
@@ -1636,6 +1638,366 @@ def write_final_json(root: Path, name: str, value: Mapping[str, object]) -> Path
     except FileExistsError as exc:
         raise BootstrapError("METADATA_LOCAL_STATE_CONFLICT") from exc
     return path
+
+
+def _attempt_json(value: object) -> object:
+    """Convert evidence values to JSON primitives without provider rows."""
+    if isinstance(value, PhysicalRole):
+        return value.value
+    if isinstance(value, Mapping):
+        return {str(key): _attempt_json(item) for key, item in value.items()}
+    if is_dataclass(value) and not isinstance(value, type):
+        return {item.name: _attempt_json(getattr(value, item.name)) for item in fields(value)}
+    if isinstance(value, (tuple, list)):
+        return [_attempt_json(item) for item in value]
+    return value
+
+
+def _write_final_log(root: Path, lines: Iterable[str]) -> Path:
+    path = Path(root) / "BOOTSTRAP_RUN.log"
+    try:
+        with path.open("xb") as stream:
+            stream.write(("\n".join(lines) + "\n").encode("utf-8"))
+            stream.flush(); os.fsync(stream.fileno())
+    except FileExistsError as exc:
+        raise BootstrapError("METADATA_LOCAL_STATE_CONFLICT") from exc
+    return path
+
+
+def _failure_terminal(code: str) -> str:
+    if code in TERMINAL_PRECEDENCE and code not in (
+            "METADATA_BOOTSTRAP_PARTIALLY_RESOLVED", "METADATA_BOOTSTRAP_RESOLVED"):
+        return code
+    return "METADATA_TRANSPORT_INTEGRITY_FAILURE"
+
+
+def _execute_metadata_bootstrap_workflow(*, project: Path,
+        transport: BootstrapTransport, authorization_sha256: str,
+        rights_sha256: str, command_sha256_value: str,
+        implementation_aggregate: str, synthetic_only: bool,
+        resources: Mapping[PhysicalRole, MetadataResource] = RESOURCES,
+        contracts: Mapping[PhysicalRole, FrozenPhysicalContract] = PRODUCTION_PHYSICAL_CONTRACTS,
+        integrity_validator: Callable[[BootstrapRawDigest], bool] =
+            validate_regional_provider_integrity,
+        decoder_factory: Callable[[], SelectiveFitsDecoder] = SelectiveFitsDecoder,
+        retry_wait: Callable[[float], None] = time.sleep,
+        timestamp: str | None = None) -> dict[str, object]:
+    """Run one fresh bounded attempt after authorization and transport activation.
+
+    Injection points are private and exist solely for the socket-blocked synthetic
+    regression. The production wrapper always supplies the frozen defaults.
+    """
+    if (not all(_sha256_text(value) for value in
+                (authorization_sha256, rights_sha256, command_sha256_value,
+                 implementation_aggregate)) or
+            type(synthetic_only) is not bool or tuple(resources) != RESOURCE_ORDER or
+            set(contracts) != set(RESOURCE_ORDER)):
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORITY_FAILURE")
+    project = Path(project).resolve()
+    attempt = project / ATTEMPT_RELATIVE_DIRECTORY
+    if attempt.exists():
+        raise BootstrapError("METADATA_LOCAL_STATE_CONFLICT")
+    binding = {
+        "attempt_id": ATTEMPT_ID,
+        "authorization_sha256": authorization_sha256,
+        "command_sha256": command_sha256_value,
+        "environment_fingerprint": ENVIRONMENT_FINGERPRINT,
+        "implementation_aggregate": implementation_aggregate,
+        "model": PATCH_MODEL,
+        "resource_caps": resource_cap_values(),
+        "resources": [{"expected_length": item.expected_length,
+                       "role": role.value, "url": item.url}
+                      for role, item in resources.items()],
+        "scope": BOOTSTRAP_SCOPE,
+        "rights_sha256": rights_sha256,
+        "synthetic_only": synthetic_only,
+    }
+    ledger = BootstrapLedger(attempt / "BOOTSTRAP_LEDGER.sqlite", binding)
+    heads: Mapping[PhysicalRole, PretransferEvidence] = {}
+    digests: dict[PhysicalRole, BootstrapRawDigest] = {}
+    integrity: dict[str, object] = {}
+    physical: dict[str, object] = {}
+    decode_metrics: dict[str, object] = {}
+    semantic: dict[str, object] = {}
+    patch_bound: AcquisitionBoundLocalSha256 | None = None
+    patch_header: PatchHeaderEvidence | None = None
+    terminal = ""
+    error_code: str | None = None
+    recorded = timestamp or datetime.now(timezone.utc).isoformat()
+    wall_started = time.monotonic(); compute_started = time.process_time()
+    try:
+        storage = AttemptStorage(attempt, ledger, synthetic_only=synthetic_only)
+        ledger.event("AUTHORIZATION_AND_RIGHTS_GATES_PASSED")
+        heads = collect_pretransfer_evidence(transport, ledger, resources)
+        ledger.event("JOINT_PRETRANSFER_VALIDATION_PASSED")
+
+        next_ordinal = len(RESOURCE_ORDER) + 1
+        for role in RESOURCE_ORDER:
+            item = resources[role]
+            retry_of = None
+            for attempt_index in range(2):
+                try:
+                    digest = acquire_complete_resource(
+                        transport, ledger, storage, item, heads[role],
+                        ordinal=next_ordinal, retry_of=retry_of,
+                        authorization_sha256=authorization_sha256,
+                        implementation_aggregate=implementation_aggregate,
+                        timestamp=recorded,
+                    )
+                    next_ordinal += 1
+                    break
+                except BootstrapError as exc:
+                    next_ordinal += 1
+                    if (attempt_index or exc.code not in
+                            ("METADATA_TRANSPORT_INTEGRITY_FAILURE",
+                             "METADATA_SYNTHETIC_RESPONSE_MISSING")):
+                        raise
+                    retry_of = ledger.db.execute(
+                        "SELECT id FROM requests ORDER BY rowid DESC LIMIT 1").fetchone()[0]
+                    ledger.event(f"{role.value}_EXACT_IDENTITY_RETRY")
+                    retry_wait(RESOURCE_CAPS.retry_backoff_seconds)
+                except Exception:
+                    next_ordinal += 1
+                    if attempt_index:
+                        raise
+                    retry_of = ledger.db.execute(
+                        "SELECT id FROM requests ORDER BY rowid DESC LIMIT 1").fetchone()[0]
+                    ledger.event(f"{role.value}_EXACT_IDENTITY_RETRY")
+                    retry_wait(RESOURCE_CAPS.retry_backoff_seconds)
+            digests[role] = digest
+            contract = contracts[role]
+            if role is PhysicalRole.SOUTH_PATCH_LIST:
+                patch_bound = patch_acquisition_evidence(
+                    digest, item, synthetic_only=synthetic_only)
+                validate_bootstrap_physical(digest, contract)
+                ledger._add("io_bytes", digest.raw_byte_length); ledger.db.commit()
+                patch_header = validate_patch_header_only(digest._raw_path, contract)
+                physical[role.value] = {
+                    "header_bytes_consumed": patch_header.header_bytes_consumed,
+                    "payload_bytes_observed": patch_header.payload_bytes_observed,
+                    "physical_contract_sha256": patch_header.physical_contract_sha256,
+                }
+                integrity[role.value] = {
+                    "acquisition_bound_local_sha256": digest.raw_sha256,
+                    "provider_published_checksum_known": False,
+                    "state": "PATCH_ACQUISITION_BOUND_PENDING_HUMAN_REVIEW",
+                }
+            else:
+                integrity_validator(digest)
+                physical_sha = validate_bootstrap_physical(digest, contract)
+                ledger._add("io_bytes", digest.raw_byte_length); ledger.db.commit()
+                physical[role.value] = {
+                    "physical_contract_sha256": physical_sha,
+                    "validated": True,
+                }
+                integrity[role.value] = {
+                    "complete_file_sha256": digest.raw_sha256,
+                    "provider_full_file_integrity": True,
+                }
+            ledger.event(f"{role.value}_ACQUISITION_AND_PHYSICAL_PASSED")
+
+        # No row decoder is constructed until all four acquisition and physical
+        # gates, including the PATCH header-only gate, have passed.
+        decoder = decoder_factory()
+        sessions: dict[PhysicalRole, SelectiveDecodeSession] = {}
+        for role in (PhysicalRole.ROOT_SUMMARY, PhysicalRole.NORTH_SUMMARY,
+                     PhysicalRole.SOUTH_SUMMARY):
+            sessions[role] = decoder.decode(digests[role]._raw_path, contracts[role])
+            ledger._add("io_bytes", digests[role].raw_byte_length); ledger.db.commit()
+        root = validate_root_semantics(sessions[PhysicalRole.ROOT_SUMMARY].rows)
+        north = validate_regional_semantics(
+            PhysicalRole.NORTH_SUMMARY, sessions[PhysicalRole.NORTH_SUMMARY].rows, root)
+        south = validate_regional_semantics(
+            PhysicalRole.SOUTH_SUMMARY, sessions[PhysicalRole.SOUTH_SUMMARY].rows, root)
+        for role, session in sessions.items():
+            session.instrumentation.assert_clean()
+            decode_metrics[role.value] = vars(session.instrumentation).copy()
+        semantic = {
+            "exact_root_north_matches": north.exact_root_matches,
+            "exact_root_south_matches": south.exact_root_matches,
+            "north_grz_true": north.grz_true,
+            "north_rows": north.total_rows,
+            "patch_rows_observed": 0,
+            "regional_row_values_persisted": False,
+            "root_rows": root.total_rows,
+            "south_grz_true": south.grz_true,
+            "south_rows": south.total_rows,
+        }
+        ledger.event("ROOT_NORTH_SOUTH_SEMANTICS_AND_EXACT_JOINS_PASSED")
+        ledger.event("PATCH_ACQUISITION_BOUND_PENDING_HUMAN_REVIEW")
+        if storage.incomplete_staging():
+            raise BootstrapError("METADATA_TRANSPORT_INTEGRITY_FAILURE")
+        terminal = terminal_outcome(("METADATA_BOOTSTRAP_PARTIALLY_RESOLVED",))
+    except BootstrapError as exc:
+        error_code = exc.code
+        terminal = _failure_terminal(exc.code)
+    except Exception:
+        error_code = "METADATA_TRANSPORT_INTEGRITY_FAILURE"
+        terminal = "METADATA_TRANSPORT_INTEGRITY_FAILURE"
+
+    try:
+        ledger._add("wall_seconds", math.ceil(time.monotonic() - wall_started))
+        ledger._add("compute_seconds", math.ceil(time.process_time() - compute_started))
+        ledger.db.commit()
+    except BootstrapError:
+        error_code = "METADATA_RESOURCE_LIMIT_STOP"
+        terminal = "METADATA_RESOURCE_LIMIT_STOP"
+    ledger.event(terminal)
+    ledger.set_terminal(terminal)
+    counters = ledger.counters()
+    requests = [{
+        "actual_body_bytes": row[7], "method": row[1], "request_id": row[0],
+        "reserved_body_bytes": row[6], "retry_of": row[4], "role": row[3],
+        "status": row[5], "url": row[2],
+    } for row in ledger.db.execute(
+        "SELECT id,method,url,role,retry_of,status,reserved_body,actual_body "
+        "FROM requests ORDER BY rowid").fetchall()]
+    events = [row[0] for row in ledger.db.execute(
+        "SELECT code FROM events ORDER BY sequence").fetchall()]
+    staging = [{"bytes": row[4], "identity": row[0], "path": row[2],
+                "role": row[1], "status": row[3]}
+               for row in ledger.db.execute(
+                   "SELECT id,role,path,status,bytes FROM staging ORDER BY rowid").fetchall()]
+    ledger.close()
+
+    evidence_binding = {
+        "attempt_id": ATTEMPT_ID, "authorization_sha256": authorization_sha256,
+        "base_spec_sha256": BASE_SPEC_SHA256,
+        "clarification_001_sha256": CLARIFICATION_001_SHA256,
+        "command_sha256": command_sha256_value,
+        "environment_fingerprint": ENVIRONMENT_FINGERPRINT,
+        "implementation_aggregate": implementation_aggregate,
+        "ledger_identity": ledger.identity, "model": PATCH_MODEL,
+        "orchestrator_amendment_sha256": ORCHESTRATOR_AMENDMENT_SHA256,
+        "rights_sha256": rights_sha256,
+        "scope": BOOTSTRAP_SCOPE,
+        "synthetic_only": synthetic_only,
+    }
+    authorization_evidence = {"binding": evidence_binding}
+    transport_evidence = {
+        "binding": evidence_binding,
+        "heads": [{"content_length": item.content_length, "etag": item.etag,
+                   "final_url": item.final_url, "last_modified": item.last_modified,
+                   "requested_url": item.requested_url, "role": role.value}
+                  for role, item in heads.items()],
+        "requests": requests,
+    }
+    raw_manifest = {
+        "binding": evidence_binding,
+        "resources": [_attempt_json(digests[role].object())
+                      for role in RESOURCE_ORDER if role in digests],
+        "staging": staging,
+    }
+    patch_evidence = {
+        "binding": evidence_binding,
+        "payload_bytes_observed": 0,
+        "row_decoder_calls": 0,
+        "state": ("PATCH_ACQUISITION_BOUND_PENDING_HUMAN_REVIEW"
+                  if patch_bound is not None and patch_header is not None else "NOT_REACHED"),
+    }
+    if patch_bound is not None:
+        patch_evidence.update(_attempt_json(vars(patch_bound)))
+    event_evidence = {"binding": evidence_binding, "events": events,
+                      "first_error_code": error_code}
+    role_semantics = {}
+    for role, row_key in ((PhysicalRole.ROOT_SUMMARY, "root_rows"),
+                          (PhysicalRole.NORTH_SUMMARY, "north_rows"),
+                          (PhysicalRole.SOUTH_SUMMARY, "south_rows")):
+        if row_key in semantic:
+            role_semantics[role.value] = {
+                "brickname_semantics_version": BRICKNAME_SEMANTICS_VERSION,
+                "invalid_by_reason": {}, "total_rows": semantic[row_key],
+                "valid_rows": semantic[row_key],
+            }
+    semantic_evidence = {
+        "attempt_id": ATTEMPT_ID, "binding": evidence_binding,
+        "decode_instrumentation": decode_metrics,
+        "forbidden_values_observed": False,
+        "joins": {
+            "root_north": {"exact_matches": semantic.get("exact_root_north_matches", 0),
+                           "failures": 0 if semantic else None},
+            "root_south": {"exact_matches": semantic.get("exact_root_south_matches", 0),
+                           "failures": 0 if semantic else None},
+        },
+        "model": PATCH_MODEL, "patch_membership": "NOT_OBSERVED",
+        "patch_row_semantics": "NOT_OBSERVED", "roles": role_semantics,
+        "row_values_persisted": False, "schema_version": 1,
+        "summary": semantic,
+    }
+    input_raw_sha256 = {role.value: digest.raw_sha256 for role, digest in digests.items()}
+    evidence = (
+        ("BOOTSTRAP_AUTHORIZATION_BINDING.json", authorization_evidence),
+        ("BOOTSTRAP_TRANSPORT_EVIDENCE.json", transport_evidence),
+        ("BOOTSTRAP_RAW_FILE_MANIFEST.json", raw_manifest),
+        ("BOOTSTRAP_INTEGRITY_EVIDENCE.json",
+         {"binding": evidence_binding, "input_raw_sha256": input_raw_sha256,
+          "roles": integrity}),
+        ("BOOTSTRAP_PHYSICAL_CONTRACT_EVIDENCE.json",
+         {"binding": evidence_binding, "input_raw_sha256": input_raw_sha256,
+          "roles": physical}),
+        ("BOOTSTRAP_SEMANTIC_SUMMARY.json", semantic_evidence),
+        ("PATCH_ACQUISITION_BOUND_EVIDENCE.json", patch_evidence),
+        ("BOOTSTRAP_EVENTS.json", event_evidence),
+    )
+    for name, value in evidence:
+        write_final_json(attempt, name, _attempt_json(value))
+    ledger_sha256 = file_hash(attempt / "BOOTSTRAP_LEDGER.sqlite")
+    terminal_evidence = {
+        "attempt_id": ATTEMPT_ID, "binding": evidence_binding, "counters": counters,
+        "first_error_code": error_code, "ledger_sha256": ledger_sha256,
+        "incomplete_staging": [item for item in staging if item["status"] != "PUBLISHED"],
+        "model": PATCH_MODEL, "outcome": terminal,
+        "patch_state": patch_evidence["state"], "scope": BOOTSTRAP_SCOPE,
+        "successful": terminal == "METADATA_BOOTSTRAP_PARTIALLY_RESOLVED",
+    }
+    write_final_json(attempt, "BOOTSTRAP_TERMINAL.json", terminal_evidence)
+    log_lines = [
+        f"attempt_id={ATTEMPT_ID}", f"scope={BOOTSTRAP_SCOPE}",
+        f"recorded_utc={recorded}", f"authorization_sha256={authorization_sha256}",
+        f"rights_sha256={rights_sha256}", f"command_sha256={command_sha256_value}",
+        f"implementation_aggregate={implementation_aggregate}",
+        f"environment_fingerprint={ENVIRONMENT_FINGERPRINT}",
+        f"ledger_identity={ledger.identity}", f"ledger_sha256={ledger_sha256}",
+        f"requests={counters['requests']}", f"body_bytes={counters['body_bytes']}",
+    ]
+    log_lines.extend(
+        f"raw role={role.value} url={resources[role].url} bytes={digests[role].raw_byte_length} "
+        f"sha256={digests[role].raw_sha256}"
+        for role in RESOURCE_ORDER if role in digests)
+    log_lines.extend(f"event={event}" for event in events)
+    log_lines.extend(("patch_rows_observed=0", f"terminal={terminal}"))
+    _write_final_log(attempt, log_lines)
+    return terminal_evidence
+
+
+def execute_authorized_metadata_bootstrap(*, project: Path,
+        command: Iterable[str], authorization_path: Path | None,
+        rights_path: Path | None, resume: bool) -> dict[str, object]:
+    """Production first-run entry point; authority failure precedes all state."""
+    if resume:
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    if (authorization_path is None or rights_path is None or
+            not Path(authorization_path).is_file() or not Path(rights_path).is_file()):
+        raise BootstrapError("PREFLIGHT_BLOCKED_MANIFEST_OR_RIGHTS")
+    authorization_sha = file_hash(Path(authorization_path))
+    rights_sha = file_hash(Path(rights_path))
+    aggregate = implementation_hash(Path(project))
+    transport = activate_network_transport(
+        project=project, command=command, authorization_path=authorization_path,
+        rights_path=rights_path, resume=False,
+    )
+    if (file_hash(Path(authorization_path)) != authorization_sha or
+            file_hash(Path(rights_path)) != rights_sha or
+            implementation_hash(Path(project)) != aggregate):
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORITY_FAILURE")
+    return _execute_metadata_bootstrap_workflow(
+        project=project, transport=transport,
+        authorization_sha256=authorization_sha,
+        rights_sha256=rights_sha,
+        command_sha256_value=command_sha256(command),
+        implementation_aggregate=aggregate,
+        synthetic_only=False,
+    )
 
 
 def dry_run_plan(project: Path, argv: Iterable[str]) -> dict:

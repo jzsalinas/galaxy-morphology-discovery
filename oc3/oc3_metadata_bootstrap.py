@@ -13,7 +13,7 @@ import sys
 
 from oc3lib.metadata_bootstrap import (
     ATTEMPT_ID, BOOTSTRAP_SCOPE, BootstrapError, activate_network_transport,
-    dry_run_plan,
+    dry_run_plan, execute_authorized_metadata_bootstrap,
 )
 
 
@@ -41,7 +41,7 @@ def main(argv: list[str] | None = None) -> int:
     project = Path(__file__).resolve().parents[1]
     try:
         if args.execute_network:
-            activate_network_transport(
+            result = execute_authorized_metadata_bootstrap(
                 project=project,
                 command=command,
                 authorization_path=args.authorization,
@@ -50,12 +50,11 @@ def main(argv: list[str] | None = None) -> int:
             )
             print(json.dumps({
                 "attempt_id": ATTEMPT_ID,
-                "network_requests_started": 0,
-                "network_transport_constructed": True,
+                "network_requests_started": result["counters"]["requests"],
                 "scope": BOOTSTRAP_SCOPE,
-                "state": "AUTHORIZED_TRANSPORT_READY",
+                "state": result["outcome"],
             }, sort_keys=True, separators=(",", ":")))
-            return 0
+            return 0 if result["successful"] else 2
         plan = dry_run_plan(project, command)
         plan.update({
             "attempt_id": ATTEMPT_ID,
