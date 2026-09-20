@@ -28,6 +28,12 @@ The diagnostic harness records unresolved semantic tests. The four-outcome decis
 is independently testable; automatic analysis alone cannot claim all DR9 properties verified.
 Two bricks never establish representativeness of DR9; generalization remains unresolved.
 
+The bounded coadd resource stage has a separate entry point, `oc3_resource_contract.py`.
+Its dry run serializes the exact 14-resource auxiliary inventory and 12 future image/invvar
+identities without network. A probe accepts only a separately reviewed sealed binding of
+literal URLs; it never derives the provider directory component and reads aligned FITS header
+blocks only. Bulk auxiliary acquisition remains a separately authorized future human run.
+
 Production input contracts (to be supplied in a later authorized task):
 
 - `OC3_METADATA_BOOTSTRAP_MANIFEST.json`: schema version 2; frozen authorities and implementation;

@@ -564,7 +564,12 @@ class ManifestContractTripwireOutcomeTests(Base):
                          "PROBE_PHYSICAL_CONTRACTS_PARTIALLY_RESOLVED")
 
     def test_88_no_production_directories_mutated(self):
-        for relative in ("oc3/INPUTS", "oc3/provenance", "oc3/RAW_IMMUTABLE", "oc3/TECHNICAL_INDEX", "oc3/reports"):
+        # The later, authoritative technical-selection checkpoint intentionally
+        # materialized exactly this frozen input.  Preserve that checkpoint while
+        # retaining the original tripwire for every other production directory.
+        self.assertEqual({item.name for item in (PROJECT / "oc3/INPUTS").iterdir()},
+                         {"OC3_DEVELOPMENT_BRICKS.csv"})
+        for relative in ("oc3/provenance", "oc3/RAW_IMMUTABLE", "oc3/TECHNICAL_INDEX", "oc3/reports"):
             self.assertFalse(any((PROJECT / relative).iterdir()))
 
     def test_89_single_audited_probe_attempt_is_preserved_immutably(self):

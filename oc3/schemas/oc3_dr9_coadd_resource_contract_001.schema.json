@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "oc3_dr9_coadd_resource_contract_001.schema.json",
+  "title": "OC3 DR9 coadd resource contract 001",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "stage_id", "development_bricks_sha256", "resources", "budget", "sealed"],
+  "properties": {
+    "schema_version": {"const": "OC3_DR9_COADD_RESOURCE_CONTRACT_001"},
+    "stage_id": {"const": "OC3-RESOURCE-CONTRACT-AUXILIARY-ACQUISITION-001"},
+    "development_bricks_sha256": {"const": "147c0942a5340ed18eec23a610f8afd5721390fad09c1da7ed01593deb40fab6"},
+    "resources": {
+      "type": "array", "minItems": 26, "maxItems": 26,
+      "items": {"$ref": "#/$defs/resource"}
+    },
+    "budget": {
+      "type": "object", "additionalProperties": false,
+      "required": ["global_max_bytes", "global_max_requests", "used_bytes", "used_requests", "remaining_bytes", "remaining_requests", "psf_reservation_bytes", "disk_incremental_max_bytes", "io_max_bytes", "ram_max_bytes", "concurrency"],
+      "properties": {
+        "global_max_bytes": {"const": 1610612736},
+        "global_max_requests": {"const": 200},
+        "used_bytes": {"type": "integer", "minimum": 89461646, "maximum": 1610612736},
+        "used_requests": {"type": "integer", "minimum": 8, "maximum": 200},
+        "remaining_bytes": {"type": "integer", "minimum": 0, "maximum": 1521151090},
+        "remaining_requests": {"type": "integer", "minimum": 0, "maximum": 192},
+        "psf_reservation_bytes": {"const": 56623104},
+        "disk_incremental_max_bytes": {"const": 4294967296},
+        "io_max_bytes": {"const": 8589934592},
+        "ram_max_bytes": {"const": 2147483648},
+        "concurrency": {"const": 1}
+      }
+    },
+    "sealed": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "$defs": {
+    "property": {
+      "type": "object", "additionalProperties": false,
+      "required": ["state", "value", "evidence"],
+      "properties": {
+        "state": {"enum": ["DOCUMENTED", "OBSERVED_BY_BOUNDED_PROBE", "UNRESOLVED"]},
+        "value": {},
+        "evidence": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+      }
+    },
+    "resource": {
+      "type": "object", "additionalProperties": false,
+      "required": ["resource_id", "batch", "region", "brick", "product", "band", "literal_url", "filename", "directory_component", "expected_logical_role", "hdu_contract", "expected_shape", "wcs_contract", "units_dtype_contract", "representation_constraints", "max_bytes", "rights_state", "evidence_source"],
+      "properties": {
+        "resource_id": {"type": "string", "pattern": "^oc3_[0-9a-f]{24}$"},
+        "batch": {"enum": ["AUXILIARY_FIRST", "FUTURE_IMAGE_INVVAR"]},
+        "region": {"$ref": "#/$defs/property"},
+        "brick": {"$ref": "#/$defs/property"},
+        "product": {"$ref": "#/$defs/property"},
+        "band": {"$ref": "#/$defs/property"},
+        "literal_url": {"$ref": "#/$defs/property"},
+        "filename": {"$ref": "#/$defs/property"},
+        "directory_component": {"$ref": "#/$defs/property"},
+        "expected_logical_role": {"$ref": "#/$defs/property"},
+        "hdu_contract": {"$ref": "#/$defs/property"},
+        "expected_shape": {"$ref": "#/$defs/property"},
+        "wcs_contract": {"$ref": "#/$defs/property"},
+        "units_dtype_contract": {"$ref": "#/$defs/property"},
+        "representation_constraints": {"$ref": "#/$defs/property"},
+        "max_bytes": {"$ref": "#/$defs/property"},
+        "rights_state": {"$ref": "#/$defs/property"},
+        "evidence_source": {"$ref": "#/$defs/property"}
+      }
+    }
+  }
+}

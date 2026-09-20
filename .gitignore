@@ -44,6 +44,11 @@ oc3/patch_metadata_decode/
 oc3/technical_selection/
 oc3/INPUTS/OC3_DEVELOPMENT_BRICKS.csv
 
+# Bounded DR9 resource-contract probe/acquisition runtime and literal bindings
+oc3/resource_contract/
+oc3/INPUTS/OC3_RESOURCE_CONTRACT_PROBE_BINDING_001.json
+oc3/INPUTS/OC3_AUXILIARY_ACQUISITION_AUTHORIZATION_001.json
+
 # Generic temporary acquisition state
 **/STAGING/
 

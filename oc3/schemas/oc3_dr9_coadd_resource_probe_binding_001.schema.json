@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "oc3_dr9_coadd_resource_probe_binding_001.schema.json",
+  "title": "OC3 bounded DR9 coadd resource probe binding 001",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "stage_id", "development_bricks_sha256", "aaa_evidence", "resources", "sealed"],
+  "properties": {
+    "schema_version": {"const": "OC3_DR9_COADD_RESOURCE_PROBE_BINDING_001"},
+    "stage_id": {"const": "OC3-RESOURCE-CONTRACT-PROBE-001"},
+    "development_bricks_sha256": {"const": "147c0942a5340ed18eec23a610f8afd5721390fad09c1da7ed01593deb40fab6"},
+    "aaa_evidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["south", "north"],
+      "properties": {
+        "south": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "north": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+      }
+    },
+    "resources": {
+      "type": "array", "minItems": 14, "maxItems": 14,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["resource_id", "region", "brick", "product", "band", "filename", "directory_component", "literal_url", "max_bytes"],
+        "properties": {
+          "resource_id": {"type": "string", "pattern": "^oc3_[0-9a-f]{24}$"},
+          "region": {"enum": ["south", "north"]},
+          "brick": {"type": "string", "pattern": "^[0-9]{4}[pm][0-9]{3}$"},
+          "product": {"enum": ["nexp", "psfsize", "maskbits"]},
+          "band": {"type": ["string", "null"], "enum": ["g", "r", "z", null]},
+          "filename": {"type": "string", "pattern": "^legacysurvey-.+\\.fits\\.fz$"},
+          "directory_component": {"type": "string", "minLength": 1, "maxLength": 32},
+          "literal_url": {"type": "string", "pattern": "^https://portal\\.nersc\\.gov/"},
+          "max_bytes": {"type": "integer", "minimum": 1}
+        }
+      }
+    },
+    "sealed": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
