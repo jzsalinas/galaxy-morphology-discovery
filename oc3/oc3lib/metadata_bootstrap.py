@@ -48,8 +48,17 @@ PRE_METADATA_BOOTSTRAP_INFRASTRUCTURE = "f3f64a05c581e2c74d2cb80c2a2e499ab7c76cb
 PRE_METADATA_BOOTSTRAP_GATE_ACTIVATION = "084706171e4b74a13a8d2ed57ee5d61b73953d746e6aab23081ef77d78673407"
 ENVIRONMENT_FINGERPRINT = "b49e26767922123113707a13434821d6bf1d7711f28a2b9de7e5ce46d64e3bdf"
 EXECUTION_PLAN_SHA256 = "0e246d5fce5d71c2aa109cba913f1eb9bd397259e492e279870c6d4ccf163b20"
+PLAN_POST_ACTIVATION_REVIEW_SHA256 = "a232a58f91705215d5322945460549b7b53789bf630503d505552f8f5fb460a0"
+RIGHTS_REVIEW_SHA256 = "81dc0a0ec485b7f8d9007781e9845735ec057483b45421442d112c3ad5e38d2e"
+CANDIDATE_SPEC_SHA256 = "b340a3d4a9123da0eb5cd54426eca2d6aced8089fb90f905b91f966852a250fa"
+CANDIDATE_BINDING_AMENDMENT_SHA256 = "dc457220b80cf3e061224fcdeaf720a0be1b6fce8f1dff72c4ec247665a6712c"
 CANONICAL_PROJECT_DIRECTORY = "/home/jzsalinas/Documents/galaxy-morphology-discovery"
 CANONICAL_SCRIPT_RELATIVE_PATH = "oc3/oc3_metadata_bootstrap.py"
+AUTHORIZATION_CANDIDATE_RELATIVE_PATH = "oc3/METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_CANDIDATE_001.json"
+FINAL_AUTHORIZATION_RELATIVE_PATH = "oc3/METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_001.json"
+CANDIDATE_TYPE = "METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_CANDIDATE"
+CANDIDATE_STATE = "PENDING_HUMAN_REVIEW"
+VALID_CANDIDATE_STATE = "AUTHORIZATION_CANDIDATE_VALID_FOR_HUMAN_REVIEW"
 RIGHTS_BINDING_TYPE = "METADATA_BOOTSTRAP_RIGHTS_BINDING"
 FIRST_AUTHORIZATION_TYPE = "METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION"
 RESUME_AUTHORIZATION_TYPE = "METADATA_BOOTSTRAP_RESUME_AUTHORIZATION"
@@ -59,6 +68,10 @@ CANONICALIZATION_VERSION = "CANONICAL_JSON_SORTED_KEYS_COMPACT_UTF8_LF_V1"
 
 AUTHORITY_BINDINGS = MappingProxyType({
     "OC3_METADATA_BOOTSTRAP_EXECUTION_PLAN_001.md": EXECUTION_PLAN_SHA256,
+    "OC3_METADATA_BOOTSTRAP_EXECUTION_PLAN_001_POST_ACTIVATION_REVIEW.md": PLAN_POST_ACTIVATION_REVIEW_SHA256,
+    "OC3_METADATA_BOOTSTRAP_RIGHTS_REVIEW_001.md": RIGHTS_REVIEW_SHA256,
+    "OC3_METADATA_BOOTSTRAP_FIRST_RUN_AUTHORIZATION_CANDIDATE_SPEC.md": CANDIDATE_SPEC_SHA256,
+    "OC3_METADATA_BOOTSTRAP_FINAL_AUTHORIZATION_CANDIDATE_BINDING_AMENDMENT_001.md": CANDIDATE_BINDING_AMENDMENT_SHA256,
     "OC3_METADATA_BOOTSTRAP_ONLY_EXECUTION_SPEC.md": BASE_SPEC_SHA256,
     "OC3_METADATA_BOOTSTRAP_ONLY_EXECUTION_SPEC_CLARIFICATION_001.md": CLARIFICATION_001_SHA256,
     "OC3_METADATA_VALUE_SEMANTICS_AND_INTEGRITY_SPEC.md": VALUE_SEMANTICS_SPEC_SHA256,
@@ -342,7 +355,7 @@ def validate_rights(binding: RightsBinding, *, implementation_aggregate: str,
     return binding
 
 
-FIRST_AUTH_FIELDS = frozenset({
+FINAL_AUTH_COMMON_FIELDS = frozenset({
     "authorization_type", "authorization_state", "schema_version", "canonicalization",
     "authorized", "authorized_by", "authorized_at_utc", "scope", "attempt_id",
     "attempt_directory", "execution_mode", "execution_plan_sha256",
@@ -351,11 +364,117 @@ FIRST_AUTH_FIELDS = frozenset({
     "command_argv", "command_sha256", "rights_binding_sha256",
     "negative_capabilities", "synthetic_only",
 })
-RESUME_AUTH_FIELDS = FIRST_AUTH_FIELDS | frozenset({
+FIRST_AUTH_FIELDS = FINAL_AUTH_COMMON_FIELDS | frozenset({
+    "authorization_candidate_path", "authorization_candidate_sha256",
+})
+RESUME_AUTH_FIELDS = FINAL_AUTH_COMMON_FIELDS | frozenset({
     "first_run_authorization_sha256", "ledger_identity", "ledger_watermark",
     "consumed_counters", "remaining_caps", "completed_raw_resources",
     "pending_resources", "existing_staging_state",
 })
+CANDIDATE_FIELDS = frozenset({
+    "schema_version", "canonicalization", "candidate_type", "candidate_state",
+    "attempt_id", "scope", "execution_mode", "patch_model",
+    "execution_plan_sha256", "plan_post_activation_review_sha256",
+    "rights_binding_path", "rights_binding_sha256", "rights_review_sha256",
+    "base_spec_sha256", "clarification_sha256", "implementation_aggregate",
+    "environment_fingerprint", "resources", "resource_caps", "command_vector",
+    "command_sha256", "negative_capabilities", "final_authorization_path",
+    "candidate_created_at_utc",
+})
+
+
+@dataclass(frozen=True)
+class AuthorizationCandidate:
+    value: MappingProxyType
+    sha256: str
+    validation_state: str = VALID_CANDIDATE_STATE
+
+    def __post_init__(self) -> None:
+        if (not isinstance(self.value, MappingProxyType) or
+                self.sha256 != hashlib.sha256(canonical(dict(self.value)) + b"\n").hexdigest() or
+                self.validation_state != VALID_CANDIDATE_STATE):
+            raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+
+
+def load_authorization_candidate(path: Path) -> AuthorizationCandidate:
+    value, source_sha256 = _load_canonical_json(
+        Path(path), "METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    return AuthorizationCandidate(MappingProxyType(value), source_sha256)
+
+
+def _valid_utc(value: object, *, require_z: bool = False) -> bool:
+    if not isinstance(value, str) or not value or (require_z and not value.endswith("Z")):
+        return False
+    try:
+        timestamp = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return False
+    return (timestamp.tzinfo is not None and
+            timestamp.utcoffset() == timezone.utc.utcoffset(timestamp))
+
+
+def validate_authorization_candidate(
+        candidate: AuthorizationCandidate, *, argv: Iterable[str],
+        implementation_aggregate: str, rights_sha256: str,
+        authorization_path: Path, rights_path: Path,
+        project: Path | None = None, allow_synthetic_paths: bool = False,
+) -> AuthorizationCandidate:
+    """Validate a review candidate without creating any transport capability."""
+    if not isinstance(candidate, AuthorizationCandidate):
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    value = candidate.value
+    if set(value) != CANDIDATE_FIELDS:
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    project = Path(project or CANONICAL_PROJECT_DIRECTORY).resolve()
+    authorization_path = Path(authorization_path)
+    rights_path = Path(rights_path)
+    argv = tuple(argv)
+    expected_final = (project / FINAL_AUTHORIZATION_RELATIVE_PATH).resolve()
+    if not allow_synthetic_paths:
+        if (authorization_path.resolve() != expected_final or
+                str(authorization_path) != str(expected_final)):
+            raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    if (
+        value["schema_version"] != 1 or type(value["schema_version"]) is not int or
+        value["canonicalization"] != CANONICALIZATION_VERSION or
+        value["candidate_type"] != CANDIDATE_TYPE or
+        value["candidate_state"] != CANDIDATE_STATE or
+        value["attempt_id"] != ATTEMPT_ID or
+        value["scope"] != BOOTSTRAP_SCOPE or
+        value["execution_mode"] != FIRST_EXECUTION_MODE or
+        value["patch_model"] != PATCH_MODEL or
+        value["execution_plan_sha256"] != EXECUTION_PLAN_SHA256 or
+        value["plan_post_activation_review_sha256"] != PLAN_POST_ACTIVATION_REVIEW_SHA256 or
+        value["rights_review_sha256"] != RIGHTS_REVIEW_SHA256 or
+        value["base_spec_sha256"] != BASE_SPEC_SHA256 or
+        value["clarification_sha256"] != CLARIFICATION_001_SHA256 or
+        value["implementation_aggregate"] != implementation_aggregate or
+        value["environment_fingerprint"] != ENVIRONMENT_FINGERPRINT or
+        value["resources"] != resource_binding_values() or
+        value["resource_caps"] != resource_cap_values() or
+        value["negative_capabilities"] != dict(NEGATIVE_CAPABILITIES) or
+        value["rights_binding_path"] != str(rights_path) or
+        value["rights_binding_sha256"] != rights_sha256 or
+        value["final_authorization_path"] != str(authorization_path) or
+        tuple(value["command_vector"]) != argv or
+        value["command_sha256"] != command_sha256(argv) or
+        not _valid_utc(value["candidate_created_at_utc"], require_z=True)
+    ):
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    if (not allow_synthetic_paths and
+            (not rights_path.is_absolute() or
+             not rights_path.resolve().is_relative_to(project))):
+        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    for relative, expected in (
+        ("OC3_METADATA_BOOTSTRAP_EXECUTION_PLAN_001_POST_ACTIVATION_REVIEW.md",
+         PLAN_POST_ACTIVATION_REVIEW_SHA256),
+        ("OC3_METADATA_BOOTSTRAP_RIGHTS_REVIEW_001.md", RIGHTS_REVIEW_SHA256),
+    ):
+        path = project / relative
+        if not path.is_file() or file_hash(path) != expected:
+            raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    return candidate
 
 
 @dataclass(frozen=True)
@@ -369,7 +488,9 @@ class ValidatedAuthorization:
 def validate_authorization(value: object, *, argv: Iterable[str], resume: bool,
                            implementation_aggregate: str, rights_sha256: str,
                            require_authorized: bool = True,
-                           allow_synthetic: bool = False) -> ValidatedAuthorization:
+                           allow_synthetic: bool = False,
+                           candidate: AuthorizationCandidate | None = None,
+                           candidate_path: Path | None = None) -> ValidatedAuthorization:
     if not isinstance(value, dict):
         raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
     expected_fields = RESUME_AUTH_FIELDS if resume else FIRST_AUTH_FIELDS
@@ -378,9 +499,10 @@ def validate_authorization(value: object, *, argv: Iterable[str], resume: bool,
     argv = tuple(argv)
     expected_kind = RESUME_AUTHORIZATION_TYPE if resume else FIRST_AUTHORIZATION_TYPE
     expected_mode = RESUME_EXECUTION_MODE if resume else FIRST_EXECUTION_MODE
+    expected_schema = 1 if resume else 2
     if (value["authorization_type"] != expected_kind or
             value["authorization_state"] != "FINAL_HUMAN_AUTHORIZATION" or
-            value["schema_version"] != 1 or
+            value["schema_version"] != expected_schema or type(value["schema_version"]) is not int or
             value["canonicalization"] != CANONICALIZATION_VERSION or
             value["scope"] != BOOTSTRAP_SCOPE or
             value["attempt_id"] != ATTEMPT_ID or
@@ -402,13 +524,7 @@ def validate_authorization(value: object, *, argv: Iterable[str], resume: bool,
             type(value["synthetic_only"]) is not bool):
         raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
     if (not isinstance(value["authorized_by"], str) or not value["authorized_by"].strip() or
-            not isinstance(value["authorized_at_utc"], str)):
-        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
-    try:
-        timestamp = datetime.fromisoformat(value["authorized_at_utc"].replace("Z", "+00:00"))
-    except ValueError as exc:
-        raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE") from exc
-    if timestamp.tzinfo is None or timestamp.utcoffset() != timezone.utc.utcoffset(timestamp):
+            not _valid_utc(value["authorized_at_utc"])):
         raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
     has_resume = "--resume" in argv
     if has_resume != resume:
@@ -417,7 +533,28 @@ def validate_authorization(value: object, *, argv: Iterable[str], resume: bool,
         raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
     if value["synthetic_only"] and not allow_synthetic:
         raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
-    if resume:
+    if not resume:
+        if (not isinstance(candidate, AuthorizationCandidate) or candidate_path is None or
+                value["authorization_candidate_path"] != str(Path(candidate_path)) or
+                value["authorization_candidate_sha256"] != candidate.sha256):
+            raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+        correspondence = {
+            "attempt_id": "attempt_id", "scope": "scope",
+            "execution_mode": "execution_mode", "patch_model": "patch_model",
+            "execution_plan_sha256": "execution_plan_sha256",
+            "rights_binding_sha256": "rights_binding_sha256",
+            "base_spec_sha256": "base_spec_sha256",
+            "clarification_sha256": "clarification_sha256",
+            "implementation_aggregate": "implementation_aggregate",
+            "environment_fingerprint": "environment_fingerprint",
+            "resources": "resources", "resource_caps": "resource_caps",
+            "command_vector": "command_argv", "command_sha256": "command_sha256",
+            "negative_capabilities": "negative_capabilities",
+        }
+        if any(candidate.value[source] != value[target]
+               for source, target in correspondence.items()):
+            raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+    else:
         if (not _sha256_text(value["first_run_authorization_sha256"]) or
                 not isinstance(value["ledger_identity"], str) or not value["ledger_identity"] or
                 type(value["ledger_watermark"]) is not int or value["ledger_watermark"] < 0 or
@@ -665,18 +802,49 @@ def activate_network_transport(*, project: Path, command: Iterable[str],
     if authorization_value["negative_capabilities"] != dict(NEGATIVE_CAPABILITIES):
         raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
     trace.append("19_negative_capabilities")
+    candidate = None
+    candidate_path = None
+    if not resume:
+        raw_candidate_path = authorization_value["authorization_candidate_path"]
+        if not isinstance(raw_candidate_path, str) or not raw_candidate_path:
+            raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+        candidate_path = Path(raw_candidate_path)
+        expected_candidate_path = (project / AUTHORIZATION_CANDIDATE_RELATIVE_PATH).resolve()
+        if (not candidate_path.is_absolute() or not candidate_path.is_file() or
+                (not allow_synthetic and
+                 (str(candidate_path) != str(expected_candidate_path) or
+                  candidate_path.resolve() != expected_candidate_path or
+                  not candidate_path.resolve().is_relative_to(project)))):
+            raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+        trace.append("20_authorization_candidate_path")
+        candidate = load_authorization_candidate(candidate_path)
+        if (not _sha256_text(authorization_value["authorization_candidate_sha256"]) or
+                authorization_value["authorization_candidate_sha256"] != candidate.sha256):
+            raise BootstrapError("METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE")
+        trace.append("21_authorization_candidate_sha256")
+        validate_authorization_candidate(
+            candidate, argv=command, implementation_aggregate=aggregate,
+            rights_sha256=rights.sha256, authorization_path=Path(authorization_path),
+            rights_path=Path(rights_path), project=project,
+            allow_synthetic_paths=allow_synthetic,
+        )
+        trace.append("22_authorization_candidate_validation")
     authorization = validate_authorization(
         authorization_value, argv=command, resume=resume,
         implementation_aggregate=aggregate, rights_sha256=rights.sha256,
         require_authorized=True, allow_synthetic=allow_synthetic,
+        candidate=candidate, candidate_path=candidate_path,
     )
+    if not resume:
+        trace.append("23_candidate_final_equivalence")
     factory = transport_factory or construct_real_transport
     result = factory(
         execute_network=True, offline=False, rights=rights,
         authorization=authorization, implementation_aggregate=aggregate,
         gate_token=_ACTIVATION_GATE_TOKEN,
     )
-    trace.append("20_real_transport_construction")
+    trace.append("24_real_transport_construction" if not resume else
+                 "20_real_transport_construction")
     return result
 
 

@@ -51,6 +51,7 @@ class GateActivationTests(unittest.TestCase):
         root = Path(self.temp.name)
         self.rights_path = (root / "rights.json").resolve()
         self.auth_path = (root / "authorization.json").resolve()
+        self.candidate_path = (root / "candidate.json").resolve()
         self.aggregate = implementation_hash(PROJECT)
         self.command = (
             str(SCRIPT), "--execute-network", "--authorization", str(self.auth_path),
@@ -92,11 +93,41 @@ class GateActivationTests(unittest.TestCase):
         value.update(changes)
         return value
 
-    def authorization(self, rights_sha: str, **changes):
+    def candidate(self, rights_sha: str, **changes):
+        value = {
+            "schema_version": 1,
+            "canonicalization": CANONICALIZATION_VERSION,
+            "candidate_type": CANDIDATE_TYPE,
+            "candidate_state": CANDIDATE_STATE,
+            "attempt_id": ATTEMPT_ID,
+            "scope": BOOTSTRAP_SCOPE,
+            "execution_mode": FIRST_EXECUTION_MODE,
+            "patch_model": PATCH_MODEL,
+            "execution_plan_sha256": EXECUTION_PLAN_SHA256,
+            "plan_post_activation_review_sha256": PLAN_POST_ACTIVATION_REVIEW_SHA256,
+            "rights_binding_path": str(self.rights_path),
+            "rights_binding_sha256": rights_sha,
+            "rights_review_sha256": RIGHTS_REVIEW_SHA256,
+            "base_spec_sha256": BASE_SPEC_SHA256,
+            "clarification_sha256": CLARIFICATION_001_SHA256,
+            "implementation_aggregate": self.aggregate,
+            "environment_fingerprint": ENVIRONMENT_FINGERPRINT,
+            "resources": resource_binding_values(),
+            "resource_caps": resource_cap_values(),
+            "command_vector": list(self.command),
+            "command_sha256": command_sha256(self.command),
+            "negative_capabilities": dict(NEGATIVE_CAPABILITIES),
+            "final_authorization_path": str(self.auth_path),
+            "candidate_created_at_utc": "2026-09-19T00:00:00Z",
+        }
+        value.update(changes)
+        return value
+
+    def authorization(self, rights_sha: str, candidate_sha: str = "c" * 64, **changes):
         value = {
             "authorization_type": FIRST_AUTHORIZATION_TYPE,
             "authorization_state": "FINAL_HUMAN_AUTHORIZATION",
-            "schema_version": 1,
+            "schema_version": 2,
             "canonicalization": CANONICALIZATION_VERSION,
             "authorized": True,
             "authorized_by": "SYNTHETIC_TEST_HARNESS",
@@ -117,6 +148,8 @@ class GateActivationTests(unittest.TestCase):
             "command_sha256": command_sha256(self.command),
             "rights_binding_sha256": rights_sha,
             "negative_capabilities": dict(NEGATIVE_CAPABILITIES),
+            "authorization_candidate_path": str(self.candidate_path),
+            "authorization_candidate_sha256": candidate_sha,
             "synthetic_only": True,
         }
         value.update(changes)
@@ -130,6 +163,9 @@ class GateActivationTests(unittest.TestCase):
             execution_mode=RESUME_EXECUTION_MODE,
             command_argv=list(command), command_sha256=command_sha256(command),
         )
+        value["schema_version"] = 1
+        value.pop("authorization_candidate_path")
+        value.pop("authorization_candidate_sha256")
         value.update(
             first_run_authorization_sha256="a" * 64,
             ledger_identity="synthetic-ledger", ledger_watermark=0,
@@ -140,9 +176,15 @@ class GateActivationTests(unittest.TestCase):
         )
         return value, command
 
-    def prepare(self, rights_changes=None, auth_changes=None):
+    def prepare(self, rights_changes=None, auth_changes=None, candidate_changes=None,
+                write_candidate=True):
         rights_sha = self.write(self.rights_path, self.rights(**(rights_changes or {})))
-        self.write(self.auth_path, self.authorization(rights_sha, **(auth_changes or {})))
+        candidate_sha = "c" * 64
+        if write_candidate:
+            candidate_sha = self.write(
+                self.candidate_path, self.candidate(rights_sha, **(candidate_changes or {})))
+        self.write(self.auth_path, self.authorization(
+            rights_sha, candidate_sha, **(auth_changes or {})))
         return rights_sha
 
     def factory(self, **kwargs):
@@ -198,7 +240,7 @@ def c29(t):
 def c30(t): t.prepare(auth_changes={"scope":"WRONG"}); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate); t.assertEqual(t.factory_calls,[])
 def c31(t): t.prepare(); t.activate(); t.assertEqual(len(t.factory_calls),1)
 def c32(t):
-    t.prepare(); trace=[]; t.activate(gate_trace=trace); t.assertEqual(trace,[f"{i:02d}_{name}" for i,name in enumerate(("project_identity","execution_plan_authority","spec_and_clarification","implementation_aggregate","environment_fingerprint","attempt_identity","attempt_state","rights_binding","human_authorization","authorization_rights_binding","plan_bindings","resources_and_caps","patch_model","command_vector","command_sha256","authorized_true","execution_mode","resume_mode","negative_capabilities","real_transport_construction"),1)])
+    t.prepare(); trace=[]; t.activate(gate_trace=trace); t.assertEqual(trace,[f"{i:02d}_{name}" for i,name in enumerate(("project_identity","execution_plan_authority","spec_and_clarification","implementation_aggregate","environment_fingerprint","attempt_identity","attempt_state","rights_binding","human_authorization","authorization_rights_binding","plan_bindings","resources_and_caps","patch_model","command_vector","command_sha256","authorized_true","execution_mode","resume_mode","negative_capabilities","authorization_candidate_path","authorization_candidate_sha256","authorization_candidate_validation","candidate_final_equivalence","real_transport_construction"),1)])
 def c33(t):
     err=io.StringIO()
     with redirect_stderr(err): code=cli.main(["--execute-network"])
@@ -225,6 +267,87 @@ def c43(t): t.assertFalse(ATTEMPT.exists())
 def c44(t):
     source=(PROJECT/"oc3/tests/run_tests.py").read_text(); t.assertIn("patch.object(socket,'getaddrinfo'",source); t.assertFalse(dry_run_plan(PROJECT,t.command)["network_constructed"])
 
+def validated_candidate(t, rights_sha):
+    candidate=load_authorization_candidate(t.candidate_path)
+    return validate_authorization_candidate(candidate,argv=t.command,
+        implementation_aggregate=t.aggregate,rights_sha256=rights_sha,
+        authorization_path=t.auth_path,rights_path=t.rights_path,project=PROJECT,
+        allow_synthetic_paths=True)
+
+def rewrite_candidate(t, rights_sha, mutate):
+    value=t.candidate(rights_sha); mutate(value); sha=t.write(t.candidate_path,value)
+    t.write(t.auth_path,t.authorization(rights_sha,sha)); return sha
+
+def rewrite_authorization(t, mutate):
+    value=json.loads(t.auth_path.read_text()); mutate(value); t.write(t.auth_path,value)
+
+def c45(t):
+    rights=t.prepare(); candidate=validated_candidate(t,rights); t.assertEqual(candidate.validation_state,VALID_CANDIDATE_STATE); t.assertEqual(t.factory_calls,[])
+def c46(t):
+    rights=t.write(t.rights_path,t.rights()); rewrite_candidate(t,rights,lambda v:v.update(unknown_key=False)); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c47(t):
+    rights=t.write(t.rights_path,t.rights()); rewrite_candidate(t,rights,lambda v:v.pop("scope")); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c48(t):
+    rights=t.write(t.rights_path,t.rights()); value=t.candidate(rights); t.candidate_path.write_text(json.dumps(value,indent=2)+"\n"); t.write(t.auth_path,t.authorization(rights,"0"*64)); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c49(t):
+    rights=t.write(t.rights_path,t.rights()); rewrite_candidate(t,rights,lambda v:v.update(candidate_type="WRONG")); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c50(t):
+    rights=t.write(t.rights_path,t.rights()); rewrite_candidate(t,rights,lambda v:v.update(candidate_state="AUTHORIZED")); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c51(t):
+    rights=t.write(t.rights_path,t.rights()); rewrite_candidate(t,rights,lambda v:v.update(authorized=False)); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c52(t):
+    rights=t.write(t.rights_path,t.rights()); rewrite_candidate(t,rights,lambda v:v.update(authorized_by="SYNTHETIC")); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c53(t):
+    rights=t.write(t.rights_path,t.rights()); rewrite_candidate(t,rights,lambda v:v.update(command_sha256="0"*64)); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c54(t):
+    rights=t.write(t.rights_path,t.rights()); rewrite_candidate(t,rights,lambda v:v.update(rights_binding_sha256="0"*64)); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c55(t):
+    rights=t.write(t.rights_path,t.rights()); rewrite_candidate(t,rights,lambda v:v.update(implementation_aggregate="0"*64)); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c56(t):
+    rights=t.write(t.rights_path,t.rights()); rewrite_candidate(t,rights,lambda v:v.update(resources=v["resources"][:-1])); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c57(t):
+    rights=t.write(t.rights_path,t.rights()); rewrite_candidate(t,rights,lambda v:v["resource_caps"].update(requests=13)); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c58(t):
+    rights=t.write(t.rights_path,t.rights()); rewrite_candidate(t,rights,lambda v:v["negative_capabilities"].update(range_requests=True)); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c59(t):
+    rights=t.write(t.rights_path,t.rights()); rewrite_candidate(t,rights,lambda v:v.update(final_authorization_path="/wrong/final.json")); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c60(t):
+    rights=t.prepare(); validated_candidate(t,rights); t.assertEqual(t.factory_calls,[])
+def c61(t):
+    t.prepare(); t.auth_path.write_bytes(t.candidate_path.read_bytes()); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate); t.assertEqual(t.factory_calls,[])
+def c62(t):
+    t.prepare(auth_changes={"schema_version":1}); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c63(t):
+    t.prepare(); rewrite_authorization(t,lambda v:v.pop("authorization_candidate_path")); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c64(t):
+    t.prepare(); rewrite_authorization(t,lambda v:v.pop("authorization_candidate_sha256")); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c65(t):
+    t.prepare(write_candidate=False); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate); t.assertEqual(t.factory_calls,[])
+def c66(t):
+    t.prepare(auth_changes={"authorization_candidate_sha256":"0"*64}); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c67(t):
+    t.prepare(auth_changes={"resources":resource_binding_values()[:-1]}); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c68(t):
+    t.prepare(); t.assertEqual(t.activate(),"SYNTHETIC_TRANSPORT_FACTORY_REACHED")
+def c69(t):
+    t.prepare(auth_changes={"authorized":False}); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c70(t):
+    t.prepare(); rewrite_authorization(t,lambda v:v.pop("authorized_by")); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c71(t):
+    t.prepare(auth_changes={"authorized_at_utc":"not-utc"}); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c72(t):
+    t.prepare(auth_changes={"command_argv":list(t.command)+["--dry-run"]}); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate)
+def c73(t):
+    t.prepare(candidate_changes={"candidate_type":"WRONG"}); raises_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",t.activate); t.assertEqual(t.factory_calls,[])
+def c74(t):
+    t.assertEqual((EXPECTED_AGGREGATE_BYTES,PATCH_MODEL,PRODUCTION_PROVIDER_DECODE_ENABLED),(89461646,"MODEL_B_TWO_STAGE",False)); t.assertEqual(len(resource_binding_values()),4)
+def c75(t):
+    t.assertFalse(ATTEMPT.exists()); t.assertFalse((ATTEMPT/"BOOTSTRAP_LEDGER.sqlite").exists())
+def c76(t):
+    c41(t)
+def c77(t):
+    t.assertEqual(FIRST_AUTH_FIELDS,FINAL_AUTH_COMMON_FIELDS|{"authorization_candidate_path","authorization_candidate_sha256"}); t.assertFalse({"authorization_candidate_path","authorization_candidate_sha256"}&RESUME_AUTH_FIELDS)
+
 
 CASES = [
     ("plan_sha_required",c01),("wrong_plan_rights",c02),("missing_rights",c03),("malformed_rights",c04),
@@ -232,6 +355,7 @@ CASES = [
     ("missing_authorization",c11),("candidate_false_reject",c12),("final_true_accept",c13),("authorization_rights_sha_reject",c14),("authorization_plan_reject",c15),("authorization_implementation_reject",c16),("authorization_environment_reject",c17),("authorization_attempt_reject",c18),("authorization_scope_reject",c19),("authorization_mode_reject",c20),("authorization_patch_model_reject",c21),("authorization_caps_reject",c22),("authorization_resource_reject",c23),("negative_capability_omission",c24),
     ("command_vector_accept",c25),("command_mutation_reject",c26),("command_hash_reject",c27),("first_auth_resume_reject",c28),("resume_auth_first_reject",c29),("transport_before_gates_forbidden",c30),("valid_gates_reach_factory",c31),("factory_gate_order",c32),
     ("canonical_missing_artifacts_blocked",c33),("blocked_no_attempt",c34),("blocked_no_ledger",c35),("blocked_zero_dns_socket",c36),("offline_no_transport",c37),("dry_run_no_transport",c38),("model_b_unchanged",c39),("production_decode_false",c40),("probe_001_exact",c41),("no_selector",c42),("no_real_attempt",c43),("replay_firewall_contract",c44),
+    ("candidate_valid_offline",c45),("candidate_unknown_key_reject",c46),("candidate_missing_key_reject",c47),("candidate_noncanonical_reject",c48),("candidate_type_reject",c49),("candidate_state_reject",c50),("candidate_authorized_key_reject",c51),("candidate_human_field_reject",c52),("candidate_command_hash_reject",c53),("candidate_rights_reject",c54),("candidate_implementation_reject",c55),("candidate_resource_reject",c56),("candidate_cap_reject",c57),("candidate_negative_reject",c58),("candidate_final_path_reject",c59),("candidate_no_transport",c60),("candidate_as_authorization_reject",c61),("final_schema_v1_reject",c62),("final_candidate_path_required",c63),("final_candidate_sha_required",c64),("candidate_absent_reject",c65),("candidate_sha_mismatch_reject",c66),("candidate_final_mismatch_reject",c67),("candidate_final_equivalence_pass",c68),("final_authorized_false_reject",c69),("final_human_identity_required",c70),("final_human_time_required",c71),("final_argv_mismatch_reject",c72),("factory_untouched_before_candidate",c73),("scientific_contract_unchanged",c74),("candidate_no_attempt_state",c75),("candidate_probe_001_exact",c76),("first_resume_schema_separation",c77),
 ]
 
 for index, (label, function) in enumerate(CASES, 1):

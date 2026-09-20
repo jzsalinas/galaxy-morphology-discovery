@@ -114,11 +114,34 @@ def synthetic_rights(aggregate: str) -> RightsBinding:
     return RightsBinding(MappingProxyType(value), hashlib.sha256(raw).hexdigest(), True)
 
 
-def synthetic_auth(argv, aggregate, rights_sha, *, resume=False):
+def synthetic_candidate(argv, aggregate, rights_sha) -> AuthorizationCandidate:
+    value = {
+        "schema_version": 1, "canonicalization": CANONICALIZATION_VERSION,
+        "candidate_type": CANDIDATE_TYPE, "candidate_state": CANDIDATE_STATE,
+        "attempt_id": ATTEMPT_ID, "scope": BOOTSTRAP_SCOPE,
+        "execution_mode": FIRST_EXECUTION_MODE, "patch_model": PATCH_MODEL,
+        "execution_plan_sha256": EXECUTION_PLAN_SHA256,
+        "plan_post_activation_review_sha256": PLAN_POST_ACTIVATION_REVIEW_SHA256,
+        "rights_binding_path": str(argv[5]), "rights_binding_sha256": rights_sha,
+        "rights_review_sha256": RIGHTS_REVIEW_SHA256,
+        "base_spec_sha256": BASE_SPEC_SHA256, "clarification_sha256": CLARIFICATION_001_SHA256,
+        "implementation_aggregate": aggregate, "environment_fingerprint": ENVIRONMENT_FINGERPRINT,
+        "resources": resource_binding_values(), "resource_caps": resource_cap_values(),
+        "command_vector": list(argv), "command_sha256": command_sha256(argv),
+        "negative_capabilities": dict(NEGATIVE_CAPABILITIES),
+        "final_authorization_path": str(argv[3]),
+        "candidate_created_at_utc": "2026-09-19T00:00:00Z",
+    }
+    raw = canonical(value) + b"\n"
+    return AuthorizationCandidate(MappingProxyType(value), hashlib.sha256(raw).hexdigest())
+
+
+def synthetic_auth(argv, aggregate, rights_sha, *, resume=False, candidate_sha="c" * 64,
+                   candidate_path="/synthetic/candidate.json"):
     value = {
         "authorization_type": RESUME_AUTHORIZATION_TYPE if resume else FIRST_AUTHORIZATION_TYPE,
         "authorization_state": "FINAL_HUMAN_AUTHORIZATION",
-        "schema_version": 1,
+        "schema_version": 1 if resume else 2,
         "canonicalization": CANONICALIZATION_VERSION,
         "authorized": True, "scope": BOOTSTRAP_SCOPE, "attempt_id": ATTEMPT_ID,
         "authorized_by": "SYNTHETIC_TEST_HARNESS",
@@ -141,6 +164,9 @@ def synthetic_auth(argv, aggregate, rights_sha, *, resume=False):
                      remaining_caps={"requests": 9}, completed_raw_resources=["ROOT_SUMMARY"],
                      pending_resources=["NORTH_SUMMARY", "SOUTH_SUMMARY", "SOUTH_PATCH_LIST"],
                      existing_staging_state=[])
+    else:
+        value.update(authorization_candidate_path=candidate_path,
+                     authorization_candidate_sha256=candidate_sha)
     return value
 
 
@@ -331,7 +357,7 @@ def c74(t):
 def c75(t): assert_code(t,"METADATA_VALUE_SEMANTICS_FAILURE",validate_regional_semantics,PhysicalRole.SOUTH_SUMMARY,regional_rows(bid=999),validate_root_semantics(root_rows()))
 def c76(t): t.assertFalse(validate_regional_semantics(PhysicalRole.NORTH_SUMMARY,regional_rows(),validate_root_semantics(root_rows())).row_values_persisted)
 def c77(t):
-    a="b"*64; rights=synthetic_rights(a); argv=("tool","--execute-network"); t.assertEqual(validate_authorization(synthetic_auth(argv,a,rights.sha256),argv=argv,resume=False,implementation_aggregate=a,rights_sha256=rights.sha256,allow_synthetic=True).kind,"FIRST_RUN_NETWORK_AUTHORIZATION")
+    a="b"*64; rights=synthetic_rights(a); argv=("tool","--execute-network","--authorization","/synthetic/final.json","--rights-binding","/synthetic/rights.json"); candidate=synthetic_candidate(argv,a,rights.sha256); value=synthetic_auth(argv,a,rights.sha256,candidate_sha=candidate.sha256); t.assertEqual(validate_authorization(value,argv=argv,resume=False,implementation_aggregate=a,rights_sha256=rights.sha256,allow_synthetic=True,candidate=candidate,candidate_path=Path(value["authorization_candidate_path"])).kind,"FIRST_RUN_NETWORK_AUTHORIZATION")
 def c78(t):
     a="b"*64; r=synthetic_rights(a); argv=("tool","--resume"); value=synthetic_auth(argv,a,r.sha256); assert_code(t,"METADATA_BOOTSTRAP_AUTHORIZATION_FAILURE",validate_authorization,value,argv=argv,resume=True,implementation_aggregate=a,rights_sha256=r.sha256,allow_synthetic=True)
 def c79(t):
