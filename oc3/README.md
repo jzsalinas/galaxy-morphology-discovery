@@ -72,3 +72,9 @@ an authorization or a certification of provenance.
 The real environment must be independent of C0 and use the versions recorded in requirements.lock.
 No environment is created automatically. An unavailable decoder or unsupported logical layout
 stops the stage; there is no format or survey fallback.
+
+Probe 001 is preserved as immutable partial evidence. The corrected
+`oc3_resource_contract_probe002.py` imports its cumulative counters, publishes
+per-resource HEAD and FITS-structure checkpoints, and scans at most 16 aligned
+header blocks per resource under a separate 136-request local/global envelope.
+Its dry run is offline; its network mode requires Binding 002 and a fresh audit directory.

@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "oc3_dr9_coadd_resource_probe_binding_002.schema.json",
+  "title": "OC3 bounded DR9 coadd resource probe binding 002",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "stage_id", "development_bricks_sha256", "parent_binding_001", "historical_probe_001", "cumulative_budget", "policy", "implementation", "resources", "sealed"],
+  "properties": {
+    "schema_version": {"const": "OC3_DR9_COADD_RESOURCE_PROBE_BINDING_002"},
+    "stage_id": {"const": "OC3-RESOURCE-CONTRACT-PROBE-002"},
+    "development_bricks_sha256": {"const": "147c0942a5340ed18eec23a610f8afd5721390fad09c1da7ed01593deb40fab6"},
+    "parent_binding_001": {"$ref": "#/$defs/fileBinding"},
+    "historical_probe_001": {
+      "type": "object", "additionalProperties": false,
+      "required": ["stage_id", "state", "terminal", "log", "requests", "body_bytes", "retries", "science_pixels_decoded"],
+      "properties": {
+        "stage_id": {"const": "OC3-RESOURCE-CONTRACT-PROBE-001"},
+        "state": {"const": "RESOURCE_CONTRACT_PROBE_PARTIALLY_RESOLVED"},
+        "terminal": {"$ref": "#/$defs/fileBinding"},
+        "log": {"$ref": "#/$defs/fileBinding"},
+        "requests": {"const": 56}, "body_bytes": {"const": 120960},
+        "retries": {"const": 0}, "science_pixels_decoded": {"const": 0}
+      }
+    },
+    "cumulative_budget": {
+      "type": "object", "additionalProperties": false,
+      "required": ["global_max_requests", "global_max_body_bytes", "used_requests", "used_body_bytes", "remaining_requests", "remaining_body_bytes"],
+      "properties": {
+        "global_max_requests": {"const": 200}, "global_max_body_bytes": {"const": 1610612736},
+        "used_requests": {"const": 64}, "used_body_bytes": {"const": 89582606},
+        "remaining_requests": {"const": 136}, "remaining_body_bytes": {"const": 1521030130}
+      }
+    },
+    "policy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["max_new_requests", "max_head_requests", "max_range_requests", "max_range_body_bytes", "header_block_bytes", "max_header_blocks_per_resource", "retries", "concurrency", "durable_head_checkpoints", "durable_resource_checkpoints", "science_pixel_decode", "bulk_get"],
+      "properties": {
+        "max_new_requests": {"const": 136}, "max_head_requests": {"const": 14},
+        "max_range_requests": {"const": 122}, "max_range_body_bytes": {"const": 351360},
+        "header_block_bytes": {"const": 2880}, "max_header_blocks_per_resource": {"const": 16},
+        "retries": {"const": 0}, "concurrency": {"const": 1},
+        "durable_head_checkpoints": {"const": true}, "durable_resource_checkpoints": {"const": true},
+        "science_pixel_decode": {"const": false}, "bulk_get": {"const": false}
+      }
+    },
+    "implementation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["entrypoint_path", "entrypoint_sha256", "module_path", "module_sha256", "amendment_path", "amendment_sha256"],
+      "properties": {
+        "entrypoint_path": {"const": "oc3/oc3_resource_contract_probe002.py"},
+        "entrypoint_sha256": {"$ref": "#/$defs/sha"},
+        "module_path": {"const": "oc3/oc3lib/resource_contract_probe002.py"},
+        "module_sha256": {"$ref": "#/$defs/sha"},
+        "amendment_path": {"const": "OC3_RESOURCE_CONTRACT_PROBE_002_AMENDMENT.md"},
+        "amendment_sha256": {"$ref": "#/$defs/sha"}
+      }
+    },
+    "resources": {"type": "array", "minItems": 14, "maxItems": 14, "items": {"$ref": "#/$defs/resource"}},
+    "sealed": {"$ref": "#/$defs/sha"}
+  },
+  "$defs": {
+    "sha": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "fileBinding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {"path": {"type": "string"}, "sha256": {"$ref": "#/$defs/sha"}}
+    },
+    "resource": {
+      "type": "object", "additionalProperties": false,
+      "required": ["resource_id", "region", "brick", "product", "band", "filename", "directory_component", "literal_url", "max_bytes"],
+      "properties": {
+        "resource_id": {"type": "string", "pattern": "^oc3_[0-9a-f]{24}$"},
+        "region": {"enum": ["south", "north"]}, "brick": {"type": "string", "pattern": "^[0-9]{4}[pm][0-9]{3}$"},
+        "product": {"enum": ["nexp", "psfsize", "maskbits"]},
+        "band": {"type": ["string", "null"], "enum": ["g", "r", "z", null]},
+        "filename": {"type": "string", "pattern": "^legacysurvey-.+\\.fits\\.fz$"},
+        "directory_component": {"type": "string", "minLength": 1, "maxLength": 32},
+        "literal_url": {"type": "string", "pattern": "^https://portal\\.nersc\\.gov/"},
+        "max_bytes": {"type": "integer", "minimum": 1}
+      }
+    }
+  }
+}

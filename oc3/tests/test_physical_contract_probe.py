@@ -568,7 +568,9 @@ class ManifestContractTripwireOutcomeTests(Base):
         # materialized exactly this frozen input.  Preserve that checkpoint while
         # retaining the original tripwire for every other production directory.
         self.assertEqual({item.name for item in (PROJECT / "oc3/INPUTS").iterdir()},
-                         {"OC3_DEVELOPMENT_BRICKS.csv"})
+                         {"OC3_DEVELOPMENT_BRICKS.csv",
+                          "OC3_RESOURCE_CONTRACT_PROBE_BINDING_001.json",
+                          "OC3_RESOURCE_CONTRACT_PROBE_BINDING_002.json"})
         for relative in ("oc3/provenance", "oc3/RAW_IMMUTABLE", "oc3/TECHNICAL_INDEX", "oc3/reports"):
             self.assertFalse(any((PROJECT / relative).iterdir()))
 
