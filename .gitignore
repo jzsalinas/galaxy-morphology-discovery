@@ -40,6 +40,10 @@ oc3/metadata_bootstrap/
 # Bounded offline PATCH metadata decode runtime
 oc3/patch_metadata_decode/
 
+# Deterministic offline technical-selection runtime
+oc3/technical_selection/
+oc3/INPUTS/OC3_DEVELOPMENT_BRICKS.csv
+
 # Generic temporary acquisition state
 **/STAGING/
 
