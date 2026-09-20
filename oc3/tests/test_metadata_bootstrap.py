@@ -382,7 +382,8 @@ def c90(t):
         timestamp="2026-01-01T00:00:00+00:00")
     t.assertEqual((digest.raw_byte_length,storage.incomplete_staging(),transport.calls),
                   (4,(),[("GET",PhysicalRole.ROOT_SUMMARY)])); ledger.close()
-def c91(t): t.assertFalse(ATTEMPT.exists())
+def c91(t):
+    terminal=json.loads((ATTEMPT/"BOOTSTRAP_TERMINAL.json").read_text()); t.assertEqual((terminal["outcome"],terminal["successful"]),("METADATA_BOOTSTRAP_PARTIALLY_RESOLVED",True))
 def c92(t): t.assertFalse(PRODUCTION_PROVIDER_DECODE_ENABLED); t.assertTrue(BOOTSTRAP_ALLOWED_SELECTIVE_DECODE)
 def c93(t):
     public=[n for n,v in vars(bootstrap).items() if callable(v) and not n.startswith("_")]
@@ -403,7 +404,7 @@ CASES = [
     ("patch_hash",c59),("patch_tripwire",c60),("patch_release_unobserved",c61),("patch_brickid_unobserved",c62),("patch_brickname_unobserved",c63),("no_patch_join",c64),("patch_pending",c65),("patch_integrity_false",c66),("resolved_impossible",c67),
     ("brickname_reused",c68),("grz_reused",c69),("root_unique",c70),("north_join",c71),("south_join",c72),("zero_join",c73),("multiple_join",c74),("brickid_mismatch",c75),("no_row_persistence",c76),
     ("first_auth",c77),("first_reject_resume",c78),("resume_reject_first",c79),("resume_ledger_binding",c80),("same_invocation_retry",c81),("offline_transport",c82),
-    ("rights_required",c83),("redistribution_false",c84),("precedence",c85),("partial_success",c86),("full_unreachable",c87),("dry_run_zero_network",c88),("offline_zero_network",c89),("synthetic_replay",c90),("no_real_attempt",c91),("production_decode_false",c92),("no_selector",c93),("bootstrap_not_started",c94),("probe_exact_after",c95),
+    ("rights_required",c83),("redistribution_false",c84),("precedence",c85),("partial_success",c86),("full_unreachable",c87),("dry_run_zero_network",c88),("offline_zero_network",c89),("synthetic_replay",c90),("completed_real_attempt",c91),("production_decode_false",c92),("no_selector",c93),("bootstrap_not_started",c94),("probe_exact_after",c95),
 ]
 
 def c96(t):

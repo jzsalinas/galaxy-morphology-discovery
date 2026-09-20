@@ -245,8 +245,9 @@ def c33(t):
     err=io.StringIO()
     with redirect_stderr(err): code=cli.main(["--execute-network"])
     t.assertEqual((code,err.getvalue().strip()),(2,"PREFLIGHT_BLOCKED_MANIFEST_OR_RIGHTS"))
-def c34(t): t.assertFalse(ATTEMPT.exists())
-def c35(t): t.assertFalse((ATTEMPT/"BOOTSTRAP_LEDGER.sqlite").exists())
+def c34(t):
+    terminal=json.loads((ATTEMPT/"BOOTSTRAP_TERMINAL.json").read_text()); t.assertEqual((terminal["outcome"],terminal["successful"]),("METADATA_BOOTSTRAP_PARTIALLY_RESOLVED",True))
+def c35(t): t.assertEqual(file_hash(ATTEMPT/"BOOTSTRAP_LEDGER.sqlite"),"ff6957e3c74001356edd104d13e4e213f9aba29d04578ea4d680dd390cf8f270")
 def c36(t):
     with patch.object(socket,"socket",side_effect=AssertionError("socket")),patch.object(socket,"getaddrinfo",side_effect=AssertionError("dns")):
         raises_code(t,"PREFLIGHT_BLOCKED_MANIFEST_OR_RIGHTS",activate_network_transport,project=PROJECT,command=t.command,authorization_path=t.auth_path,rights_path=None,resume=False,allow_synthetic=True,transport_factory=t.factory)
@@ -263,7 +264,7 @@ def c40(t): t.assertFalse(PRODUCTION_PROVIDER_DECODE_ENABLED)
 def c41(t):
     actual={p.relative_to(PROBE).as_posix() for p in PROBE.rglob("*") if p.is_file()}; t.assertEqual(actual,set(PROBE_SNAPSHOT)); t.assertTrue(all((PROBE/p).stat().st_size==s and file_hash(PROBE/p)==h for p,(s,h) in PROBE_SNAPSHOT.items()))
 def c42(t): t.assertTrue(no_selector_api())
-def c43(t): t.assertFalse(ATTEMPT.exists())
+def c43(t): t.assertEqual(file_hash(ATTEMPT/"PATCH_ACQUISITION_BOUND_EVIDENCE.json"),"2dfad6faf65c48488d14f8aaacfb5e4a3638f5ac61161aa829e90f59ade04f37")
 def c44(t):
     source=(PROJECT/"oc3/tests/run_tests.py").read_text(); t.assertIn("patch.object(socket,'getaddrinfo'",source); t.assertFalse(dry_run_plan(PROJECT,t.command)["network_constructed"])
 
@@ -342,7 +343,7 @@ def c73(t):
 def c74(t):
     t.assertEqual((EXPECTED_AGGREGATE_BYTES,PATCH_MODEL,PRODUCTION_PROVIDER_DECODE_ENABLED),(89461646,"MODEL_B_TWO_STAGE",False)); t.assertEqual(len(resource_binding_values()),4)
 def c75(t):
-    t.assertFalse(ATTEMPT.exists()); t.assertFalse((ATTEMPT/"BOOTSTRAP_LEDGER.sqlite").exists())
+    before=(file_hash(ATTEMPT/"BOOTSTRAP_TERMINAL.json"),file_hash(ATTEMPT/"BOOTSTRAP_LEDGER.sqlite")); rights=t.prepare(); validated_candidate(t,rights); t.assertEqual((file_hash(ATTEMPT/"BOOTSTRAP_TERMINAL.json"),file_hash(ATTEMPT/"BOOTSTRAP_LEDGER.sqlite")),before)
 def c76(t):
     c41(t)
 def c77(t):
@@ -385,8 +386,8 @@ CASES = [
     ("rights_exact_values",c05),("rights_redistribution_reject",c06),("rights_resource_reject",c07),("rights_implementation_reject",c08),("rights_environment_reject",c09),("rights_sha_local",c10),
     ("missing_authorization",c11),("candidate_false_reject",c12),("final_true_accept",c13),("authorization_rights_sha_reject",c14),("authorization_plan_reject",c15),("authorization_implementation_reject",c16),("authorization_environment_reject",c17),("authorization_attempt_reject",c18),("authorization_scope_reject",c19),("authorization_mode_reject",c20),("authorization_patch_model_reject",c21),("authorization_caps_reject",c22),("authorization_resource_reject",c23),("negative_capability_omission",c24),
     ("command_vector_accept",c25),("command_mutation_reject",c26),("command_hash_reject",c27),("first_auth_resume_reject",c28),("resume_auth_first_reject",c29),("transport_before_gates_forbidden",c30),("valid_gates_reach_factory",c31),("factory_gate_order",c32),
-    ("canonical_missing_artifacts_blocked",c33),("blocked_no_attempt",c34),("blocked_no_ledger",c35),("blocked_zero_dns_socket",c36),("offline_no_transport",c37),("dry_run_no_transport",c38),("model_b_unchanged",c39),("production_decode_false",c40),("probe_001_exact",c41),("no_selector",c42),("no_real_attempt",c43),("replay_firewall_contract",c44),
-    ("candidate_valid_offline",c45),("candidate_unknown_key_reject",c46),("candidate_missing_key_reject",c47),("candidate_noncanonical_reject",c48),("candidate_type_reject",c49),("candidate_state_reject",c50),("candidate_authorized_key_reject",c51),("candidate_human_field_reject",c52),("candidate_command_hash_reject",c53),("candidate_rights_reject",c54),("candidate_implementation_reject",c55),("candidate_resource_reject",c56),("candidate_cap_reject",c57),("candidate_negative_reject",c58),("candidate_final_path_reject",c59),("candidate_no_transport",c60),("candidate_as_authorization_reject",c61),("final_schema_v1_reject",c62),("final_candidate_path_required",c63),("final_candidate_sha_required",c64),("candidate_absent_reject",c65),("candidate_sha_mismatch_reject",c66),("candidate_final_mismatch_reject",c67),("candidate_final_equivalence_pass",c68),("final_authorized_false_reject",c69),("final_human_identity_required",c70),("final_human_time_required",c71),("final_argv_mismatch_reject",c72),("factory_untouched_before_candidate",c73),("scientific_contract_unchanged",c74),("candidate_no_attempt_state",c75),("candidate_probe_001_exact",c76),("first_resume_schema_separation",c77),
+    ("canonical_missing_artifacts_blocked",c33),("completed_attempt_terminal",c34),("completed_attempt_ledger",c35),("blocked_zero_dns_socket",c36),("offline_no_transport",c37),("dry_run_no_transport",c38),("model_b_unchanged",c39),("production_decode_false",c40),("probe_001_exact",c41),("no_selector",c42),("completed_attempt_patch_evidence",c43),("replay_firewall_contract",c44),
+    ("candidate_valid_offline",c45),("candidate_unknown_key_reject",c46),("candidate_missing_key_reject",c47),("candidate_noncanonical_reject",c48),("candidate_type_reject",c49),("candidate_state_reject",c50),("candidate_authorized_key_reject",c51),("candidate_human_field_reject",c52),("candidate_command_hash_reject",c53),("candidate_rights_reject",c54),("candidate_implementation_reject",c55),("candidate_resource_reject",c56),("candidate_cap_reject",c57),("candidate_negative_reject",c58),("candidate_final_path_reject",c59),("candidate_no_transport",c60),("candidate_as_authorization_reject",c61),("final_schema_v1_reject",c62),("final_candidate_path_required",c63),("final_candidate_sha_required",c64),("candidate_absent_reject",c65),("candidate_sha_mismatch_reject",c66),("candidate_final_mismatch_reject",c67),("candidate_final_equivalence_pass",c68),("final_authorized_false_reject",c69),("final_human_identity_required",c70),("final_human_time_required",c71),("final_argv_mismatch_reject",c72),("factory_untouched_before_candidate",c73),("scientific_contract_unchanged",c74),("candidate_preserves_completed_attempt",c75),("candidate_probe_001_exact",c76),("first_resume_schema_separation",c77),
     ("versioned_002_activation_pass",c78),("versioned_candidate_valid_offline",c79),("versioned_candidate_final_path_exact",c80),("versioned_candidate_sha_exact",c81),("wrong_candidate_path_reject",c82),("wrong_final_argv_path_reject",c83),("relative_artifact_path_reject",c84),("outside_project_artifact_reject",c85),("symlink_escape_reject",c86),("historical_candidate_as_final_reject",c87),("historical_authorization_artifacts_immutable",c88),("versioned_transport_before_gates_forbidden",c89),("versioned_filename_policy_accept",c90),
 ]
 

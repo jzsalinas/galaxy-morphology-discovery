@@ -768,7 +768,12 @@ def activate_network_transport(*, project: Path, command: Iterable[str],
     trace = gate_trace if gate_trace is not None else []
     project = Path(project).resolve()
     aggregate = _verify_gate_authorities(project, trace)
-    attempt = project / ATTEMPT_RELATIVE_DIRECTORY
+    # Synthetic gate tests use ephemeral authorization artifacts and must not
+    # collide with a completed production attempt.  This private mode is not
+    # exposed by the CLI; production still uses the canonical attempt path.
+    attempt = ((Path(authorization_path).parent / ".synthetic-metadata-bootstrap-attempt")
+               if allow_synthetic and authorization_path is not None
+               else project / ATTEMPT_RELATIVE_DIRECTORY)
     if resume:
         if not attempt.is_dir():
             raise BootstrapError("METADATA_LOCAL_STATE_CONFLICT")

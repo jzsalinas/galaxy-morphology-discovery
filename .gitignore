@@ -37,6 +37,9 @@ c0/reports/C0_BOUNDED_AUDIT_RESULTS.json
 # Future real OC-3 metadata-bootstrap runtime
 oc3/metadata_bootstrap/
 
+# Bounded offline PATCH metadata decode runtime
+oc3/patch_metadata_decode/
+
 # Generic temporary acquisition state
 **/STAGING/
 
