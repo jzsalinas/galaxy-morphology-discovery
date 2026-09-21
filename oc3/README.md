@@ -66,6 +66,13 @@ The observational/confound audit uses `oc3_observational_confound_audit.py`. It 
 enforces completion of observer-only metrics before IMAGE access, and publishes only numeric
 CSV/JSON evidence. It has no display, preprocessing, selection or learned-representation path.
 
+The preprocessing/invariance perturbation pilot uses
+`oc3_preprocessing_invariance_perturbation_pilot.py`. Its validation mode checks the frozen
+78-array native extraction without decoding values. Its separately human-run execution applies
+only the frozen float32 stress tests and exact lattice permutations, producing 480 development
+arrays plus closed technical registers. It has no network, display, labels, object definition,
+model, encoder, embedding, clustering or morphology path, and it never rewrites native inputs.
+
 Production input contracts (to be supplied in a later authorized task):
 
 - `OC3_METADATA_BOOTSTRAP_MANIFEST.json`: schema version 2; frozen authorities and implementation;

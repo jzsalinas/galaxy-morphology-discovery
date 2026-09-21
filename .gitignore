@@ -71,6 +71,9 @@ oc3/TECHNICAL_INDEX/OC3_NATIVE_EXTRACTION_MANIFEST.json
 # Deterministic offline observational/confound audit runtime
 oc3/CONFOUND_AUDIT/OC3-OBSERVATIONAL-CONFOUND-AUDIT-001/
 
+# Deterministic offline preprocessing/invariance perturbation pilot runtime
+oc3/PERTURBATION_PILOT/OC3-PREPROCESSING-INVARIANCE-PERTURBATION-PILOT-001/
+
 # Generic temporary acquisition state
 **/STAGING/
 
