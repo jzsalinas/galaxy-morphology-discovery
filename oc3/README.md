@@ -34,6 +34,11 @@ identities without network. A probe accepts only a separately reviewed sealed bi
 literal URLs; it never derives the provider directory component and reads aligned FITS header
 blocks only. Bulk auxiliary acquisition remains a separately authorized future human run.
 
+The offline location selector has the separate entry point `oc3_location_selection.py`.
+It has no network mode and can decode only the frozen NEXP, PSFSIZE and optical MASKBITS
+resources already published under `RAW_IMMUTABLE`. It emits six deterministic observational
+locations and aggregate technical evidence; it cannot open image, invvar, PSF or catalogs.
+
 Production input contracts (to be supplied in a later authorized task):
 
 - `OC3_METADATA_BOOTSTRAP_MANIFEST.json`: schema version 2; frozen authorities and implementation;

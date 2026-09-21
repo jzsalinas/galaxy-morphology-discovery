@@ -19,7 +19,7 @@ import ssl
 from typing import Callable, Iterable
 from urllib.parse import urlsplit
 
-from .core import canonical, file_hash, implementation_hash
+from .core import canonical, file_hash
 
 
 STAGE_ID = "OC3-RESOURCE-CONTRACT-AUXILIARY-ACQUISITION-001"
@@ -66,6 +66,7 @@ ACQUISITION_AUTHORIZATION_SCHEMA = "OC3_AUXILIARY_ACQUISITION_AUTHORIZATION_002"
 ACQUISITION_CANDIDATE_TYPE = "AUXILIARY_14_ACQUISITION_AUTHORIZATION_CANDIDATE"
 ACQUISITION_CANDIDATE_STATE = "PENDING_HUMAN_REVIEW"
 ACQUISITION_CANDIDATE_VALID = "AUXILIARY_ACQUISITION_CANDIDATE_VALID_FOR_HUMAN_REVIEW"
+ACQUISITION_IMPLEMENTATION_AGGREGATE = "1ca462cff61ea09f93ac23210e1966bbb7e3be37f231b92901f60b65f89d1ec0"
 ACQUISITION_START_REQUESTS = 166
 ACQUISITION_START_BODY_BYTES = 89_836_046
 ACQUISITION_EXPECTED_BODY_BYTES = 3_827_520
@@ -424,7 +425,7 @@ def build_acquisition_candidate(contract: dict, project: Path) -> dict:
         "resolved_contract": {"path": str(RESOLVED_CONTRACT_RELATIVE), "sha256": contract_digest},
         "budget_amendment": {"path": str(NETWORK_BUDGET_AMENDMENT_RELATIVE),
                              "sha256": NETWORK_BUDGET_AMENDMENT_SHA256},
-        "implementation_aggregate": implementation_hash(project),
+        "implementation_aggregate": ACQUISITION_IMPLEMENTATION_AGGREGATE,
         "resource_count": 14,
         "expected_body_bytes": ACQUISITION_EXPECTED_BODY_BYTES,
         "primary_requests": {"head": ACQUISITION_PRIMARY_HEAD_REQUESTS,

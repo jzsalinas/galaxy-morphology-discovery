@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "oc3_locations_001.schema.json",
+  "title": "OC3 deterministic observational locations",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["binding", "locations", "selection_sha256"],
+  "properties": {
+    "binding": {"type": "object"},
+    "selection_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "locations": {
+      "type": "array", "minItems": 6, "maxItems": 6,
+      "prefixItems": [
+        {"$ref": "#/$defs/locationS1"}, {"$ref": "#/$defs/locationS2"},
+        {"$ref": "#/$defs/locationS3"}, {"$ref": "#/$defs/locationN1"},
+        {"$ref": "#/$defs/locationN2"}, {"$ref": "#/$defs/locationN3"}
+      ],
+      "items": false
+    }
+  },
+  "$defs": {
+    "window": {
+      "type": "object", "additionalProperties": false,
+      "required": ["requested", "obtained", "integer_offset", "offset_in_requested", "padding", "resampling"],
+      "properties": {
+        "requested": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "integer"}},
+        "obtained": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "integer"}},
+        "integer_offset": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "integer"}},
+        "offset_in_requested": {"const": [0, 0]},
+        "padding": {"const": false}, "resampling": {"const": false}
+      }
+    },
+    "base": {
+      "type": "object", "additionalProperties": false,
+      "required": ["slot", "region", "brick", "x", "y", "ra_dec", "window", "selection_hash", "status", "V"],
+      "properties": {
+        "slot": {"enum": ["S1", "S2", "S3", "N1", "N2", "N3"]},
+        "region": {"enum": ["south", "north"]}, "brick": {"type": "string"},
+        "x": {"type": "integer"}, "y": {"type": "integer"},
+        "ra_dec": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}},
+        "window": {"$ref": "#/$defs/window"},
+        "selection_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "status": {"enum": ["SELECTED", "STRATUM_NOT_EXERCISED"]},
+        "V": {"type": ["number", "null"]}
+      }
+    },
+    "locationS1": {"allOf": [{"$ref": "#/$defs/base"}, {"properties": {"slot": {"const": "S1"}, "region": {"const": "south"}, "status": {"const": "SELECTED"}, "V": {"type": "null"}}}]},
+    "locationS2": {"allOf": [{"$ref": "#/$defs/base"}, {"properties": {"slot": {"const": "S2"}, "region": {"const": "south"}, "status": {"const": "SELECTED"}, "V": {"type": "null"}}}]},
+    "locationS3": {"allOf": [{"$ref": "#/$defs/base"}, {"properties": {"slot": {"const": "S3"}, "region": {"const": "south"}, "status": {"const": "SELECTED"}, "V": {"type": "null"}}}]},
+    "locationN1": {"allOf": [{"$ref": "#/$defs/base"}, {"properties": {"slot": {"const": "N1"}, "region": {"const": "north"}, "status": {"const": "SELECTED"}, "V": {"type": "null"}}}]},
+    "locationN2": {"allOf": [{"$ref": "#/$defs/base"}, {"properties": {"slot": {"const": "N2"}, "region": {"const": "north"}, "status": {"const": "SELECTED"}, "V": {"type": "null"}}}]},
+    "locationN3": {"allOf": [{"$ref": "#/$defs/base"}, {"properties": {"slot": {"const": "N3"}, "region": {"const": "north"}, "V": {"type": "number"}}}]}
+  }
+}

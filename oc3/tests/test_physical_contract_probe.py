@@ -571,7 +571,8 @@ class ManifestContractTripwireOutcomeTests(Base):
                          {"OC3_DEVELOPMENT_BRICKS.csv",
                           "OC3_RESOURCE_CONTRACT_PROBE_BINDING_001.json",
                           "OC3_RESOURCE_CONTRACT_PROBE_BINDING_002.json",
-                          "OC3_AUXILIARY_14_ACQUISITION_CANDIDATE_001.json"})
+                          "OC3_AUXILIARY_14_ACQUISITION_CANDIDATE_001.json",
+                          "OC3_AUXILIARY_ACQUISITION_AUTHORIZATION_001.json"})
         for relative in ("oc3/provenance", "oc3/RAW_IMMUTABLE", "oc3/TECHNICAL_INDEX", "oc3/reports"):
             self.assertFalse(any((PROJECT / relative).iterdir()))
 

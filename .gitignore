@@ -46,8 +46,14 @@ oc3/INPUTS/OC3_DEVELOPMENT_BRICKS.csv
 
 # Bounded DR9 resource-contract probe/acquisition runtime and literal bindings
 oc3/resource_contract/
+oc3/auxiliary_acquisition/
 oc3/INPUTS/OC3_RESOURCE_CONTRACT_PROBE_BINDING_001.json
 oc3/INPUTS/OC3_AUXILIARY_ACQUISITION_AUTHORIZATION_001.json
+
+# Deterministic offline location-selection runtime
+oc3/location_selection/
+oc3/TECHNICAL_INDEX/OC3_LOCATIONS.json
+oc3/TECHNICAL_INDEX/OC3_SELECTION_FLOW.csv
 
 # Generic temporary acquisition state
 **/STAGING/
