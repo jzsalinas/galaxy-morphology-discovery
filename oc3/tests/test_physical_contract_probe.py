@@ -576,7 +576,8 @@ class ManifestContractTripwireOutcomeTests(Base):
                           "OC3_FIXED_NATIVE_RESOURCE_CONTRACT_001.json",
                           "OC3_FIXED_NATIVE_RESOURCE_PROBE_BINDING_001.json",
                           "OC3_PSF_RESOURCE_CONTRACT_001.json",
-                          "OC3_COADD_PSF_CONTRACT_PROBE_BINDING_001.json"})
+                          "OC3_COADD_PSF_CONTRACT_PROBE_BINDING_001.json",
+                          "OC3_FIXED_NATIVE_PSF_ACQUISITION_CANDIDATE_001.json"})
         self.assertEqual({item.name for item in (PROJECT / "oc3/TECHNICAL_INDEX").iterdir()},
                          {"OC3_LOCATIONS.json", "OC3_SELECTION_FLOW.csv",
                           "OC3_PSF_IDENTITIES.json"})

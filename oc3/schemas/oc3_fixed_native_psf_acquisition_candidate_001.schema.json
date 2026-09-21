@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OC3 fixed native products and PSF acquisition candidate 001",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "candidate_type", "candidate_state", "stage_id", "selection_sha256", "fixed_native_resolved_contract_sha256", "psf_resolved_contract_sha256", "implementation_aggregate", "inventories", "body_budget", "request_plan", "starting_cumulative", "acquisition_order", "fixed_native_resources", "psf_transport_resources", "psf_contract", "publication", "negative_capabilities", "success_terminal", "final_authorization_path", "final_authorization_present", "command_argv", "sealed"],
+  "properties": {
+    "schema_version": {"const": "OC3_FIXED_NATIVE_PSF_ACQUISITION_CANDIDATE_001"},
+    "candidate_type": {"const": "FIXED_NATIVE_PRODUCTS_AND_PSF_ACQUISITION"},
+    "candidate_state": {"const": "PENDING_HUMAN_REVIEW"},
+    "stage_id": {"const": "OC3-FIXED-NATIVE-PSF-ACQUISITION-001"},
+    "selection_sha256": {"const": "2e6f2cb070a363e9e3dbdb1f25670590c33500a293bb926d8ff94657a2ff8860"},
+    "fixed_native_resolved_contract_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "psf_resolved_contract_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "implementation_aggregate": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "inventories": {"type": "object"},
+    "body_budget": {"type": "object"},
+    "request_plan": {"type": "object"},
+    "starting_cumulative": {"type": "object"},
+    "acquisition_order": {"type": "array", "minItems": 30, "maxItems": 30},
+    "fixed_native_resources": {"type": "array", "minItems": 12, "maxItems": 12},
+    "psf_transport_resources": {"type": "array", "minItems": 18, "maxItems": 18},
+    "psf_contract": {"type": "object"},
+    "publication": {"type": "object"},
+    "negative_capabilities": {"type": "object"},
+    "success_terminal": {"const": "BOUNDED_NATIVE_PRODUCTS_ACQUIRED"},
+    "final_authorization_path": {"type": "string"},
+    "final_authorization_present": {"const": false},
+    "command_argv": {"type": "array", "items": {"type": "string"}},
+    "sealed": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

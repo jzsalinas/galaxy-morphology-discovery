@@ -51,6 +51,12 @@ The separately human-run probe performs at most one capped GET for S1/P0 and one
 persists each regional response structure, never accesses image/invvar products, and never
 decodes PSF array values. It is a service-semantics probe, not PSF bulk acquisition.
 
+The prospective combined acquisition uses `oc3_fixed_native_psf_acquisition.py`. Offline
+candidate validation binds the twelve resolved image/invvar files, eighteen bundled PSF
+responses and all 54 point-band identities. Network execution remains impossible without a
+separate final authorization artifact. Publication is staging-first and immutable; no cutout,
+shape homogenization, normalization, preprocessing or morphology path is included.
+
 Production input contracts (to be supplied in a later authorized task):
 
 - `OC3_METADATA_BOOTSTRAP_MANIFEST.json`: schema version 2; frozen authorities and implementation;
