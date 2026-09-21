@@ -64,6 +64,10 @@ oc3/coadd_psf_contract_probe/
 # Future fixed native + bundled PSF acquisition runtime
 oc3/fixed_native_psf_acquisition/
 
+# Deterministic offline native extraction runtime and published row-level index
+oc3/NATIVE_EXTRACTION/
+oc3/TECHNICAL_INDEX/OC3_NATIVE_EXTRACTION_MANIFEST.json
+
 # Generic temporary acquisition state
 **/STAGING/
 

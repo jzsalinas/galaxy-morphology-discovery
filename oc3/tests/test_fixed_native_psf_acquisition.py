@@ -191,10 +191,16 @@ class FixedNativePSFAcquisitionTests(unittest.TestCase):
         self.assertFalse(negative["morphology_inspection"])
         self.assertFalse(negative["location_change"])
 
-    def test_013_final_authorization_is_absent(self):
+    def test_013_candidate_was_prospective_and_completed_authorization_is_sealed(self):
         candidate = production_candidate()
         self.assertFalse(candidate["final_authorization_present"])
-        self.assertFalse((PROJECT / stage.AUTHORIZATION_RELATIVE).exists())
+        authorization_path = PROJECT / stage.AUTHORIZATION_RELATIVE
+        self.assertEqual(file_hash(authorization_path),
+                         "e493fa0acdeb0f70ebce2a51f04d1d41f18c5a5a81a6e745d0d1b8cc5afc3d0d")
+        authorization = stage._canonical_load(authorization_path)
+        stage._verify_seal(authorization)
+        self.assertTrue(authorization["authorized"])
+        self.assertEqual(authorization["candidate_sha256"], file_hash(CANDIDATE_PATH))
 
     def test_014_offline_candidate_validation(self):
         result = stage.validate_candidate_offline(CANDIDATE_PATH, PROJECT)

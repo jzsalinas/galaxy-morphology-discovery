@@ -57,6 +57,11 @@ responses and all 54 point-band identities. Network execution remains impossible
 separate final authorization artifact. Publication is staging-first and immutable; no cutout,
 shape homogenization, normalization, preprocessing or morphology path is included.
 
+The offline native extraction uses `oc3_offline_native_extraction.py`. It has no network mode
+and reads only bounded `CompImageHDU.section` windows from the acquired immutable products.
+It writes exact canonical 129×129 arrays and provenance, without statistics, visualization,
+mask application, normalization, preprocessing or PSF rewriting.
+
 Production input contracts (to be supplied in a later authorized task):
 
 - `OC3_METADATA_BOOTSTRAP_MANIFEST.json`: schema version 2; frozen authorities and implementation;

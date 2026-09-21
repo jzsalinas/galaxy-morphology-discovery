@@ -577,10 +577,14 @@ class ManifestContractTripwireOutcomeTests(Base):
                           "OC3_FIXED_NATIVE_RESOURCE_PROBE_BINDING_001.json",
                           "OC3_PSF_RESOURCE_CONTRACT_001.json",
                           "OC3_COADD_PSF_CONTRACT_PROBE_BINDING_001.json",
-                          "OC3_FIXED_NATIVE_PSF_ACQUISITION_CANDIDATE_001.json"})
-        self.assertEqual({item.name for item in (PROJECT / "oc3/TECHNICAL_INDEX").iterdir()},
-                         {"OC3_LOCATIONS.json", "OC3_SELECTION_FLOW.csv",
-                          "OC3_PSF_IDENTITIES.json"})
+                          "OC3_FIXED_NATIVE_PSF_ACQUISITION_CANDIDATE_001.json",
+                          "OC3_FIXED_NATIVE_PSF_ACQUISITION_AUTHORIZATION_001.json"})
+        technical_names = {item.name for item in (PROJECT / "oc3/TECHNICAL_INDEX").iterdir()}
+        technical_base = {"OC3_LOCATIONS.json", "OC3_SELECTION_FLOW.csv",
+                          "OC3_PSF_IDENTITIES.json"}
+        self.assertIn(technical_names,
+                      (technical_base,
+                       technical_base | {"OC3_NATIVE_EXTRACTION_MANIFEST.json"}))
         for relative in ("oc3/provenance", "oc3/RAW_IMMUTABLE", "oc3/reports"):
             self.assertFalse(any((PROJECT / relative).iterdir()))
 

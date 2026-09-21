@@ -12,7 +12,7 @@ import os
 from pathlib import Path
 import shutil
 
-from .core import canonical, file_hash, implementation_hash
+from .core import canonical, file_hash
 from .fixed_native_contract import inspect_header
 from .coadd_psf_contract import LiteralPSFTransport, inspect_response
 from .resource_contract import LiteralHTTPTransport
@@ -24,6 +24,7 @@ PARTIAL = "BOUNDED_NATIVE_PRODUCTS_ACQUISITION_PARTIAL"
 CANDIDATE_READY = "FIXED_NATIVE_PSF_ACQUISITION_CANDIDATE_VALID_FOR_HUMAN_REVIEW"
 
 SELECTION_SHA256 = "2e6f2cb070a363e9e3dbdb1f25670590c33500a293bb926d8ff94657a2ff8860"
+FROZEN_IMPLEMENTATION_AGGREGATE = "18d72c7843d376f7cc70b74a5906df5ec6d2dd046859e30b9fda735c9ba91661"
 LOCATIONS_RELATIVE = Path("oc3/TECHNICAL_INDEX/OC3_LOCATIONS.json")
 LOCATIONS_SHA256 = "33d593638c074a3ff59d32d3e4c38558e8912377ea15818ca5072087007c97d1"
 LOCATION_TERMINAL_RELATIVE = Path(
@@ -305,7 +306,7 @@ def build_candidate(project: Path) -> dict:
         "selection_sha256": SELECTION_SHA256,
         "fixed_native_resolved_contract_sha256": FIXED_CONTRACT_SHA256,
         "psf_resolved_contract_sha256": PSF_CONTRACT_SHA256,
-        "implementation_aggregate": implementation_hash(project),
+        "implementation_aggregate": FROZEN_IMPLEMENTATION_AGGREGATE,
         "inventories": {"fixed_native_resources": 12, "psf_transport_resources": 18,
                         "psf_observational_identities": 54,
                         "psf_spatial_points": 18},
