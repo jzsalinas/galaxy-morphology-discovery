@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 from pathlib import Path
 import tempfile
 import unittest
@@ -14,6 +15,9 @@ from oc3lib.core import canonical
 
 PROJECT = Path(__file__).resolve().parents[2]
 BRICKS = PROJECT / "oc3/INPUTS/OC3_DEVELOPMENT_BRICKS.csv"
+REAL_CONTRACT_PATH = (PROJECT /
+    "oc3/resource_contract/OC3-RESOURCE-CONTRACT-PROBE-002/RESOURCE_CONTRACT_RESOLVED.json")
+CANDIDATE_PATH = PROJECT / stage.AUXILIARY_CANDIDATE_RELATIVE
 
 
 def card(key, value=None):
@@ -85,23 +89,42 @@ def resolved_contract(contract, size=16):
     return stage._seal(value)
 
 
-def authorization(contract, resume=False):
-    return stage._seal({"schema_version": "OC3_AUXILIARY_ACQUISITION_AUTHORIZATION_001",
-                        "stage_id": stage.STAGE_ID, "contract_sha256": contract["sealed"],
-                        "scope": "AUXILIARY_14_ONLY", "resume": resume})
+def production_contract():
+    return stage.load_canonical_json(REAL_CONTRACT_PATH)
+
+
+def acquisition_candidate(contract):
+    return stage.build_acquisition_candidate(contract, PROJECT)
+
+
+def authorization(candidate, resume=False):
+    candidate_sha = hashlib.sha256(canonical(candidate) + b"\n").hexdigest()
+    return stage._seal({
+        "schema_version": stage.ACQUISITION_AUTHORIZATION_SCHEMA,
+        "authorization_type": "AUXILIARY_14_ACQUISITION_FINAL_HUMAN_AUTHORIZATION",
+        "authorization_state": "FINAL_HUMAN_AUTHORIZATION", "authorized": True,
+        "authorized_by": "synthetic test", "authorized_at_utc": "2026-09-21T00:00:00Z",
+        "stage_id": stage.STAGE_ID, "scope": "AUXILIARY_14_ONLY",
+        "candidate_path": str(CANDIDATE_PATH.resolve()), "candidate_sha256": candidate_sha,
+        "resume": resume,
+    })
 
 
 class BulkTransport:
-    def __init__(self, contract, size=16, fail_get=None):
-        self.size = size; self.fail_get = fail_get; self.calls = []
+    def __init__(self, contract, fail_get=None):
+        self.fail_get = fail_get; self.calls = []
         self.urls = {r["literal_url"]["value"]: r["resource_id"] for r in contract["resources"][:14]}
+        self.rows = {r["resource_id"]: r for r in contract["resources"][:14]}
     def head(self, url):
-        self.calls.append(("HEAD", self.urls[url])); return 200, {"content-length": str(self.size)}, b"", url
+        rid = self.urls[url]; row = self.rows[rid]; self.calls.append(("HEAD", rid))
+        constraints = row["representation_constraints"]["value"]
+        return 200, {"content-length": str(row["max_bytes"]["value"]),
+                     "etag": constraints["etag"]}, b"", url
     def get(self, url, max_bytes):
         rid = self.urls[url]; self.calls.append(("GET", rid))
         status = 500 if rid == self.fail_get else 200
-        body = b"x" * self.size
-        return status, {"content-length": str(self.size)}, body, url
+        size = self.rows[rid]["max_bytes"]["value"]; body = b"x" * size
+        return status, {"content-length": str(size)}, body, url
 
 
 def descriptors(paths, contract):
@@ -202,39 +225,59 @@ class ResourceContractTests(unittest.TestCase):
         self.assertEqual((budget["remaining_bytes"], budget["remaining_requests"]), (1_521_151_090, 192))
 
     def test_18_insufficient_budget_fails_before_get(self):
-        contract = resolved_contract(base_contract(), size=120_000_000)
-        transport = BulkTransport(contract, size=120_000_000)
+        contract = production_contract(); candidate = acquisition_candidate(contract)
+        transport = BulkTransport(contract)
         with tempfile.TemporaryDirectory() as td:
+            root = Path(td); state = stage._load_state(root / "AUXILIARY_LEDGER.json")
+            state["used_bytes"] = stage.GLOBAL_MAX_BYTES - 1
+            stage._write_state(root / "AUXILIARY_LEDGER.json", state)
             with self.assertRaisesRegex(stage.ResourceContractError, "INSUFFICIENT_GLOBAL_BUDGET_BEFORE_GET"):
-                stage.acquire_auxiliary(contract, authorization(contract), transport, Path(td), descriptors)
+                stage.acquire_auxiliary(
+                    contract, candidate, authorization(candidate), transport, root, descriptors,
+                    project=PROJECT, candidate_path=CANDIDATE_PATH)
         self.assertTrue(transport.calls and all(c[0] == "HEAD" for c in transport.calls))
 
     def test_19_exact_acquisition_order_and_publication(self):
-        contract = resolved_contract(base_contract()); transport = BulkTransport(contract)
+        contract = production_contract(); candidate = acquisition_candidate(contract)
+        transport = BulkTransport(contract)
         with tempfile.TemporaryDirectory() as td:
-            terminal = stage.acquire_auxiliary(contract, authorization(contract), transport, Path(td), descriptors)
+            terminal = stage.acquire_auxiliary(
+                contract, candidate, authorization(candidate), transport, Path(td), descriptors,
+                project=PROJECT, candidate_path=CANDIDATE_PATH)
             self.assertEqual(terminal["state"], stage.SUCCESS_TERMINAL)
             self.assertEqual([c[0] for c in transport.calls[:14]], ["HEAD"] * 14)
             self.assertEqual([c[1] for c in transport.calls[14:]], [r["resource_id"] for r in contract["resources"][:14]])
             self.assertEqual(len(list((Path(td) / "RAW_IMMUTABLE").glob("*.fits.fz"))), 14)
+            ledger = json.loads((Path(td) / "AUXILIARY_LEDGER.json").read_text())
+            self.assertEqual(ledger["body_plan_reserved"], stage.ACQUISITION_EXPECTED_BODY_BYTES)
 
     def test_20_partial_failure_requires_resume_authorization(self):
-        contract = resolved_contract(base_contract()); fail = contract["resources"][1]["resource_id"]
+        contract = production_contract(); candidate = acquisition_candidate(contract)
+        fail = contract["resources"][1]["resource_id"]
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
             with self.assertRaisesRegex(stage.ResourceContractError, "AUXILIARY_GET_FAILURE"):
-                stage.acquire_auxiliary(contract, authorization(contract), BulkTransport(contract, fail_get=fail), root, descriptors)
+                stage.acquire_auxiliary(
+                    contract, candidate, authorization(candidate), BulkTransport(contract, fail_get=fail),
+                    root, descriptors, project=PROJECT, candidate_path=CANDIDATE_PATH)
             with self.assertRaisesRegex(stage.ResourceContractError, "SEPARATE_RESUME_AUTHORIZATION_REQUIRED"):
-                stage.acquire_auxiliary(contract, authorization(contract), BulkTransport(contract), root, descriptors)
+                stage.acquire_auxiliary(
+                    contract, candidate, authorization(candidate), BulkTransport(contract), root,
+                    descriptors, project=PROJECT, candidate_path=CANDIDATE_PATH)
 
     def test_21_resume_requires_sealed_resume_flag(self):
-        contract = resolved_contract(base_contract()); fail = contract["resources"][0]["resource_id"]
+        contract = production_contract(); candidate = acquisition_candidate(contract)
+        fail = contract["resources"][0]["resource_id"]
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
             with self.assertRaises(stage.ResourceContractError):
-                stage.acquire_auxiliary(contract, authorization(contract), BulkTransport(contract, fail_get=fail), root, descriptors)
+                stage.acquire_auxiliary(
+                    contract, candidate, authorization(candidate), BulkTransport(contract, fail_get=fail),
+                    root, descriptors, project=PROJECT, candidate_path=CANDIDATE_PATH)
             with self.assertRaisesRegex(stage.ResourceContractError, "ACQUISITION_AUTHORIZATION_INVALID"):
-                stage.acquire_auxiliary(contract, authorization(contract), BulkTransport(contract), root, descriptors, resume=True)
+                stage.acquire_auxiliary(
+                    contract, candidate, authorization(candidate), BulkTransport(contract), root,
+                    descriptors, project=PROJECT, candidate_path=CANDIDATE_PATH, resume=True)
 
     def test_22_grid_wcs_mismatch_fails_without_resampling(self):
         rows = descriptors([], base_contract()); rows[-1]["wcs_vector"][0] += 1e-3

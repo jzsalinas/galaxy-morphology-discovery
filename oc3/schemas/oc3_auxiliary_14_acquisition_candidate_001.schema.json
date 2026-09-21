@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "oc3_auxiliary_14_acquisition_candidate_001.schema.json",
+  "title": "OC3 AUXILIARY_14_ONLY acquisition authorization candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "canonicalization", "candidate_type", "candidate_state", "stage_id", "scope", "resolved_contract", "budget_amendment", "implementation_aggregate", "resource_count", "expected_body_bytes", "primary_requests", "retry_policy", "starting_cumulative", "global_caps", "resources", "negative_capabilities", "command_argv", "final_authorization_path", "sealed"],
+  "properties": {
+    "schema_version": {"const": "OC3_AUXILIARY_14_ACQUISITION_CANDIDATE_001"},
+    "canonicalization": {"const": "CANONICAL_JSON_SORTED_KEYS_COMPACT_UTF8_LF_V1"},
+    "candidate_type": {"const": "AUXILIARY_14_ACQUISITION_AUTHORIZATION_CANDIDATE"},
+    "candidate_state": {"const": "PENDING_HUMAN_REVIEW"},
+    "stage_id": {"const": "OC3-RESOURCE-CONTRACT-AUXILIARY-ACQUISITION-001"},
+    "scope": {"const": "AUXILIARY_14_ONLY"},
+    "resolved_contract": {"$ref": "#/$defs/fileBinding"},
+    "budget_amendment": {"$ref": "#/$defs/fileBinding"},
+    "implementation_aggregate": {"$ref": "#/$defs/sha256"},
+    "resource_count": {"const": 14},
+    "expected_body_bytes": {"const": 3827520},
+    "primary_requests": {
+      "type": "object", "additionalProperties": false,
+      "required": ["head", "get", "total"],
+      "properties": {"head": {"const": 14}, "get": {"const": 14}, "total": {"const": 28}}
+    },
+    "retry_policy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["additional_per_exact_identity", "stage_retry_request_pool", "stage_request_cap", "automatic_retry", "automatic_resume", "separate_resume_authorization"],
+      "properties": {
+        "additional_per_exact_identity": {"const": 2},
+        "stage_retry_request_pool": {"const": 6},
+        "stage_request_cap": {"const": 34},
+        "automatic_retry": {"const": false},
+        "automatic_resume": {"const": false},
+        "separate_resume_authorization": {"const": true}
+      }
+    },
+    "starting_cumulative": {
+      "type": "object", "additionalProperties": false,
+      "required": ["requests", "body_bytes"],
+      "properties": {"requests": {"const": 166}, "body_bytes": {"const": 89836046}}
+    },
+    "global_caps": {
+      "type": "object", "additionalProperties": false,
+      "required": ["body_bytes", "historical_request_planning_estimate", "concurrency"],
+      "properties": {"body_bytes": {"const": 1610612736}, "historical_request_planning_estimate": {"const": 200}, "concurrency": {"const": 1}}
+    },
+    "resources": {"type": "array", "minItems": 14, "maxItems": 14, "items": {"$ref": "#/$defs/resource"}},
+    "negative_capabilities": {
+      "type": "object", "additionalProperties": false,
+      "required": ["provider_reprobe", "alternate_url", "location_selection", "image_invvar_acquisition", "science_pixel_interpretation", "automatic_resume"],
+      "properties": {
+        "provider_reprobe": {"const": false}, "alternate_url": {"const": false},
+        "location_selection": {"const": false}, "image_invvar_acquisition": {"const": false},
+        "science_pixel_interpretation": {"const": false}, "automatic_resume": {"const": false}
+      }
+    },
+    "command_argv": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "final_authorization_path": {"type": "string", "minLength": 1},
+    "sealed": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "fileBinding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha256"}}
+    },
+    "resource": {
+      "type": "object", "additionalProperties": false,
+      "required": ["resource_id", "region", "product", "band", "literal_url", "expected_content_length", "expected_etag", "content_encoding"],
+      "properties": {
+        "resource_id": {"type": "string", "pattern": "^oc3_[0-9a-f]{24}$"},
+        "region": {"enum": ["south", "north"]},
+        "product": {"enum": ["nexp", "psfsize", "maskbits"]},
+        "band": {"type": ["string", "null"], "enum": ["g", "r", "z", null]},
+        "literal_url": {"type": "string", "pattern": "^https://portal\\.nersc\\.gov/"},
+        "expected_content_length": {"type": "integer", "minimum": 1},
+        "expected_etag": {"type": ["string", "null"]},
+        "content_encoding": {"const": "identity"}
+      }
+    }
+  }
+}

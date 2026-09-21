@@ -78,3 +78,8 @@ Probe 001 is preserved as immutable partial evidence. The corrected
 per-resource HEAD and FITS-structure checkpoints, and scans at most 16 aligned
 header blocks per resource under a separate 136-request local/global envelope.
 Its dry run is offline; its network mode requires Binding 002 and a fresh audit directory.
+
+`oc3_resource_contract.py --validate-auxiliary-candidate` validates the sealed
+`AUXILIARY_14_ONLY` technical proposal entirely offline. Future acquisition uses
+the historical cumulative counters plus a mandatory 34-request stage cap and
+still requires a separate final human authorization before transport exists.
