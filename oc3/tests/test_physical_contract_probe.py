@@ -567,8 +567,8 @@ class ManifestContractTripwireOutcomeTests(Base):
         # Later reviewed stages intentionally materialized these exact frozen
         # inputs. Preserve them while retaining the tripwire for every other
         # production directory.
-        self.assertEqual({item.name for item in (PROJECT / "oc3/INPUTS").iterdir()},
-                         {"OC3_DEVELOPMENT_BRICKS.csv",
+        input_names = {item.name for item in (PROJECT / "oc3/INPUTS").iterdir()}
+        input_base = {"OC3_DEVELOPMENT_BRICKS.csv",
                           "OC3_RESOURCE_CONTRACT_PROBE_BINDING_001.json",
                           "OC3_RESOURCE_CONTRACT_PROBE_BINDING_002.json",
                           "OC3_AUXILIARY_14_ACQUISITION_CANDIDATE_001.json",
@@ -578,7 +578,13 @@ class ManifestContractTripwireOutcomeTests(Base):
                           "OC3_PSF_RESOURCE_CONTRACT_001.json",
                           "OC3_COADD_PSF_CONTRACT_PROBE_BINDING_001.json",
                           "OC3_FIXED_NATIVE_PSF_ACQUISITION_CANDIDATE_001.json",
-                          "OC3_FIXED_NATIVE_PSF_ACQUISITION_AUTHORIZATION_001.json"})
+                          "OC3_FIXED_NATIVE_PSF_ACQUISITION_AUTHORIZATION_001.json"}
+        eligibility_implementation = input_base | {
+            "OC3_GALAXY_ELIGIBILITY_DOCUMENTARY_MANIFEST_001.json"}
+        eligibility_p0 = eligibility_implementation | {
+            "OC3_GALAXY_ELIGIBILITY_PANEL_MANIFEST.json",
+            "OC3_GALAXY_ELIGIBILITY_P1_AUTHORIZATION_CANDIDATE_001.json"}
+        self.assertIn(input_names, (input_base, eligibility_implementation, eligibility_p0))
         technical_names = {item.name for item in (PROJECT / "oc3/TECHNICAL_INDEX").iterdir()}
         technical_base = {"OC3_LOCATIONS.json", "OC3_SELECTION_FLOW.csv",
                           "OC3_PSF_IDENTITIES.json"}
