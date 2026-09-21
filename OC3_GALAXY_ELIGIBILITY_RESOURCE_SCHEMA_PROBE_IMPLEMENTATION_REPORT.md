@@ -109,4 +109,46 @@ forbidden field observations = 0
 
 P0 will be executed exactly once offline only after this implementation is committed. This report will then receive a post-P0 section binding the immutable output hashes and terminal without changing the implementation aggregate.
 
+## 9. Post-commit real P0 execution review
+
+The implementation was committed as:
+
+```text
+f1585e0c44a7fc3ad87185e398619ba3eee46e51
+feat: implement bounded galaxy eligibility resource probe
+```
+
+P0 was then invoked exactly once offline:
+
+```text
+oc3/.venv/bin/python oc3/oc3_galaxy_eligibility_resource_schema_probe.py --bind-panel
+```
+
+The observed compact result was:
+
+```json
+{"error":"P0_DUPLICATE_REGIONAL_IDENTITY","stage_id":"OC3-GALAXY-ELIGIBILITY-RESOURCE-SCHEMA-PROBE-001","state":"GALAXY_ELIGIBILITY_PANEL_BINDING_FAILED"}
+```
+
+The frozen pre-hash rule requires unique `BRICKNAME` and `BRICKID` values within and across the north/south candidate region views. The real regional authorities did not satisfy that rule. The implementation stopped before hash selection and publication. It did not remove overlaps, assign one region, change the identity key, or adapt the panel after observing this result.
+
+Post-attempt filesystem review confirmed:
+
+```text
+P0 execution attempts = 1
+P0 terminal = GALAXY_ELIGIBILITY_PANEL_BINDING_FAILED
+first error = P0_DUPLICATE_REGIONAL_IDENTITY
+panel manifest = ABSENT
+P1 authorization candidate = ABSENT
+P0 run directory = ABSENT
+network requests = 0
+Tractor rows decoded = 0
+spectroscopy rows decoded = 0
+Gaia rows decoded = 0
+forbidden field observations = 0
+final P1 authorization = ABSENT
+```
+
+P1 cannot proceed because no sealed 16-brick panel exists. A new execution would require a prospective clarification or amendment that decides how regional overlap affects the frozen panel identity and balance rules. No such rule is inferred here, and P0 must not be rerun under the current specification.
+
 **OC-3 MORPHOLOGICAL DISCOVERY PHASE REMAINS NOT STARTED.**
