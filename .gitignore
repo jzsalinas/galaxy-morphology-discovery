@@ -68,6 +68,9 @@ oc3/fixed_native_psf_acquisition/
 oc3/NATIVE_EXTRACTION/
 oc3/TECHNICAL_INDEX/OC3_NATIVE_EXTRACTION_MANIFEST.json
 
+# Deterministic offline observational/confound audit runtime
+oc3/CONFOUND_AUDIT/OC3-OBSERVATIONAL-CONFOUND-AUDIT-001/
+
 # Generic temporary acquisition state
 **/STAGING/
 

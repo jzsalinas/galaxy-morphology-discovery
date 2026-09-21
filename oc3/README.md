@@ -62,6 +62,10 @@ and reads only bounded `CompImageHDU.section` windows from the acquired immutabl
 It writes exact canonical 129×129 arrays and provenance, without statistics, visualization,
 mask application, normalization, preprocessing or PSF rewriting.
 
+The observational/confound audit uses `oc3_observational_confound_audit.py`. It is offline,
+enforces completion of observer-only metrics before IMAGE access, and publishes only numeric
+CSV/JSON evidence. It has no display, preprocessing, selection or learned-representation path.
+
 Production input contracts (to be supplied in a later authorized task):
 
 - `OC3_METADATA_BOOTSTRAP_MANIFEST.json`: schema version 2; frozen authorities and implementation;
