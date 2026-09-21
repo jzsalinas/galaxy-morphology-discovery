@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OC3 frozen PSF observational identities 001",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "stage_id", "locations_binding", "base_contract", "counts", "identities", "sealed"],
+  "properties": {
+    "schema_version": {"const": "OC3_PSF_IDENTITIES_001"},
+    "stage_id": {"const": "OC3-COADD-PSF-CONTRACT-PROBE-001"},
+    "locations_binding": {"type": "object"},
+    "base_contract": {"type": "object"},
+    "counts": {"type": "object"},
+    "identities": {
+      "type": "array",
+      "minItems": 54,
+      "maxItems": 54,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["identity_id", "slot", "region", "brick", "point_id", "native_x", "native_y", "ra", "dec", "band", "transport_id"],
+        "properties": {
+          "identity_id": {"type": "string"},
+          "slot": {"enum": ["S1", "S2", "S3", "N1", "N2", "N3"]},
+          "region": {"enum": ["south", "north"]},
+          "brick": {"type": "string"},
+          "point_id": {"enum": ["P0", "P1", "P2"]},
+          "native_x": {"type": "number"},
+          "native_y": {"type": "number"},
+          "ra": {"type": "number"},
+          "dec": {"type": "number"},
+          "band": {"enum": ["g", "r", "z"]},
+          "transport_id": {"type": "string"}
+        }
+      }
+    },
+    "sealed": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

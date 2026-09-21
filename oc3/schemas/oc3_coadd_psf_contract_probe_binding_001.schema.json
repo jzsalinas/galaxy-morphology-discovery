@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OC3 bounded coadd-PSF contract probe binding 001",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "stage_id", "locations_binding", "identity_manifest", "base_contract", "fixed_native_contract", "cumulative_budget", "policy", "implementation", "representative_requests", "bulk_psf_acquisition_authorized", "image_invvar_acquisition_authorized", "command_argv", "sealed"],
+  "properties": {
+    "schema_version": {"const": "OC3_COADD_PSF_CONTRACT_PROBE_BINDING_001"},
+    "stage_id": {"const": "OC3-COADD-PSF-CONTRACT-PROBE-001"},
+    "locations_binding": {"type": "object"},
+    "identity_manifest": {"type": "object"},
+    "base_contract": {"type": "object"},
+    "fixed_native_contract": {"type": "object"},
+    "cumulative_budget": {"type": "object"},
+    "policy": {"type": "object"},
+    "implementation": {"type": "object"},
+    "representative_requests": {"type": "array", "minItems": 2, "maxItems": 2},
+    "bulk_psf_acquisition_authorized": {"const": false},
+    "image_invvar_acquisition_authorized": {"const": false},
+    "command_argv": {"type": "array", "items": {"type": "string"}},
+    "sealed": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

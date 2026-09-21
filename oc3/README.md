@@ -45,6 +45,12 @@ human-run probe can issue only literal HEAD and aligned FITS-header Range reques
 per-resource checkpoints, and has no pixel decoder or bulk acquisition path. The companion
 PSF contract keeps 54 point-band identities distinct from 18 prospective multi-band responses.
 
+The coadd-PSF transport contract uses `oc3_coadd_psf_contract_probe.py`. Its dry-run validates
+the sealed 54-identity manifest and the two literal representative requests without network.
+The separately human-run probe performs at most one capped GET for S1/P0 and one for N1/P0,
+persists each regional response structure, never accesses image/invvar products, and never
+decodes PSF array values. It is a service-semantics probe, not PSF bulk acquisition.
+
 Production input contracts (to be supplied in a later authorized task):
 
 - `OC3_METADATA_BOOTSTRAP_MANIFEST.json`: schema version 2; frozen authorities and implementation;

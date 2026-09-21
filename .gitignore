@@ -58,6 +58,9 @@ oc3/TECHNICAL_INDEX/OC3_SELECTION_FLOW.csv
 # Bounded fixed image/invvar resource-contract probe runtime
 oc3/fixed_native_resource_contract/
 
+# Bounded two-response coadd-PSF semantics probe runtime
+oc3/coadd_psf_contract_probe/
+
 # Generic temporary acquisition state
 **/STAGING/
 
