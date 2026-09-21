@@ -572,8 +572,13 @@ class ManifestContractTripwireOutcomeTests(Base):
                           "OC3_RESOURCE_CONTRACT_PROBE_BINDING_001.json",
                           "OC3_RESOURCE_CONTRACT_PROBE_BINDING_002.json",
                           "OC3_AUXILIARY_14_ACQUISITION_CANDIDATE_001.json",
-                          "OC3_AUXILIARY_ACQUISITION_AUTHORIZATION_001.json"})
-        for relative in ("oc3/provenance", "oc3/RAW_IMMUTABLE", "oc3/TECHNICAL_INDEX", "oc3/reports"):
+                          "OC3_AUXILIARY_ACQUISITION_AUTHORIZATION_001.json",
+                          "OC3_FIXED_NATIVE_RESOURCE_CONTRACT_001.json",
+                          "OC3_FIXED_NATIVE_RESOURCE_PROBE_BINDING_001.json",
+                          "OC3_PSF_RESOURCE_CONTRACT_001.json"})
+        self.assertEqual({item.name for item in (PROJECT / "oc3/TECHNICAL_INDEX").iterdir()},
+                         {"OC3_LOCATIONS.json", "OC3_SELECTION_FLOW.csv"})
+        for relative in ("oc3/provenance", "oc3/RAW_IMMUTABLE", "oc3/reports"):
             self.assertFalse(any((PROJECT / relative).iterdir()))
 
     def test_89_single_audited_probe_attempt_is_preserved_immutably(self):

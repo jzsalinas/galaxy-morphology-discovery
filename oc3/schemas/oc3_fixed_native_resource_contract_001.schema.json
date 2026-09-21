@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "oc3_fixed_native_resource_contract_001.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "stage_id", "locations_binding", "directory_evidence", "documentary_authorities", "resources", "sealed"],
+  "properties": {
+    "schema_version": {"const": "OC3_FIXED_NATIVE_RESOURCE_CONTRACT_001"},
+    "stage_id": {"const": "OC3-FIXED-NATIVE-RESOURCE-PROBE-001"},
+    "locations_binding": {"type": "object"},
+    "directory_evidence": {"type": "object"},
+    "documentary_authorities": {"type": "array", "minItems": 2},
+    "resources": {
+      "type": "array", "minItems": 12, "maxItems": 12,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["resource_id", "fields", "evidence_state"],
+        "properties": {
+          "resource_id": {"type": "string", "pattern": "^oc3_[0-9a-f]{24}$"},
+          "fields": {"type": "object"},
+          "evidence_state": {"enum": ["UNRESOLVED", "OBSERVED_BY_BOUNDED_PROBE"]}
+        }
+      }
+    },
+    "sealed": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

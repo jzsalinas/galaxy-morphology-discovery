@@ -39,6 +39,12 @@ It has no network mode and can decode only the frozen NEXP, PSFSIZE and optical 
 resources already published under `RAW_IMMUTABLE`. It emits six deterministic observational
 locations and aggregate technical evidence; it cannot open image, invvar, PSF or catalogs.
 
+The fixed native-resource contract uses `oc3_fixed_native_resource_contract.py`. Its dry-run
+validates the sealed twelve-resource image/invvar binding without network. Its separately
+human-run probe can issue only literal HEAD and aligned FITS-header Range requests, persists
+per-resource checkpoints, and has no pixel decoder or bulk acquisition path. The companion
+PSF contract keeps 54 point-band identities distinct from 18 prospective multi-band responses.
+
 Production input contracts (to be supplied in a later authorized task):
 
 - `OC3_METADATA_BOOTSTRAP_MANIFEST.json`: schema version 2; frozen authorities and implementation;

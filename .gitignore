@@ -55,6 +55,9 @@ oc3/location_selection/
 oc3/TECHNICAL_INDEX/OC3_LOCATIONS.json
 oc3/TECHNICAL_INDEX/OC3_SELECTION_FLOW.csv
 
+# Bounded fixed image/invvar resource-contract probe runtime
+oc3/fixed_native_resource_contract/
+
 # Generic temporary acquisition state
 **/STAGING/
 

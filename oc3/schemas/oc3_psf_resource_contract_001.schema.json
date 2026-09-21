@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "oc3_psf_resource_contract_001.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "stage_id", "locations_binding", "provider_contract", "spatial_points", "observational_identities", "transport_requests", "counts", "sealed"],
+  "properties": {
+    "schema_version": {"const": "OC3_PSF_RESOURCE_CONTRACT_001"},
+    "stage_id": {"const": "OC3-PSF-RESOURCE-CONTRACT-001"},
+    "locations_binding": {"type": "object"},
+    "provider_contract": {"type": "object"},
+    "spatial_points": {"type": "array", "minItems": 18, "maxItems": 18},
+    "observational_identities": {"type": "array", "minItems": 54, "maxItems": 54},
+    "transport_requests": {"type": "array", "minItems": 18, "maxItems": 18},
+    "counts": {
+      "const": {"locations": 6, "spatial_points": 18, "observational_identities": 54, "prospective_http_responses": 18}
+    },
+    "sealed": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

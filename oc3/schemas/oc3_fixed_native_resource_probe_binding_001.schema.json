@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "oc3_fixed_native_resource_probe_binding_001.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "stage_id", "locations_binding", "base_contract", "cumulative_budget", "policy", "implementation", "resources", "acquisition_authorized", "sealed"],
+  "properties": {
+    "schema_version": {"const": "OC3_FIXED_NATIVE_RESOURCE_PROBE_BINDING_001"},
+    "stage_id": {"const": "OC3-FIXED-NATIVE-RESOURCE-PROBE-001"},
+    "locations_binding": {"type": "object"},
+    "base_contract": {"type": "object"},
+    "cumulative_budget": {"type": "object"},
+    "policy": {"type": "object"},
+    "implementation": {"type": "object"},
+    "resources": {"type": "array", "minItems": 12, "maxItems": 12},
+    "acquisition_authorized": {"const": false},
+    "sealed": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
