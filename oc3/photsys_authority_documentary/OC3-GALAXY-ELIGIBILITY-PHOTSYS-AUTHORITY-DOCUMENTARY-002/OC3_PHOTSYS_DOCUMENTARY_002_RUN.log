@@ -1,0 +1,8 @@
+stage_id=OC3-GALAXY-ELIGIBILITY-PHOTSYS-AUTHORITY-DOCUMENTARY-002
+state=PHOTSYS_LITERAL_RESOURCE_URL_BOUND
+stage_requests=1
+stage_body_bytes=4683
+data_head_requests=0
+data_range_requests=0
+full_fits_gets=0
+table_cell_values_decoded=0

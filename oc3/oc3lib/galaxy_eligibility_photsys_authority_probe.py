@@ -733,7 +733,9 @@ def _check_content_range(headers: dict[str, str], start: int, end: int, total: i
 
 def probe_hdu_inventory(transport: object, budget: Budget, checkpoints: Checkpoints,
                         raw: Path, *, url: str, file_size: int,
-                        header_block_cap: int, sequence_start: int = 0) -> tuple[list[dict[str, object]], int]:
+                        header_block_cap: int, sequence_start: int = 0,
+                        hdu_checkpoint: Callable[[dict[str, object], int], int] | None = None
+                        ) -> tuple[list[dict[str, object]], int]:
     inventory = []; offset = 0; sequence = sequence_start; blocks_used = 0
     while offset < file_size:
         header_bytes = bytearray(); header_start = offset
@@ -784,6 +786,8 @@ def probe_hdu_inventory(transport: object, budget: Budget, checkpoints: Checkpoi
         inventory[-1]["hdu_end"] = next_offset
         if next_offset > file_size or next_offset <= offset:
             raise PHOTSYSProbeError("FITS_FILE_EXTENT_MISMATCH")
+        if hdu_checkpoint is not None:
+            sequence = hdu_checkpoint(inventory[-1], sequence)
         offset = next_offset
     if offset != file_size:
         raise PHOTSYSProbeError("FITS_FILE_EXTENT_MISMATCH")
