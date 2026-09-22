@@ -776,11 +776,12 @@ def probe_hdu_inventory(transport: object, budget: Budget, checkpoints: Checkpoi
                               header.get("GCOUNT", 1))
         else:
             raw_data_bytes = padded_data_bytes
+        hdu_index = len(inventory)
         inventory.append({"data_offset": data_offset, "data_bytes": raw_data_bytes,
-                          "hdu_index": len(inventory),
+                          "hdu_index": hdu_index,
                           "header": header, "header_sha256": sha256_bytes(bytes(header_bytes)),
                           "header_start": header_start, "header_bytes": used,
-                          "hdu_type": "PRIMARY" if len(inventory) == 1 else header.get("XTENSION"),
+                          "hdu_type": "PRIMARY" if hdu_index == 0 else header.get("XTENSION"),
                           "padded_data_bytes": padded_data_bytes})
         next_offset = data_offset + padded_data_bytes
         inventory[-1]["hdu_end"] = next_offset

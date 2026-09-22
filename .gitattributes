@@ -5,3 +5,4 @@
 *.fits.gz binary
 *.part binary
 *.npz binary
+*.bin binary

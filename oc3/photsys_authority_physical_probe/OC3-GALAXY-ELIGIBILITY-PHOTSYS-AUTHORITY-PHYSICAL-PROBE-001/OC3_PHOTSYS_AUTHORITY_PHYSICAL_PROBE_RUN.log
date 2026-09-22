@@ -1,0 +1,9 @@
+stage_id=OC3-GALAXY-ELIGIBILITY-PHOTSYS-AUTHORITY-PHYSICAL-PROBE-001
+state=PHOTSYS_AUTHORITY_RESOURCE_CONTRACT_RESOLVED
+network_requests_started=5
+header_body_bytes=11520
+header_blocks=4
+first_table_data_byte=11520
+maximum_requested_byte=11519
+full_fits_gets=0
+table_cell_values_decoded=0

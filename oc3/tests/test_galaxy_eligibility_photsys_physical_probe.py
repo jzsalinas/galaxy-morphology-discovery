@@ -108,8 +108,12 @@ class EvidenceAndCandidateTests(unittest.TestCase):
         self.assertEqual(value["projection"]["status_before_real_probe"],
                          "UNOBSERVED_REAL_LAYOUT")
 
-    def test_04_final_authorization_absent(self):
-        self.assertFalse(stage.AUTHORIZATION_PATH.exists())
+    def test_04_completed_probe_authorization_is_preserved(self):
+        self.assertTrue(stage.AUTHORIZATION_PATH.exists())
+        authorization = shared.load_canonical_json(stage.AUTHORIZATION_PATH)
+        self.assertEqual(authorization["authorization_state"], "FINAL_HUMAN_AUTHORIZATION")
+        self.assertEqual(authorization["candidate_sha256"],
+                         shared.file_sha256(stage.CANDIDATE_PATH))
 
     def test_05_offline_modes_and_cli_are_network_free(self):
         with patch.object(stage, "PhysicalTransport", side_effect=AssertionError("transport")):
@@ -192,6 +196,8 @@ class SyntheticPhysicalProbeTests(unittest.TestCase):
             contract = shared.load_canonical_json(
                 base / "out/OC3_PHOTSYS_AUTHORITY_HEADER_SCHEMA_CONTRACT.json")
             structural = contract["structural_contract"]
+            self.assertEqual([row["hdu_type"] for row in contract["hdu_inventory"]],
+                             ["PRIMARY", "BINTABLE"])
             self.assertEqual(structural["row_count"], 662174)
             self.assertEqual([row["name"] for row in structural["column_schema"]],
                              ["BRICKNAME", "NOISE", "BRICKID", "PHOTSYS", "AREA_PER_BRICK"])
