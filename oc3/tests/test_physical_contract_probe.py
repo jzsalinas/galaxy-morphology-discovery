@@ -584,11 +584,16 @@ class ManifestContractTripwireOutcomeTests(Base):
             "OC3_PHOTSYS_AUTHORITY_DOCUMENTARY_MANIFEST.json"}
         photsys_candidate = eligibility_implementation | {
             "OC3_PHOTSYS_AUTHORITY_RESOURCE_CANDIDATE.json"}
+        photsys_documentary002_parse = photsys_candidate | {
+            "OC3_PHOTSYS_DOCUMENTARY_002_HISTORICAL_PARSE_EVIDENCE.json"}
+        photsys_documentary002_candidate = photsys_documentary002_parse | {
+            "OC3_PHOTSYS_DOCUMENTARY_002_CANDIDATE.json"}
         eligibility_p0 = eligibility_implementation | {
             "OC3_GALAXY_ELIGIBILITY_PANEL_MANIFEST.json",
             "OC3_GALAXY_ELIGIBILITY_P1_AUTHORIZATION_CANDIDATE_001.json"}
         self.assertIn(input_names, (input_base, eligibility_implementation,
-                                    photsys_candidate, eligibility_p0))
+                                    photsys_candidate, photsys_documentary002_parse,
+                                    photsys_documentary002_candidate, eligibility_p0))
         technical_names = {item.name for item in (PROJECT / "oc3/TECHNICAL_INDEX").iterdir()}
         technical_base = {"OC3_LOCATIONS.json", "OC3_SELECTION_FLOW.csv",
                           "OC3_PSF_IDENTITIES.json"}

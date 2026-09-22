@@ -18,10 +18,31 @@ import oc3lib.galaxy_eligibility_photsys_authority_probe as stage
 
 def official_html(link: str | None = None, *, brick_level: bool = True) -> bytes:
     href = f'<a href="{link}">{stage.TARGET_FILENAME}</a>' if link else stage.TARGET_FILENAME
-    row = "One row per brick." if brick_level else "Random point rows."
-    return (f"<html>{href} survey-bricks fields plus PHOTSYS AREA_PER_BRICK. {row} "
-            "PHOTSYS values: <code>N</code> <code>S</code> and blank space. "
-            "The north and south imaging footprints overlap.</html>").encode()
+    brick_intro = (
+        'FITS binary table with the RA, Dec bounds of each geometrical "brick" on the sky.'
+        if brick_level else "Random point rows."
+    )
+    return f"""<html><body>
+    <section id="survey-bricks-fits-gz">
+      <h3>survey-bricks.fits.gz</h3><p>{brick_intro}</p>
+      <table><tr><th>Column</th><th>Type</th><th>Description</th></tr>
+      <tr><td>BRICKNAME</td><td>char[8]</td><td>Name of the brick.</td></tr>
+      <tr><td>BRICKID</td><td>int32</td><td>A unique integer with 1-to-1 mapping to brickname.</td></tr>
+      </table>
+    </section>
+    <section id="survey-bricks-dr9-randoms-0-48-0-fits">
+      <h3>{href}</h3>
+      <p>A similar file to the survey-bricks.fits.gz file, but with extra columns to help
+      interpret the random catalogs. Contains the same columns as the survey-bricks.fits.gz
+      file, plus the additional columns:</p>
+      <table><tr><th>Column</th><th>Type</th><th>Description</th></tr>
+      <tr><td>PHOTSYS</td><td>char[1]</td><td>"N", "S" or " " for bricks resolved to be
+      "officially" in the north, south, or outside of the footprint, respectively.</td></tr>
+      <tr><td>AREA_PER_BRICK</td><td>float64</td><td>The area of the brick in square degrees.</td></tr>
+      </table>
+    </section>
+    <p>The northern and southern imaging footprints overlap.</p>
+    </body></html>""".encode()
 
 
 def manifest_value():

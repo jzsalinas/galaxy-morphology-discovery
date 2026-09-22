@@ -10,6 +10,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 import hashlib
 import html
+from html.parser import HTMLParser
 import http.client
 import json
 import os
@@ -314,7 +315,7 @@ def is_official_literal_url(value: object) -> bool:
     parsed = urlsplit(value)
     return (parsed.scheme == "https" and parsed.hostname == OFFICIAL_DATA_HOST and
             parsed.username is None and parsed.password is None and not parsed.query and not parsed.fragment and
-            parsed.path.startswith("/cfs/cosmo/data/legacysurvey/dr9/") and
+            parsed.path.startswith("/cfs/cosmo/data/legacysurvey/dr9/randoms/") and
             parsed.path.rsplit("/", 1)[-1] == TARGET_FILENAME)
 
 
@@ -345,17 +346,85 @@ def documentary_facts(documents: Sequence[dict[str, object]]) -> dict[str, objec
     joined = "\n".join(document["body"].decode("utf-8", errors="strict") for document in documents)
     required = (TARGET_FILENAME, "PHOTSYS", "AREA_PER_BRICK", "survey-bricks")
     missing = [term for term in required if term not in joined]
-    values = all(token in joined for token in (">N<", ">S<")) and (
-        "blank" in joined.lower() or "space" in joined.lower())
-    overlap = "overlap" in joined.lower() and "north" in joined.lower() and "south" in joined.lower()
-    brick_level = ("one row per brick" in joined.lower() or "one row for each brick" in joined.lower())
+    target = _document_section(joined, "survey-bricks-dr9-randoms-0-48-0-fits")
+    bricks = _document_section(joined, "survey-bricks-fits-gz")
+    target_text = target["text"] if target else ""
+    bricks_text = bricks["text"] if bricks else ""
+    target_rows = target["rows"] if target else ()
+    bricks_rows = bricks["rows"] if bricks else ()
+    same_columns = (
+        target_text.startswith(TARGET_FILENAME + " ") and
+        "A similar file to the survey-bricks.fits.gz file" in target_text and
+        "Contains the same columns as the survey-bricks.fits.gz file, plus the additional columns:" in target_text
+    )
+    brick_table = (
+        bricks_text.startswith("survey-bricks.fits.gz FITS binary table with the RA, Dec bounds of each geometrical \"brick\" on the sky.") and
+        any(row[:2] == ("BRICKNAME", "char[8]") and row[2] == "Name of the brick."
+            for row in bricks_rows if len(row) >= 3) and
+        any(row[:2] == ("BRICKID", "int32") and
+            re.fullmatch(r"A unique integer with 1-to-1 mapping to brickname\s*\.", row[2])
+            for row in bricks_rows if len(row) >= 3)
+    )
+    photsys_pattern = re.compile(
+        r'^"N"\s*,\s*"S"\s+or\s+" "\s+for bricks resolved to be "officially" '
+        r'in the north, south, or outside of the footprint, respectively\.$')
+    values = any(row[:2] == ("PHOTSYS", "char[1]") and photsys_pattern.fullmatch(row[2])
+                 for row in target_rows if len(row) >= 3)
+    area = any(row == ("AREA_PER_BRICK", "float64", "The area of the brick in square degrees.")
+               for row in target_rows)
+    overlap = "northern and southern imaging footprints overlap" in joined.lower()
+    brick_level = same_columns and brick_table and area
     return {
         "brick_level_row_model_documented": brick_level,
         "missing_required_terms": missing,
         "north_south_overlap_documented": overlap,
         "photsys_exact_values_documented": values,
-        "product_identity_documented": TARGET_FILENAME in joined,
+        "product_identity_documented": target_text.startswith(TARGET_FILENAME + " "),
     }
+
+
+class _SectionParser(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.text: list[str] = []
+        self.rows: list[tuple[str, ...]] = []
+        self._cells: list[str] | None = None
+        self._cell_parts: list[str] | None = None
+
+    def handle_starttag(self, tag, attrs):
+        if tag.lower() == "tr":
+            self._cells = []
+        elif tag.lower() in ("td", "th") and self._cells is not None:
+            self._cell_parts = []
+
+    def handle_endtag(self, tag):
+        if tag.lower() in ("td", "th") and self._cell_parts is not None and self._cells is not None:
+            self._cells.append(_normalize_document_text(" ".join(self._cell_parts)))
+            self._cell_parts = None
+        elif tag.lower() == "tr" and self._cells is not None:
+            if self._cells:
+                self.rows.append(tuple(self._cells))
+            self._cells = None
+
+    def handle_data(self, data):
+        self.text.append(data)
+        if self._cell_parts is not None:
+            self._cell_parts.append(data)
+
+
+def _normalize_document_text(value: str) -> str:
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def _document_section(body: str, section_id: str) -> dict[str, object] | None:
+    # Exact section IDs are part of the frozen official document structure.
+    match = re.search(fr'<section id="{re.escape(section_id)}">(.*?)</section>', body,
+                      flags=re.DOTALL | re.IGNORECASE)
+    if not match:
+        return None
+    parser = _SectionParser()
+    parser.feed(match.group(1))
+    return {"rows": tuple(parser.rows), "text": _normalize_document_text(" ".join(parser.text))}
 
 
 @dataclass
