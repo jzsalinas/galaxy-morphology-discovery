@@ -410,11 +410,13 @@ class ResolverAndTripwireTests(unittest.TestCase):
             self.assertEqual(cli.main(["--validate-photsys-authority"]), 2)
         self.assertIn(INCONCLUSIVE, error.getvalue())
 
-    def test_exact_command_is_real_mode_but_not_authorized(self):
+    def test_exact_command_is_real_mode_and_historical_authorization_is_preserved(self):
         command = exact_command()
         self.assertIn("--validate-photsys-authority", command)
         self.assertIn("--execute-real-value-observation", command)
-        self.assertFalse(AUTHORIZATION_PATH.exists())
+        # V1 has already run and stopped closed.  Its immutable authorization
+        # is historical evidence; the new histogram stage has a separate gate.
+        self.assertTrue(AUTHORIZATION_PATH.is_file())
 
 
 if __name__ == "__main__":
