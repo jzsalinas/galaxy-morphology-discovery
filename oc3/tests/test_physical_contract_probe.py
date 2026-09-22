@@ -580,11 +580,15 @@ class ManifestContractTripwireOutcomeTests(Base):
                           "OC3_FIXED_NATIVE_PSF_ACQUISITION_CANDIDATE_001.json",
                           "OC3_FIXED_NATIVE_PSF_ACQUISITION_AUTHORIZATION_001.json"}
         eligibility_implementation = input_base | {
-            "OC3_GALAXY_ELIGIBILITY_DOCUMENTARY_MANIFEST_001.json"}
+            "OC3_GALAXY_ELIGIBILITY_DOCUMENTARY_MANIFEST_001.json",
+            "OC3_PHOTSYS_AUTHORITY_DOCUMENTARY_MANIFEST.json"}
+        photsys_candidate = eligibility_implementation | {
+            "OC3_PHOTSYS_AUTHORITY_RESOURCE_CANDIDATE.json"}
         eligibility_p0 = eligibility_implementation | {
             "OC3_GALAXY_ELIGIBILITY_PANEL_MANIFEST.json",
             "OC3_GALAXY_ELIGIBILITY_P1_AUTHORIZATION_CANDIDATE_001.json"}
-        self.assertIn(input_names, (input_base, eligibility_implementation, eligibility_p0))
+        self.assertIn(input_names, (input_base, eligibility_implementation,
+                                    photsys_candidate, eligibility_p0))
         technical_names = {item.name for item in (PROJECT / "oc3/TECHNICAL_INDEX").iterdir()}
         technical_base = {"OC3_LOCATIONS.json", "OC3_SELECTION_FLOW.csv",
                           "OC3_PSF_IDENTITIES.json"}
