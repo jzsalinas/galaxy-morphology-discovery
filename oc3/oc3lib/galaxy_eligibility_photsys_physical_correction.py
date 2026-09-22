@@ -3,7 +3,6 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from .core import implementation_hash
 from .galaxy_eligibility_photsys_authority_probe import (
     ALLOWED_FIELDS, PHOTSYSProbeError, PROJECT, columns_from_header, file_sha256,
     load_canonical_json, object_seal, parse_header, projection_plan, sealed,
@@ -16,6 +15,7 @@ PROBE_ROOT = PROJECT / "oc3/photsys_authority_physical_probe" / STAGE_ID
 PROBE_TREE_SEAL = "6a4c0d06794b86a929efd68ec58908f17c8a2289c5e59fd881271c03eb93a27c"
 CORRECTION_STATE = "OFFLINE_DERIVED_CORRECTION_FROM_IMMUTABLE_PROBE_EVIDENCE"
 REVIEWED_STATE = "PHOTSYS_AUTHORITY_PHYSICAL_CONTRACT_REVIEWED"
+FROZEN_IMPLEMENTATION_AGGREGATE = "800f413ee53ac2fecad66386a49ecaff04989d3ffce6b232cb52916a3c9dbbe6"
 CORRECTION_PATH = PROJECT / "OC3_PHOTSYS_PHYSICAL_CONTRACT_CORRECTION_001.json"
 REVIEWED_CONTRACT_PATH = (
     PROJECT / "oc3/INPUTS/OC3_PHOTSYS_AUTHORITY_REVIEWED_PHYSICAL_CONTRACT_001.json"
@@ -200,7 +200,10 @@ def build_reviewed_contract(correction_sha256: str,
 
 def validate_reviewed_contract(path: Path = REVIEWED_CONTRACT_PATH) -> dict[str, object]:
     value = validate_sealed(load_canonical_json(path))
-    expected = build_reviewed_contract(file_sha256(CORRECTION_PATH), implementation_hash(PROJECT))
+    # This is immutable historical evidence.  Later source additions must not
+    # reinterpret its recorded implementation binding as the current tree.
+    expected = build_reviewed_contract(file_sha256(CORRECTION_PATH),
+                                       FROZEN_IMPLEMENTATION_AGGREGATE)
     if value != expected:
         raise PHOTSYSProbeError("REVIEWED_PHYSICAL_CONTRACT_INVALID")
     return value

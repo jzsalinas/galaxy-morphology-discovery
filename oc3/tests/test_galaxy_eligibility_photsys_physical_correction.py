@@ -6,7 +6,6 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from oc3lib.core import implementation_hash
 from oc3lib.galaxy_eligibility_photsys_authority_probe import (
     PHOTSYSProbeError, PROJECT, load_canonical_json, validate_sealed,
 )
@@ -57,11 +56,12 @@ class CorrectionTests(unittest.TestCase):
 
 
 class StageBCandidateTests(unittest.TestCase):
-    def test_010_candidate_is_exact_and_authorization_absent(self):
-        value = acquisition.validate_candidate()
-        self.assertEqual(value, acquisition.build_candidate(implementation_hash(PROJECT)))
+    def test_010_historical_candidate_is_exact_after_authorized_execution(self):
+        value = acquisition.validate_candidate(require_authorization_absent=False)
+        self.assertEqual(value, acquisition.build_candidate(
+            acquisition.FROZEN_IMPLEMENTATION_AGGREGATE))
         self.assertFalse(value["final_authorization_present"])
-        self.assertFalse(acquisition.AUTHORIZATION_PATH.exists())
+        self.assertTrue(acquisition.AUTHORIZATION_PATH.exists())
         self.assertEqual(value["resource"]["expected_content_length"], 52323840)
         self.assertEqual(value["request_plan"], {
             "automatic_retries": 0, "concurrency": 1, "identity_head": 0,
@@ -70,7 +70,7 @@ class StageBCandidateTests(unittest.TestCase):
         })
 
     def test_011_byte_preservation_does_not_authorize_values(self):
-        value = acquisition.validate_candidate()
+        value = acquisition.validate_candidate(require_authorization_absent=False)
         boundary = value["acquisition_value_boundary"]
         self.assertEqual(boundary["statement"],
                          "FULL_FILE_BYTE_PRESERVATION != ALL_COLUMN_VALUE_OBSERVATION")
@@ -84,8 +84,10 @@ class StageBCandidateTests(unittest.TestCase):
     def test_012_offline_validation_constructs_no_transport(self):
         with patch.object(acquisition, "FullFileTransport",
                           side_effect=AssertionError("network transport")):
-            result = acquisition.validate_candidate_offline()
+            result = acquisition.validate_candidate_offline(
+                require_authorization_absent=False)
         self.assertEqual(result["network_requests"], 0)
+        self.assertTrue(result["final_authorization_present"])
         self.assertEqual(result["state"], acquisition.READY)
 
     def test_013_missing_authorization_blocks_before_transport(self):

@@ -12,7 +12,7 @@ import os
 from pathlib import Path
 from urllib.parse import urlsplit
 
-from .core import canonical, implementation_hash
+from .core import canonical
 from .galaxy_eligibility_photsys_authority_probe import (
     PHOTSYSProbeError, PROJECT, file_sha256, load_canonical_json, sealed,
     sha256_bytes, validate_sealed, write_json_immutable,
@@ -35,6 +35,7 @@ STARTING_BODY_BYTES = 273_886
 PRIMARY_GETS = 1
 AUTOMATIC_RETRIES = 0
 CONCURRENCY = 1
+FROZEN_IMPLEMENTATION_AGGREGATE = "800f413ee53ac2fecad66386a49ecaff04989d3ffce6b232cb52916a3c9dbbe6"
 
 CANDIDATE_PATH = PROJECT / "oc3/INPUTS/OC3_PHOTSYS_FULL_ACQUISITION_CANDIDATE_001.json"
 AUTHORIZATION_PATH = PROJECT / "oc3/OC3_PHOTSYS_FULL_ACQUISITION_FINAL_AUTHORIZATION_001.json"
@@ -138,7 +139,7 @@ def build_candidate(implementation_aggregate: str) -> dict[str, object]:
 def validate_candidate(path: Path = CANDIDATE_PATH, *,
                        require_authorization_absent: bool = True) -> dict[str, object]:
     value = validate_sealed(load_canonical_json(path))
-    expected = build_candidate(implementation_hash(PROJECT))
+    expected = build_candidate(FROZEN_IMPLEMENTATION_AGGREGATE)
     if value != expected:
         raise PHOTSYSProbeError("PHOTSYS_FULL_ACQUISITION_CANDIDATE_INVALID")
     if require_authorization_absent and AUTHORIZATION_PATH.exists():
@@ -146,11 +147,12 @@ def validate_candidate(path: Path = CANDIDATE_PATH, *,
     return value
 
 
-def validate_candidate_offline(path: Path = CANDIDATE_PATH) -> dict[str, object]:
-    value = validate_candidate(path)
+def validate_candidate_offline(path: Path = CANDIDATE_PATH, *,
+                               require_authorization_absent: bool = True) -> dict[str, object]:
+    value = validate_candidate(path, require_authorization_absent=require_authorization_absent)
     return {
         "expected_body_bytes": value["resource"]["expected_content_length"],
-        "final_authorization_present": False,
+        "final_authorization_present": AUTHORIZATION_PATH.exists(),
         "network_requests": 0,
         "stage_id": STAGE_ID,
         "state": READY,

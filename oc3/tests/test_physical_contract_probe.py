@@ -594,6 +594,8 @@ class ManifestContractTripwireOutcomeTests(Base):
             "OC3_PHOTSYS_AUTHORITY_REVIEWED_PHYSICAL_CONTRACT_001.json"}
         photsys_full_acquisition_candidate = photsys_reviewed_contract | {
             "OC3_PHOTSYS_FULL_ACQUISITION_CANDIDATE_001.json"}
+        photsys_selective_validation_candidate = photsys_full_acquisition_candidate | {
+            "OC3_PHOTSYS_SELECTIVE_VALUE_VALIDATION_CANDIDATE_001.json"}
         eligibility_p0 = eligibility_implementation | {
             "OC3_GALAXY_ELIGIBILITY_PANEL_MANIFEST.json",
             "OC3_GALAXY_ELIGIBILITY_P1_AUTHORIZATION_CANDIDATE_001.json"}
@@ -603,6 +605,7 @@ class ManifestContractTripwireOutcomeTests(Base):
                                     photsys_physical_candidate,
                                     photsys_reviewed_contract,
                                     photsys_full_acquisition_candidate,
+                                    photsys_selective_validation_candidate,
                                     eligibility_p0))
         technical_names = {item.name for item in (PROJECT / "oc3/TECHNICAL_INDEX").iterdir()}
         technical_base = {"OC3_LOCATIONS.json", "OC3_SELECTION_FLOW.csv",
