@@ -103,6 +103,7 @@ class ProvenanceError(Exception):
 class FirewallCounters:
     public_documentary_source_requests: int = 0
     public_documentary_source_body_bytes: int = 0
+    application_body_bytes_read: int = 0
     astronomical_data_GETs: int = 0
     real_PHOTSYS_bytes_observed: int = 0
     BRICKNAME_values_observed: int = 0
@@ -709,10 +710,45 @@ def synthetic_zero_initialization_check() -> dict[str, object]:
 class DocumentaryTransport:
     """Exact-manifest HTTPS GET transport; no arbitrary URL method exists."""
     def __init__(self, manifest: dict[str, object], counters: FirewallCounters,
-                 timeout_seconds: int = 30):
+                 timeout_seconds: int = 30, *, receipt_directory: Path | None = None,
+                 global_body_cap: int = BODY_CAP):
         self.resources = {item["id"]: item for item in manifest["resources"]}
         self.counters = counters
         self.timeout_seconds = timeout_seconds
+        self.receipt_directory = Path(receipt_directory) if receipt_directory is not None else None
+        self.global_body_cap = global_body_cap
+        self.last_failure_receipt: dict[str, object] | None = None
+
+    def _metadata(self, resource_id: str, url: str, status: int,
+                  headers: dict[str, str]) -> dict[str, object]:
+        raw_length = headers.get("content-length")
+        declared = int(raw_length) if raw_length is not None and raw_length.isdigit() else None
+        return {
+            "application_body_bytes_read": 0,
+            "content_encoding": headers.get("content-encoding", "identity"),
+            "content_type": headers.get("content-type"),
+            "declared_content_length": declared,
+            "headers": headers,
+            "literal_url": url,
+            "observed_at_utc": datetime.now(timezone.utc).isoformat(),
+            "resource_id": resource_id,
+            "status": status,
+        }
+
+    def _fail(self, code: str, metadata: dict[str, object]) -> None:
+        receipt = sealed({
+            **metadata,
+            "counters": self.counters.object(),
+            "failure_code": code,
+            "wire_or_tls_bytes_claimed": False,
+        })
+        self.last_failure_receipt = receipt
+        if self.receipt_directory is not None:
+            path = self.receipt_directory / (
+                f"{self.counters.public_documentary_source_requests:04d}_"
+                f"{metadata['resource_id']}_FAILURE.json")
+            write_json_immutable(path, receipt)
+        raise ProvenanceError(code)
 
     def get(self, resource_id: str) -> dict[str, object]:
         if resource_id not in self.resources:
@@ -734,22 +770,29 @@ class DocumentaryTransport:
         response = connection.getresponse()
         headers = {key.lower(): value for key, value in response.getheaders()}
         cap = int(resource["byte_cap"])
+        metadata = self._metadata(resource_id, url, response.status, headers)
         if response.status != 200 or response.status in (301, 302, 303, 307, 308):
-            connection.close(); raise ProvenanceError("DOCUMENTARY_HTTP_RESPONSE_INVALID")
+            connection.close(); self._fail("DOCUMENTARY_HTTP_RESPONSE_INVALID", metadata)
         if headers.get("content-encoding", "identity").lower() != "identity":
-            connection.close(); raise ProvenanceError("DOCUMENTARY_ENCODING_INVALID")
+            connection.close(); self._fail("DOCUMENTARY_ENCODING_INVALID", metadata)
         content_type = headers.get("content-type", "").split(";", 1)[0].strip().lower()
         accepted_content_types = resource.get("accepted_content_types")
         if (not isinstance(accepted_content_types, list) or
                 content_type not in accepted_content_types):
-            connection.close(); raise ProvenanceError("DOCUMENTARY_CONTENT_TYPE_INVALID")
+            connection.close(); self._fail("DOCUMENTARY_CONTENT_TYPE_INVALID", metadata)
         if headers.get("content-length", "").isdigit() and int(headers["content-length"]) > cap:
-            connection.close(); raise ProvenanceError("RESOURCE_BODY_CAP_EXCEEDED")
-        body = response.read(cap + 1); connection.close()
-        if len(body) > cap or self.counters.public_documentary_source_body_bytes + len(body) > BODY_CAP:
-            raise ProvenanceError("RESOURCE_BODY_CAP_EXCEEDED")
+            connection.close(); self._fail("RESOURCE_BODY_CAP_EXCEEDED", metadata)
+        remaining = max(0, self.global_body_cap - self.counters.public_documentary_source_body_bytes)
+        body = response.read(min(cap, remaining) + 1); connection.close()
+        # This is an application-read quantity.  It deliberately makes no
+        # assertion about physical wire, TLS, or transport overhead bytes.
+        self.counters.application_body_bytes_read += len(body)
         self.counters.public_documentary_source_body_bytes += len(body)
+        metadata["application_body_bytes_read"] = len(body)
+        if len(body) > cap or self.counters.public_documentary_source_body_bytes > self.global_body_cap:
+            self._fail("RESOURCE_BODY_CAP_EXCEEDED", metadata)
         return {"body": body, "final_url": url, "headers": headers,
+                "response_metadata": metadata,
                 "status": response.status, "url": url}
 
 
@@ -775,7 +818,13 @@ def run_research(candidate_path: Path, authorization_path: Path, argv_sha256: st
     extract_root = output / "DESITARGET_0_48_0_SOURCE"
     counters = FirewallCounters()
     manifest = validate_resource_manifest()
-    transport = transport_factory(manifest, counters)
+    try:
+        transport = transport_factory(
+            manifest, counters, receipt_directory=output / "HTTP_FAILURE_RECEIPTS")
+    except TypeError:
+        # Synthetic legacy factories may implement the historical two-argument
+        # interface; production DocumentaryTransport always takes receipts.
+        transport = transport_factory(manifest, counters)
     responses: dict[str, dict[str, object]] = {}
     metadata = []
     try:

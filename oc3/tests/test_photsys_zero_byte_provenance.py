@@ -17,10 +17,11 @@ from oc3lib.photsys_zero_byte_provenance import _resources
 class FakeResponse:
     def __init__(self, body=b"ok", *, status=200, headers=None):
         self.body = body; self.status = status
+        self.read_calls = 0
         self.headers = headers or {"Content-Length": str(len(body)), "Content-Encoding": "identity",
                                    "Content-Type": "application/pdf"}
     def getheaders(self): return list(self.headers.items())
-    def read(self, amount): return self.body[:amount]
+    def read(self, amount): self.read_calls += 1; return self.body[:amount]
 
 
 class FakeConnection:
@@ -111,14 +112,63 @@ class ProvenanceTests(unittest.TestCase):
         FakeConnection.response=FakeResponse(b"",headers={"Content-Length":str(5*1024*1024),
                                                            "Content-Type":"application/pdf"})
         with patch("oc3lib.photsys_zero_byte_provenance.http.client.HTTPSConnection",FakeConnection):
-            self.code("RESOURCE_BODY_CAP_EXCEEDED",lambda:DocumentaryTransport(build_resource_manifest(),FirewallCounters()).get("FITS_STANDARD_4_0"))
+            counters=FirewallCounters(); transport=DocumentaryTransport(
+                build_resource_manifest(),counters,receipt_directory=self.root/"receipts")
+            self.code("RESOURCE_BODY_CAP_EXCEEDED",lambda:transport.get("FITS_STANDARD_4_0"))
+        self.assertEqual(counters.application_body_bytes_read,0)
+        self.assertEqual(FakeConnection.response.read_calls,0)
+        receipt=validate_sealed(load_canonical_json(next((self.root/"receipts").iterdir())))
+        self.assertEqual(receipt["declared_content_length"],5*1024*1024)
+        self.assertEqual(receipt["application_body_bytes_read"],0)
+        self.assertEqual(receipt["failure_code"],"RESOURCE_BODY_CAP_EXCEEDED")
+    def test_10a_unknown_length_cap_plus_one_is_counted_before_failure(self):
+        manifest=build_resource_manifest(); manifest["resources"][0]["byte_cap"]=10
+        FakeConnection.response=FakeResponse(b"x"*11,headers={"Content-Type":"application/pdf"})
+        with patch("oc3lib.photsys_zero_byte_provenance.http.client.HTTPSConnection",FakeConnection):
+            counters=FirewallCounters(); transport=DocumentaryTransport(
+                manifest,counters,receipt_directory=self.root/"receipts")
+            self.code("RESOURCE_BODY_CAP_EXCEEDED",lambda:transport.get("FITS_STANDARD_4_0"))
+        self.assertEqual(counters.application_body_bytes_read,11)
+        self.assertEqual(counters.public_documentary_source_body_bytes,11)
+        receipt=validate_sealed(load_canonical_json(next((self.root/"receipts").iterdir())))
+        self.assertEqual(receipt["application_body_bytes_read"],11)
+        self.assertFalse(receipt["wire_or_tls_bytes_claimed"])
+    def test_10b_cumulative_excess_remains_counted(self):
+        FakeConnection.response=FakeResponse(b"abcdef",headers={"Content-Type":"application/pdf"})
+        with patch("oc3lib.photsys_zero_byte_provenance.http.client.HTTPSConnection",FakeConnection):
+            counters=FirewallCounters(); transport=DocumentaryTransport(
+                build_resource_manifest(),counters,receipt_directory=self.root/"receipts",
+                global_body_cap=5)
+            self.code("RESOURCE_BODY_CAP_EXCEEDED",lambda:transport.get("FITS_STANDARD_4_0"))
+        self.assertEqual(counters.application_body_bytes_read,6)
+        self.assertEqual(counters.public_documentary_source_body_bytes,6)
+        receipt=validate_sealed(load_canonical_json(next((self.root/"receipts").iterdir())))
+        self.assertEqual(receipt["counters"]["application_body_bytes_read"],6)
     def test_11_request_cap_precedes_connection(self):
         c=FirewallCounters(public_documentary_source_requests=REQUEST_CAP)
         self.code("REQUEST_CAP_EXCEEDED",lambda:DocumentaryTransport(build_resource_manifest(),c).get("FITS_STANDARD_4_0"))
     def test_11a_content_type_closed_per_resource(self):
         FakeConnection.response=FakeResponse(b"not pdf",headers={"Content-Length":"7","Content-Type":"text/plain"})
         with patch("oc3lib.photsys_zero_byte_provenance.http.client.HTTPSConnection",FakeConnection):
-            self.code("DOCUMENTARY_CONTENT_TYPE_INVALID",lambda:DocumentaryTransport(build_resource_manifest(),FirewallCounters()).get("FITS_STANDARD_4_0"))
+            transport=DocumentaryTransport(build_resource_manifest(),FirewallCounters(),
+                                           receipt_directory=self.root/"receipts")
+            self.code("DOCUMENTARY_CONTENT_TYPE_INVALID",lambda:transport.get("FITS_STANDARD_4_0"))
+        receipt=validate_sealed(load_canonical_json(next((self.root/"receipts").iterdir())))
+        self.assertEqual(receipt["resource_id"],"FITS_STANDARD_4_0")
+        self.assertEqual(receipt["content_type"],"text/plain")
+        self.assertEqual(receipt["application_body_bytes_read"],0)
+    def test_11aa_http_failure_retains_headers_and_resource_identity(self):
+        FakeConnection.response=FakeResponse(b"",status=503,headers={
+            "Content-Length":"0","Content-Type":"application/pdf","X-Request-Id":"synthetic"})
+        with patch("oc3lib.photsys_zero_byte_provenance.http.client.HTTPSConnection",FakeConnection):
+            transport=DocumentaryTransport(build_resource_manifest(),FirewallCounters(),
+                                           receipt_directory=self.root/"receipts")
+            self.code("DOCUMENTARY_HTTP_RESPONSE_INVALID",lambda:transport.get("FITS_STANDARD_4_0"))
+        receipt=validate_sealed(load_canonical_json(next((self.root/"receipts").iterdir())))
+        self.assertEqual(receipt["status"],503)
+        self.assertEqual(receipt["resource_id"],"FITS_STANDARD_4_0")
+        self.assertEqual(receipt["headers"]["x-request-id"],"synthetic")
+        self.assertEqual(receipt["application_body_bytes_read"],0)
     def test_11b_content_type_parameters_are_accepted(self):
         FakeConnection.response=FakeResponse(b"ok",headers={"Content-Length":"2","Content-Type":"application/pdf; charset=binary"})
         with patch("oc3lib.photsys_zero_byte_provenance.http.client.HTTPSConnection",FakeConnection):
@@ -228,7 +278,10 @@ class ProvenanceTests(unittest.TestCase):
     def test_29_validate_inputs_no_network(self):
         with patch("oc3lib.photsys_zero_byte_provenance.http.client.HTTPSConnection",side_effect=AssertionError("network")):
             self.assertEqual(validate_frozen_inputs()["network_requests"],0)
-    def test_30_dry_run_boundary(self): self.assertEqual(dry_run()["state"],READY)
+    def test_30_historical_attempt_is_closed_and_not_dry_runnable(self):
+        self.assertTrue(AUTHORIZATION_PATH.exists())
+        self.assertTrue(OUTPUT_ROOT.exists())
+        self.code("RESEARCH_CANDIDATE_INVALID",dry_run)
     def test_31_cli_help(self):
         with self.assertRaises(SystemExit) as caught,contextlib.redirect_stdout(io.StringIO()):cli.main(["--help"])
         self.assertEqual(caught.exception.code,0)
@@ -239,8 +292,13 @@ class ProvenanceTests(unittest.TestCase):
     def test_34_firewall_has_no_data_capability(self):
         counters=FirewallCounters(); self.assertTrue(counters.data_clean())
         self.assertEqual(sum(counters.object().values()),0)
-    def test_35_candidate_exact(self):
-        self.assertEqual(validate_candidate(),build_candidate(implementation_hash(PROJECT)))
+    def test_35_historical_candidate_and_authorization_are_preserved(self):
+        self.assertEqual(file_sha256(CANDIDATE_PATH),
+                         "6ef3d2283c50b72393f184caf3f4ba0ba1ce8d4abf996437c9bd046b3930cebc")
+        self.assertEqual(file_sha256(AUTHORIZATION_PATH),
+                         "26f971c7024dce61ee17a28456c77c30ab35dcb9b13fb9b6b94df2b55720d7bd")
+        self.code("RESEARCH_CANDIDATE_INVALID",
+                  lambda:validate_candidate(CANDIDATE_PATH,authorization_absent=False))
     def test_36_completed_matrix_keeps_producer_inference_separate(self):
         legacy={"meanings":{"N":True,"S":True," ":True}}
         fits={"BINTABLE_A_NULL_RULE":True,"ASCII_NULL_0x00":True,
