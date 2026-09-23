@@ -343,8 +343,15 @@ class CLIBoundaryTests(unittest.TestCase):
         self.assertIn("--execute-real-byte-observation", command)
         self.assertIn("--authorization", command)
 
-    def test_final_authorization_is_absent(self):
-        self.assertFalse(AUTHORIZATION_PATH.exists())
+    def test_completed_historical_authorization_is_preserved(self):
+        # This stage was subsequently authorized and completed by the human.
+        # Preserve that immutable history; the new provenance stage has its own
+        # separate authorization boundary.
+        self.assertEqual(file_sha256(AUTHORIZATION_PATH),
+                         "396879cd5c6656735ca29852b76ee772769b9f0eb1280bdda4441617077202a0")
+        authorization = validate_sealed(load_canonical_json(AUTHORIZATION_PATH))
+        self.assertTrue(authorization["authorized"])
+        self.assertEqual(authorization["stage_id"], STAGE_ID)
 
 
 if __name__ == "__main__":

@@ -598,6 +598,9 @@ class ManifestContractTripwireOutcomeTests(Base):
             "OC3_PHOTSYS_SELECTIVE_VALUE_VALIDATION_CANDIDATE_001.json"}
         photsys_histogram_candidate = photsys_selective_validation_candidate | {
             "OC3_PHOTSYS_RAW_BYTE_HISTOGRAM_CANDIDATE_001.json"}
+        photsys_zero_provenance_candidate = photsys_histogram_candidate | {
+            "OC3_PHOTSYS_ZERO_BYTE_PROVENANCE_RESOURCE_MANIFEST_001.json",
+            "OC3_PHOTSYS_ZERO_BYTE_PROVENANCE_RESEARCH_CANDIDATE_001.json"}
         eligibility_p0 = eligibility_implementation | {
             "OC3_GALAXY_ELIGIBILITY_PANEL_MANIFEST.json",
             "OC3_GALAXY_ELIGIBILITY_P1_AUTHORIZATION_CANDIDATE_001.json"}
@@ -609,6 +612,7 @@ class ManifestContractTripwireOutcomeTests(Base):
                                     photsys_full_acquisition_candidate,
                                     photsys_selective_validation_candidate,
                                     photsys_histogram_candidate,
+                                    photsys_zero_provenance_candidate,
                                     eligibility_p0))
         technical_names = {item.name for item in (PROJECT / "oc3/TECHNICAL_INDEX").iterdir()}
         technical_base = {"OC3_LOCATIONS.json", "OC3_SELECTION_FLOW.csv",
