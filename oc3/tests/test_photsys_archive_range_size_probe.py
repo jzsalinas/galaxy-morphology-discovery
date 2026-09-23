@@ -235,8 +235,9 @@ class RangeSizeProbeTests(unittest.TestCase):
                    side_effect=AssertionError("connection forbidden")):
             self.code("RANGE_SIZE_REQUEST_CAP_VIOLATION", transport.probe_size)
 
-    def test_23_candidate_exact_and_authorization_absent(self):
-        self.assertEqual(validate_candidate(), build_candidate(implementation_hash(PROJECT)))
+    def test_23_candidate_001_is_historical_and_unmodified(self):
+        self.assertEqual(file_sha256(CANDIDATE_PATH), CANDIDATE_001_SHA256)
+        self.assertEqual(validate_candidate(), validate_historical_candidate_001())
         self.assertFalse(AUTHORIZATION_PATH.exists())
 
     def test_24_exact_command_is_range_size_only(self):

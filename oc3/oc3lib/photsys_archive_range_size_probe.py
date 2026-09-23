@@ -72,6 +72,18 @@ ACCEPTED_CONTENT_TYPES = ("application/gzip", "application/x-gzip", "application
 REDIRECT_STATUSES = (301, 302, 303, 307, 308)
 
 CANDIDATE_PATH = PROJECT / "oc3/INPUTS/OC3_PHOTSYS_DESITARGET_ARCHIVE_RANGE_SIZE_PROBE_CANDIDATE_001.json"
+CANDIDATE_001_SHA256 = "a277a5e5b4d710650df5e89713dfd23a97c0f79ff273076273eb84835f55fc19"
+CANDIDATE_002_PATH = PROJECT / "oc3/INPUTS/OC3_PHOTSYS_DESITARGET_ARCHIVE_RANGE_SIZE_PROBE_CANDIDATE_002.json"
+AUTONOMY_AMENDMENT_PATH = PROJECT / "OC3_PHOTSYS_DESITARGET_ARCHIVE_RANGE_SIZE_PROBE_AUTONOMY_AMENDMENT_001.md"
+AUTONOMY_AMENDMENT_SHA256 = "0e8dfe1bba8f1741385a955d5b47affc5cb468116815789ba2f5d92bf00558a2"
+AUTONOMY_MANDATE_PATH = PROJECT / "oc3/INPUTS/OC3_AUTONOMY_MANDATE_001.json"
+AUTONOMY_MANDATE_SHA256 = "4364eb22ce95316917b77f4e7dc3dabcd98a8d33fa10c887fb531ae8d49971f8"
+AUTONOMY_MANIFEST_PATH = PROJECT / "oc3/INPUTS/OC3_PHOTSYS_DESITARGET_ARCHIVE_RANGE_SIZE_RESOURCE_MANIFEST_002.json"
+AUTONOMY_MANIFEST_SHA256 = "6ca4360ed1b4b59161350933745192d6d2df5bbda877bb0bc0996400cad3eb46"
+STANDING_AUTHORIZATION_PATH = PROJECT / "oc3/OC3_AUTONOMY_STANDING_AUTHORIZATION_001.json"
+AUTONOMY_STATE_PATH = PROJECT / "oc3/OC3_AUTONOMY_STATE_001.json"
+AUTONOMOUS_PERMIT_PATH = PROJECT / "oc3/AUTONOMY_PERMITS/OC3_RANGE_SIZE_PERMIT_001.json"
+AUTONOMY_LEDGER_ROOT = PROJECT / "oc3/AUTONOMY_LEDGER"
 AUTHORIZATION_PATH = PROJECT / "oc3/OC3_PHOTSYS_DESITARGET_ARCHIVE_RANGE_SIZE_PROBE_FINAL_AUTHORIZATION_001.json"
 OUTPUT_ROOT = PROJECT / "oc3/photsys_archive_range_size_probe" / STAGE_ID
 
@@ -193,6 +205,20 @@ def exact_command(project: Path = PROJECT) -> list[str]:
     ]
 
 
+def exact_autonomous_command(project: Path = PROJECT) -> list[str]:
+    project = Path(project).resolve()
+    return [
+        str(project / "oc3/.venv/bin/python"),
+        str(project / "oc3/oc3_photsys_archive_range_size_probe.py"),
+        "--probe-desitarget-archive-range-size", "--execute-network",
+        "--candidate", str(project / CANDIDATE_002_PATH.relative_to(PROJECT)),
+        "--standing-authorization", str(project / STANDING_AUTHORIZATION_PATH.relative_to(PROJECT)),
+        "--autonomous-permit", str(project / AUTONOMOUS_PERMIT_PATH.relative_to(PROJECT)),
+        "--autonomy-state", str(project / AUTONOMY_STATE_PATH.relative_to(PROJECT)),
+        "--output-directory", str(project / OUTPUT_ROOT.relative_to(PROJECT)),
+    ]
+
+
 def build_candidate(implementation_aggregate: str) -> dict[str, object]:
     inputs = validate_historical_inputs()
     command = exact_command()
@@ -264,14 +290,87 @@ def build_candidate(implementation_aggregate: str) -> dict[str, object]:
     })
 
 
-def validate_candidate(path: Path = CANDIDATE_PATH,
-                       *, require_authorization_absent: bool = True) -> dict[str, object]:
+def validate_historical_candidate_001(path: Path = CANDIDATE_PATH) -> dict[str, object]:
     try:
         candidate = validate_sealed(load_canonical_json(path))
     except Exception as exc:
         raise RangeSizeProbeError("RANGE_SIZE_CANDIDATE_INVALID") from exc
-    if candidate != build_candidate(implementation_hash(PROJECT)):
+    if (Path(path).resolve() != CANDIDATE_PATH.resolve() or
+            file_sha256(path) != CANDIDATE_001_SHA256 or
+            candidate.get("schema_version") !=
+            "OC3_PHOTSYS_DESITARGET_ARCHIVE_RANGE_SIZE_PROBE_CANDIDATE_001" or
+            candidate.get("candidate_state") != "PENDING_HUMAN_REVIEW"):
         raise RangeSizeProbeError("RANGE_SIZE_CANDIDATE_INVALID")
+    return candidate
+
+
+def build_autonomous_candidate(implementation_aggregate: str) -> dict[str, object]:
+    base = validate_historical_candidate_001()
+    for path, digest in ((AUTONOMY_AMENDMENT_PATH, AUTONOMY_AMENDMENT_SHA256),
+                         (AUTONOMY_MANDATE_PATH, AUTONOMY_MANDATE_SHA256),
+                         (AUTONOMY_MANIFEST_PATH, AUTONOMY_MANIFEST_SHA256)):
+        if not path.is_file() or file_sha256(path) != digest:
+            raise RangeSizeProbeError("RANGE_SIZE_AUTONOMY_INPUT_MISMATCH")
+    command = exact_autonomous_command()
+    preserved_keys = ("accepted_content_types", "budget", "content_range_contract",
+                      "failed_provenance_review", "historical_head", "negative_capabilities",
+                      "network_caps", "preserved_bodies", "request", "scope",
+                      "specification", "stage_id", "terminal_mapping")
+    value = {key: base[key] for key in preserved_keys}
+    value.update({
+        "autonomy_amendment": {"path": str(AUTONOMY_AMENDMENT_PATH.relative_to(PROJECT)),
+                               "sha256": AUTONOMY_AMENDMENT_SHA256},
+        "candidate_state": "PENDING_STANDING_AUTONOMY",
+        "command_argv": command,
+        "command_argv_sha256": sha256_bytes(canonical(command)),
+        "execution_governance": {
+            "authorization_basis": "STANDING_AUTONOMY_MANDATE_001",
+            "mandate_path": str(AUTONOMY_MANDATE_PATH.relative_to(PROJECT)),
+            "mandate_sha256": AUTONOMY_MANDATE_SHA256,
+            "per_stage_human_authorization": False,
+            "permit_path": str(AUTONOMOUS_PERMIT_PATH.relative_to(PROJECT)),
+            "permit_type": "AUTONOMOUS_EXECUTION_PERMIT",
+            "resume": False,
+            "standing_authorization_path": str(STANDING_AUTHORIZATION_PATH.relative_to(PROJECT)),
+            "state_path": str(AUTONOMY_STATE_PATH.relative_to(PROJECT)),
+        },
+        "forbidden_scope": {"p1": True, "panel_v2": True, "resolver": True},
+        "git_policy": {"branch": "autopilot/photsys-zero-byte", "force_push": False,
+                       "merge_main": False},
+        "historical_candidate_001": {"path": str(CANDIDATE_PATH.relative_to(PROJECT)),
+                                     "sha256": CANDIDATE_001_SHA256},
+        "implementation_aggregate": implementation_aggregate,
+        "resource_manifest": {"path": str(AUTONOMY_MANIFEST_PATH.relative_to(PROJECT)),
+                              "sha256": AUTONOMY_MANIFEST_SHA256},
+        "schema_version": "OC3_PHOTSYS_DESITARGET_ARCHIVE_RANGE_SIZE_PROBE_CANDIDATE_002",
+        "scientific_firewall": {
+            "astronomical_data_GETs": 0, "real_PHOTSYS_bytes_observed": 0,
+            "BRICKNAME_values_observed": 0, "BRICKID_values_observed": 0,
+            "ROOT_values_observed": 0,
+        },
+    })
+    return sealed(value)
+
+
+def validate_autonomous_candidate(path: Path = CANDIDATE_002_PATH) -> dict[str, object]:
+    try:
+        candidate = validate_sealed(load_canonical_json(path))
+    except Exception as exc:
+        raise RangeSizeProbeError("RANGE_SIZE_AUTONOMY_CANDIDATE_INVALID") from exc
+    if candidate != build_autonomous_candidate(implementation_hash(PROJECT)):
+        raise RangeSizeProbeError("RANGE_SIZE_AUTONOMY_CANDIDATE_INVALID")
+    if STANDING_AUTHORIZATION_PATH.exists():
+        raise RangeSizeProbeError("PREMATURE_STANDING_AUTONOMY_AUTHORIZATION")
+    if AUTONOMOUS_PERMIT_PATH.exists():
+        raise RangeSizeProbeError("PREMATURE_AUTONOMOUS_PERMIT")
+    return candidate
+
+
+def validate_candidate(path: Path = CANDIDATE_PATH,
+                       *, require_authorization_absent: bool = True) -> dict[str, object]:
+    if Path(path).resolve() == CANDIDATE_002_PATH.resolve():
+        return validate_autonomous_candidate(path)
+    candidate = validate_historical_candidate_001(path)
     if require_authorization_absent and AUTHORIZATION_PATH.exists():
         raise RangeSizeProbeError("PREMATURE_RANGE_SIZE_AUTHORIZATION")
     return candidate
@@ -305,6 +404,24 @@ def dry_run() -> dict[str, object]:
         "astronomical_data_GETs": 0,
         "method": "GET",
         "network_requests": 0,
+        "range": RANGE_VALUE,
+        "request_cap": REQUEST_CAP,
+        "scope": SCOPE,
+        "stage_id": STAGE_ID,
+        "state": READY,
+    }
+
+
+def autonomous_dry_run() -> dict[str, object]:
+    validate_historical_inputs()
+    validate_autonomous_candidate()
+    return {
+        "application_body_bytes_read": 0,
+        "astronomical_data_GETs": 0,
+        "execution_governance": "AUTONOMOUS_EXECUTION_PERMIT",
+        "method": "GET",
+        "network_requests": 0,
+        "permit_state": "MANDATE_NOT_ACTIVE",
         "range": RANGE_VALUE,
         "request_cap": REQUEST_CAP,
         "scope": SCOPE,
@@ -424,12 +541,9 @@ def classify_response(metadata: dict[str, object], counters: RangeSizeCounters) 
             "reason": "VALID_206_CONTENT_RANGE", "state": SUCCESS}
 
 
-def execute(candidate_path: Path, authorization_path: Path, command_argv_sha256: str,
-            output_directory: Path, *,
-            transport_factory: Callable[[RangeSizeCounters], RangeSizeOnlyTransport] = RangeSizeOnlyTransport
-            ) -> dict[str, object]:
-    validate_candidate(candidate_path, require_authorization_absent=False)
-    validate_authorization(candidate_path, authorization_path, command_argv_sha256)
+def _execute_after_governance(output_directory: Path, *,
+                              transport_factory: Callable[[RangeSizeCounters], RangeSizeOnlyTransport]
+                              = RangeSizeOnlyTransport) -> dict[str, object]:
     validate_historical_inputs()
     output = Path(output_directory).resolve()
     if output != OUTPUT_ROOT.resolve() or output.exists():
@@ -462,4 +576,53 @@ def execute(candidate_path: Path, authorization_path: Path, command_argv_sha256:
         "state": outcome["state"],
     })
     write_json_immutable(output / "TERMINAL.json", terminal)
+    return terminal
+
+
+def execute(candidate_path: Path, authorization_path: Path, command_argv_sha256: str,
+            output_directory: Path, *,
+            transport_factory: Callable[[RangeSizeCounters], RangeSizeOnlyTransport] = RangeSizeOnlyTransport
+            ) -> dict[str, object]:
+    """Historical candidate-001 execution path; requires FINAL_HUMAN_AUTHORIZATION."""
+    validate_historical_candidate_001(candidate_path)
+    validate_authorization(candidate_path, authorization_path, command_argv_sha256)
+    return _execute_after_governance(output_directory, transport_factory=transport_factory)
+
+
+def execute_autonomous(candidate_path: Path, standing_authorization_path: Path,
+                       permit_path: Path, state_path: Path, command_argv_sha256: str,
+                       output_directory: Path, *, consumed_at_utc: str,
+                       transitioned_at_utc: str,
+                       transport_factory: Callable[[RangeSizeCounters], RangeSizeOnlyTransport]
+                       = RangeSizeOnlyTransport) -> dict[str, object]:
+    """Candidate-002 path with standing authorization and a single-use permit."""
+    candidate = build_autonomous_candidate(implementation_hash(PROJECT))
+    try:
+        on_disk = validate_sealed(load_canonical_json(candidate_path))
+    except Exception as exc:
+        raise RangeSizeProbeError("RANGE_SIZE_AUTONOMY_CANDIDATE_INVALID") from exc
+    if on_disk != candidate or on_disk.get("command_argv_sha256") != command_argv_sha256:
+        raise RangeSizeProbeError("RANGE_SIZE_AUTONOMY_CANDIDATE_INVALID")
+    from .autonomy_governor import (AUTONOMY_LEDGER_ROOT as GOVERNOR_LEDGER_ROOT,
+                                    consume_permit, transition_state, validate_permit)
+    consumption_directory = GOVERNOR_LEDGER_ROOT / "PERMIT_CONSUMPTION"
+    validate_permit(permit_path, candidate_path=candidate_path, state_path=state_path,
+                    standing_authorization_path=standing_authorization_path,
+                    consumption_directory=consumption_directory)
+    # Consumption intent is immutable and precedes the material operation so a
+    # crash cannot make a copied permit replayable.
+    consume_permit(permit_path, candidate_path=candidate_path, state_path=state_path,
+                   standing_authorization_path=standing_authorization_path,
+                   consumption_directory=consumption_directory,
+                   consumed_at_utc=consumed_at_utc)
+    terminal = _execute_after_governance(output_directory, transport_factory=transport_factory)
+    transition_state(
+        state_path=state_path, candidate_path=candidate_path, permit_path=permit_path,
+        terminal_sha256=file_sha256(Path(output_directory) / "TERMINAL.json"),
+        terminal_state=str(terminal["state"]),
+        request_delta=int(terminal["counters"]["network_requests_started"]),
+        body_delta=int(terminal["application_body_bytes_read"]),
+        ledger_directory=GOVERNOR_LEDGER_ROOT,
+        transitioned_at_utc=transitioned_at_utc,
+        reason="AUTONOMOUS_RANGE_SIZE_EXECUTION_COMPLETED")
     return terminal
