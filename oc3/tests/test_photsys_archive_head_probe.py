@@ -95,20 +95,26 @@ class HeadProbeTests(unittest.TestCase):
     def test_14_exact_command_is_head_only(self):
         command=exact_command(); self.assertIn("--probe-desitarget-archive-head",command)
         self.assertIn("--execute-network",command); self.assertNotIn("GET",command)
-    def test_15_candidate_exact_and_authorization_absent(self):
-        self.assertEqual(validate_candidate(),build_candidate(implementation_hash(PROJECT)))
-        self.assertFalse(AUTHORIZATION_PATH.exists())
+    def test_15_historical_candidate_authorization_and_runtime_are_preserved(self):
+        self.assertEqual(file_sha256(CANDIDATE_PATH),
+                         "50e957873994c6330577a2b38d3ff3a3a00884ded076b9bd88447edf530b3a95")
+        self.assertEqual(file_sha256(AUTHORIZATION_PATH),
+                         "f33c558bb4b1b51671754571f6911db97611cdb858b1c741fb5956dee902d2bf")
+        self.assertEqual(file_sha256(OUTPUT_ROOT/"HEAD_RESPONSE.json"),
+                         "5eefee40091b098435701e4abbf271cb888b29a0353df8e5e7da40242449506b")
+        self.assertEqual(file_sha256(OUTPUT_ROOT/"TERMINAL.json"),
+                         "d70de460a0628b333d73a5b4a70de6fdab53333a971f9c276beb2255a4b82da8")
     def test_16_cli_help(self):
         with self.assertRaises(SystemExit) as caught,contextlib.redirect_stdout(io.StringIO()):cli.main(["--help"])
         self.assertEqual(caught.exception.code,0)
     def test_17_cli_execution_requires_authorization(self):
         with contextlib.redirect_stderr(io.StringIO()):
             self.assertEqual(cli.main(["--probe-desitarget-archive-head"]),2)
-    def test_18_dry_run_stops_at_boundary(self): self.assertEqual(dry_run()["state"],READY)
-    def test_19_validate_and_dry_run_make_no_network(self):
+    def test_18_historical_dry_run_is_closed(self):
+        self.code("HEAD_PROBE_CANDIDATE_INVALID",dry_run)
+    def test_19_historical_validation_makes_no_network(self):
         with patch("oc3lib.photsys_archive_head_probe.http.client.HTTPSConnection",side_effect=AssertionError("network")):
             self.assertEqual(validate_historical_inputs()["network_requests"],0)
-            self.assertEqual(dry_run()["network_requests"],0)
 
 
 if __name__=="__main__": unittest.main()
