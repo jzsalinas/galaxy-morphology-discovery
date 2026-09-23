@@ -66,7 +66,8 @@ OUTPUT_ROOT = PROJECT / "oc3/photsys_zero_byte_provenance" / STAGE_ID
 TAG = "0.48.0"
 EXPECTED_TAG_OBJECT = "1957b46481368c3b386a2113dc734538650c492c"
 EXPECTED_COMMIT = "dd30297f9d50fcb7bbba57d79d4b8fc86cb35701"
-ARCHIVE_PREFIX = "desitarget-0.48.0"
+ARCHIVE_PREFIX = f"desitarget-{EXPECTED_COMMIT}"
+ARCHIVE_URL = f"https://codeload.github.com/desihub/desitarget/tar.gz/{EXPECTED_COMMIT}"
 MANDATORY_SOURCE_PATHS = (
     "py/desitarget/randoms.py", "bin/select_randoms", "bin/supplement_randoms",
     "py/desitarget/io.py", "doc/changes.rst",
@@ -121,6 +122,7 @@ class FirewallCounters:
 def _resources() -> list[dict[str, object]]:
     return [
         {
+            "accepted_content_types": ["application/pdf"],
             "byte_cap": 4 * 1024 * 1024,
             "evidence_class": "FITS standard",
             "expected_content_type": "application/pdf",
@@ -133,6 +135,7 @@ def _resources() -> list[dict[str, object]]:
             "version": "FITS Standard 4.0",
         },
         {
+            "accepted_content_types": ["text/html"],
             "byte_cap": 1024 * 1024,
             "evidence_class": "Official documentation",
             "expected_content_type": "text/html",
@@ -145,6 +148,7 @@ def _resources() -> list[dict[str, object]]:
             "url": "https://www.legacysurvey.org/dr9/files/",
         },
         {
+            "accepted_content_types": ["application/json", "application/vnd.github+json"],
             "byte_cap": 128 * 1024,
             "evidence_class": "Producer source",
             "expected_content_type": "application/json",
@@ -156,6 +160,7 @@ def _resources() -> list[dict[str, object]]:
             "url": "https://api.github.com/repos/desihub/desitarget/git/ref/tags/0.48.0",
         },
         {
+            "accepted_content_types": ["application/json", "application/vnd.github+json"],
             "byte_cap": 128 * 1024,
             "evidence_class": "Producer source",
             "expected_content_type": "application/json",
@@ -167,15 +172,21 @@ def _resources() -> list[dict[str, object]]:
             "url": "https://api.github.com/repos/desihub/desitarget/git/tags/1957b46481368c3b386a2113dc734538650c492c",
         },
         {
+            "accepted_content_types": ["application/gzip", "application/x-gzip", "application/octet-stream"],
+            "archive_identity": {
+                "commit": EXPECTED_COMMIT,
+                "repository": "desihub/desitarget",
+                "top_level_prefix": ARCHIVE_PREFIX,
+            },
             "byte_cap": 14 * 1024 * 1024,
             "evidence_class": "Producer source",
             "expected_content_type": "application/gzip",
             "host": "codeload.github.com",
             "id": "DESITARGET_0_48_0_ARCHIVE",
             "immutable_revision_required": True,
-            "purpose": "Complete exact-tag source tree for deterministic offline search",
+            "purpose": "Complete exact-commit source tree for deterministic offline search",
             "redirect_rule": "NO_REDIRECT",
-            "url": "https://codeload.github.com/desihub/desitarget/tar.gz/refs/tags/0.48.0",
+            "url": ARCHIVE_URL,
         },
     ]
 
@@ -262,9 +273,12 @@ def completed_claim_matrix(*, legacy: dict[str, object], fits: dict[str, object]
     rows = initial_claim_matrix()
     if all(legacy.get("meanings", {}).values()):
         rows[2]["status"] = "SUPPORTED"
-    if fits.get("bintable_A_first_character_0x00") is True:
+    if (fits.get("BINTABLE_A_NULL_RULE") is True and
+            fits.get("ASCII_NULL_0x00") is True):
         rows[3]["status"] = "SUPPORTED"
-    if fits.get("x00_distinct_from_x20") is True and fits.get("x20_ascii_space") is True:
+    if (fits.get("ASCII_NULL_0x00") is True and
+            fits.get("ASCII_SPACE_0x20") is True and
+            fits.get("x00_distinct_from_x20") is True):
         rows[4]["status"] = "SUPPORTED"
     # A dtype and assignments do not prove initialization, the outside branch,
     # byte preservation, or the named released product.  Those claims remain
@@ -316,6 +330,7 @@ def build_candidate(implementation_aggregate: str) -> dict[str, object]:
         "command_argv": command,
         "command_argv_sha256": sha256_bytes(canonical(command)),
         "desitarget_binding_to_verify": {
+            "archive_url": ARCHIVE_URL,
             "expected_annotated_tag_object": EXPECTED_TAG_OBJECT,
             "expected_resolved_commit": EXPECTED_COMMIT,
             "repository": "desihub/desitarget", "tag": TAG,
@@ -342,6 +357,10 @@ def build_candidate(implementation_aggregate: str) -> dict[str, object]:
         "outcome_gate": list(OUTCOMES),
         "resource_manifest": {
             "path": str(MANIFEST_PATH), "sha256": file_sha256(MANIFEST_PATH),
+        },
+        "superseded_candidate": {
+            "authorization_prohibited": True,
+            "sha256": "ea3052d541e92b375630c4d317a6656b79d02a5713e883f6a5ee387795d6d9c0",
         },
         "restart_rules": {
             "automatic_resume": False, "overwrite": False,
@@ -431,24 +450,99 @@ def parse_legacy_document(body: bytes) -> dict[str, object]:
     }
 
 
+def _fits_section(page: str, position: int) -> tuple[str | None, str | None]:
+    """Return the nearest bounded, heading-like identifier before evidence."""
+    line_start = page.rfind("\n", 0, position) + 1
+    line_end = page.find("\n", position)
+    if line_end < 0:
+        line_end = len(page)
+    before = page[:line_start].splitlines()[-79:] + [page[line_start:line_end]]
+    numbered = re.compile(r"^\s*(\d+(?:\.\d+)+)\s+(.{3,100}?)\s*$")
+    for line in reversed(before):
+        match = numbered.match(line)
+        if match:
+            return match.group(1), match.group(2).strip()
+    for line in reversed(before):
+        if re.search(r"binary\s+table|BINTABLE", line, re.I):
+            return None, re.sub(r"\s+", " ", line).strip()[:120]
+    return None, None
+
+
+def _fits_record(claim: str, pages: list[str], page_index: int | None,
+                 spans: list[tuple[int, int]]) -> dict[str, object]:
+    if page_index is None or not spans:
+        return {"claim": claim, "context_characters": 0, "context_sha256": None,
+                "page": None, "section_identifier": None, "section_title": None,
+                "supported": False}
+    page = pages[page_index]
+    start = max(0, min(item[0] for item in spans) - 240)
+    end = min(len(page), max(item[1] for item in spans) + 240)
+    context = re.sub(r"\s+", " ", page[start:end]).strip()
+    identifier, heading = _fits_section(page, min(item[0] for item in spans))
+    return {"claim": claim, "context_characters": len(context),
+            "context_sha256": sha256_bytes(context.encode()), "page": page_index + 1,
+            "section_identifier": identifier, "section_title": heading, "supported": True}
+
+
+def _first_page_evidence(pages: list[str], patterns: tuple[re.Pattern[str], ...],
+                         *, maximum_span: int) -> tuple[int | None, list[tuple[int, int]]]:
+    for page_index, page in enumerate(pages):
+        matches = [pattern.search(page) for pattern in patterns]
+        if all(matches):
+            spans = [(match.start(), match.end()) for match in matches if match]
+            if max(item[1] for item in spans) - min(item[0] for item in spans) <= maximum_span:
+                return page_index, spans
+    return None, []
+
+
 def parse_fits_standard_text(text: str, *, title: str, version: str,
-                             section: str, page: str, normative: bool) -> dict[str, object]:
-    nul_match = re.search(r"(?:ASCII\s+NULL|null string).{0,300}(?:first character|character)|(?:first character).{0,300}(?:ASCII\s+NULL|null string)", text, re.I | re.S)
-    space_match = re.search(r"(?:ASCII\s+space|space character).{0,300}(?:32|0x20|20 hex)|(?:32|0x20|20 hex).{0,300}(?:ASCII\s+space|space character)", text, re.I | re.S)
-    nul = bool(nul_match); space = bool(space_match)
+                             normative: bool) -> dict[str, object]:
+    """Extract three closed representation claims from bounded PDF text contexts.
+
+    Generic NULL wording is insufficient: the Binary Table claim requires a
+    BINTABLE context, the TFORMn character type A, its ASCII-NULL termination
+    rule, and the first-character null-string rule on one text page.
+    """
     pages = text.split("\f")
-    def page_for(match: re.Match[str] | None) -> int | None:
-        return None if match is None else text[:match.start()].count("\f") + 1
+    flags = re.I | re.S
+    bintable_patterns = (
+        re.compile(r"(?:binary\s+table|BINTABLE)", flags),
+        re.compile(r"TFORMn.{0,900}(?:(?:['\"]A['\"]|\bA\b).{0,180}(?:character|string)|(?:character|string).{0,180}(?:['\"]A['\"]|\bA\b))", flags),
+        re.compile(r"(?:character\s+string).{0,700}(?:terminated|termination).{0,240}ASCII\s+NULL.{0,160}(?:hexadecimal\s*00|hex\s*00|0x00)", flags),
+        re.compile(r"(?:null\s+string).{0,500}(?:ASCII\s+NULL).{0,240}(?:first\s+character)|(?:first\s+character).{0,240}(?:ASCII\s+NULL).{0,500}(?:null\s+string)", flags),
+    )
+    ascii_null_patterns = (re.compile(
+        r"ASCII\s+NULL.{0,240}(?:all\s+bits\s+(?:set\s+to\s+)?zero|hexadecimal\s*00|hex\s*00|0x00)"
+        r"|(?:all\s+bits\s+(?:set\s+to\s+)?zero|hexadecimal\s*00|hex\s*00|0x00).{0,240}ASCII\s+NULL",
+        flags),)
+    ascii_space_patterns = (re.compile(
+        r"ASCII\s+space.{0,240}(?:decimal\s*32|hexadecimal\s*20|hex\s*20|0x20)"
+        r"|(?:decimal\s*32|hexadecimal\s*20|hex\s*20|0x20).{0,240}ASCII\s+space",
+        flags),)
+    b_page, b_spans = _first_page_evidence(pages, bintable_patterns, maximum_span=6000)
+    n_page, n_spans = _first_page_evidence(pages, ascii_null_patterns, maximum_span=600)
+    s_page, s_spans = _first_page_evidence(pages, ascii_space_patterns, maximum_span=600)
+    evidence = [
+        _fits_record("BINTABLE_A_NULL_RULE", pages, b_page, b_spans),
+        _fits_record("ASCII_NULL_0x00", pages, n_page, n_spans),
+        _fits_record("ASCII_SPACE_0x20", pages, s_page, s_spans),
+    ]
+    support = {item["claim"]: item["supported"] for item in evidence}
+    complete = all(support.values())
     return {
+        "ASCII_NULL_0x00": support["ASCII_NULL_0x00"],
+        "ASCII_SPACE_0x20": support["ASCII_SPACE_0x20"],
+        "BINTABLE_A_NULL_RULE": support["BINTABLE_A_NULL_RULE"],
         "authority_kind": "normative" if normative else "explanatory",
-        "bintable_A_first_character_0x00": nul,
-        "page": page, "section": section,
-        "detected_pages": {"null_string": page_for(nul_match), "space": page_for(space_match)},
+        "bintable_A_first_character_0x00": (
+            support["BINTABLE_A_NULL_RULE"] and support["ASCII_NULL_0x00"]),
+        "evidence_records": evidence,
         "evidence_text_sha256": sha256_bytes(text.encode()),
+        "representation_complete": complete,
         "survey_footprint_semantics_assigned": False,
         "title": title, "version": version,
-        "x00_distinct_from_x20": nul and space,
-        "x20_ascii_space": space,
+        "x00_distinct_from_x20": complete,
+        "x20_ascii_space": support["ASCII_SPACE_0x20"],
     }
 
 
@@ -644,6 +738,11 @@ class DocumentaryTransport:
             connection.close(); raise ProvenanceError("DOCUMENTARY_HTTP_RESPONSE_INVALID")
         if headers.get("content-encoding", "identity").lower() != "identity":
             connection.close(); raise ProvenanceError("DOCUMENTARY_ENCODING_INVALID")
+        content_type = headers.get("content-type", "").split(";", 1)[0].strip().lower()
+        accepted_content_types = resource.get("accepted_content_types")
+        if (not isinstance(accepted_content_types, list) or
+                content_type not in accepted_content_types):
+            connection.close(); raise ProvenanceError("DOCUMENTARY_CONTENT_TYPE_INVALID")
         if headers.get("content-length", "").isdigit() and int(headers["content-length"]) > cap:
             connection.close(); raise ProvenanceError("RESOURCE_BODY_CAP_EXCEEDED")
         body = response.read(cap + 1); connection.close()
@@ -705,12 +804,11 @@ def run_research(candidate_path: Path, authorization_path: Path, argv_sha256: st
             raise ProvenanceError("FITS_DOCUMENT_TEXT_EXTRACTION_FAILED")
         fits = parse_fits_standard_text(text_path.read_text(errors="strict"),
                                         title="Definition of the Flexible Image Transport System (FITS)",
-                                        version="4.0", section="BINTABLE character data", page="TO_RECORD",
-                                        normative=True)
+                                        version="4.0", normative=True)
         named_generation = search["named_product_generator_status"] != NAMED_GENERATOR_NOT_FOUND
         result = outcome_gate(
             official_categories=all(legacy["meanings"].values()),
-            fits_representation=fits["bintable_A_first_character_0x00"] and fits["x20_ascii_space"],
+            fits_representation=fits["representation_complete"],
             exact_producer=all(trace[key] for key in ("normal_PHOTSYS_S1_dtype_detected",
                                "normal_N_assignment_detected", "normal_S_assignment_detected")),
             exact_outside_path=False, serialization_preserves=False,

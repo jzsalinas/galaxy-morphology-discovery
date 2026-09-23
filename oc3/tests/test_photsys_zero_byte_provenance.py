@@ -17,7 +17,8 @@ from oc3lib.photsys_zero_byte_provenance import _resources
 class FakeResponse:
     def __init__(self, body=b"ok", *, status=200, headers=None):
         self.body = body; self.status = status
-        self.headers = headers or {"Content-Length": str(len(body)), "Content-Encoding": "identity"}
+        self.headers = headers or {"Content-Length": str(len(body)), "Content-Encoding": "identity",
+                                   "Content-Type": "application/pdf"}
     def getheaders(self): return list(self.headers.items())
     def read(self, amount): return self.body[:amount]
 
@@ -86,6 +87,12 @@ class ProvenanceTests(unittest.TestCase):
     def test_05_caps_tighter_than_spec(self):
         self.assertLessEqual(REQUEST_CAP, 24); self.assertLessEqual(BODY_CAP, 32*1024*1024)
         self.assertEqual((CONCURRENCY, RETRIES_PER_RESOURCE), (1, 0))
+    def test_05a_archive_is_commit_pinned_not_tag_pinned(self):
+        archive=[r for r in _resources() if r["id"]=="DESITARGET_0_48_0_ARCHIVE"][0]
+        self.assertEqual(archive["url"],ARCHIVE_URL)
+        self.assertIn(EXPECTED_COMMIT,archive["url"])
+        self.assertNotIn("refs/tags",archive["url"])
+        self.assertEqual(archive["archive_identity"]["top_level_prefix"],ARCHIVE_PREFIX)
     def test_06_wrong_host_rejected_before_connection(self):
         manifest=build_resource_manifest(); manifest["resources"][0]["host"]="evil.example"
         t=DocumentaryTransport(manifest, FirewallCounters())
@@ -101,12 +108,22 @@ class ProvenanceTests(unittest.TestCase):
         with patch("oc3lib.photsys_zero_byte_provenance.http.client.HTTPSConnection",FakeConnection):
             self.code("DOCUMENTARY_HTTP_RESPONSE_INVALID",lambda:DocumentaryTransport(build_resource_manifest(),FirewallCounters()).get("FITS_STANDARD_4_0"))
     def test_10_content_length_cap(self):
-        FakeConnection.response=FakeResponse(b"",headers={"Content-Length":str(5*1024*1024)})
+        FakeConnection.response=FakeResponse(b"",headers={"Content-Length":str(5*1024*1024),
+                                                           "Content-Type":"application/pdf"})
         with patch("oc3lib.photsys_zero_byte_provenance.http.client.HTTPSConnection",FakeConnection):
             self.code("RESOURCE_BODY_CAP_EXCEEDED",lambda:DocumentaryTransport(build_resource_manifest(),FirewallCounters()).get("FITS_STANDARD_4_0"))
     def test_11_request_cap_precedes_connection(self):
         c=FirewallCounters(public_documentary_source_requests=REQUEST_CAP)
         self.code("REQUEST_CAP_EXCEEDED",lambda:DocumentaryTransport(build_resource_manifest(),c).get("FITS_STANDARD_4_0"))
+    def test_11a_content_type_closed_per_resource(self):
+        FakeConnection.response=FakeResponse(b"not pdf",headers={"Content-Length":"7","Content-Type":"text/plain"})
+        with patch("oc3lib.photsys_zero_byte_provenance.http.client.HTTPSConnection",FakeConnection):
+            self.code("DOCUMENTARY_CONTENT_TYPE_INVALID",lambda:DocumentaryTransport(build_resource_manifest(),FirewallCounters()).get("FITS_STANDARD_4_0"))
+    def test_11b_content_type_parameters_are_accepted(self):
+        FakeConnection.response=FakeResponse(b"ok",headers={"Content-Length":"2","Content-Type":"application/pdf; charset=binary"})
+        with patch("oc3lib.photsys_zero_byte_provenance.http.client.HTTPSConnection",FakeConnection):
+            result=DocumentaryTransport(build_resource_manifest(),FirewallCounters()).get("FITS_STANDARD_4_0")
+        self.assertEqual(result["body"],b"ok")
 
     def test_12_revision_binding_accepts_exact(self):
         ref=canonical({"object":{"type":"tag","sha":EXPECTED_TAG_OBJECT}})
@@ -118,12 +135,20 @@ class ProvenanceTests(unittest.TestCase):
     def test_14_safe_archive_extracts_complete_tree(self):
         target=self.root/"tree"; manifest=extract_archive_safely(archive_bytes(source_files()),target)
         self.assertEqual(len(manifest["entries"]),5)
+        self.assertEqual(ARCHIVE_PREFIX,f"desitarget-{EXPECTED_COMMIT}")
     def test_15_archive_traversal_rejected(self):
         data=archive_bytes(source_files(),unsafe=f"{ARCHIVE_PREFIX}/../escape")
         self.code("ARCHIVE_MEMBER_UNSAFE",lambda:extract_archive_safely(data,self.root/"tree"))
     def test_16_archive_wrong_prefix_rejected(self):
         data=archive_bytes(source_files(),unsafe="other/file")
         self.code("ARCHIVE_MEMBER_UNSAFE",lambda:extract_archive_safely(data,self.root/"tree"))
+    def test_16a_wrong_commit_archive_prefix_rejected(self):
+        wrong=f"desitarget-{'0'*40}"
+        stream=io.BytesIO()
+        with tarfile.open(fileobj=stream,mode="w:gz") as archive:
+            info=tarfile.TarInfo(f"{wrong}/py/desitarget/randoms.py"); info.size=1
+            archive.addfile(info,io.BytesIO(b"x"))
+        self.code("ARCHIVE_MEMBER_UNSAFE",lambda:extract_archive_safely(stream.getvalue(),self.root/"tree"))
     def test_17_missing_mandatory_file_rejected(self):
         files=source_files(); del files["doc/changes.rst"]
         self.code("MANDATORY_SOURCE_PATH_MISSING",lambda:extract_archive_safely(archive_bytes(files),self.root/"tree"))
@@ -148,11 +173,47 @@ class ProvenanceTests(unittest.TestCase):
         result=parse_legacy_document(body)
         self.assertEqual(result["outside_representation_literal"]," ")
         self.assertTrue(all(result["meanings"].values()))
-    def test_23_fits_distinguishes_nul_space(self):
-        text="ASCII NULL is a null string when the first character is zero. ASCII space character is 32 (0x20)."
-        result=parse_fits_standard_text(text,title="x",version="4",section="s",page="1",normative=True)
+    def test_23_generic_ascii_null_does_not_prove_bintable_A(self):
+        text="A generic appendix mentions ASCII NULL and a null string with its first character elsewhere."
+        result=parse_fits_standard_text(text,title="x",version="4",normative=True)
+        self.assertFalse(result["BINTABLE_A_NULL_RULE"])
+        self.assertFalse(result["representation_complete"])
+    def test_23a_bintable_A_context_proves_only_its_rule(self):
+        text=("7.3.2 Binary Table Data\nTFORMn Data Type 'A' Character string\n"
+              "A character string may be terminated by ASCII NULL (hexadecimal 00). "
+              "A null string has ASCII NULL as its first character.")
+        result=parse_fits_standard_text(text,title="x",version="4",normative=True)
+        self.assertTrue(result["BINTABLE_A_NULL_RULE"])
+        self.assertTrue(result["ASCII_NULL_0x00"])
+        self.assertFalse(result["ASCII_SPACE_0x20"])
+        self.assertFalse(result["representation_complete"])
+        record=result["evidence_records"][0]
+        self.assertEqual(record["claim"],"BINTABLE_A_NULL_RULE")
+        self.assertEqual(record["page"],1)
+        self.assertIsNotNone(record["context_sha256"])
+    def test_23b_ascii_null_definition_independent(self):
+        result=parse_fits_standard_text("ASCII NULL is hexadecimal 00 and has all bits zero.",title="x",version="4",normative=True)
+        self.assertTrue(result["ASCII_NULL_0x00"])
+        self.assertFalse(result["BINTABLE_A_NULL_RULE"])
+    def test_23c_ascii_space_definition_independent(self):
+        result=parse_fits_standard_text("ASCII space is decimal 32, hexadecimal 20 (0x20).",title="x",version="4",normative=True)
+        self.assertTrue(result["ASCII_SPACE_0x20"])
+        self.assertFalse(result["BINTABLE_A_NULL_RULE"])
+    def test_23d_all_three_required_for_complete_representation(self):
+        text=("7.3.2 Binary Table Data\nTFORMn Data Type 'A' Character string\n"
+              "A character string may be terminated by ASCII NULL (hexadecimal 00). "
+              "A null string has ASCII NULL as its first character.\n"
+              "ASCII NULL has all bits zero, hexadecimal 00.\n"
+              "ASCII space is decimal 32, hexadecimal 20 (0x20).")
+        result=parse_fits_standard_text(text,title="x",version="4",normative=True)
+        self.assertTrue(result["representation_complete"])
         self.assertTrue(result["x00_distinct_from_x20"])
         self.assertFalse(result["survey_footprint_semantics_assigned"])
+    def test_23e_ambiguous_context_stays_unresolved(self):
+        text="Binary Table and TFORMn Data Type A occur here.\fASCII NULL hexadecimal 00; null string first character."
+        result=parse_fits_standard_text(text,title="x",version="4",normative=True)
+        self.assertFalse(result["BINTABLE_A_NULL_RULE"])
+        self.assertFalse(result["representation_complete"])
     def test_24_claim_matrix_closed(self):
         self.assertEqual(validate_claim_matrix(initial_claim_matrix()),initial_claim_matrix())
     def test_25_claim_matrix_bad_status_rejected(self):
@@ -182,7 +243,8 @@ class ProvenanceTests(unittest.TestCase):
         self.assertEqual(validate_candidate(),build_candidate(implementation_hash(PROJECT)))
     def test_36_completed_matrix_keeps_producer_inference_separate(self):
         legacy={"meanings":{"N":True,"S":True," ":True}}
-        fits={"bintable_A_first_character_0x00":True,"x00_distinct_from_x20":True,"x20_ascii_space":True}
+        fits={"BINTABLE_A_NULL_RULE":True,"ASCII_NULL_0x00":True,
+              "ASCII_SPACE_0x20":True,"x00_distinct_from_x20":True}
         trace={"zero_initialization_before_assignment_proven":False,
                "outside_rows_raw_0x00_proven":False,
                "serialization_preserves_PHOTSYS_proven":False}
