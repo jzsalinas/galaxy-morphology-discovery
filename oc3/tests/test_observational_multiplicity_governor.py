@@ -15,6 +15,10 @@ import oc3_observational_multiplicity as executor
 from oc3lib.observational_multiplicity_executor_validation import (
     CANDIDATE_002, CANDIDATE_003, expected_command_argv, validate_candidate_003,
 )
+from oc3lib.observational_multiplicity_executor_validation_004 import (
+    CANDIDATE_004, expected_command_argv as expected_command_argv_004,
+    validate_candidate_004,
+)
 
 
 class ObservationalMultiplicityGovernorTests(unittest.TestCase):
@@ -43,11 +47,22 @@ class ObservationalMultiplicityGovernorTests(unittest.TestCase):
             fn()
         self.assertEqual(caught.exception.code, expected)
 
-    def candidate(self, name, authority, *, requests=0, body=0, retries=0, mutate=None):
+    def candidate(self, name, authority, *, requests=0, body=0, retries=0, mutate=None,
+                  executor_command=False):
         self.counter += 1
         stage = f"SYNTHETIC-{name}-{self.counter:03d}"
         scope = f"SYNTHETIC_{name}_ONLY"
-        argv = ["synthetic", "--stage", stage]
+        if executor_command:
+            argv = [str(gov.PROJECT / "oc3/.venv/bin/python"),
+                    str(gov.PROJECT / "oc3/oc3_observational_multiplicity.py"),
+                    "--audit-global-view-relation",
+                    "--candidate", str(self.root / f"candidate_{self.counter}.json"),
+                    "--permit", str(self.root / f"permit_{self.counter}.json"),
+                    "--standing-authorization", str(self.root / f"authorization_{self.counter}.json"),
+                    "--autonomy-state", str(self.root / f"state_{self.counter}.json"),
+                    "--output-directory", str(self.root / "OUTPUT")]
+        else:
+            argv = ["synthetic", "--stage", stage]
         payload = {
             "command_argv": argv,
             "command_argv_sha256": sha256_bytes(canonical(argv)),
@@ -451,8 +466,33 @@ class ObservationalMultiplicityGovernorTests(unittest.TestCase):
             with self.assertRaises(SystemExit):
                 executor.parse_arguments(expected_command_argv()[2:] + ["--consumption-path", str(self.root)])
 
+    def test_13b_candidate_004_exact_runtime_command_and_mutations(self):
+        result = validate_candidate_004()
+        self.assertEqual(result["state"], "CANDIDATE_004_RUNTIME_COMMAND_BINDING_VALIDATED")
+        self.assertEqual(result["runtime_command_mutations_rejected"], 9)
+        self.assertEqual((result["audit_executions"], result["network_requests"]), (0, 0))
+        command = expected_command_argv_004()
+        parsed = executor.parse_arguments(command[2:])
+        self.assertEqual(parsed.candidate, CANDIDATE_004)
+        executor.validate_runtime_invocation(load_canonical_json(CANDIDATE_004),
+                                             executable=command[0], script_path=command[1],
+                                             argument_vector=command[2:])
+        governed = {0:"python", 1:"script", 2:"mode", 4:"candidate", 6:"permit",
+                    8:"standing_authorization", 10:"state", 12:"output_directory"}
+        for index, name in governed.items():
+            with self.subTest(runtime_element=name):
+                mutated = list(command)
+                mutated[index] += ".changed"
+                with self.assertRaises(executor.RuntimeCommandBindingError):
+                    executor.validate_runtime_invocation(load_canonical_json(CANDIDATE_004),
+                        executable=mutated[0], script_path=mutated[1], argument_vector=mutated[2:])
+        with self.assertRaises(executor.RuntimeCommandBindingError):
+            executor.validate_runtime_invocation(load_canonical_json(CANDIDATE_004),
+                executable=command[0], script_path=command[1],
+                argument_vector=[*command[2:], "--unknown-extra-argument"])
+
     def test_14_executor_consumes_canonical_permit_before_runner_and_replay_fails(self):
-        first = self.candidate("EXECUTOR", gov.AUTHORITY_CLASSES[0])
+        first = self.candidate("EXECUTOR", gov.AUTHORITY_CLASSES[0], executor_command=True)
         state, auth, ledger = self.active(first)
         self.register(first, state, auth, ledger)
         permit = self.issue(first, state, auth, ledger)
@@ -466,23 +506,26 @@ class ObservationalMultiplicityGovernorTests(unittest.TestCase):
             called.append(True)
             return {"state": "SYNTHETIC_AUDIT_COMPLETE"}
 
-        argv = ["--audit-global-view-relation", "--candidate", str(first),
-                "--permit", str(permit), "--standing-authorization", str(auth),
-                "--autonomy-state", str(state), "--output-directory", str(self.root / "OUTPUT")]
-        missing_permit_argv = list(argv)
-        missing_permit_argv[missing_permit_argv.index("--permit") + 1] = str(self.root / "missing-permit.json")
-        with self.assertRaises(gov.GovernorError):
-            executor.main(missing_permit_argv, audit_runner=lambda _: called.append(False),
-                          now_utc=lambda: "2026-09-24T00:03:30Z")
+        command = load_canonical_json(first)["command_argv"]
+        argv = command[2:]
+        invalid_runtime_argv = list(argv)
+        invalid_runtime_argv[invalid_runtime_argv.index("--output-directory") + 1] = str(self.root / "OTHER")
+        with patch.object(executor.sys, "argv", [command[1], *invalid_runtime_argv]):
+            with self.assertRaises(executor.RuntimeCommandBindingError):
+                executor.main(audit_runner=lambda _: called.append(False),
+                              now_utc=lambda: "2026-09-24T00:03:30Z")
         self.assertEqual(called, [])
-        with redirect_stdout(io.StringIO()):
-            self.assertEqual(executor.main(argv, audit_runner=runner,
-                                           now_utc=lambda: "2026-09-24T00:04:00Z"), 0)
+        self.assertFalse((gov.CONSUMPTION_ROOT / f"{file_sha256(permit)}.json").exists())
+        with patch.object(executor.sys, "argv", [command[1], *argv]):
+            with redirect_stdout(io.StringIO()):
+                self.assertEqual(executor.main(audit_runner=runner,
+                                               now_utc=lambda: "2026-09-24T00:04:00Z"), 0)
         self.assertEqual(called, [True])
         self.assertEqual(file_sha256(state), state_before)
-        with self.assertRaises(gov.GovernorError) as caught:
-            executor.main(argv, audit_runner=lambda _: called.append(False),
-                          now_utc=lambda: "2026-09-24T00:05:00Z")
+        with patch.object(executor.sys, "argv", [command[1], *argv]):
+            with self.assertRaises(gov.GovernorError) as caught:
+                executor.main(audit_runner=lambda _: called.append(False),
+                              now_utc=lambda: "2026-09-24T00:05:00Z")
         self.assertEqual(caught.exception.code, "AUTONOMOUS_PERMIT_ALREADY_CONSUMED")
         self.assertEqual(called, [True])
 
