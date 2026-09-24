@@ -679,6 +679,12 @@ class ManifestContractTripwireOutcomeTests(Base):
             "OC3_CROSS_OBSERVER_GROUPING_PRIMARY_ARTICLE_RECOVERY_CANDIDATE_002.json",
             "OC3_CROSS_OBSERVER_GROUPING_PRIMARY_ARTICLE_RECOVERY_MANIFEST_002.json",
             "OC3_CROSS_OBSERVER_GROUPING_PRIMARY_ARTICLE_RECOVERY_VALIDATION_002.json"}
+        cross_id_formalism_recovery_bootstrap = cross_observer_grouping_primary_article | {
+            "OC3_CROSS_ID_FORMALISM_RECOVERY_AUTONOMY_MANDATE_001.json",
+            "OC3_CROSS_ID_FORMALISM_RECOVERY_FIRST_CANDIDATE_001.json",
+            "OC3_CROSS_ID_FORMALISM_RECOVERY_FIRST_CANDIDATE_VALIDATION_001.json",
+            "OC3_CROSS_ID_FORMALISM_RECOVERY_POLICY_CORE_MANIFEST_001.json",
+            "OC3_CROSS_ID_FORMALISM_RECOVERY_RESOURCE_MANIFEST_001.json"}
         eligibility_p0 = eligibility_implementation | {
             "OC3_GALAXY_ELIGIBILITY_PANEL_MANIFEST.json",
             "OC3_GALAXY_ELIGIBILITY_P1_AUTHORIZATION_CANDIDATE_001.json"}
@@ -708,6 +714,7 @@ class ManifestContractTripwireOutcomeTests(Base):
                                     cross_observer_grouping_primary_literature,
                                     cross_observer_grouping_offline_review,
                                     cross_observer_grouping_primary_article,
+                                    cross_id_formalism_recovery_bootstrap,
                                     eligibility_p0))
         technical_names = {item.name for item in (PROJECT / "oc3/TECHNICAL_INDEX").iterdir()}
         technical_base = {"OC3_LOCATIONS.json", "OC3_SELECTION_FLOW.csv",
