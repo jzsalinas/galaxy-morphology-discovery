@@ -609,6 +609,10 @@ class ManifestContractTripwireOutcomeTests(Base):
             "OC3_AUTONOMY_MANDATE_001.json",
             "OC3_PHOTSYS_DESITARGET_ARCHIVE_RANGE_SIZE_RESOURCE_MANIFEST_002.json",
             "OC3_PHOTSYS_DESITARGET_ARCHIVE_RANGE_SIZE_PROBE_CANDIDATE_002.json"}
+        photsys_autonomy_hardened = photsys_autonomy_bootstrap | {
+            "OC3_AUTONOMY_POLICY_CORE_MANIFEST_001.json",
+            "OC3_PHOTSYS_DESITARGET_ARCHIVE_RANGE_SIZE_ACTION_VALIDATION_RECEIPT_003.json",
+            "OC3_PHOTSYS_DESITARGET_ARCHIVE_RANGE_SIZE_PROBE_CANDIDATE_003.json"}
         eligibility_p0 = eligibility_implementation | {
             "OC3_GALAXY_ELIGIBILITY_PANEL_MANIFEST.json",
             "OC3_GALAXY_ELIGIBILITY_P1_AUTHORIZATION_CANDIDATE_001.json"}
@@ -624,6 +628,7 @@ class ManifestContractTripwireOutcomeTests(Base):
                                     photsys_archive_head_candidate,
                                     photsys_archive_range_candidate,
                                     photsys_autonomy_bootstrap,
+                                    photsys_autonomy_hardened,
                                     eligibility_p0))
         technical_names = {item.name for item in (PROJECT / "oc3/TECHNICAL_INDEX").iterdir()}
         technical_base = {"OC3_LOCATIONS.json", "OC3_SELECTION_FLOW.csv",

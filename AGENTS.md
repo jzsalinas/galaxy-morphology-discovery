@@ -20,6 +20,8 @@ Leer `GALAXY_RESEARCH_SEED.md`, `CODEX_PHASE_C0_SPEC.md` y `C0_EXECUTION_DECISIO
 
 Cuando una autorización permanente válida esté `ACTIVE`, continuar sin pedir aprobación entre Gates intermedios elegibles. Las ejecuciones epistémicamente materiales requieren permisos deterministas, de uso único, derivados del mandato. Versionar artefactos compactos; conservar evidencia pesada localmente. Detenerse únicamente en un terminal científico o `STOP_REQUIRES_HUMAN`.
 
+Mientras la autonomía esté `ACTIVE`, el policy core congelado no puede modificarse. Toda modificación necesaria exige `STOP_REQUIRES_HUMAN`.
+
 Detenerse siempre ante expansión del mandato, aumento de presupuesto, observación astronómica o de valores PHOTSYS/BRICKNAME/BRICKID/ROOT no autorizada, acciones destructivas o irreversibles, credenciales nuevas, clases de autoridad externas, criterios modificados después de observar evidencia, Panel V2/P1/resolver, o un conflicto de integridad que exija cambiar gobernanza.
 
 ## Git

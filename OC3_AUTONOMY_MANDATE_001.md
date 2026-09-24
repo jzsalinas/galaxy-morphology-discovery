@@ -1,47 +1,46 @@
-# OC3 autonomy mandate 001
+# OC3 standing autonomy mandate 001 — prospective revision 002
 
-Status: `PENDING_HUMAN_AUTHORIZATION`.
-
-This document defines a bounded prospective autonomy envelope for the mission `OC3-PHOTSYS-ZERO-BYTE-PROVENANCE-AUTONOMY-001`. It is not a standing authorization and cannot issue or activate a real permit.
+State: `PENDING_HUMAN_AUTHORIZATION`. This document does not activate autonomy or authorize an execution.
 
 ## Mission
 
-Close the frozen question of whether observed `RAW_PHOTSYS_0x00` has sufficient provenance to map to `DOCUMENTED_OUTSIDE_FOOTPRINT` for `survey-bricks-dr9-randoms-0.48.0.fits`, selecting exactly one outcome allowed by `OC3_PHOTSYS_ZERO_BYTE_SEMANTIC_PROVENANCE_SPEC.md`, or stop with the precise mandate expansion required from a human.
+Close the PHOTSYS zero-byte semantic/provenance question for `survey-bricks-dr9-randoms-0.48.0.fits` with exactly one frozen scientific outcome, or stop with the exact mandate expansion required from the human reviewer.
 
-The mission terminates immediately after a scientific terminal report, completed claim matrix, bound evidence hashes, state transition, and compact Git commit. It never continues to PHOTSYS V2, Panel V2, P1, or morphological discovery.
+The scientific question, four outcomes, authority classes, request/body budgets, historical accounting, no-data firewall, PHOTSYS V1 failure, absent V2 resolver, Panel V2 boundary, and P1 boundary are unchanged from revision 001.
+
+## Frozen policy core and authorization
+
+The canonical `OC3_AUTONOMY_POLICY_CORE_MANIFEST_001.json` binds the universal policy implementation. A future standing authorization must bind the exact mandate JSON SHA-256, policy-core manifest SHA-256, and current waiting-state SHA-256. Activation is permitted only through the deterministic governor transition. Manual state editing is not activation.
+
+While autonomy is `ACTIVE`, policy-core mutation is forbidden and results in `STOP_REQUIRES_HUMAN`.
 
 ## Evidence envelope
 
-Only these authority classes are eligible: directly relevant official Legacy Survey DR9 documentation; authoritative FITS standards or official NASA/HEASARC documentation; exact desitarget 0.48.0 metadata and immutable source; official DESI/Legacy Survey provenance connecting code to the named summary product; and peer-reviewed random-catalog documentation only when needed for generation provenance.
+Only these classes are admissible:
 
-Broad crawling and search-result evidence are prohibited. Every evidence-producing network action requires a frozen literal resource manifest and candidate before deterministic policy evaluation. Official and immutable identities are preferred. Existing frozen public bodies and an acquired exact source tree must be reused offline rather than reacquired.
+1. official Legacy Survey documentation directly relevant to the named DR9 product;
+2. authoritative FITS standard or official NASA/HEASARC documentation;
+3. exact desitarget 0.48.0 tag, release metadata, and source;
+4. official DESI/Legacy Survey provenance needed to connect code to the named summary product;
+5. peer-reviewed random-catalog documentation directly needed for generation provenance.
 
-## Mission budgets
+Every network action requires a literal sealed resource manifest and generic action contract. Broad crawling, redirects not frozen prospectively, mirror substitution, and evidence outside these classes are prohibited.
 
-- Parent public-source requests: 24.
-- Historical requests consumed: 6.
-- Initial remaining requests: 18.
-- Parent application response-body bytes: 33554432.
-- Historical conservative possible body maximum: 16009494.
-- Initial remaining application-body bytes: 17544938.
-- Concurrency: 1.
-- Default retries: 0.
-- Astronomical-data GETs and observations of real PHOTSYS, BRICKNAME, BRICKID, or ROOT values: 0.
+## Mission budgets and firewall
 
-Counters never reset between stages. Application bytes are not physical wire or TLS byte claims. A budget increase requires `STOP_REQUIRES_HUMAN`.
+Parent limits remain 24 public-source requests, 33,554,432 application-body bytes, concurrency 1, and zero astronomical-data GETs. Historical consumption remains 6 requests and the conservative 16,009,494-byte maximum. The initial remaining budgets are 18 requests and 17,544,938 bytes. Default retries are zero; at most one exact-resource retry may be prospectively frozen within the parent limits.
 
-## Eligible work and permits
+At all times the counters for astronomical-data GETs and real PHOTSYS, BRICKNAME, BRICKID, and ROOT observations must remain zero.
 
-Reading tracked authorities, verifying allowed local hashes, writing prospective specifications and code, synthetic unit testing, offline regressions, dry-runs, analysis of preserved public-source bodies, deterministic search of an already acquired exact source tree, compact reporting, state updates, ledger entries, and ordinary commits on the autonomy branch require no action permit.
+## Lifecycle and terminal boundary
 
-Network evidence acquisition, metadata probes, archive acquisition, a synthetic experiment whose result enters the scientific claim matrix, and any execution classified by a frozen specification as material require one action-specific `AUTONOMOUS_EXECUTION_PERMIT`. A valid standing human authorization must exist first. Permits reserve budgets, bind exact inputs, and are consumed once.
+Actions use `OC3_AUTONOMOUS_ACTION_CONTRACT_001`, action-specific validation, deterministic registration, single-use permits, consumption-before-execution, verified terminal transitions, and append-only state evidence.
 
-## Stop envelope
+The mission ends at exactly one of:
 
-The mission stops for budget expansion; new astronomical or protected-value access; Panel V2, P1, or resolver work; post-observation criterion changes; authority-class expansion; credentials; destructive evidence operations; Git history rewrite or force push; irreconcilable integrity conflicts; sandbox privilege expansion; or a changed scientific question.
+- `PHOTSYS_0x00_OUTSIDE_SEMANTICS_PROVEN`;
+- `PHOTSYS_0x00_REPRESENTATION_MISMATCH_BUT_OUTSIDE_MAPPING_SUPPORTED`;
+- `PHOTSYS_0x00_SEMANTICS_INCONCLUSIVE`;
+- `PHOTSYS_DOCUMENTATION_PHYSICAL_CONFLICT_UNRESOLVED`.
 
-`INCONCLUSIVE` is admissible only after the exact desitarget 0.48.0 tree, frozen documentation, FITS evidence, and all concretely identified admissible official provenance links are evaluated or shown inadequate, leaving a named unresolved link that cannot be pursued inside the mandate.
-
-## Git and execution environment
-
-The autonomy branch is exactly `autopilot/photsys-zero-byte`. Compact control-plane artifacts may be committed and optionally pushed without force; `main` is never merged autonomously. Heavy evidence remains local. The expected runtime profile is workspace-write sandboxing with network enabled only for a later active mission and approval behavior compatible with long-horizon work inside the envelope. Danger-full-access is not required.
+It also stops at `STOP_REQUIRES_HUMAN` for budget expansion, authority expansion, protected-value access, policy-core change, evidence-integrity failure, changed scientific criteria or question, new credentials/privileges, destructive evidence handling, force push/history rewrite, Panel V2, P1, morphological discovery, or V2 resolver work.

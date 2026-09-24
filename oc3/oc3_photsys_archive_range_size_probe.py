@@ -17,7 +17,7 @@ for _key in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS",
 from oc3lib.core import canonical
 from oc3lib.photsys_archive_range_size_probe import (
     AUTHORIZATION_PATH, AUTONOMY_STATE_PATH, AUTONOMOUS_PERMIT_PATH,
-    CANDIDATE_002_PATH, CANDIDATE_PATH, OUTPUT_ROOT, STAGE_ID,
+    CANDIDATE_002_PATH, CANDIDATE_003_PATH, CANDIDATE_PATH, OUTPUT_ROOT, STAGE_ID,
     STANDING_AUTHORIZATION_PATH, RangeSizeProbeError, autonomous_dry_run,
     dry_run, execute, execute_autonomous, validate_historical_inputs,
 )
@@ -59,11 +59,11 @@ def main(argv: list[str] | None = None) -> int:
             if (args.execute_network or args.authorization or args.standing_authorization or
                     args.autonomous_permit or args.autonomy_state):
                 raise RangeSizeProbeError("RANGE_SIZE_PREFLIGHT_ARGUMENT_INVALID")
-            result = autonomous_dry_run() if args.candidate.resolve() == CANDIDATE_002_PATH.resolve() else dry_run()
+            result = autonomous_dry_run() if args.candidate.resolve() == CANDIDATE_003_PATH.resolve() else dry_run(args.candidate)
         else:
             if not args.execute_network:
                 raise RangeSizeProbeError("RANGE_SIZE_FINAL_AUTHORIZATION_REQUIRED")
-            if args.candidate.resolve() == CANDIDATE_002_PATH.resolve():
+            if args.candidate.resolve() == CANDIDATE_003_PATH.resolve():
                 if (args.authorization is not None or args.standing_authorization is None or
                         args.autonomous_permit is None or args.autonomy_state is None):
                     raise RangeSizeProbeError("RANGE_SIZE_AUTONOMOUS_PERMIT_REQUIRED")
@@ -73,6 +73,8 @@ def main(argv: list[str] | None = None) -> int:
                     args.candidate, args.standing_authorization, args.autonomous_permit,
                     args.autonomy_state, command_hash(supplied), args.output_directory,
                     consumed_at_utc=now, transitioned_at_utc=now)
+            elif args.candidate.resolve() == CANDIDATE_002_PATH.resolve():
+                raise RangeSizeProbeError("RANGE_SIZE_HISTORICAL_CANDIDATE_NOT_EXECUTABLE")
             else:
                 if (args.authorization is None or args.standing_authorization is not None or
                         args.autonomous_permit is not None or args.autonomy_state is not None):

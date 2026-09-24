@@ -1,39 +1,44 @@
-# OC3 autonomous research runbook 001
+# OC3 autonomous research runbook 001 — lifecycle revision 002
 
-## Operating loop
+All commands run from the repository root with `oc3/.venv/bin/python`. They are offline except an action executor whose sealed candidate and permit explicitly authorize network.
 
-1. Read and validate the current sealed autonomy state.
-2. Inspect the previous action terminal and its immutable bindings.
-3. If one frozen scientific terminal is supported, finalize the provenance report and claim matrix, update state and ledger, commit compact artifacts, and stop.
-4. If a human-stop condition applies, write `AUTOPILOT_STOP_REPORT.md`, update state to `STOP_REQUIRES_HUMAN`, commit, and stop.
-5. Formulate the smallest next epistemic question.
-6. Freeze any required specification or amendment before observation.
-7. Implement the bounded action.
-8. Run synthetic tests, affected/full offline regression when code changes, and dry-run.
-9. Seal the literal resource manifest and candidate.
-10. Run deterministic governor evaluation against the current state and active mandate.
-11. Issue one single-use autonomous permit only when every check passes.
-12. Atomically record permit-consumption intent, then execute once.
-13. Audit output seals, identities, counters, and scientific firewall.
-14. Update cumulative budgets, state, and append-only transition ledger.
-15. Commit only compact control-plane artifacts after staged-size audit.
-16. Optionally push only `autopilot/photsys-zero-byte`; record `REMOTE_SYNC_PENDING` if unavailable.
-17. Continue without routine human approval while inside the active envelope.
+## Start and activation
 
-## Selection policy
+1. `oc3/.venv/bin/python oc3/oc3_autonomy_governor.py --validate`
+2. `oc3/.venv/bin/python oc3/oc3_autonomy_governor.py --status`
+3. After the reviewed standing authorization exists, activate once:
+   `oc3/.venv/bin/python oc3/oc3_autonomy_governor.py --activate-standing-authorization`
 
-Always choose the smallest action that resolves the next material uncertainty: metadata before acquisition, preserved bodies before reacquisition, offline exact-tree search before another resource, and immutable blobs or commits before mutable rendered pages. Broad crawling is prohibited. A discovery result is not evidence until a literal admissible identity is frozen in a manifest and candidate.
+Activation verifies the exact mandate, policy core, waiting state, branch, and first candidate; records zero budget delta; and atomically enters `ACTIVE`. Never edit state JSON manually.
 
-Synthetic scientific demonstrations require a prospective specification, zero real astronomical data, a permit when their result enters the claim matrix, and output limited to the declared claim. The optional NumPy zero-initialization demonstration remains non-gating by itself.
+## Per-action loop
 
-## Crash and replay
+1. Read sealed state and prior terminal.
+2. If a scientific terminal is justified, finalize and stop. If a mandate stop applies, create the compact STOP report, enter STOP, and stop.
+3. Choose the smallest operation resolving the next material uncertainty. Reuse preserved evidence and prefer offline source search or metadata before acquisition.
+4. Freeze the action specification, literal resources, implementation, action-validation receipt, and candidate with `OC3_AUTONOMOUS_ACTION_CONTRACT_001`.
+5. Run action-specific offline validation and focused tests.
+6. When no pending action exists, register it:
+   `oc3/.venv/bin/python oc3/oc3_autonomy_governor.py --register-action --candidate <candidate>`
+7. Evaluate:
+   `oc3/.venv/bin/python oc3/oc3_autonomy_governor.py --evaluate --candidate <candidate>`
+8. Issue exactly one immutable permit at the candidate-declared path:
+   `oc3/.venv/bin/python oc3/oc3_autonomy_governor.py --issue-permit --candidate <candidate> --permit-output <permit>`
+9. Execute once through the action-specific executor. It must consume the permit before material work.
+10. Audit the terminal and transition:
+    `oc3/.venv/bin/python oc3/oc3_autonomy_governor.py --transition-completed-action --candidate <candidate> --permit <permit> --consumption-directory <dir> --terminal <terminal> --terminal-sha256 <sha256> --request-delta N --body-delta N --retry-delta N`
+11. Confirm budgets/state/ledger, commit compact artifacts after `--audit-staged`, optionally push only `autopilot/photsys-zero-byte`, and continue.
 
-Permits are single-use. Record consumption intent before an epistemically material operation. Preserve partial output and charged counters after interruption. Replay is allowed only when a prospectively frozen restart rule exists and the governor returns `RECOVERABLE_WITHIN_MANDATE`; otherwise enter `STOP_REQUIRES_HUMAN`. Never reset mission counters.
+## STOP and scientific terminal
 
-## Mandatory stops
+Enter STOP only with an exact compact report and blocker:
+`oc3/.venv/bin/python oc3/oc3_autonomy_governor.py --enter-stop --stop-report AUTOPILOT_STOP_REPORT.md --blocker-code <CODE>`.
 
-Stop for request/body-budget expansion, protected or astronomical data access, Panel V2, P1, resolver work, post-evidence criterion changes, new authority classes, credentials, destructive evidence handling, force push/history rewrite, integrity conflicts requiring authority changes, sandbox escalation outside the envelope, or a changed scientific question. The stop report names the exact blocker, clause, remaining budgets, and minimum human amendment.
+Finalize only with one frozen outcome, no pending action, clean firewall, and bound report/claim matrix:
+`oc3/.venv/bin/python oc3/oc3_autonomy_governor.py --finalize-scientific-terminal --outcome <OUTCOME> --final-report <report> --claim-matrix <matrix>`.
 
-## Runtime and Git profile
+Both transitions set `active=false`; do not continue. A consumed permit without a valid terminal is never replayed automatically. Without a frozen restart rule, enter STOP.
 
-Use Codex Local with `workspace-write` sandboxing. Network may be enabled only after the standing authorization is active and only through a permitted action. Approval behavior must allow long-horizon work within workspace and network constraints; danger-full-access is not a requirement. Git is the compact control plane; large runtime evidence, FITS files, archives, and attempt trees remain local. Never merge to `main` autonomously.
+## Runtime profile
+
+Use `workspace-write`; enable network only for a permitted executor; allow long-horizon execution without routine approval inside the sandbox. The project governor remains the scientific authorization mechanism. `danger-full-access` is not required.
