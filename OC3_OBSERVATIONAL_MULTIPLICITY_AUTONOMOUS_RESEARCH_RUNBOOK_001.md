@@ -4,22 +4,22 @@ All commands run from the repository root with `oc3/.venv/bin/python`. Bootstrap
 
 ## Before activation
 
-1. Validate the policy core, mandate, state, and first candidate:
+1. Validate the policy core, mandate, waiting state, and candidate 002:
    `oc3/.venv/bin/python oc3/oc3_observational_multiplicity_governor.py --validate`
-2. Inspect status:
+2. Inspect compact status:
    `oc3/.venv/bin/python oc3/oc3_observational_multiplicity_governor.py --status`
-3. Stop. A separate human-reviewed standing authorization is required.
+3. Stop. A separate reviewed standing authorization is required.
 
-## Activation and actions
+## Governed lifecycle
 
-After a valid standing authorization exists, activation binds the current waiting state and first candidate and enters `ACTIVE`. Each material action is then validated, registered, evaluated, issued one immutable permit, consumed before material access, and transitioned from an immutable terminal artifact.
+After authorization, activation binds the exact waiting state and first candidate but does not register or execute it. Each action then follows: action-specific validation receipt; registration; generic evaluation; permit issuance at the candidate-declared path; canonical permit consumption; material execution; immutable terminal; completion transition.
 
-The first candidate is `OC3-GLOBAL-VIEW-RELATION-AUDIT-001`. Although offline, it reads real local identity/geometry values and therefore requires a permit. Bootstrap tests use synthetic rows only and do not execute it.
+The canonical marker is derived only from the permit SHA under `oc3/OBSERVATIONAL_MULTIPLICITY_AUTONOMY_LEDGER/PERMIT_CONSUMPTION/`. A consumed permit is never replayed. Registration and permit issuance do not consume network/body budgets; verified terminal counters drive completion accounting.
 
-## STOP and terminals
+The first action remains the offline global-view relation audit and reads only the frozen identity/geometry columns. Later official-documentation or grouping-metadata actions need new prospective specifications, validators, receipts, candidates, and literal manifests when networked. They do not require policy-core modification.
 
-Policy mismatch, evidence-envelope expansion, protected-value access, altered criteria, or exhausted budget enters `STOP_REQUIRES_HUMAN`. Scientific finalization accepts only the four mandate outcomes and requires no pending action.
+## Failure and terminal handling
 
-## Git and runtime evidence
+Policy mutation, authority expansion, exhausted reservation/budget, dirty firewall, altered Git assertions, missing canonical consumption, or invalid terminal evidence fails closed. A compact bound report enters `STOP_REQUIRES_HUMAN`. Finalization accepts only the four mandate outcomes, no pending action, a clean firewall, a bound final report, and the decision/evidence matrix when the mission specification requires one.
 
-Compact specifications, code, tests, state, ledger records, and reports belong in Git. Heavy runtime evidence remains local. Do not push, merge main, rewrite history, or modify the closed PHOTSYS mission.
+Compact governance artifacts may enter Git. Heavy runtime evidence stays local. Do not push, merge main, rewrite history, or modify the closed PHOTSYS mission.

@@ -1,6 +1,10 @@
-"""Deterministic lifecycle governor for the observational-multiplicity mission."""
-from __future__ import annotations
+"""Deterministic lifecycle/policy engine for bounded OC3 autonomy.
 
+The governor checks the standing envelope only. Action-specific validators
+remain responsible for scientific and transport correctness. No network API
+exists in this module.
+"""
+from __future__ import annotations
 from datetime import datetime
 import os
 from pathlib import Path
@@ -9,10 +13,9 @@ import subprocess
 
 from .core import canonical
 from .observational_multiplicity import (
-    PROJECT, MultiplicityError, audit_implementation_aggregate, file_sha256, load_canonical_json, sealed,
-    sha256_bytes, validate_sealed, write_json_immutable,
+    PROJECT, audit_implementation_aggregate, file_sha256, load_canonical_json,
+    sealed, sha256_bytes, validate_sealed, write_json_immutable,
 )
-
 
 MISSION_ID = "OC3-OBSERVATIONAL-MULTIPLICITY-AUTONOMY-001"
 MISSION_SCOPE = "OBSERVATIONAL_MULTIPLICITY_STRATEGY_ONLY"
@@ -23,8 +26,23 @@ STATE_AWAITING = "AWAITING_NEXT_ACTION_REGISTRATION"
 STATE_TERMINAL = "SCIENTIFIC_TERMINAL"
 STOP_REQUIRES_HUMAN = "STOP_REQUIRES_HUMAN"
 MANDATE_NOT_ACTIVE = "MANDATE_NOT_ACTIVE"
+NO_PERMIT_ISSUED = "NO_PERMIT_ISSUED"
+NO_PERMIT = NO_PERMIT_ISSUED
 ELIGIBLE = "ELIGIBLE_FOR_AUTONOMOUS_PERMIT"
-NO_PERMIT = "NO_PERMIT_ISSUED"
+
+SCIENTIFIC_SPEC_PATH = PROJECT / "OC3_OBSERVATIONAL_MULTIPLICITY_RESEARCH_SPEC_001.md"
+SCIENTIFIC_SPEC_SHA256 = "60d91adf66c7f5e84139021a5664de7058ef9e91f4daf23e8df429800eee1fe5"
+POLICY_CORE_CONTRACT_PATH = PROJECT / "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_POLICY_CORE_CONTRACT_001.md"
+POLICY_CORE_MANIFEST_PATH = PROJECT / "oc3/INPUTS/OC3_OBSERVATIONAL_MULTIPLICITY_POLICY_CORE_MANIFEST_001.json"
+MANDATE_DOCUMENT_PATH = PROJECT / "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_MANDATE_001.md"
+MANDATE_PATH = PROJECT / "oc3/INPUTS/OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_MANDATE_001.json"
+RUNBOOK_PATH = PROJECT / "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMOUS_RESEARCH_RUNBOOK_001.md"
+STANDING_AUTHORIZATION_PATH = PROJECT / "oc3/OC3_OBSERVATIONAL_MULTIPLICITY_STANDING_AUTHORIZATION_001.json"
+AUTHORIZATION_PATH = STANDING_AUTHORIZATION_PATH
+STATE_PATH = PROJECT / "oc3/OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_STATE_001.json"
+FIRST_CANDIDATE_PATH = PROJECT / "oc3/INPUTS/OC3_GLOBAL_VIEW_RELATION_AUDIT_CANDIDATE_002.json"
+LEDGER_ROOT = PROJECT / "oc3/OBSERVATIONAL_MULTIPLICITY_AUTONOMY_LEDGER"
+CONSUMPTION_ROOT = LEDGER_ROOT / "PERMIT_CONSUMPTION"
 
 TERMINAL_OUTCOMES = (
     "OBSERVATIONAL_MULTIPLICITY_STRATEGY_SUPPORTED",
@@ -47,401 +65,714 @@ PROHIBITED_SCOPE_KEYS = (
     "photsys_reinterpretation", "photsys_v2_resolver", "panel_v3_materialization",
     "p1", "morphology_learning", "training", "embeddings", "clustering",
 )
-
-SPEC_PATH = PROJECT / "OC3_OBSERVATIONAL_MULTIPLICITY_RESEARCH_SPEC_001.md"
-SPEC_SHA256 = "60d91adf66c7f5e84139021a5664de7058ef9e91f4daf23e8df429800eee1fe5"
-MANDATE_DOCUMENT_PATH = PROJECT / "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_MANDATE_001.md"
-MANDATE_DOCUMENT_SHA256 = "c27440620a96df7d40d1a6dcd21a578e97f9c9ebe38885d9890ba3ac98f4bf7a"
-RUNBOOK_PATH = PROJECT / "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMOUS_RESEARCH_RUNBOOK_001.md"
-RUNBOOK_SHA256 = "a2c068f75ee4f835b365b53e2c6a84e7a2ee6d6d1cbfc82d228f019187abb1ae"
-POLICY_CONTRACT_PATH = PROJECT / "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_POLICY_CORE_CONTRACT_001.md"
-POLICY_CONTRACT_SHA256 = "62370b023a7f03d8505193c9d6eb98a5804ea3ab7d418378761a0e5e830a1d43"
-POLICY_MANIFEST_PATH = PROJECT / "oc3/INPUTS/OC3_OBSERVATIONAL_MULTIPLICITY_POLICY_CORE_MANIFEST_001.json"
-MANDATE_PATH = PROJECT / "oc3/INPUTS/OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_MANDATE_001.json"
-STATE_PATH = PROJECT / "oc3/OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_STATE_001.json"
-AUTHORIZATION_PATH = PROJECT / "oc3/OC3_OBSERVATIONAL_MULTIPLICITY_STANDING_AUTHORIZATION_001.json"
-FIRST_CANDIDATE_PATH = PROJECT / "oc3/INPUTS/OC3_GLOBAL_VIEW_RELATION_AUDIT_CANDIDATE_001.json"
-LEDGER_ROOT = PROJECT / "oc3/OBSERVATIONAL_MULTIPLICITY_AUTONOMY_LEDGER"
-POLICY_MEMBERS = (
+POLICY_CORE_MEMBERS = (
     "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_POLICY_CORE_CONTRACT_001.md",
     "oc3/oc3_observational_multiplicity_governor.py",
     "oc3/oc3lib/observational_multiplicity_governor.py",
 )
-
+COMPACT_ARTIFACT_MAX_BYTES = 5 * 1024 * 1024
+RUNTIME_TREE_PREFIXES = ("oc3/observational_multiplicity/",)
+FORBIDDEN_GIT_SUFFIXES = (".fit", ".fits", ".fits.gz", ".tar", ".tar.gz", ".tgz", ".zip")
+SECRET_NAME_PARTS = ("credential", "private_key", "secret", "token")
+SECRET_CONTENT_PATTERNS = (
+    re.compile(rb"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
+    re.compile(rb"\bgh[pousr]_[A-Za-z0-9_]{20,}\b"),
+    re.compile(rb"\bAKIA[0-9A-Z]{16}\b"),
+)
 
 class GovernorError(Exception):
     def __init__(self, code: str):
         self.code = code
         super().__init__(code)
 
-
-def _relative(path: Path) -> str:
-    try:
-        return str(Path(path).resolve().relative_to(PROJECT))
-    except ValueError as exc:
-        raise GovernorError("PATH_OUTSIDE_PROJECT") from exc
-
-
-def _binding(path: Path) -> dict[str, str]:
-    return {"path": _relative(path), "sha256": file_sha256(path)}
-
+def _sha(value: object, code: str) -> str:
+    if not isinstance(value, str) or re.fullmatch(r"[0-9a-f]{64}", value) is None:
+        raise GovernorError(code)
+    return value
 
 def _utc(value: object) -> str:
     if not isinstance(value, str) or not value.endswith("Z"):
-        raise GovernorError("TIMESTAMP_INVALID")
+        raise GovernorError("AUTONOMY_TIMESTAMP_INVALID")
     try:
         datetime.fromisoformat(value[:-1] + "+00:00")
     except ValueError as exc:
-        raise GovernorError("TIMESTAMP_INVALID") from exc
+        raise GovernorError("AUTONOMY_TIMESTAMP_INVALID") from exc
     return value
 
-
-def _load(path: Path, code: str) -> dict[str, object]:
+def _load_sealed(path: Path, code: str) -> dict[str, object]:
     try:
         return validate_sealed(load_canonical_json(path))
     except Exception as exc:
         raise GovernorError(code) from exc
 
-
-def _current_branch() -> str:
-    result = subprocess.run(["git", "branch", "--show-current"], cwd=PROJECT,
-                            text=True, capture_output=True, check=True)
-    return result.stdout.strip()
-
-
-def _replace_state(path: Path, value: dict[str, object]) -> None:
-    """Atomically replace only the governed mutable state artifact."""
-    data = canonical(value) + b"\n"
-    path = Path(path)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_name(f".{path.name}.tmp-{os.getpid()}")
+def _relative(path: Path, code: str = "AUTONOMY_PATH_OUTSIDE_PROJECT") -> str:
     try:
-        with temporary.open("xb") as stream:
-            stream.write(data); stream.flush(); os.fsync(stream.fileno())
-        os.replace(temporary, path)
-    finally:
-        if temporary.exists():
-            temporary.unlink()
+        return str(Path(path).resolve().relative_to(PROJECT))
+    except ValueError as exc:
+        raise GovernorError(code) from exc
 
+def _binding(path: Path) -> dict[str, str]:
+    return {"path": _relative(path), "sha256": file_sha256(path)}
 
-def candidate_payload(candidate: dict[str, object]) -> dict[str, object]:
-    return {key: value for key, value in candidate.items() if key not in ("autonomy_policy", "sealed")}
+def _refusal(code: str) -> dict[str, object]:
+    return {"decision": code, "permit_state": NO_PERMIT_ISSUED}
 
-
-def validate_policy_manifest(path: Path = POLICY_MANIFEST_PATH) -> dict[str, object]:
-    value = _load(path, "POLICY_CORE_MANIFEST_INVALID")
+def validate_policy_core_manifest(path: Path = POLICY_CORE_MANIFEST_PATH) -> dict[str, object]:
+    value = _load_sealed(path, "POLICY_CORE_MANIFEST_INVALID")
     if (set(value) != {"active_mutation_result", "contract", "files", "schema_version", "sealed"} or
-            value.get("schema_version") != "OC3_OBSERVATIONAL_MULTIPLICITY_POLICY_CORE_MANIFEST_001" or
+            value.get("schema_version") != "OC3_OBSERVATIONAL_MULTIPLICITY_POLICY_CORE_MANIFEST_002" or
             value.get("active_mutation_result") != STOP_REQUIRES_HUMAN):
         raise GovernorError("POLICY_CORE_MANIFEST_INVALID")
-    if value.get("contract") != _binding(POLICY_CONTRACT_PATH):
+    contract = value.get("contract", {})
+    if (contract.get("path") != _relative(POLICY_CORE_CONTRACT_PATH) or
+            contract.get("sha256") != file_sha256(POLICY_CORE_CONTRACT_PATH)):
         raise GovernorError("POLICY_CORE_MISMATCH")
     files = value.get("files")
-    if not isinstance(files, list) or {item.get("path") for item in files if isinstance(item, dict)} != set(POLICY_MEMBERS):
+    if not isinstance(files, list) or {i.get("path") for i in files if isinstance(i, dict)} != set(POLICY_CORE_MEMBERS):
         raise GovernorError("POLICY_CORE_MANIFEST_INVALID")
     for item in files:
-        if not isinstance(item, dict) or set(item) != {"path", "sha256"}:
+        if set(item) != {"path", "sha256"}:
             raise GovernorError("POLICY_CORE_MANIFEST_INVALID")
-        path = PROJECT / item["path"]
-        if not path.is_file() or file_sha256(path) != item["sha256"]:
+        member = PROJECT / str(item["path"])
+        if not member.is_file() or item["sha256"] != file_sha256(member):
             raise GovernorError("POLICY_CORE_MISMATCH")
     return value
 
-
 def validate_mandate(path: Path = MANDATE_PATH) -> dict[str, object]:
-    value = _load(path, "AUTONOMY_MANDATE_INVALID")
-    required = {
-        "active", "allowed_authority_classes", "allowed_scientific_outcomes",
-        "authorization_state", "autonomy_branch", "budgets", "firewall",
-        "governing_specification", "mandate_document", "mission_id", "mission_scope",
-        "policy_core_manifest", "prohibited_scopes", "runbook", "schema_version",
-        "sealed", "standing_authorization_path", "stop_state",
-    }
-    if (set(value) != required or value.get("schema_version") != "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_MANDATE_001" or
-            value.get("active") is not False or value.get("authorization_state") != "PENDING_HUMAN_AUTHORIZATION" or
+    value = _load_sealed(path, "AUTONOMY_MANDATE_INVALID")
+    required = {"active", "allowed_authority_classes", "allowed_scientific_outcomes",
+        "authorization_state", "autonomous_action_contract", "autonomy_branch", "budgets",
+        "firewall", "governing_specification", "mandate_document", "mission_id", "mission_scope",
+        "policy_core_manifest", "prohibited_scopes", "runbook", "schema_version", "sealed",
+        "standing_authorization_path", "stop_state"}
+    if (set(value) != required or value.get("schema_version") != "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_MANDATE_002" or
+            value.get("authorization_state") != "PENDING_HUMAN_AUTHORIZATION" or value.get("active") is not False or
             value.get("mission_id") != MISSION_ID or value.get("mission_scope") != MISSION_SCOPE or
             value.get("autonomy_branch") != AUTONOMY_BRANCH or
-            tuple(value.get("allowed_authority_classes", ())) != AUTHORITY_CLASSES or
-            tuple(value.get("allowed_scientific_outcomes", ())) != TERMINAL_OUTCOMES or
-            tuple(value.get("prohibited_scopes", ())) != PROHIBITED_SCOPE_KEYS or
-            value.get("stop_state") != STOP_REQUIRES_HUMAN or
-            value.get("standing_authorization_path") != _relative(AUTHORIZATION_PATH)):
+            tuple(value.get("allowed_scientific_outcomes", [])) != TERMINAL_OUTCOMES or
+            tuple(value.get("allowed_authority_classes", [])) != AUTHORITY_CLASSES or
+            tuple(value.get("prohibited_scopes", [])) != PROHIBITED_SCOPE_KEYS or
+            value.get("autonomous_action_contract") != "OC3_OBSERVATIONAL_MULTIPLICITY_ACTION_CONTRACT_002" or
+            value.get("stop_state") != STOP_REQUIRES_HUMAN):
         raise GovernorError("AUTONOMY_MANDATE_INVALID")
-    if value.get("budgets") != {
-        "application_body_bytes_parent": 16_777_216,
-        "application_body_bytes_remaining": 16_777_216,
-        "concurrency": 1,
-        "network_requests_parent": 12,
-        "network_requests_remaining": 12,
-        "retries_default": 0,
-        "retries_max_per_exact_resource": 1,
-    } or value.get("firewall") != {key: 0 for key in FIREWALL_KEYS}:
-        raise GovernorError("AUTONOMY_MANDATE_INVALID")
-    expected = {
-        "governing_specification": _binding(SPEC_PATH), "mandate_document": _binding(MANDATE_DOCUMENT_PATH),
-        "policy_core_manifest": _binding(POLICY_MANIFEST_PATH), "runbook": _binding(RUNBOOK_PATH),
-    }
-    for key, binding in expected.items():
-        if value.get(key) != binding:
+    if value.get("budgets") != {"application_body_bytes_parent":16777216,
+        "application_body_bytes_remaining":16777216,"concurrency":1,
+        "network_requests_parent":12,"network_requests_remaining":12,
+        "retries_default":0,"retries_max_per_exact_resource":1}:
+        raise GovernorError("AUTONOMY_MANDATE_BUDGET_INVALID")
+    if value.get("firewall") != {key: 0 for key in FIREWALL_KEYS}:
+        raise GovernorError("AUTONOMY_MANDATE_FIREWALL_INVALID")
+    manifest = value.get("policy_core_manifest", {})
+    if manifest.get("path") != _relative(POLICY_CORE_MANIFEST_PATH) or manifest.get("sha256") != file_sha256(POLICY_CORE_MANIFEST_PATH):
+        raise GovernorError("AUTONOMY_MANDATE_POLICY_CORE_MISMATCH")
+    validate_policy_core_manifest()
+    for key, actual in (("governing_specification", SCIENTIFIC_SPEC_PATH),
+                        ("mandate_document", MANDATE_DOCUMENT_PATH), ("runbook", RUNBOOK_PATH)):
+        binding = value.get(key, {})
+        if binding.get("path") != _relative(actual) or binding.get("sha256") != file_sha256(actual):
             raise GovernorError("AUTONOMY_MANDATE_AUTHORITY_MISMATCH")
-    validate_policy_manifest()
     return value
 
+def validate_static_authorities() -> dict[str, str]:
+    for path, digest in ((SCIENTIFIC_SPEC_PATH, SCIENTIFIC_SPEC_SHA256),):
+        if not path.is_file() or file_sha256(path) != digest:
+            raise GovernorError("AUTONOMY_STATIC_AUTHORITY_MISMATCH")
+    validate_policy_core_manifest(); validate_mandate()
+    return {_relative(SCIENTIFIC_SPEC_PATH):SCIENTIFIC_SPEC_SHA256,
+            _relative(POLICY_CORE_MANIFEST_PATH):file_sha256(POLICY_CORE_MANIFEST_PATH),
+            _relative(MANDATE_PATH):file_sha256(MANDATE_PATH)}
 
 def validate_state(path: Path = STATE_PATH) -> dict[str, object]:
-    value = _load(path, "AUTONOMY_STATE_INVALID")
-    required = {
-        "active", "autonomy_branch", "body_budget_parent", "body_budget_remaining",
-        "current_stage", "firewall_counters", "last_completed_stage", "last_terminal",
-        "mandate", "mission_id", "permits_issued", "policy_core_manifest",
-        "registered_pending_action", "request_budget_parent", "requests_remaining",
-        "schema_version", "scientific_outcome", "scientific_question", "sealed",
-        "sequence", "standing_authorization", "standing_authorization_path", "state",
-        "stop_reason", "terminal_outcomes",
-    }
-    if (set(value) != required or value.get("schema_version") != "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_STATE_001" or
+    value = _load_sealed(path, "AUTONOMY_STATE_INVALID")
+    required = {"active", "autonomy_branch", "body_budget_parent", "body_budget_remaining",
+        "current_stage", "firewall_counters", "first_candidate", "governing_specification",
+        "last_completed_stage", "last_terminal", "mandate", "mission_id", "permits_issued",
+        "policy_core_manifest", "registered_pending_action", "request_budget_parent", "requests_remaining",
+        "schema_version", "scientific_outcome", "scientific_question", "sealed", "sequence",
+        "standing_authorization", "standing_authorization_initial_state_contract",
+        "standing_authorization_initial_state_sha256", "standing_authorization_path", "state",
+        "stop_reason", "terminal_outcomes"}
+    if (set(value) != required or value.get("schema_version") != "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_STATE_002" or
             value.get("mission_id") != MISSION_ID or value.get("autonomy_branch") != AUTONOMY_BRANCH or
-            tuple(value.get("terminal_outcomes", ())) != TERMINAL_OUTCOMES or
-            value.get("mandate") != _binding(MANDATE_PATH) or
-            value.get("policy_core_manifest") != _binding(POLICY_MANIFEST_PATH) or
-            value.get("standing_authorization_path") != _relative(AUTHORIZATION_PATH) or
             type(value.get("sequence")) is not int or value["sequence"] < 0 or
             type(value.get("permits_issued")) is not int or value["permits_issued"] < 0 or
-            value.get("request_budget_parent") != 12 or value.get("body_budget_parent") != 16_777_216 or
-            type(value.get("requests_remaining")) is not int or not 0 <= value["requests_remaining"] <= 12 or
-            type(value.get("body_budget_remaining")) is not int or not 0 <= value["body_budget_remaining"] <= 16_777_216 or
-            value.get("firewall_counters") != {key: 0 for key in FIREWALL_KEYS}):
+            tuple(value.get("terminal_outcomes", [])) != TERMINAL_OUTCOMES or
+            value.get("governing_specification") != _binding(SCIENTIFIC_SPEC_PATH) or
+            value.get("mandate") != _binding(MANDATE_PATH) or
+            value.get("policy_core_manifest") != _binding(POLICY_CORE_MANIFEST_PATH) or
+            value.get("standing_authorization_path") != _relative(STANDING_AUTHORIZATION_PATH) or
+            value.get("first_candidate") != _binding(FIRST_CANDIDATE_PATH) or
+            value.get("request_budget_parent") != 12 or value.get("body_budget_parent") != 16777216):
         raise GovernorError("AUTONOMY_STATE_INVALID")
-    state = value.get("state")
-    if state == STATE_WAITING:
-        if value.get("active") is not False or value.get("standing_authorization") is not None or value.get("permits_issued") != 0:
+    if value.get("firewall_counters") != {key: 0 for key in FIREWALL_KEYS}:
+        raise GovernorError("AUTONOMY_STATE_FIREWALL_INVALID")
+    if (type(value.get("requests_remaining")) is not int or not 0 <= value["requests_remaining"] <= 12 or
+            type(value.get("body_budget_remaining")) is not int or not 0 <= value["body_budget_remaining"] <= 16777216):
+        raise GovernorError("AUTONOMY_STATE_BUDGET_INVALID")
+    state_name = value.get("state")
+    if state_name == STATE_WAITING:
+        if (value.get("active") is not False or value.get("standing_authorization") is not None or
+                value.get("standing_authorization_initial_state_sha256") is not None or
+                value.get("standing_authorization_initial_state_contract") != "CURRENT_WAITING_STATE_FILE_SHA256"):
             raise GovernorError("AUTONOMY_WAITING_STATE_INVALID")
-    elif state in (STATE_ACTIVE, STATE_AWAITING):
-        if value.get("active") is not True or not isinstance(value.get("standing_authorization"), dict):
+    elif state_name in (STATE_ACTIVE, STATE_AWAITING):
+        if value.get("active") is not True:
             raise GovernorError("AUTONOMY_ACTIVE_STATE_INVALID")
-    elif state in (STOP_REQUIRES_HUMAN, STATE_TERMINAL):
+        _sha(value.get("standing_authorization_initial_state_sha256"), "AUTONOMY_INITIAL_STATE_SHA_INVALID")
+        if not isinstance(value.get("standing_authorization"), dict) or set(value["standing_authorization"]) != {"path","sha256"}:
+            raise GovernorError("AUTONOMY_ACTIVE_STATE_INVALID")
+    elif state_name in (STOP_REQUIRES_HUMAN, STATE_TERMINAL):
         if value.get("active") is not False:
             raise GovernorError("AUTONOMY_TERMINAL_STATE_INVALID")
     else:
         raise GovernorError("AUTONOMY_STATE_INVALID")
     return value
 
-
-def validate_action_receipt(binding: object, contract: dict[str, object]) -> dict[str, object]:
-    if not isinstance(binding, dict) or set(binding) != {"path", "sha256"}:
-        raise GovernorError("ACTION_VALIDATION_RECEIPT_INVALID")
-    path = PROJECT / str(binding["path"])
-    if not path.is_file() or file_sha256(path) != binding["sha256"]:
-        raise GovernorError("ACTION_VALIDATION_RECEIPT_INVALID")
-    receipt = _load(path, "ACTION_VALIDATION_RECEIPT_INVALID")
-    validator = receipt.get("validator")
-    if (not isinstance(validator, dict) or set(validator) != {"path", "sha256"} or
-            not (PROJECT / str(validator["path"])).is_file() or
-            file_sha256(PROJECT / str(validator["path"])) != validator["sha256"] or
-            receipt.get("implementation_aggregate") != audit_implementation_aggregate() or
-            receipt.get("validated") is not True or receipt.get("network_requests") != 0 or
-            receipt.get("candidate_payload_sha256") != contract.get("candidate_payload_sha256") or
-            receipt.get("stage_id") != contract.get("stage_id") or receipt.get("scope") != contract.get("scope")):
-        raise GovernorError("ACTION_VALIDATION_RECEIPT_INVALID")
-    return receipt
-
-
-def validate_candidate(path: Path = FIRST_CANDIDATE_PATH) -> tuple[dict[str, object], dict[str, object]]:
-    candidate = _load(path, "AUTONOMOUS_ACTION_CANDIDATE_INVALID")
-    contract = candidate.get("autonomy_policy")
-    required = {
-        "action_kind", "action_validation_receipt", "application_body_reservation",
-        "authority_classes_used", "candidate_hash_mode", "candidate_payload_sha256",
-        "command_argv_sha256", "concurrency", "git_branch", "implementation_aggregate",
-        "mission_id", "network_request_reservation", "permit_output_path", "permit_required",
-        "prohibited_scope_assertions", "resume", "retry_reservation", "schema_version",
-        "scientific_firewall", "scope", "stage_id", "standing_mandate_sha256",
-    }
-    if (not isinstance(contract, dict) or set(contract) != required or
-            contract.get("schema_version") != "OC3_OBSERVATIONAL_MULTIPLICITY_ACTION_CONTRACT_001" or
-            contract.get("mission_id") != MISSION_ID or contract.get("git_branch") != AUTONOMY_BRANCH or
-            contract.get("candidate_hash_mode") != "CANONICAL_ROOT_EXCLUDING_AUTONOMY_POLICY_AND_SEALED" or
-            contract.get("candidate_payload_sha256") != sha256_bytes(canonical(candidate_payload(candidate))) or
-            contract.get("command_argv_sha256") != candidate.get("command_argv_sha256") or
-            contract.get("implementation_aggregate") != candidate.get("implementation_aggregate") or
-            contract.get("implementation_aggregate") != audit_implementation_aggregate() or
-            contract.get("stage_id") != candidate.get("stage_id") or contract.get("scope") != candidate.get("scope") or
-            contract.get("standing_mandate_sha256") != file_sha256(MANDATE_PATH) or
-            contract.get("permit_required") is not True or contract.get("resume") is not False or
-            contract.get("network_request_reservation") != 0 or contract.get("application_body_reservation") != 0 or
-            contract.get("retry_reservation") != 0 or contract.get("concurrency") != 1 or
-            tuple(contract.get("authority_classes_used", ())) != AUTHORITY_CLASSES[:2] or
-            contract.get("scientific_firewall") != {key: 0 for key in FIREWALL_KEYS} or
-            contract.get("prohibited_scope_assertions") != {key: False for key in PROHIBITED_SCOPE_KEYS}):
-        raise GovernorError("AUTONOMOUS_ACTION_CONTRACT_INVALID")
-    validate_action_receipt(contract.get("action_validation_receipt"), contract)
-    return candidate, contract
-
-
-def validate_standing_authorization(path: Path, expected_state_sha256: str,
-                                    expected_candidate_sha256: str) -> dict[str, object]:
-    value = _load(path, "STANDING_AUTHORIZATION_INVALID")
-    required = {
-        "authorization_state", "authorized", "authorized_at_utc", "authorized_by",
-        "branch", "first_candidate_path", "first_candidate_sha256", "initial_state_path",
-        "initial_state_sha256", "mandate_path", "mandate_sha256", "mission_id",
-        "policy_core_manifest_path", "policy_core_manifest_sha256", "schema_version", "sealed",
-    }
+def validate_standing_authorization(path: Path, *, expected_initial_state_sha256: str,
+                                    expected_initial_state_path: Path = STATE_PATH,
+                                    expected_first_candidate_path: Path | None = None) -> dict[str, object]:
+    value = _load_sealed(path, "STANDING_AUTONOMY_AUTHORIZATION_INVALID")
+    expected_first_candidate_path = FIRST_CANDIDATE_PATH if expected_first_candidate_path is None else expected_first_candidate_path
+    required = {"authorization_state", "authorized", "authorized_at_utc", "authorized_by",
+        "continuation_policy", "first_candidate_path", "first_candidate_sha256",
+        "initial_state_path", "initial_state_sha256", "mandate_path",
+        "mandate_sha256", "mission_id", "mission_scope", "policy_core_manifest_path",
+        "policy_core_manifest_sha256", "schema_version", "sealed"}
     if (set(value) != required or value.get("schema_version") != "OC3_OBSERVATIONAL_MULTIPLICITY_STANDING_AUTHORIZATION_001" or
             value.get("authorization_state") != "STANDING_HUMAN_AUTONOMY_AUTHORIZATION" or
-            value.get("authorized") is not True or not str(value.get("authorized_by", "")).strip() or
-            value.get("branch") != AUTONOMY_BRANCH or value.get("mission_id") != MISSION_ID or
+            value.get("authorized") is not True or not isinstance(value.get("authorized_by"), str) or
+            not value["authorized_by"].strip() or value.get("continuation_policy") !=
+            "CONTINUE_UNTIL_SCIENTIFIC_TERMINAL_OR_STOP_REQUIRES_HUMAN" or
+            value.get("mission_id") != MISSION_ID or value.get("mission_scope") != MISSION_SCOPE or
             value.get("mandate_path") != _relative(MANDATE_PATH) or value.get("mandate_sha256") != file_sha256(MANDATE_PATH) or
-            value.get("policy_core_manifest_path") != _relative(POLICY_MANIFEST_PATH) or
-            value.get("policy_core_manifest_sha256") != file_sha256(POLICY_MANIFEST_PATH) or
-            value.get("initial_state_path") != _relative(STATE_PATH) or value.get("initial_state_sha256") != expected_state_sha256 or
-            value.get("first_candidate_path") != _relative(FIRST_CANDIDATE_PATH) or
-            value.get("first_candidate_sha256") != expected_candidate_sha256):
-        raise GovernorError("STANDING_AUTHORIZATION_INVALID")
-    _utc(value.get("authorized_at_utc"))
+            value.get("policy_core_manifest_path") != _relative(POLICY_CORE_MANIFEST_PATH) or
+            value.get("policy_core_manifest_sha256") != file_sha256(POLICY_CORE_MANIFEST_PATH) or
+            value.get("first_candidate_path") != _relative(expected_first_candidate_path) or
+            value.get("first_candidate_sha256") != file_sha256(expected_first_candidate_path) or
+            value.get("initial_state_path") != _relative(expected_initial_state_path) or
+            value.get("initial_state_sha256") != expected_initial_state_sha256):
+        raise GovernorError("STANDING_AUTONOMY_AUTHORIZATION_INVALID")
+    _utc(value.get("authorized_at_utc")); validate_policy_core_manifest()
     return value
 
+def candidate_payload(candidate: dict[str, object]) -> dict[str, object]:
+    return {key: item for key, item in candidate.items() if key not in ("autonomy_policy", "sealed")}
 
-def validate_all() -> dict[str, object]:
-    validate_policy_manifest(); validate_mandate(); state = validate_state(); validate_candidate()
-    return {"active": state["active"], "network_requests": 0, "permits_issued": state["permits_issued"],
-            "state": state["state"], "validated": True}
+def _validate_artifact_binding(binding: object, code: str) -> Path:
+    if not isinstance(binding, dict) or set(binding) != {"path", "sha256"}:
+        raise GovernorError(code)
+    path = PROJECT / str(binding["path"])
+    if not path.is_file() or binding["sha256"] != file_sha256(path):
+        raise GovernorError(code)
+    return path
 
+def validate_action_validation_receipt(binding: object, contract: dict[str, object]) -> dict[str, object]:
+    path = _validate_artifact_binding(binding, "ACTION_VALIDATION_RECEIPT_INVALID")
+    receipt = _load_sealed(path, "ACTION_VALIDATION_RECEIPT_INVALID")
+    required = {"action_kind", "candidate_payload_sha256", "frozen_specification", "implementation_binding",
+                "network_requests", "schema_version", "scope", "sealed", "stage_id", "validated", "validator"}
+    if (set(receipt) != required or receipt.get("schema_version") != "OC3_OBSERVATIONAL_MULTIPLICITY_ACTION_VALIDATION_RECEIPT_002" or
+            receipt.get("validated") is not True or receipt.get("network_requests") != 0 or
+            receipt.get("action_kind") != contract["action_kind"] or
+            receipt.get("candidate_payload_sha256") != contract["candidate_payload_sha256"] or
+            receipt.get("stage_id") != contract["stage_id"] or receipt.get("scope") != contract["scope"] or
+            receipt.get("implementation_binding") != contract["implementation_binding"] or
+            receipt.get("frozen_specification") != contract["frozen_specification"]):
+        raise GovernorError("ACTION_VALIDATION_RECEIPT_INVALID")
+    _validate_artifact_binding(receipt.get("validator"), "ACTION_VALIDATOR_IDENTITY_MISMATCH")
+    return receipt
 
-def evaluate_candidate(candidate_path: Path = FIRST_CANDIDATE_PATH,
-                       state_path: Path = STATE_PATH) -> dict[str, object]:
-    validate_policy_manifest(); validate_mandate(); candidate, contract = validate_candidate(candidate_path)
-    state = validate_state(state_path)
-    if not state["active"]:
-        return {"decision": MANDATE_NOT_ACTIVE, "permit_state": NO_PERMIT}
-    if state["registered_pending_action"] is None or state["registered_pending_action"].get("sha256") != file_sha256(candidate_path):
-        return {"decision": "ACTION_NOT_REGISTERED", "permit_state": NO_PERMIT}
-    if contract["network_request_reservation"] > state["requests_remaining"] or contract["application_body_reservation"] > state["body_budget_remaining"]:
-        return {"decision": "MISSION_BUDGET_EXCEEDED", "permit_state": NO_PERMIT}
-    return {"decision": ELIGIBLE, "permit_state": NO_PERMIT, "stage_id": candidate["stage_id"]}
+def validate_literal_resource_manifest(binding: object) -> dict[str, object]:
+    path = _validate_artifact_binding(binding, "AUTONOMY_RESOURCE_MANIFEST_INVALID")
+    manifest = _load_sealed(path, "AUTONOMY_RESOURCE_MANIFEST_INVALID")
+    resources = manifest.get("resources")
+    if (manifest.get("broad_crawling") is not False or manifest.get("mirror_substitution") is not False or
+            not isinstance(resources, list) or not resources):
+        raise GovernorError("AUTONOMY_RESOURCE_MANIFEST_INVALID")
+    required = {"application_body_byte_cap", "evidence_class", "expected_representation", "host", "id",
+                "immutable_revision_required", "method", "purpose", "redirects", "retries", "url"}
+    for resource in resources:
+        if (not isinstance(resource, dict) or not required.issubset(resource) or
+                not isinstance(resource.get("url"), str) or not resource["url"].startswith("https://") or
+                not isinstance(resource.get("host"), str) or not resource["host"] or
+                resource.get("method") not in ("GET", "HEAD") or
+                type(resource.get("application_body_byte_cap")) is not int or resource["application_body_byte_cap"] < 0 or
+                type(resource.get("redirects")) is not int or resource["redirects"] < 0 or
+                type(resource.get("retries")) is not int or resource["retries"] < 0 or
+                resource.get("immutable_revision_required") is not True):
+            raise GovernorError("AUTONOMY_RESOURCE_MANIFEST_INVALID")
+    return manifest
 
+def validate_autonomous_action_candidate(path: Path) -> tuple[dict[str, object], dict[str, object]]:
+    candidate = _load_sealed(path, "AUTONOMOUS_ACTION_CANDIDATE_INVALID")
+    contract = candidate.get("autonomy_policy")
+    required = {"action_kind", "action_validation_receipt", "application_body_reservation",
+        "authority_classes_used", "candidate_hash_mode", "candidate_payload_sha256",
+        "command_argv_sha256", "concurrency", "frozen_specification", "full_candidate_identity",
+        "git_assertions", "implementation_binding", "network_request_reservation", "permit_output_path",
+        "requested_prohibited_scopes", "resource_manifest", "resume_policy", "retry_reservation",
+        "retry_policy", "schema_version",
+        "scientific_firewall", "scope", "stage_id", "standing_mandate_sha256"}
+    if (not isinstance(contract, dict) or set(contract) != required or
+            contract.get("schema_version") != "OC3_OBSERVATIONAL_MULTIPLICITY_ACTION_CONTRACT_002" or
+            contract.get("candidate_hash_mode") != "CANONICAL_ROOT_EXCLUDING_AUTONOMY_POLICY_AND_SEALED" or
+            contract.get("full_candidate_identity") != "FULL_FILE_SHA256_BOUND_BY_STATE_AUTHORIZATION_PERMIT_AND_LEDGER" or
+            contract.get("stage_id") != candidate.get("stage_id") or contract.get("scope") != candidate.get("scope") or
+            contract.get("command_argv_sha256") != candidate.get("command_argv_sha256") or
+            contract.get("standing_mandate_sha256") != file_sha256(MANDATE_PATH)):
+        raise GovernorError("AUTONOMOUS_ACTION_CONTRACT_INVALID")
+    payload_sha = sha256_bytes(canonical(candidate_payload(candidate)))
+    if contract.get("candidate_payload_sha256") != payload_sha:
+        raise GovernorError("AUTONOMOUS_ACTION_PAYLOAD_MISMATCH")
+    argv = candidate.get("command_argv")
+    if not isinstance(argv, list) or not all(isinstance(x, str) for x in argv) or sha256_bytes(canonical(argv)) != contract["command_argv_sha256"]:
+        raise GovernorError("COMMAND_ARGV_HASH_MISMATCH")
+    implementation = contract.get("implementation_binding")
+    if (not isinstance(implementation, dict) or set(implementation) != {"algorithm","sha256"} or
+            implementation.get("algorithm") != "OC3_IMPLEMENTATION_AGGREGATE_V1" or
+            implementation.get("sha256") != candidate.get("implementation_aggregate")):
+        raise GovernorError("IMPLEMENTATION_BINDING_INVALID")
+    _sha(implementation.get("sha256"), "IMPLEMENTATION_BINDING_INVALID")
+    _validate_artifact_binding(contract.get("frozen_specification"), "FROZEN_SPECIFICATION_MISMATCH")
+    validate_action_validation_receipt(contract.get("action_validation_receipt"), contract)
+    if contract.get("resource_manifest") is not None:
+        validate_literal_resource_manifest(contract["resource_manifest"])
+    for key in ("network_request_reservation", "application_body_reservation", "retry_reservation", "concurrency"):
+        if type(contract.get(key)) is not int or contract[key] < 0:
+            raise GovernorError("AUTONOMOUS_ACTION_RESERVATION_INVALID")
+    authorities = contract.get("authority_classes_used")
+    if not isinstance(authorities, list) or not authorities or len(authorities) != len(set(authorities)):
+        raise GovernorError("AUTONOMOUS_ACTION_AUTHORITY_CLASSES_INVALID")
+    if contract.get("scientific_firewall") != {key:0 for key in FIREWALL_KEYS}:
+        raise GovernorError("AUTONOMOUS_ACTION_FIREWALL_INVALID")
+    if contract.get("requested_prohibited_scopes") != []:
+        raise GovernorError("AUTONOMOUS_ACTION_PROHIBITED_SCOPE_INVALID")
+    if contract.get("git_assertions") != {"branch":AUTONOMY_BRANCH,"force_push":False,"merge_main":False}:
+        raise GovernorError("AUTONOMOUS_ACTION_GIT_ASSERTIONS_INVALID")
+    if contract.get("resume_policy") != {"allowed":False,"prospectively_frozen":True}:
+        raise GovernorError("AUTONOMOUS_ACTION_RESUME_INVALID")
+    retry_rule = contract.get("retry_policy")
+    if not isinstance(retry_rule, dict) or set(retry_rule) != {"exact_same_resource","prospectively_frozen"}:
+        raise GovernorError("AUTONOMOUS_ACTION_RETRY_INVALID")
+    _relative(PROJECT / str(contract.get("permit_output_path", "")), "AUTONOMOUS_PERMIT_PATH_INVALID")
+    return candidate, contract
 
-def activate(*, activated_at_utc: str, authorization_path: Path = AUTHORIZATION_PATH,
-             state_path: Path = STATE_PATH) -> dict[str, object]:
-    validate_policy_manifest(); validate_mandate(); validate_candidate()
-    state = validate_state(state_path)
-    if state["state"] != STATE_WAITING:
-        raise GovernorError("ACTIVATION_STATE_INVALID")
-    authorization = validate_standing_authorization(authorization_path, file_sha256(state_path),
-                                                     file_sha256(FIRST_CANDIDATE_PATH))
-    if _current_branch() != AUTONOMY_BRANCH:
-        raise GovernorError("AUTONOMY_BRANCH_MISMATCH")
-    body = {key: value for key, value in state.items() if key != "sealed"}
-    body.update({"active": True, "current_stage": "AWAITING_FIRST_ACTION_REGISTRATION",
-                 "sequence": state["sequence"] + 1, "standing_authorization": _binding(authorization_path),
-                 "state": STATE_AWAITING})
-    _utc(activated_at_utc)
-    _replace_state(state_path, sealed(body))
-    return body
+def _registered_binding(candidate_path: Path, candidate: dict[str, object], contract: dict[str, object], *, first=False) -> dict[str, object]:
+    return {"action_contract_schema":"OC3_OBSERVATIONAL_MULTIPLICITY_ACTION_CONTRACT_002","action_kind":contract["action_kind"],
+        "candidate_path":_relative(candidate_path),"candidate_sha256":file_sha256(candidate_path),
+        "candidate_payload_sha256":contract["candidate_payload_sha256"],
+        "registration_state":"FIRST_PENDING_AUTONOMOUS_ACTION" if first else "PENDING_AUTONOMOUS_ACTION",
+        "scope":contract["scope"],"stage_id":contract["stage_id"]}
 
+def _validate_active_context(state: dict[str, object], authorization_path: Path,
+                             state_path: Path = STATE_PATH) -> dict[str, object]:
+    if state.get("active") is not True or state.get("state") != STATE_ACTIVE:
+        raise GovernorError(MANDATE_NOT_ACTIVE)
+    initial_sha = _sha(state.get("standing_authorization_initial_state_sha256"), "AUTONOMY_INITIAL_STATE_SHA_INVALID")
+    authorization = validate_standing_authorization(
+        authorization_path, expected_initial_state_sha256=initial_sha,
+        expected_initial_state_path=state_path)
+    if state.get("standing_authorization") != _binding(authorization_path):
+        raise GovernorError("STANDING_AUTHORIZATION_STATE_BINDING_MISMATCH")
+    validate_policy_core_manifest()
+    return authorization
 
-def register_action(*, candidate_path: Path, registered_at_utc: str,
-                    state_path: Path = STATE_PATH) -> dict[str, object]:
-    candidate, _ = validate_candidate(candidate_path); state = validate_state(state_path)
-    if not state["active"] or state["registered_pending_action"] is not None:
-        raise GovernorError("ACTION_REGISTRATION_STATE_INVALID")
-    if _current_branch() != AUTONOMY_BRANCH:
-        raise GovernorError("AUTONOMY_BRANCH_MISMATCH")
-    _utc(registered_at_utc)
-    body = {key: value for key, value in state.items() if key != "sealed"}
-    body.update({"current_stage": candidate["stage_id"], "registered_pending_action": {
-        "path": _relative(candidate_path), "sha256": file_sha256(candidate_path),
-        "stage_id": candidate["stage_id"], "scope": candidate["scope"],
-    }, "sequence": state["sequence"] + 1, "state": STATE_ACTIVE})
-    _replace_state(state_path, sealed(body)); return body
+def evaluate_policy(*, candidate_path: Path, state_path: Path = STATE_PATH,
+                    standing_authorization_path: Path = STANDING_AUTHORIZATION_PATH,
+                    current_branch: str = AUTONOMY_BRANCH, require_registered: bool = True) -> dict[str, object]:
+    validate_static_authorities(); mandate = validate_mandate(); state = validate_state(state_path)
+    candidate, contract = validate_autonomous_action_candidate(candidate_path)
+    if not Path(standing_authorization_path).is_file() or state.get("active") is not True:
+        return _refusal(MANDATE_NOT_ACTIVE)
+    if require_registered:
+        registered = state.get("registered_pending_action")
+        if not isinstance(registered, dict):
+            return _refusal("NO_REGISTERED_PENDING_ACTION")
+        expected = _registered_binding(candidate_path, candidate, contract,
+                                       first=registered.get("registration_state") == "FIRST_PENDING_AUTONOMOUS_ACTION")
+        if registered != expected or registered.get("registration_state") not in ("FIRST_PENDING_AUTONOMOUS_ACTION","PENDING_AUTONOMOUS_ACTION"):
+            return _refusal("CANDIDATE_STATE_BINDING_MISMATCH")
+    try:
+        _validate_active_context(state, standing_authorization_path, state_path)
+    except GovernorError as exc:
+        return _refusal(exc.code)
+    if current_branch != AUTONOMY_BRANCH:
+        return _refusal("UNAUTHORIZED_BRANCH")
+    if contract["standing_mandate_sha256"] != file_sha256(MANDATE_PATH):
+        return _refusal("MANDATE_BINDING_MISMATCH")
+    if not set(contract["authority_classes_used"]).issubset(set(mandate["allowed_authority_classes"])):
+        return _refusal("AUTHORITY_CLASS_EXPANSION")
+    if contract["network_request_reservation"] > state["requests_remaining"]:
+        return _refusal("REQUEST_BUDGET_OVERFLOW")
+    if contract["application_body_reservation"] > state["body_budget_remaining"]:
+        return _refusal("BODY_BUDGET_OVERFLOW")
+    if contract["concurrency"] > mandate["budgets"]["concurrency"]:
+        return _refusal("CONCURRENCY_LIMIT_EXCEEDED")
+    retry_rule = contract["retry_policy"]; retries = contract["retry_reservation"]
+    if retries > mandate["budgets"]["retries_max_per_exact_resource"] or (
+            retries and (retry_rule["prospectively_frozen"] is not True or retry_rule["exact_same_resource"] is not True)):
+        return _refusal("RETRY_NOT_PROSPECTIVELY_FROZEN")
+    if contract["resume_policy"] != {"allowed":False,"prospectively_frozen":True}:
+        return _refusal("RESUME_NOT_FROZEN")
+    if contract["scientific_firewall"] != {key:0 for key in FIREWALL_KEYS}:
+        return _refusal("SCIENTIFIC_FIREWALL_VIOLATION")
+    if contract["requested_prohibited_scopes"] != []:
+        return _refusal("PROHIBITED_SCOPE_EXPANSION")
+    git_policy = contract["git_assertions"]
+    if git_policy["force_push"] is not False: return _refusal("FORCE_PUSH_FORBIDDEN")
+    if git_policy["merge_main"] is not False: return _refusal("MAIN_MERGE_FORBIDDEN")
+    if git_policy["branch"] != AUTONOMY_BRANCH: return _refusal("UNAUTHORIZED_BRANCH")
+    manifest_binding = contract["resource_manifest"]
+    if contract["network_request_reservation"] > 0 and manifest_binding is None:
+        return _refusal("LITERAL_RESOURCE_MANIFEST_REQUIRED")
+    if manifest_binding is not None:
+        manifest = validate_literal_resource_manifest(manifest_binding); resources = manifest["resources"]
+        if len(resources) > contract["network_request_reservation"]:
+            return _refusal("RESOURCE_COUNT_EXCEEDS_REQUEST_RESERVATION")
+        if sum(i["application_body_byte_cap"] for i in resources) > contract["application_body_reservation"]:
+            return _refusal("RESOURCE_BODY_CAP_EXCEEDS_RESERVATION")
+        if any(i["evidence_class"] not in contract["authority_classes_used"] for i in resources):
+            return _refusal("RESOURCE_AUTHORITY_CLASS_MISMATCH")
+    return {"candidate_sha256":file_sha256(candidate_path),"decision":ELIGIBLE,
+        "permit_state":"PERMIT_MAY_BE_ISSUED","policy_core_manifest_sha256":file_sha256(POLICY_CORE_MANIFEST_PATH),
+        "standing_authorization_sha256":file_sha256(standing_authorization_path),
+        "state_before_sha256":file_sha256(state_path)}
 
+def build_permit(*, candidate_path: Path, state_path: Path, standing_authorization_path: Path,
+                 issued_at_utc: str, current_branch: str = AUTONOMY_BRANCH) -> dict[str, object]:
+    evaluation = evaluate_policy(candidate_path=candidate_path,state_path=state_path,
+        standing_authorization_path=standing_authorization_path,current_branch=current_branch)
+    if evaluation["decision"] != ELIGIBLE: raise GovernorError(str(evaluation["decision"]))
+    _utc(issued_at_utc); _, contract = validate_autonomous_action_candidate(candidate_path); state = validate_state(state_path)
+    candidate_sha = file_sha256(candidate_path)
+    return sealed({"action_kind":contract["action_kind"],"authorization_basis":"STANDING_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_MANDATE_001",
+        "body_budget_reserved":contract["application_body_reservation"],"candidate_path":_relative(candidate_path),
+        "authority_classes":contract["authority_classes_used"],
+        "candidate_payload_sha256":contract["candidate_payload_sha256"],"candidate_sha256":candidate_sha,
+        "command_argv_sha256":contract["command_argv_sha256"],"concurrency_reserved":contract["concurrency"],
+        "initial_state_sha256":state["standing_authorization_initial_state_sha256"],"issued_at_utc":issued_at_utc,
+        "mandate_sha256":file_sha256(MANDATE_PATH),"network_budget_reserved":contract["network_request_reservation"],
+        "permit_id":f"OC3-AUTONOMOUS-PERMIT-{state['sequence']+1:06d}-{candidate_sha[:12]}",
+        "permit_type":"AUTONOMOUS_EXECUTION_PERMIT","policy_core_manifest_sha256":file_sha256(POLICY_CORE_MANIFEST_PATH),
+        "resource_manifest_sha256":None if contract["resource_manifest"] is None else contract["resource_manifest"]["sha256"],
+        "resume_policy":contract["resume_policy"],"retries_reserved":contract["retry_reservation"],
+        "schema_version":"OC3_OBSERVATIONAL_MULTIPLICITY_EXECUTION_PERMIT_002","scientific_firewall":contract["scientific_firewall"],
+        "scope":contract["scope"],"sequence":state["sequence"],"stage_id":contract["stage_id"],
+        "standing_authorization_sha256":file_sha256(standing_authorization_path),
+        "state_before_sha256":file_sha256(state_path)})
 
-def issue_permit(*, candidate_path: Path, output_path: Path, issued_at_utc: str,
-                 state_path: Path = STATE_PATH) -> dict[str, object]:
-    candidate, contract = validate_candidate(candidate_path); state = validate_state(state_path)
-    decision = evaluate_candidate(candidate_path, state_path)
-    if decision["decision"] != ELIGIBLE or _relative(output_path) != contract["permit_output_path"]:
-        raise GovernorError("PERMIT_NOT_ELIGIBLE")
-    _utc(issued_at_utc)
-    permit = sealed({
-        "application_body_reservation": 0, "candidate_path": _relative(candidate_path),
-        "candidate_sha256": file_sha256(candidate_path), "consumed": False,
-        "issued_at_utc": issued_at_utc, "mandate_sha256": file_sha256(MANDATE_PATH),
-        "mission_id": MISSION_ID, "network_request_reservation": 0,
-        "schema_version": "OC3_OBSERVATIONAL_MULTIPLICITY_EXECUTION_PERMIT_001",
-        "scope": candidate["scope"], "stage_id": candidate["stage_id"],
-        "state_sha256": file_sha256(state_path),
-    })
-    write_json_immutable(output_path, permit)
+def issue_permit(*, candidate_path: Path, state_path: Path, standing_authorization_path: Path,
+                 output_path: Path, ledger_directory: Path, issued_at_utc: str,
+                 current_branch: str = AUTONOMY_BRANCH) -> dict[str, object]:
+    _, contract = validate_autonomous_action_candidate(candidate_path)
+    expected = (PROJECT / str(contract["permit_output_path"])).resolve()
+    if Path(output_path).resolve() != expected: raise GovernorError("AUTONOMOUS_PERMIT_OUTPUT_PATH_MISMATCH")
+    if expected.exists(): raise GovernorError("AUTONOMOUS_PERMIT_ALREADY_EXISTS")
+    permit = build_permit(candidate_path=candidate_path,state_path=state_path,
+        standing_authorization_path=standing_authorization_path,issued_at_utc=issued_at_utc,current_branch=current_branch)
+    write_json_immutable(expected, permit); permit_sha = file_sha256(expected)
+    issuance = sealed({"body_budget_delta":0,"candidate_sha256":file_sha256(candidate_path),
+        "issued_at_utc":issued_at_utc,"new_state_sha256":permit["state_before_sha256"],
+        "permit_id":permit["permit_id"],"permit_sha256":permit_sha,
+        "previous_state_sha256":permit["state_before_sha256"],"reason":"AUTONOMOUS_PERMIT_ISSUED",
+        "request_budget_delta":0,"sequence":permit["sequence"],
+        "state_before_sha256":permit["state_before_sha256"],"state":"AUTONOMOUS_PERMIT_ISSUED"})
+    write_json_immutable(Path(ledger_directory)/"PERMIT_ISSUANCE"/f"{permit_sha}.json", issuance)
     return permit
 
+def _consumption_marker_path(permit_path: Path) -> Path:
+    """Return the sole policy-defined marker identity derived from the permit SHA."""
+    return CONSUMPTION_ROOT / f"{file_sha256(permit_path)}.json"
 
-def validate_permit(permit_path: Path, *, candidate_path: Path,
-                    state_path: Path = STATE_PATH) -> dict[str, object]:
-    permit = _load(permit_path, "PERMIT_INVALID")
-    state = validate_state(state_path); candidate, _ = validate_candidate(candidate_path)
-    if (permit.get("schema_version") != "OC3_OBSERVATIONAL_MULTIPLICITY_EXECUTION_PERMIT_001" or
-            permit.get("mission_id") != MISSION_ID or permit.get("consumed") is not False or
-            permit.get("candidate_path") != _relative(candidate_path) or
+def validate_permit(permit_path: Path, *, candidate_path: Path, state_path: Path,
+                    standing_authorization_path: Path,
+                    allow_consumed: bool = False) -> dict[str, object]:
+    permit = _load_sealed(permit_path,"AUTONOMOUS_PERMIT_INVALID")
+    marker = _consumption_marker_path(permit_path)
+    if marker.exists() and not allow_consumed: raise GovernorError("AUTONOMOUS_PERMIT_ALREADY_CONSUMED")
+    _, contract = validate_autonomous_action_candidate(candidate_path)
+    state = validate_state(state_path)
+    evaluation = evaluate_policy(candidate_path=candidate_path,state_path=state_path,
+        standing_authorization_path=standing_authorization_path)
+    if evaluation["decision"] != ELIGIBLE: raise GovernorError(str(evaluation["decision"]))
+    required = {"action_kind","authority_classes","authorization_basis","body_budget_reserved","candidate_path",
+        "candidate_payload_sha256","candidate_sha256","command_argv_sha256","concurrency_reserved",
+        "initial_state_sha256","issued_at_utc","mandate_sha256","network_budget_reserved","permit_id",
+        "permit_type","policy_core_manifest_sha256","resource_manifest_sha256","resume_policy","retries_reserved",
+        "schema_version","scientific_firewall","scope","sealed","sequence","stage_id",
+        "standing_authorization_sha256","state_before_sha256"}
+    if (set(permit) != required or permit.get("schema_version") != "OC3_OBSERVATIONAL_MULTIPLICITY_EXECUTION_PERMIT_002" or
+            permit.get("permit_type") != "AUTONOMOUS_EXECUTION_PERMIT" or
+            permit.get("authorization_basis") != "STANDING_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_MANDATE_001" or
+            permit.get("mandate_sha256") != file_sha256(MANDATE_PATH) or
+            permit.get("policy_core_manifest_sha256") != file_sha256(POLICY_CORE_MANIFEST_PATH) or
+            permit.get("standing_authorization_sha256") != file_sha256(standing_authorization_path) or
+            permit.get("initial_state_sha256") != state["standing_authorization_initial_state_sha256"] or
+            permit.get("state_before_sha256") != file_sha256(state_path) or permit.get("sequence") != state["sequence"] or
             permit.get("candidate_sha256") != file_sha256(candidate_path) or
-            permit.get("state_sha256") != file_sha256(state_path) or
-            permit.get("stage_id") != candidate["stage_id"] or permit.get("scope") != candidate["scope"] or
-            state["registered_pending_action"].get("sha256") != file_sha256(candidate_path)):
-        raise GovernorError("PERMIT_INVALID")
+            permit.get("candidate_payload_sha256") != contract["candidate_payload_sha256"] or
+            permit.get("candidate_path") != _relative(candidate_path) or
+            permit.get("command_argv_sha256") != contract["command_argv_sha256"] or
+            permit.get("action_kind") != contract["action_kind"] or
+            permit.get("authority_classes") != contract["authority_classes_used"] or
+            permit.get("network_budget_reserved") != contract["network_request_reservation"] or
+            permit.get("body_budget_reserved") != contract["application_body_reservation"] or
+            permit.get("retries_reserved") != contract["retry_reservation"] or
+            permit.get("concurrency_reserved") != contract["concurrency"] or
+            permit.get("resume_policy") != contract["resume_policy"] or
+            permit.get("scientific_firewall") != {key:0 for key in FIREWALL_KEYS}):
+        raise GovernorError("AUTONOMOUS_PERMIT_BINDING_MISMATCH")
+    _utc(permit.get("issued_at_utc"))
     return permit
 
+def consume_permit(permit_path: Path, *, candidate_path: Path, state_path: Path,
+                   standing_authorization_path: Path,
+                   consumed_at_utc: str) -> Path:
+    permit = validate_permit(permit_path,candidate_path=candidate_path,state_path=state_path,
+        standing_authorization_path=standing_authorization_path)
+    _utc(consumed_at_utc); marker = _consumption_marker_path(permit_path)
+    write_json_immutable(marker,sealed({"candidate_sha256":permit["candidate_sha256"],
+        "consumed_at_utc":consumed_at_utc,"permit_id":permit["permit_id"],"permit_sha256":file_sha256(permit_path),
+        "body_budget_delta":0,"new_state_sha256":permit["state_before_sha256"],
+        "previous_state_sha256":permit["state_before_sha256"],"reason":"PERMIT_CONSUMPTION_INTENT_RECORDED",
+        "request_budget_delta":0,"sequence":permit["sequence"],
+        "state_before_sha256":permit["state_before_sha256"],"state":"PERMIT_CONSUMPTION_INTENT_RECORDED"}))
+    return marker
 
-def consume_permit(permit_path: Path, *, candidate_path: Path, consumption_path: Path,
-                   consumed_at_utc: str, state_path: Path = STATE_PATH) -> dict[str, object]:
-    permit = validate_permit(permit_path, candidate_path=candidate_path, state_path=state_path)
-    _utc(consumed_at_utc)
-    receipt = sealed({"candidate_sha256": permit["candidate_sha256"],
-                      "consumed_at_utc": consumed_at_utc, "permit_sha256": file_sha256(permit_path),
-                      "schema_version": "OC3_OBSERVATIONAL_MULTIPLICITY_PERMIT_CONSUMPTION_001",
-                      "stage_id": permit["stage_id"]})
-    write_json_immutable(consumption_path, receipt); return receipt
+def validate_consumption_marker(permit_path: Path, *, candidate_path: Path) -> dict[str, object]:
+    marker = _load_sealed(_consumption_marker_path(permit_path),"AUTONOMOUS_PERMIT_CONSUMPTION_MISSING")
+    permit = _load_sealed(permit_path,"AUTONOMOUS_PERMIT_INVALID")
+    if (set(marker) != {"body_budget_delta","candidate_sha256","consumed_at_utc","new_state_sha256",
+            "permit_id","permit_sha256","previous_state_sha256","reason","request_budget_delta",
+            "sealed","sequence","state","state_before_sha256"} or
+            marker.get("state") != "PERMIT_CONSUMPTION_INTENT_RECORDED" or
+            marker.get("permit_sha256") != file_sha256(permit_path) or marker.get("permit_id") != permit.get("permit_id") or
+            marker.get("state_before_sha256") != permit.get("state_before_sha256") or
+            marker.get("candidate_sha256") != file_sha256(candidate_path)):
+        raise GovernorError("AUTONOMOUS_PERMIT_CONSUMPTION_INVALID")
+    _utc(marker.get("consumed_at_utc")); return marker
 
+def atomic_replace_state(path: Path, value: dict[str, object]) -> None:
+    path=Path(path); data=canonical(value)+b"\n"; path.parent.mkdir(parents=True,exist_ok=True)
+    temporary=path.with_name(f".{path.name}.tmp-{os.getpid()}")
+    if temporary.exists(): raise GovernorError("AUTONOMY_STATE_TEMP_CONFLICT")
+    with temporary.open("xb") as stream:
+        stream.write(data); stream.flush(); os.fsync(stream.fileno())
+    os.replace(temporary,path)
 
-def transition_completed(*, candidate_path: Path, permit_path: Path, consumption_path: Path,
-                         terminal_path: Path, request_delta: int, body_delta: int,
-                         transitioned_at_utc: str, state_path: Path = STATE_PATH) -> dict[str, object]:
-    state = validate_state(state_path); candidate, contract = validate_candidate(candidate_path)
-    permit = _load(permit_path, "PERMIT_INVALID"); receipt = _load(consumption_path, "PERMIT_CONSUMPTION_MISSING")
-    terminal = _load(terminal_path, "TERMINAL_INVALID"); _utc(transitioned_at_utc)
-    if (receipt.get("permit_sha256") != file_sha256(permit_path) or
-            terminal.get("stage_id") != candidate["stage_id"] or terminal.get("scope") != candidate["scope"] or
-            request_delta != 0 or body_delta != 0 or request_delta > contract["network_request_reservation"] or
-            body_delta > contract["application_body_reservation"]):
-        raise GovernorError("COMPLETION_TRANSITION_INVALID")
-    body = {key: value for key, value in state.items() if key != "sealed"}
-    body.update({"body_budget_remaining": state["body_budget_remaining"] - body_delta,
-                 "current_stage": "AWAITING_NEXT_ACTION_REGISTRATION",
-                 "last_completed_stage": candidate["stage_id"], "last_terminal": _binding(terminal_path),
-                 "permits_issued": state["permits_issued"] + 1, "registered_pending_action": None,
-                 "requests_remaining": state["requests_remaining"] - request_delta,
-                 "sequence": state["sequence"] + 1, "state": STATE_AWAITING})
-    _replace_state(state_path, sealed(body)); return body
+def _write_snapshot(state_path: Path, state: dict[str, object], ledger_directory: Path) -> str:
+    previous_sha=file_sha256(state_path)
+    write_json_immutable(Path(ledger_directory)/"STATE_SNAPSHOTS"/f"{state['sequence']:06d}_{previous_sha}.json",state)
+    return previous_sha
 
+def activate_standing_autonomy(*, state_path: Path, standing_authorization_path: Path,
+                               ledger_directory: Path, activated_at_utc: str, current_branch: str) -> dict[str, object]:
+    validate_static_authorities(); _utc(activated_at_utc); state=validate_state(state_path)
+    if state.get("active") is not False or state.get("state") != STATE_WAITING:
+        raise GovernorError("AUTONOMY_ACTIVATION_STATE_INVALID")
+    if current_branch != AUTONOMY_BRANCH: raise GovernorError("UNAUTHORIZED_BRANCH")
+    if any(Path(ledger_directory).glob("*_ACTIVATION.json")): raise GovernorError("AUTONOMY_ALREADY_ACTIVATED")
+    candidate_path = FIRST_CANDIDATE_PATH
+    validate_autonomous_action_candidate(candidate_path)
+    if state.get("first_candidate") != _binding(candidate_path) or state.get("registered_pending_action") is not None:
+        raise GovernorError("AUTONOMY_FIRST_ACTION_BINDING_INVALID")
+    initial_state_sha=file_sha256(state_path)
+    validate_standing_authorization(standing_authorization_path,
+        expected_initial_state_sha256=initial_state_sha,expected_initial_state_path=state_path)
+    previous_sha=_write_snapshot(state_path,state,ledger_directory)
+    body={k:v for k,v in state.items() if k!="sealed"}; body.update({"active":True,
+        "current_stage":STATE_AWAITING,"sequence":state["sequence"]+1,
+        "standing_authorization":_binding(standing_authorization_path),
+        "standing_authorization_initial_state_sha256":initial_state_sha,"state":STATE_ACTIVE})
+    updated=sealed(body); new_sha=sha256_bytes(canonical(updated)+b"\n")
+    record=sealed({"activated_at_utc":activated_at_utc,"branch":current_branch,"body_budget_delta":0,
+        "mandate_sha256":file_sha256(MANDATE_PATH),"new_state_sha256":new_sha,
+        "policy_core_manifest_sha256":file_sha256(POLICY_CORE_MANIFEST_PATH),"previous_state_sha256":previous_sha,
+        "reason":"STANDING_AUTONOMY_ACTIVATED","request_budget_delta":0,"sequence":updated["sequence"],
+        "standing_authorization_sha256":file_sha256(standing_authorization_path)})
+    write_json_immutable(Path(ledger_directory)/f"{updated['sequence']:06d}_ACTIVATION.json",record)
+    atomic_replace_state(state_path,updated); return updated
 
-def enter_stop(*, blocker_code: str, report_path: Path, stopped_at_utc: str,
-               state_path: Path = STATE_PATH) -> dict[str, object]:
-    state = validate_state(state_path); _utc(stopped_at_utc)
-    if not blocker_code or not report_path.is_file():
-        raise GovernorError("STOP_EVIDENCE_INVALID")
-    body = {key: value for key, value in state.items() if key != "sealed"}
-    body.update({"active": False, "current_stage": STOP_REQUIRES_HUMAN,
-                 "sequence": state["sequence"] + 1, "state": STOP_REQUIRES_HUMAN,
-                 "stop_reason": {"blocker_code": blocker_code, "report": _binding(report_path)}})
-    _replace_state(state_path, sealed(body)); return body
+def register_pending_action(*, state_path: Path, candidate_path: Path, standing_authorization_path: Path,
+                            ledger_directory: Path, registered_at_utc: str, current_branch: str) -> dict[str, object]:
+    validate_static_authorities(); _utc(registered_at_utc); state=validate_state(state_path)
+    _validate_active_context(state,standing_authorization_path,state_path)
+    if current_branch != AUTONOMY_BRANCH: raise GovernorError("UNAUTHORIZED_BRANCH")
+    if state.get("registered_pending_action") is not None: raise GovernorError("UNRESOLVED_REGISTERED_ACTION")
+    if state.get("last_completed_stage") is None and Path(candidate_path).resolve() != FIRST_CANDIDATE_PATH.resolve():
+        raise GovernorError("AUTONOMY_FIRST_ACTION_BINDING_INVALID")
+    candidate,contract=validate_autonomous_action_candidate(candidate_path)
+    evaluation=evaluate_policy(candidate_path=candidate_path,state_path=state_path,
+        standing_authorization_path=standing_authorization_path,current_branch=current_branch,require_registered=False)
+    if evaluation["decision"] != ELIGIBLE: raise GovernorError(str(evaluation["decision"]))
+    previous_sha=_write_snapshot(state_path,state,ledger_directory)
+    first = state.get("last_completed_stage") is None and Path(candidate_path).resolve() == FIRST_CANDIDATE_PATH.resolve()
+    body={k:v for k,v in state.items() if k!="sealed"}; body.update({
+        "registered_pending_action":_registered_binding(candidate_path,candidate,contract,first=first),
+        "current_stage":"AUTONOMOUS_POLICY_EVALUATION","sequence":state["sequence"]+1})
+    updated=sealed(body); new_sha=sha256_bytes(canonical(updated)+b"\n")
+    record=sealed({"action_kind":contract["action_kind"],"body_budget_delta":0,
+        "candidate_sha256":file_sha256(candidate_path),"new_state_sha256":new_sha,
+        "previous_state_sha256":previous_sha,"reason":"PENDING_ACTION_REGISTERED",
+        "registered_at_utc":registered_at_utc,"request_budget_delta":0,"sequence":updated["sequence"],
+        "stage_id":contract["stage_id"]})
+    write_json_immutable(Path(ledger_directory)/f"{updated['sequence']:06d}_ACTION_REGISTRATION.json",record)
+    atomic_replace_state(state_path,updated); return updated
 
+def _terminal_counters(terminal: dict[str, object]) -> tuple[int|None,int|None,int|None]:
+    counters=terminal.get("counters",{}); counters=counters if isinstance(counters,dict) else {}
+    requests=counters.get("network_requests_started",counters.get("network_requests",terminal.get("network_requests_started")))
+    body=terminal.get("application_body_bytes_read",counters.get("application_body_bytes_read",
+        counters.get("network_body_bytes",terminal.get("network_body_bytes"))))
+    retries=counters.get("retry_requests",terminal.get("retry_requests"))
+    if retries is None and requests == 0: retries=0
+    return requests,body,retries
 
-def finalize(*, outcome: str, report_path: Path, finalized_at_utc: str,
-             state_path: Path = STATE_PATH) -> dict[str, object]:
-    state = validate_state(state_path); _utc(finalized_at_utc)
-    if outcome not in TERMINAL_OUTCOMES or state["registered_pending_action"] is not None or not report_path.is_file():
-        raise GovernorError("SCIENTIFIC_TERMINAL_INVALID")
-    body = {key: value for key, value in state.items() if key != "sealed"}
-    body.update({"active": False, "current_stage": STATE_TERMINAL,
-                 "last_terminal": _binding(report_path), "scientific_outcome": outcome,
-                 "sequence": state["sequence"] + 1, "state": STATE_TERMINAL})
-    _replace_state(state_path, sealed(body)); return body
+def transition_completed_action(*, state_path: Path, candidate_path: Path, permit_path: Path,
+                                standing_authorization_path: Path,
+                                terminal_path: Path, terminal_sha256: str,
+                                request_delta: int, body_delta: int, retry_delta: int,
+                                ledger_directory: Path, transitioned_at_utc: str, reason: str) -> dict[str, object]:
+    _utc(transitioned_at_utc); state=validate_state(state_path)
+    permit=validate_permit(permit_path,candidate_path=candidate_path,state_path=state_path,
+        standing_authorization_path=standing_authorization_path,
+        allow_consumed=True)
+    validate_consumption_marker(permit_path,candidate_path=candidate_path)
+    terminal_path=Path(terminal_path)
+    if not terminal_path.is_file(): raise GovernorError("AUTONOMY_TERMINAL_ARTIFACT_MISSING")
+    terminal=_load_sealed(terminal_path,"AUTONOMY_TERMINAL_ARTIFACT_INVALID"); terminal_sha=file_sha256(terminal_path)
+    if _sha(terminal_sha256,"AUTONOMY_TERMINAL_SHA_INVALID") != terminal_sha:
+        raise GovernorError("AUTONOMY_TERMINAL_SHA_MISMATCH")
+    if terminal.get("stage_id") is not None and terminal.get("stage_id") != permit["stage_id"]:
+        raise GovernorError("AUTONOMY_TERMINAL_STAGE_MISMATCH")
+    if terminal.get("scope") is not None and terminal.get("scope") != permit["scope"]:
+        raise GovernorError("AUTONOMY_TERMINAL_SCOPE_MISMATCH")
+    terminal_counter_map=terminal.get("counters",{}) if isinstance(terminal.get("counters"),dict) else {}
+    if any(terminal_counter_map.get(key,0) != 0 for key in FIREWALL_KEYS):
+        raise GovernorError("AUTONOMY_TERMINAL_FIREWALL_VIOLATION")
+    if any(type(x) is not int or x<0 for x in (request_delta,body_delta,retry_delta)):
+        raise GovernorError("AUTONOMY_TRANSITION_DELTA_INVALID")
+    if (request_delta>permit["network_budget_reserved"] or body_delta>permit["body_budget_reserved"] or
+            retry_delta>permit["retries_reserved"]):
+        raise GovernorError("PERMIT_RESERVATION_EXCEEDED_REQUIRES_STOP")
+    if request_delta>state["requests_remaining"] or body_delta>state["body_budget_remaining"]:
+        raise GovernorError("AUTONOMY_TRANSITION_BUDGET_INVALID")
+    observed=_terminal_counters(terminal)
+    if any(type(actual) is not int or actual < 0 for actual in observed):
+        raise GovernorError("AUTONOMY_TERMINAL_COUNTERS_REQUIRED")
+    for actual,expected in zip(observed,(request_delta,body_delta,retry_delta)):
+        if actual is not None and actual!=expected: raise GovernorError("AUTONOMY_TERMINAL_COUNTER_MISMATCH")
+    previous_sha=_write_snapshot(state_path,state,ledger_directory)
+    body={k:v for k,v in state.items() if k!="sealed"}; body.update({
+        "body_budget_remaining":state["body_budget_remaining"]-body_delta,"current_stage":STATE_AWAITING,
+        "last_completed_stage":permit["stage_id"],"last_terminal":_binding(terminal_path),
+        "permits_issued":state["permits_issued"]+1,
+        "registered_pending_action":None,"requests_remaining":state["requests_remaining"]-request_delta,
+        "sequence":state["sequence"]+1})
+    updated=sealed(body); new_sha=sha256_bytes(canonical(updated)+b"\n")
+    record=sealed({"action_stage":permit["stage_id"],"body_budget_delta":body_delta,
+        "candidate_sha256":file_sha256(candidate_path),"new_state_sha256":new_sha,
+        "permit_sha256":file_sha256(permit_path),"previous_state_sha256":previous_sha,"reason":reason,
+        "request_budget_delta":request_delta,"retry_delta":retry_delta,"sequence":updated["sequence"],
+        "terminal_path":_relative(terminal_path),"terminal_sha256":terminal_sha,
+        "terminal_state":terminal.get("state"),"transitioned_at_utc":transitioned_at_utc})
+    write_json_immutable(Path(ledger_directory)/f"{updated['sequence']:06d}_ACTION_COMPLETE.json",record)
+    atomic_replace_state(state_path,updated); return updated
+
+def enter_stop_requires_human(*, state_path: Path, standing_authorization_path: Path,
+                              stop_report_path: Path, blocker_code: str, ledger_directory: Path,
+                              stopped_at_utc: str, current_branch: str) -> dict[str, object]:
+    _utc(stopped_at_utc)
+    if re.fullmatch(r"[A-Z0-9_]+",blocker_code) is None: raise GovernorError("AUTONOMY_STOP_BLOCKER_INVALID")
+    state=validate_state(state_path); _validate_active_context(state,standing_authorization_path,state_path)
+    if current_branch!=AUTONOMY_BRANCH: raise GovernorError("UNAUTHORIZED_BRANCH")
+    report=Path(stop_report_path)
+    if not report.is_file() or report.stat().st_size==0 or report.stat().st_size>COMPACT_ARTIFACT_MAX_BYTES:
+        raise GovernorError("AUTONOMY_STOP_REPORT_INVALID")
+    previous_sha=_write_snapshot(state_path,state,ledger_directory)
+    body={k:v for k,v in state.items() if k!="sealed"}; body.update({"active":False,
+        "current_stage":STOP_REQUIRES_HUMAN,"sequence":state["sequence"]+1,
+        "state":STOP_REQUIRES_HUMAN,"stop_reason":blocker_code})
+    updated=sealed(body); new_sha=sha256_bytes(canonical(updated)+b"\n")
+    record=sealed({"blocker_code":blocker_code,"body_budget_delta":0,"new_state_sha256":new_sha,
+        "previous_state_sha256":previous_sha,"reason":STOP_REQUIRES_HUMAN,"report_path":_relative(report),
+        "report_sha256":file_sha256(report),"request_budget_delta":0,"sequence":updated["sequence"],
+        "stopped_at_utc":stopped_at_utc})
+    write_json_immutable(Path(ledger_directory)/f"{updated['sequence']:06d}_STOP.json",record)
+    atomic_replace_state(state_path,updated); return updated
+
+def finalize_scientific_terminal(*, state_path: Path, standing_authorization_path: Path,
+                                 outcome: str, final_report_path: Path, claim_matrix_path: Path|None,
+                                 ledger_directory: Path, finalized_at_utc: str, current_branch: str) -> dict[str, object]:
+    _utc(finalized_at_utc)
+    if outcome not in TERMINAL_OUTCOMES: raise GovernorError("SCIENTIFIC_OUTCOME_NOT_FROZEN")
+    state=validate_state(state_path); _validate_active_context(state,standing_authorization_path,state_path)
+    if current_branch!=AUTONOMY_BRANCH: raise GovernorError("UNAUTHORIZED_BRANCH")
+    if state.get("registered_pending_action") is not None: raise GovernorError("SCIENTIFIC_TERMINAL_PENDING_ACTION")
+    if state.get("firewall_counters")!={key:0 for key in FIREWALL_KEYS}:
+        raise GovernorError("SCIENTIFIC_TERMINAL_FIREWALL_DIRTY")
+    report=Path(final_report_path)
+    if not report.is_file() or report.stat().st_size==0: raise GovernorError("SCIENTIFIC_TERMINAL_REPORT_INVALID")
+    matrix_binding=None
+    if claim_matrix_path is not None:
+        matrix=Path(claim_matrix_path)
+        if not matrix.is_file() or matrix.stat().st_size==0: raise GovernorError("SCIENTIFIC_TERMINAL_CLAIM_MATRIX_INVALID")
+        matrix_binding=_binding(matrix)
+    previous_sha=_write_snapshot(state_path,state,ledger_directory)
+    body={k:v for k,v in state.items() if k!="sealed"}; body.update({"active":False,
+        "current_stage":STATE_TERMINAL,"scientific_outcome":outcome,
+        "sequence":state["sequence"]+1,"state":STATE_TERMINAL})
+    updated=sealed(body); new_sha=sha256_bytes(canonical(updated)+b"\n")
+    record=sealed({"body_budget_delta":0,"claim_matrix":matrix_binding,"final_report":_binding(report),
+        "finalized_at_utc":finalized_at_utc,"new_state_sha256":new_sha,"outcome":outcome,
+        "previous_state_sha256":previous_sha,"reason":"SCIENTIFIC_TERMINAL_FINALIZED",
+        "request_budget_delta":0,"sequence":updated["sequence"]})
+    write_json_immutable(Path(ledger_directory)/f"{updated['sequence']:06d}_SCIENTIFIC_TERMINAL.json",record)
+    atomic_replace_state(state_path,updated); return updated
+
+def audit_compact_paths(paths: list[Path], *, project: Path=PROJECT) -> dict[str,object]:
+    project=Path(project).resolve(); total=0; largest=0; normalized=[]
+    for item in paths:
+        path=Path(item); absolute=path.resolve() if path.is_absolute() else (project/path).resolve()
+        try: relative=absolute.relative_to(project).as_posix()
+        except ValueError as exc: raise GovernorError("GIT_PATH_OUTSIDE_PROJECT") from exc
+        lowered=relative.lower()
+        if any(lowered.startswith(p.lower()) for p in RUNTIME_TREE_PREFIXES): raise GovernorError("GIT_RUNTIME_EVIDENCE_FORBIDDEN")
+        if any(lowered.endswith(s) for s in FORBIDDEN_GIT_SUFFIXES): raise GovernorError("GIT_SCIENTIFIC_OR_ARCHIVE_BODY_FORBIDDEN")
+        basename=absolute.name.lower()
+        if basename==".env" or any(p in basename for p in SECRET_NAME_PARTS): raise GovernorError("GIT_CREDENTIAL_PATH_FORBIDDEN")
+        if absolute.is_symlink() or not absolute.is_file(): raise GovernorError("GIT_NONREGULAR_PATH_FORBIDDEN")
+        size=absolute.stat().st_size
+        if size>COMPACT_ARTIFACT_MAX_BYTES: raise GovernorError("GIT_COMPACT_ARTIFACT_SIZE_EXCEEDED")
+        payload=absolute.read_bytes()
+        if any(pattern.search(payload) for pattern in SECRET_CONTENT_PATTERNS): raise GovernorError("GIT_SECRET_CONTENT_FORBIDDEN")
+        total+=size; largest=max(largest,size); normalized.append(relative)
+    return {"file_count":len(normalized),"files":sorted(normalized),"largest_file_bytes":largest,
+        "network_requests":0,"per_file_limit_bytes":COMPACT_ARTIFACT_MAX_BYTES,
+        "state":"GIT_STAGED_SIZE_FIREWALL_PASS","total_bytes":total}
+
+def audit_staged_compact_artifacts(*, project: Path=PROJECT) -> dict[str,object]:
+    project=Path(project).resolve()
+    result=subprocess.run(["git","diff","--cached","--name-only","--diff-filter=ACMR","-z"],
+                          cwd=project,check=True,capture_output=True)
+    names=[n.decode("utf-8") for n in result.stdout.split(b"\0") if n]
+    if not names: raise GovernorError("GIT_NO_STAGED_ARTIFACTS")
+    return audit_compact_paths([Path(n) for n in names],project=project)
+
+def compact_status(state_path: Path=STATE_PATH) -> dict[str,object]:
+    state=validate_state(state_path)
+    return {"active":state["active"],"mission_id":state["mission_id"],
+        "permit_state":MANDATE_NOT_ACTIVE if not state["active"] else "ACTIVE_POLICY_EVALUATION",
+        "requests_remaining":state["requests_remaining"],"sequence":state["sequence"],"state":state["state"]}
+
+def validate_candidate(path: Path=FIRST_CANDIDATE_PATH) -> tuple[dict[str,object],dict[str,object]]:
+    return validate_autonomous_action_candidate(path)
+
+def validate_all() -> dict[str,object]:
+    validate_static_authorities(); validate_mandate(); state=validate_state(); validate_candidate()
+    return {"active":state["active"],"network_requests":0,"permits_issued":state["permits_issued"],
+            "state":state["state"],"validated":True}
+
+def evaluate_candidate(candidate_path: Path=FIRST_CANDIDATE_PATH,
+                       state_path: Path=STATE_PATH) -> dict[str,object]:
+    return evaluate_policy(candidate_path=candidate_path,state_path=state_path)

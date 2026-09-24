@@ -1,10 +1,10 @@
 # OC3 Observational Multiplicity Standing Autonomy Mandate 001
 
-State: `PENDING_HUMAN_AUTHORIZATION`. This document creates no standing authorization and activates no mission.
+State: `PENDING_HUMAN_AUTHORIZATION`. This document does not authorize or activate the mission.
 
-## Mission
+## Scientific mission
 
-Determine whether a PHOTSYS-independent global-identity/all-valid-views design can replace canonical-region selection while preserving scientific independence, preventing leakage, and enabling an observer-replication audit.
+Determine whether `GLOBAL_IDENTITY_WITH_ALL_VALID_VIEWS` can replace canonical-region selection while preserving scientific independence, preventing leakage, and enabling an observer-replication audit. The first scientific action remains `OC3-GLOBAL-VIEW-RELATION-AUDIT-001`. The gate `CROSS_OBSERVER_SOURCE_GROUPING_REQUIRES_PROSPECTIVE_CONTRACT` remains frozen.
 
 Allowed outcomes are exactly:
 
@@ -13,24 +13,18 @@ Allowed outcomes are exactly:
 - `OBSERVATIONAL_MULTIPLICITY_STRATEGY_INCONCLUSIVE`;
 - `OBSERVATIONAL_MULTIPLICITY_STRATEGY_REJECTED`.
 
-## Evidence envelope
+## Evidence and budgets
 
-Eligible evidence classes are frozen project specifications and terminals; already-bound local root/north/south brick-summary identity/geometry; bounded official DR9 documentation when prospectively manifested; and prospectively contracted morphology-independent grouping metadata.
+Actions may use any nonempty subset of frozen project specifications and terminals, bound local DR9 brick-summary identity/geometry, bounded official DR9 documentation, and prospectively contracted grouping metadata. A grouping family is not admitted until its own prospective specification and strict validator bind it.
 
-Every network action, if later necessary, requires a literal resource manifest, action-specific validator, and permit. The mission-level cap is 12 requests, 16,777,216 application-body bytes, concurrency 1, zero retries by default, and at most one prospectively declared retry for an exact resource. The first action reserves zero network requests and zero body bytes.
+The mission caps are 12 requests, 16,777,216 application-body bytes, concurrency one, zero retries by default, and at most one prospectively frozen retry for an exact same resource. Network actions require a sealed literal resource manifest. Offline actions may reserve zero requests and bytes without a manifest.
 
-## Scientific firewall
+## Closed firewall
 
-The first action allows only summary `BRICKNAME`, `BRICKID`, and geometry fields already frozen by the local contracts. It forbids PHOTSYS, Tractor/source rows, pixels, morphology, labels, models, encoders, embeddings, clustering, Panel V3, and P1.
-
-Future value-family access requires a prospective action contract inside the evidence envelope. The mandate cannot silently broaden allowed fields.
+Every action requires zero PHOTSYS reads, Tractor cells, source rows outside an explicit future contract, image pixels, morphology or labels, model operations, embeddings, and clustering. The mission prohibits PHOTSYS reinterpretation, a PHOTSYS V2 resolver, Panel V3 materialization before the strategy gate, P1, morphology learning, training, embeddings, and clustering.
 
 ## Lifecycle
 
-The mission begins inactive in `WAITING_FOR_STANDING_HUMAN_AUTHORIZATION`. A separate human authorization must bind the exact mandate JSON, policy-core manifest, waiting state, branch, and first candidate. Only the governor may activate it.
+The mission starts inactive in `WAITING_FOR_STANDING_HUMAN_AUTHORIZATION`, with zero permits issued. A separate human authorization must bind the exact mandate JSON, policy-core manifest, waiting state, branch, and candidate 002. Activation is one-shot. Each material action requires a strict action receipt, generic registration, policy eligibility, one immutable permit, canonical consumption before access, and terminal-bound accounting.
 
-Material actions require validation, registration, policy evaluation, one immutable permit, consumption before access, and a verified terminal transition. A consumed permit cannot be replayed automatically. STOP and scientific terminal transitions set `active=false`.
-
-## Prohibited expansion
-
-The mandate excludes PHOTSYS reinterpretation or a V2 resolver, morphology learning, training, embeddings, clustering, anomaly detection, morphology labels, Panel V3 before the strategy gate, P1, uncontracted astronomical families, criteria changed after evidence, credentials, destructive evidence handling, force push, history rewriting, and merges to main.
+A consumed permit cannot be replayed through an alternate path. Missing or invalid terminal evidence after consumption requires human STOP unless a restart rule was prospectively frozen. STOP and scientific finalization deactivate the mission. The universal policy core cannot be changed while active.

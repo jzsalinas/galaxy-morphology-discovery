@@ -634,6 +634,9 @@ class ManifestContractTripwireOutcomeTests(Base):
             "OC3_OBSERVATIONAL_MULTIPLICITY_POLICY_CORE_MANIFEST_001.json",
             "OC3_GLOBAL_VIEW_RELATION_AUDIT_CANDIDATE_001.json",
             "OC3_GLOBAL_VIEW_RELATION_AUDIT_CANDIDATE_VALIDATION_001.json"}
+        observational_multiplicity_hardened = observational_multiplicity_bootstrap | {
+            "OC3_GLOBAL_VIEW_RELATION_AUDIT_CANDIDATE_002.json",
+            "OC3_GLOBAL_VIEW_RELATION_AUDIT_CANDIDATE_VALIDATION_002.json"}
         eligibility_p0 = eligibility_implementation | {
             "OC3_GALAXY_ELIGIBILITY_PANEL_MANIFEST.json",
             "OC3_GALAXY_ELIGIBILITY_P1_AUTHORIZATION_CANDIDATE_001.json"}
@@ -652,6 +655,7 @@ class ManifestContractTripwireOutcomeTests(Base):
                                     photsys_autonomy_hardened,
                                     photsys_terminal_inputs,
                                     observational_multiplicity_bootstrap,
+                                    observational_multiplicity_hardened,
                                     eligibility_p0))
         technical_names = {item.name for item in (PROJECT / "oc3/TECHNICAL_INDEX").iterdir()}
         technical_base = {"OC3_LOCATIONS.json", "OC3_SELECTION_FLOW.csv",
