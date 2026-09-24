@@ -86,12 +86,16 @@ class CrossIdOfflineRecoveryBootstrapTests(unittest.TestCase):
         self.assertFalse(value["search_bound_selected"])
         self.assertFalse(value["scientific_threshold_selected"])
 
-    def test_mission_is_inactive_without_authorization_or_permit(self):
+    def test_mission_closed_at_scientific_terminal_with_single_consumed_permit(self):
         state = gov.validate_state()
         self.assertEqual((state["state"], state["active"], state["permits_issued"]),
-                         (gov.STATE_WAITING, False, 0))
-        self.assertFalse(gov.STANDING_AUTHORIZATION_PATH.exists())
-        self.assertFalse((gov.PROJECT / validate_candidate()["autonomy_policy"]["permit_output_path"]).exists())
+                         (gov.STATE_TERMINAL, False, 1))
+        self.assertEqual(state["scientific_outcome"],
+                         "CROSS_ID_FORMALISM_RECOVERED_PILOT_SPECIFIABLE")
+        self.assertTrue(gov.STANDING_AUTHORIZATION_PATH.exists())
+        permit = gov.PROJECT / validate_candidate()["autonomy_policy"]["permit_output_path"]
+        self.assertTrue(permit.exists())
+        self.assertTrue(gov._consumption_marker_path(permit).exists())
         self.assertEqual(gov.evaluate_candidate(CANDIDATE),
                          {"decision": gov.MANDATE_NOT_ACTIVE, "permit_state": gov.NO_PERMIT_ISSUED})
 
@@ -178,7 +182,12 @@ class CrossIdOfflineRecoveryLifecycleTests(unittest.TestCase):
     def activate(self, first):
         production = load_canonical_json(gov.STATE_PATH)
         body = {k: v for k, v in production.items() if k != "sealed"}
-        body.update({"first_candidate": self.binding(first), "current_stage": "FIRST_ACTION_PREPARED"})
+        body.update({"active": False, "first_candidate": self.binding(first),
+            "current_stage": "FIRST_ACTION_PREPARED", "last_completed_stage": None,
+            "last_terminal": None, "permits_issued": 0, "registered_pending_action": None,
+            "scientific_outcome": None, "sequence": 0, "standing_authorization": None,
+            "standing_authorization_initial_state_sha256": None,
+            "state": gov.STATE_WAITING, "stop_reason": None})
         state = self.write("state.json", sealed(body))
         auth = self.write("authorization.json", sealed({
             "authorization_state": "STANDING_HUMAN_AUTONOMY_AUTHORIZATION", "authorized": True,
