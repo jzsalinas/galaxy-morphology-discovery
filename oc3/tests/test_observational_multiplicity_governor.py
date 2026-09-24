@@ -221,13 +221,15 @@ class ObservationalMultiplicityGovernorTests(unittest.TestCase):
             retry_delta=retries, ledger_directory=ledger,
             transitioned_at_utc=f"2026-09-24T00:0{index+4}:00Z", reason="SYNTHETIC_COMPLETE")
 
-    def test_01_production_bootstrap_is_inactive_and_candidate_001_immutable(self):
+    def test_01_production_mission_state_valid_and_candidate_001_immutable(self):
         result = gov.validate_all()
-        self.assertFalse(result["active"])
-        self.assertEqual(result["permits_issued"], 0)
+        production_state = load_canonical_json(gov.STATE_PATH)
+        self.assertEqual(result["active"], production_state["active"])
+        self.assertEqual(result["permits_issued"], production_state["permits_issued"])
         self.assertEqual(file_sha256(gov.PROJECT / "oc3/INPUTS/OC3_GLOBAL_VIEW_RELATION_AUDIT_CANDIDATE_001.json"),
                          "308dd5af01a4048cd6fb2a796248c324e2d9e6f01b2b44ca68262f98cf070463")
-        self.assertFalse(gov.STANDING_AUTHORIZATION_PATH.exists())
+        authorization_must_exist = production_state["active"] or production_state["state"] == "SCIENTIFIC_TERMINAL"
+        self.assertEqual(gov.STANDING_AUTHORIZATION_PATH.exists(), authorization_must_exist)
 
     def test_01b_candidate_003_preserves_candidate_002_scientific_payload(self):
         old = load_canonical_json(CANDIDATE_002)

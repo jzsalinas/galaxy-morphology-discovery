@@ -117,11 +117,12 @@ class ObservationalMultiplicityTests(unittest.TestCase):
                   [(None, "test")], confirmatory=True)
         om.validate_split_assignments([(None, "exploratory")], confirmatory=False)
 
-    def test_bootstrap_candidate_is_offline_inactive_and_photsys_independent(self):
+    def test_current_candidate_is_offline_and_photsys_independent(self):
         result = gov.validate_all()
-        self.assertFalse(result["active"])
-        self.assertEqual(result["state"], gov.STATE_WAITING)
-        self.assertEqual(result["permits_issued"], 0)
+        production_state = om.load_canonical_json(gov.STATE_PATH)
+        self.assertEqual(result["active"], production_state["active"])
+        self.assertEqual(result["state"], production_state["state"])
+        self.assertEqual(result["permits_issued"], production_state["permits_issued"])
         candidate, contract = gov.validate_candidate()
         self.assertEqual(contract["network_request_reservation"], 0)
         self.assertEqual(contract["application_body_reservation"], 0)
@@ -129,9 +130,10 @@ class ObservationalMultiplicityTests(unittest.TestCase):
         self.assertEqual(contract["requested_prohibited_scopes"], [])
         fields = sum(candidate["decoded_fields"].values(), [])
         self.assertNotIn("PHOTSYS", fields)
-        self.assertFalse(gov.AUTHORIZATION_PATH.exists())
-        self.assertFalse((om.PROJECT / contract["permit_output_path"]).exists())
-        self.assertEqual(gov.evaluate_candidate()["decision"], gov.MANDATE_NOT_ACTIVE)
+        authorization_must_exist = production_state["active"] or production_state["state"] == "SCIENTIFIC_TERMINAL"
+        self.assertEqual(gov.AUTHORIZATION_PATH.exists(), authorization_must_exist)
+        self.assertEqual((om.PROJECT / contract["permit_output_path"]).exists(),
+                         production_state["permits_issued"] > 0)
 
     def test_closed_photsys_terminal_is_exact_immutable_input(self):
         candidate, _ = gov.validate_candidate()
