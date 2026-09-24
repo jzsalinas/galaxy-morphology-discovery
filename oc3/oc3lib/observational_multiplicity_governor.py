@@ -32,17 +32,18 @@ ELIGIBLE = "ELIGIBLE_FOR_AUTONOMOUS_PERMIT"
 
 SCIENTIFIC_SPEC_PATH = PROJECT / "OC3_OBSERVATIONAL_MULTIPLICITY_RESEARCH_SPEC_001.md"
 SCIENTIFIC_SPEC_SHA256 = "60d91adf66c7f5e84139021a5664de7058ef9e91f4daf23e8df429800eee1fe5"
-POLICY_CORE_CONTRACT_PATH = PROJECT / "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_POLICY_CORE_CONTRACT_001.md"
-POLICY_CORE_MANIFEST_PATH = PROJECT / "oc3/INPUTS/OC3_OBSERVATIONAL_MULTIPLICITY_POLICY_CORE_MANIFEST_001.json"
-MANDATE_DOCUMENT_PATH = PROJECT / "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_MANDATE_001.md"
-MANDATE_PATH = PROJECT / "oc3/INPUTS/OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_MANDATE_001.json"
-RUNBOOK_PATH = PROJECT / "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMOUS_RESEARCH_RUNBOOK_001.md"
+POLICY_CORE_CONTRACT_PATH = PROJECT / "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_POLICY_CORE_CONTRACT_002.md"
+POLICY_CORE_MANIFEST_PATH = PROJECT / "oc3/INPUTS/OC3_OBSERVATIONAL_MULTIPLICITY_POLICY_CORE_MANIFEST_002.json"
+MANDATE_DOCUMENT_PATH = PROJECT / "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_MANDATE_002.md"
+MANDATE_PATH = PROJECT / "oc3/INPUTS/OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_MANDATE_002.json"
+RUNBOOK_PATH = PROJECT / "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMOUS_RESEARCH_RUNBOOK_002.md"
 STANDING_AUTHORIZATION_PATH = PROJECT / "oc3/OC3_OBSERVATIONAL_MULTIPLICITY_STANDING_AUTHORIZATION_001.json"
 AUTHORIZATION_PATH = STANDING_AUTHORIZATION_PATH
 STATE_PATH = PROJECT / "oc3/OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_STATE_001.json"
-FIRST_CANDIDATE_PATH = PROJECT / "oc3/INPUTS/OC3_GLOBAL_VIEW_RELATION_AUDIT_CANDIDATE_002.json"
 LEDGER_ROOT = PROJECT / "oc3/OBSERVATIONAL_MULTIPLICITY_AUTONOMY_LEDGER"
 CONSUMPTION_ROOT = LEDGER_ROOT / "PERMIT_CONSUMPTION"
+HISTORICAL_POLICY_MANIFEST_PATH = PROJECT / "oc3/INPUTS/OC3_OBSERVATIONAL_MULTIPLICITY_POLICY_CORE_MANIFEST_001.json"
+HISTORICAL_POLICY_MANIFEST_SHA256 = "f22525fbb5d5a64ab950bee9c261f27bd95aa17500e3fa6d6fc244bd4f66b976"
 
 TERMINAL_OUTCOMES = (
     "OBSERVATIONAL_MULTIPLICITY_STRATEGY_SUPPORTED",
@@ -66,7 +67,7 @@ PROHIBITED_SCOPE_KEYS = (
     "p1", "morphology_learning", "training", "embeddings", "clustering",
 )
 POLICY_CORE_MEMBERS = (
-    "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_POLICY_CORE_CONTRACT_001.md",
+    "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_POLICY_CORE_CONTRACT_002.md",
     "oc3/oc3_observational_multiplicity_governor.py",
     "oc3/oc3lib/observational_multiplicity_governor.py",
 )
@@ -120,7 +121,7 @@ def _refusal(code: str) -> dict[str, object]:
 def validate_policy_core_manifest(path: Path = POLICY_CORE_MANIFEST_PATH) -> dict[str, object]:
     value = _load_sealed(path, "POLICY_CORE_MANIFEST_INVALID")
     if (set(value) != {"active_mutation_result", "contract", "files", "schema_version", "sealed"} or
-            value.get("schema_version") != "OC3_OBSERVATIONAL_MULTIPLICITY_POLICY_CORE_MANIFEST_002" or
+            value.get("schema_version") != "OC3_OBSERVATIONAL_MULTIPLICITY_POLICY_CORE_MANIFEST_003" or
             value.get("active_mutation_result") != STOP_REQUIRES_HUMAN):
         raise GovernorError("POLICY_CORE_MANIFEST_INVALID")
     contract = value.get("contract", {})
@@ -145,7 +146,7 @@ def validate_mandate(path: Path = MANDATE_PATH) -> dict[str, object]:
         "firewall", "governing_specification", "mandate_document", "mission_id", "mission_scope",
         "policy_core_manifest", "prohibited_scopes", "runbook", "schema_version", "sealed",
         "standing_authorization_path", "stop_state"}
-    if (set(value) != required or value.get("schema_version") != "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_MANDATE_002" or
+    if (set(value) != required or value.get("schema_version") != "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_MANDATE_003" or
             value.get("authorization_state") != "PENDING_HUMAN_AUTHORIZATION" or value.get("active") is not False or
             value.get("mission_id") != MISSION_ID or value.get("mission_scope") != MISSION_SCOPE or
             value.get("autonomy_branch") != AUTONOMY_BRANCH or
@@ -182,6 +183,26 @@ def validate_static_authorities() -> dict[str, str]:
             _relative(POLICY_CORE_MANIFEST_PATH):file_sha256(POLICY_CORE_MANIFEST_PATH),
             _relative(MANDATE_PATH):file_sha256(MANDATE_PATH)}
 
+def _validate_first_candidate_binding(binding: object) -> tuple[Path, dict[str,object], dict[str,object]]:
+    if not isinstance(binding,dict) or set(binding) != {"path","sha256"}:
+        raise GovernorError("AUTONOMY_FIRST_ACTION_BINDING_INVALID")
+    if not isinstance(binding["path"],str) or not isinstance(binding["sha256"],str):
+        raise GovernorError("AUTONOMY_FIRST_ACTION_BINDING_INVALID")
+    path=PROJECT/binding["path"]
+    try:
+        relative=_relative(path)
+    except GovernorError as exc:
+        raise GovernorError("AUTONOMY_FIRST_ACTION_BINDING_INVALID") from exc
+    if binding["path"] != relative:
+        raise GovernorError("AUTONOMY_FIRST_ACTION_BINDING_INVALID")
+    if not path.is_file() or binding["sha256"] != file_sha256(path):
+        raise GovernorError("AUTONOMY_FIRST_ACTION_BINDING_INVALID")
+    try:
+        candidate,contract=validate_autonomous_action_candidate(path)
+    except Exception as exc:
+        raise GovernorError("AUTONOMY_FIRST_ACTION_BINDING_INVALID") from exc
+    return path,candidate,contract
+
 def validate_state(path: Path = STATE_PATH) -> dict[str, object]:
     value = _load_sealed(path, "AUTONOMY_STATE_INVALID")
     required = {"active", "autonomy_branch", "body_budget_parent", "body_budget_remaining",
@@ -192,7 +213,7 @@ def validate_state(path: Path = STATE_PATH) -> dict[str, object]:
         "standing_authorization", "standing_authorization_initial_state_contract",
         "standing_authorization_initial_state_sha256", "standing_authorization_path", "state",
         "stop_reason", "terminal_outcomes"}
-    if (set(value) != required or value.get("schema_version") != "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_STATE_002" or
+    if (set(value) != required or value.get("schema_version") != "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_STATE_003" or
             value.get("mission_id") != MISSION_ID or value.get("autonomy_branch") != AUTONOMY_BRANCH or
             type(value.get("sequence")) is not int or value["sequence"] < 0 or
             type(value.get("permits_issued")) is not int or value["permits_issued"] < 0 or
@@ -201,7 +222,6 @@ def validate_state(path: Path = STATE_PATH) -> dict[str, object]:
             value.get("mandate") != _binding(MANDATE_PATH) or
             value.get("policy_core_manifest") != _binding(POLICY_CORE_MANIFEST_PATH) or
             value.get("standing_authorization_path") != _relative(STANDING_AUTHORIZATION_PATH) or
-            value.get("first_candidate") != _binding(FIRST_CANDIDATE_PATH) or
             value.get("request_budget_parent") != 12 or value.get("body_budget_parent") != 16777216):
         raise GovernorError("AUTONOMY_STATE_INVALID")
     if value.get("firewall_counters") != {key: 0 for key in FIREWALL_KEYS}:
@@ -226,19 +246,20 @@ def validate_state(path: Path = STATE_PATH) -> dict[str, object]:
             raise GovernorError("AUTONOMY_TERMINAL_STATE_INVALID")
     else:
         raise GovernorError("AUTONOMY_STATE_INVALID")
+    _validate_first_candidate_binding(value.get("first_candidate"))
     return value
 
 def validate_standing_authorization(path: Path, *, expected_initial_state_sha256: str,
                                     expected_initial_state_path: Path = STATE_PATH,
-                                    expected_first_candidate_path: Path | None = None) -> dict[str, object]:
+                                    expected_first_candidate: dict[str,str]) -> dict[str, object]:
     value = _load_sealed(path, "STANDING_AUTONOMY_AUTHORIZATION_INVALID")
-    expected_first_candidate_path = FIRST_CANDIDATE_PATH if expected_first_candidate_path is None else expected_first_candidate_path
+    _validate_first_candidate_binding(expected_first_candidate)
     required = {"authorization_state", "authorized", "authorized_at_utc", "authorized_by",
         "continuation_policy", "first_candidate_path", "first_candidate_sha256",
         "initial_state_path", "initial_state_sha256", "mandate_path",
         "mandate_sha256", "mission_id", "mission_scope", "policy_core_manifest_path",
         "policy_core_manifest_sha256", "schema_version", "sealed"}
-    if (set(value) != required or value.get("schema_version") != "OC3_OBSERVATIONAL_MULTIPLICITY_STANDING_AUTHORIZATION_001" or
+    if (set(value) != required or value.get("schema_version") != "OC3_OBSERVATIONAL_MULTIPLICITY_STANDING_AUTHORIZATION_002" or
             value.get("authorization_state") != "STANDING_HUMAN_AUTONOMY_AUTHORIZATION" or
             value.get("authorized") is not True or not isinstance(value.get("authorized_by"), str) or
             not value["authorized_by"].strip() or value.get("continuation_policy") !=
@@ -247,8 +268,8 @@ def validate_standing_authorization(path: Path, *, expected_initial_state_sha256
             value.get("mandate_path") != _relative(MANDATE_PATH) or value.get("mandate_sha256") != file_sha256(MANDATE_PATH) or
             value.get("policy_core_manifest_path") != _relative(POLICY_CORE_MANIFEST_PATH) or
             value.get("policy_core_manifest_sha256") != file_sha256(POLICY_CORE_MANIFEST_PATH) or
-            value.get("first_candidate_path") != _relative(expected_first_candidate_path) or
-            value.get("first_candidate_sha256") != file_sha256(expected_first_candidate_path) or
+            value.get("first_candidate_path") != expected_first_candidate["path"] or
+            value.get("first_candidate_sha256") != expected_first_candidate["sha256"] or
             value.get("initial_state_path") != _relative(expected_initial_state_path) or
             value.get("initial_state_sha256") != expected_initial_state_sha256):
         raise GovernorError("STANDING_AUTONOMY_AUTHORIZATION_INVALID")
@@ -371,7 +392,7 @@ def _validate_active_context(state: dict[str, object], authorization_path: Path,
     initial_sha = _sha(state.get("standing_authorization_initial_state_sha256"), "AUTONOMY_INITIAL_STATE_SHA_INVALID")
     authorization = validate_standing_authorization(
         authorization_path, expected_initial_state_sha256=initial_sha,
-        expected_initial_state_path=state_path)
+        expected_initial_state_path=state_path,expected_first_candidate=state["first_candidate"])
     if state.get("standing_authorization") != _binding(authorization_path):
         raise GovernorError("STANDING_AUTHORIZATION_STATE_BINDING_MISMATCH")
     validate_policy_core_manifest()
@@ -572,13 +593,13 @@ def activate_standing_autonomy(*, state_path: Path, standing_authorization_path:
         raise GovernorError("AUTONOMY_ACTIVATION_STATE_INVALID")
     if current_branch != AUTONOMY_BRANCH: raise GovernorError("UNAUTHORIZED_BRANCH")
     if any(Path(ledger_directory).glob("*_ACTIVATION.json")): raise GovernorError("AUTONOMY_ALREADY_ACTIVATED")
-    candidate_path = FIRST_CANDIDATE_PATH
-    validate_autonomous_action_candidate(candidate_path)
-    if state.get("first_candidate") != _binding(candidate_path) or state.get("registered_pending_action") is not None:
+    candidate_path,_,_ = _validate_first_candidate_binding(state.get("first_candidate"))
+    if state.get("registered_pending_action") is not None:
         raise GovernorError("AUTONOMY_FIRST_ACTION_BINDING_INVALID")
     initial_state_sha=file_sha256(state_path)
     validate_standing_authorization(standing_authorization_path,
-        expected_initial_state_sha256=initial_state_sha,expected_initial_state_path=state_path)
+        expected_initial_state_sha256=initial_state_sha,expected_initial_state_path=state_path,
+        expected_first_candidate=state["first_candidate"])
     previous_sha=_write_snapshot(state_path,state,ledger_directory)
     body={k:v for k,v in state.items() if k!="sealed"}; body.update({"active":True,
         "current_stage":STATE_AWAITING,"sequence":state["sequence"]+1,
@@ -599,14 +620,14 @@ def register_pending_action(*, state_path: Path, candidate_path: Path, standing_
     _validate_active_context(state,standing_authorization_path,state_path)
     if current_branch != AUTONOMY_BRANCH: raise GovernorError("UNAUTHORIZED_BRANCH")
     if state.get("registered_pending_action") is not None: raise GovernorError("UNRESOLVED_REGISTERED_ACTION")
-    if state.get("last_completed_stage") is None and Path(candidate_path).resolve() != FIRST_CANDIDATE_PATH.resolve():
+    if state.get("last_completed_stage") is None and _binding(candidate_path) != state.get("first_candidate"):
         raise GovernorError("AUTONOMY_FIRST_ACTION_BINDING_INVALID")
     candidate,contract=validate_autonomous_action_candidate(candidate_path)
     evaluation=evaluate_policy(candidate_path=candidate_path,state_path=state_path,
         standing_authorization_path=standing_authorization_path,current_branch=current_branch,require_registered=False)
     if evaluation["decision"] != ELIGIBLE: raise GovernorError(str(evaluation["decision"]))
     previous_sha=_write_snapshot(state_path,state,ledger_directory)
-    first = state.get("last_completed_stage") is None and Path(candidate_path).resolve() == FIRST_CANDIDATE_PATH.resolve()
+    first = state.get("last_completed_stage") is None and _binding(candidate_path) == state.get("first_candidate")
     body={k:v for k,v in state.items() if k!="sealed"}; body.update({
         "registered_pending_action":_registered_binding(candidate_path,candidate,contract,first=first),
         "current_stage":"AUTONOMOUS_POLICY_EVALUATION","sequence":state["sequence"]+1})
@@ -765,7 +786,12 @@ def compact_status(state_path: Path=STATE_PATH) -> dict[str,object]:
         "permit_state":MANDATE_NOT_ACTIVE if not state["active"] else "ACTIVE_POLICY_EVALUATION",
         "requests_remaining":state["requests_remaining"],"sequence":state["sequence"],"state":state["state"]}
 
-def validate_candidate(path: Path=FIRST_CANDIDATE_PATH) -> tuple[dict[str,object],dict[str,object]]:
+def first_candidate_path(state_path: Path=STATE_PATH) -> Path:
+    state=validate_state(state_path)
+    return PROJECT/str(state["first_candidate"]["path"])
+
+def validate_candidate(path: Path|None=None) -> tuple[dict[str,object],dict[str,object]]:
+    path=first_candidate_path() if path is None else path
     return validate_autonomous_action_candidate(path)
 
 def validate_all() -> dict[str,object]:
@@ -773,6 +799,7 @@ def validate_all() -> dict[str,object]:
     return {"active":state["active"],"network_requests":0,"permits_issued":state["permits_issued"],
             "state":state["state"],"validated":True}
 
-def evaluate_candidate(candidate_path: Path=FIRST_CANDIDATE_PATH,
+def evaluate_candidate(candidate_path: Path|None=None,
                        state_path: Path=STATE_PATH) -> dict[str,object]:
+    candidate_path=first_candidate_path(state_path) if candidate_path is None else candidate_path
     return evaluate_policy(candidate_path=candidate_path,state_path=state_path)

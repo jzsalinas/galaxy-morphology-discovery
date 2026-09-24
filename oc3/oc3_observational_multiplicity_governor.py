@@ -14,7 +14,7 @@ for _key in ("OMP_NUM_THREADS","OPENBLAS_NUM_THREADS","MKL_NUM_THREADS","NUMEXPR
     os.environ[_key]="1"
 
 from oc3lib.observational_multiplicity_governor import (
-    AUTONOMY_BRANCH, FIRST_CANDIDATE_PATH, LEDGER_ROOT, MANDATE_NOT_ACTIVE, NO_PERMIT_ISSUED, STATE_PATH,
+    AUTONOMY_BRANCH, LEDGER_ROOT, MANDATE_NOT_ACTIVE, NO_PERMIT_ISSUED, STATE_PATH,
     STANDING_AUTHORIZATION_PATH, GovernorError, activate_standing_autonomy,
     audit_staged_compact_artifacts, compact_status, consume_permit, enter_stop_requires_human,
     evaluate_policy, finalize_scientific_terminal, issue_permit, register_pending_action,
@@ -59,7 +59,7 @@ def _branch(value: str|None) -> str:
 def _candidate(args) -> Path:
     if args.candidate is not None: return args.candidate
     state=validate_state(args.state); registered=state.get("registered_pending_action")
-    if not isinstance(registered,dict): return FIRST_CANDIDATE_PATH
+    if not isinstance(registered,dict): return Path(__file__).resolve().parents[1]/str(state["first_candidate"]["path"])
     return Path(__file__).resolve().parents[1]/str(registered["candidate_path"])
 
 def main(argv: list[str]|None=None) -> int:

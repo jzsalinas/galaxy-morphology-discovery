@@ -1,27 +1,31 @@
 from __future__ import annotations
 
 import inspect
+import io
 from pathlib import Path
 import tempfile
 import unittest
+from contextlib import redirect_stderr, redirect_stdout
 from unittest.mock import patch
 
 from oc3lib.core import canonical
 from oc3lib.observational_multiplicity import file_sha256, load_canonical_json, sealed, sha256_bytes
 from oc3lib import observational_multiplicity_governor as gov
+import oc3_observational_multiplicity as executor
+from oc3lib.observational_multiplicity_executor_validation import (
+    CANDIDATE_002, CANDIDATE_003, expected_command_argv, validate_candidate_003,
+)
 
 
 class ObservationalMultiplicityGovernorTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory(dir=gov.PROJECT / "oc3")
         self.root = Path(self.tmp.name)
-        self.original_first = gov.FIRST_CANDIDATE_PATH
         self.original_consumption = gov.CONSUMPTION_ROOT
         gov.CONSUMPTION_ROOT = self.root / "LEDGER" / "PERMIT_CONSUMPTION"
         self.counter = 0
 
     def tearDown(self):
-        gov.FIRST_CANDIDATE_PATH = self.original_first
         gov.CONSUMPTION_ROOT = self.original_consumption
         self.tmp.cleanup()
 
@@ -121,7 +125,6 @@ class ObservationalMultiplicityGovernorTests(unittest.TestCase):
         return self.write(f"candidate_{self.counter}.json", sealed(value))
 
     def waiting(self, first):
-        gov.FIRST_CANDIDATE_PATH = first
         value = load_canonical_json(gov.STATE_PATH)
         body = {k: v for k, v in value.items() if k != "sealed"}
         body.update({
@@ -141,7 +144,7 @@ class ObservationalMultiplicityGovernorTests(unittest.TestCase):
             "state": gov.STATE_WAITING,
             "stop_reason": None,
         })
-        return self.write("state.json", sealed(body))
+        return self.write(f"state_{self.counter}.json", sealed(body))
 
     def authorization(self, state, first, **updates):
         body = {
@@ -160,10 +163,10 @@ class ObservationalMultiplicityGovernorTests(unittest.TestCase):
             "mission_scope": gov.MISSION_SCOPE,
             "policy_core_manifest_path": str(gov.POLICY_CORE_MANIFEST_PATH.relative_to(gov.PROJECT)),
             "policy_core_manifest_sha256": file_sha256(gov.POLICY_CORE_MANIFEST_PATH),
-            "schema_version": "OC3_OBSERVATIONAL_MULTIPLICITY_STANDING_AUTHORIZATION_001",
+            "schema_version": "OC3_OBSERVATIONAL_MULTIPLICITY_STANDING_AUTHORIZATION_002",
         }
         body.update(updates)
-        return self.write("authorization.json", sealed(body))
+        return self.write(f"authorization_{self.counter}.json", sealed(body))
 
     def active(self, first):
         state = self.waiting(first)
@@ -211,16 +214,47 @@ class ObservationalMultiplicityGovernorTests(unittest.TestCase):
                          "308dd5af01a4048cd6fb2a796248c324e2d9e6f01b2b44ca68262f98cf070463")
         self.assertFalse(gov.STANDING_AUTHORIZATION_PATH.exists())
 
-    def test_01b_candidate_002_preserves_candidate_001_scientific_payload(self):
-        old = load_canonical_json(gov.PROJECT / "oc3/INPUTS/OC3_GLOBAL_VIEW_RELATION_AUDIT_CANDIDATE_001.json")
-        new = load_canonical_json(gov.FIRST_CANDIDATE_PATH)
+    def test_01b_candidate_003_preserves_candidate_002_scientific_payload(self):
+        old = load_canonical_json(CANDIDATE_002)
+        new = load_canonical_json(CANDIDATE_003)
         scientific = {
             "closed_photsys_terminal", "decoded_fields", "execution", "expected_aggregate_fields",
-            "implementation_aggregate", "input_authorities", "output_directory", "output_files",
+            "input_authorities", "output_directory", "output_files",
             "resource_caps", "scientific_question", "scope", "specification", "stage_id",
             "success_terminal", "unresolved_gates",
         }
         self.assertEqual({key:old[key] for key in scientific}, {key:new[key] for key in scientific})
+
+    def test_01c_first_action_identity_is_state_data_and_authorization_bound(self):
+        source = inspect.getsource(gov)
+        self.assertNotIn("FIRST_CANDIDATE_PATH", source)
+        first_a = self.candidate("FIRST_A", gov.AUTHORITY_CLASSES[0])
+        state_a = self.waiting(first_a)
+        auth_a = self.authorization(state_a, first_a)
+        gov.validate_standing_authorization(
+            auth_a, expected_initial_state_sha256=file_sha256(state_a),
+            expected_initial_state_path=state_a,
+            expected_first_candidate=gov.validate_state(state_a)["first_candidate"])
+        first_b = self.candidate("FIRST_B", gov.AUTHORITY_CLASSES[0])
+        state_b = self.waiting(first_b)
+        auth_b = self.authorization(state_b, first_b)
+        gov.validate_standing_authorization(
+            auth_b, expected_initial_state_sha256=file_sha256(state_b),
+            expected_initial_state_path=state_b,
+            expected_first_candidate=gov.validate_state(state_b)["first_candidate"])
+        self.code("STANDING_AUTONOMY_AUTHORIZATION_INVALID", lambda: gov.validate_standing_authorization(
+            auth_a, expected_initial_state_sha256=file_sha256(state_b),
+            expected_initial_state_path=state_b,
+            expected_first_candidate=gov.validate_state(state_b)["first_candidate"]))
+
+    def test_01d_candidate_mutation_after_authorization_fails_closed(self):
+        first = self.candidate("MUTABLE", gov.AUTHORITY_CLASSES[0])
+        state = self.waiting(first)
+        auth = self.authorization(state, first)
+        first.write_bytes(first.read_bytes() + b" ")
+        self.code("AUTONOMY_FIRST_ACTION_BINDING_INVALID", lambda: gov.activate_standing_autonomy(
+            state_path=state, standing_authorization_path=auth, ledger_directory=self.root / "L",
+            activated_at_utc="2026-09-24T00:01:00Z", current_branch=gov.AUTONOMY_BRANCH))
 
     def test_02_activation_exact_one_shot_zero_budget_and_ledger(self):
         first = self.candidate("OFFLINE", gov.AUTHORITY_CLASSES[0])
@@ -394,6 +428,84 @@ class ObservationalMultiplicityGovernorTests(unittest.TestCase):
             outcome=gov.TERMINAL_OUTCOMES[2],final_report_path=final,claim_matrix_path=matrix,
             ledger_directory=ledger,finalized_at_utc="2026-09-24T00:02:00Z",current_branch=gov.AUTONOMY_BRANCH)
         self.assertFalse(terminal["active"]); self.assertEqual(terminal["state"],gov.STATE_TERMINAL)
+
+    def test_12_only_state_bound_candidate_can_register_first(self):
+        first = self.candidate("BOUND_FIRST", gov.AUTHORITY_CLASSES[0])
+        other = self.candidate("UNBOUND_FIRST", gov.AUTHORITY_CLASSES[0])
+        state, auth, ledger = self.active(first)
+        self.code("AUTONOMY_FIRST_ACTION_BINDING_INVALID", lambda: self.register(other, state, auth, ledger))
+        registered = self.register(first, state, auth, ledger)
+        self.assertEqual(registered["registered_pending_action"]["registration_state"],
+                         "FIRST_PENDING_AUTONOMOUS_ACTION")
+
+    def test_13_candidate_003_exact_argv_and_historical_argv_refused(self):
+        result = validate_candidate_003()
+        self.assertEqual(result["state"], "CANDIDATE_003_EXECUTOR_INTEGRATION_VALIDATED")
+        self.assertEqual((result["audit_executions"], result["network_requests"]), (0, 0))
+        parsed = executor.parse_arguments(expected_command_argv()[2:])
+        self.assertEqual(parsed.candidate, CANDIDATE_003)
+        historical = load_canonical_json(CANDIDATE_002)["command_argv"]
+        with redirect_stderr(io.StringIO()):
+            with self.assertRaises(SystemExit):
+                executor.parse_arguments(historical[2:])
+            with self.assertRaises(SystemExit):
+                executor.parse_arguments(expected_command_argv()[2:] + ["--consumption-path", str(self.root)])
+
+    def test_14_executor_consumes_canonical_permit_before_runner_and_replay_fails(self):
+        first = self.candidate("EXECUTOR", gov.AUTHORITY_CLASSES[0])
+        state, auth, ledger = self.active(first)
+        self.register(first, state, auth, ledger)
+        permit = self.issue(first, state, auth, ledger)
+        state_before = file_sha256(state)
+        called = []
+
+        def runner(output_directory):
+            marker = gov.CONSUMPTION_ROOT / f"{file_sha256(permit)}.json"
+            self.assertTrue(marker.is_file())
+            self.assertEqual(output_directory, self.root / "OUTPUT")
+            called.append(True)
+            return {"state": "SYNTHETIC_AUDIT_COMPLETE"}
+
+        argv = ["--audit-global-view-relation", "--candidate", str(first),
+                "--permit", str(permit), "--standing-authorization", str(auth),
+                "--autonomy-state", str(state), "--output-directory", str(self.root / "OUTPUT")]
+        missing_permit_argv = list(argv)
+        missing_permit_argv[missing_permit_argv.index("--permit") + 1] = str(self.root / "missing-permit.json")
+        with self.assertRaises(gov.GovernorError):
+            executor.main(missing_permit_argv, audit_runner=lambda _: called.append(False),
+                          now_utc=lambda: "2026-09-24T00:03:30Z")
+        self.assertEqual(called, [])
+        with redirect_stdout(io.StringIO()):
+            self.assertEqual(executor.main(argv, audit_runner=runner,
+                                           now_utc=lambda: "2026-09-24T00:04:00Z"), 0)
+        self.assertEqual(called, [True])
+        self.assertEqual(file_sha256(state), state_before)
+        with self.assertRaises(gov.GovernorError) as caught:
+            executor.main(argv, audit_runner=lambda _: called.append(False),
+                          now_utc=lambda: "2026-09-24T00:05:00Z")
+        self.assertEqual(caught.exception.code, "AUTONOMOUS_PERMIT_ALREADY_CONSUMED")
+        self.assertEqual(called, [True])
+
+    def test_15_historical_v1_policy_core_is_byte_immutable(self):
+        self.assertEqual(file_sha256(gov.HISTORICAL_POLICY_MANIFEST_PATH),
+                         gov.HISTORICAL_POLICY_MANIFEST_SHA256)
+
+    def test_16_policy_core_v2_mutation_blocks_permit(self):
+        first = self.candidate("POLICY_V2", gov.AUTHORITY_CLASSES[0])
+        state, auth, ledger = self.active(first)
+        self.register(first, state, auth, ledger)
+        member = (gov.PROJECT / "oc3/oc3lib/observational_multiplicity_governor.py").resolve()
+        original = gov.file_sha256
+
+        def altered(path):
+            return "0" * 64 if Path(path).resolve() == member else original(path)
+
+        with patch.object(gov, "file_sha256", side_effect=altered):
+            self.code("POLICY_CORE_MISMATCH", lambda: gov.build_permit(
+                candidate_path=first, state_path=state, standing_authorization_path=auth,
+                issued_at_utc="2026-09-24T00:03:00Z"))
+        permit_path = gov.PROJECT / gov.validate_candidate(first)[1]["permit_output_path"]
+        self.assertFalse(permit_path.exists())
 
 
 if __name__ == "__main__":
