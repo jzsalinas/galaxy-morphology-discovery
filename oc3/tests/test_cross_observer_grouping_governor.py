@@ -146,7 +146,7 @@ class CrossObserverGroupingGovernorTests(unittest.TestCase):
     def test_production_state_is_active_and_first_candidate_remains_bound(self):
         result = gov.validate_all(); state = load_canonical_json(gov.STATE_PATH)
         self.assertEqual((result["active"], result["permits_issued"], result["state"]),
-                         (True, 4, gov.STATE_ACTIVE))
+                         (True, 5, gov.STATE_ACTIVE))
         self.assertTrue(gov.STANDING_AUTHORIZATION_PATH.exists())
         self.assertEqual(state["first_candidate"], self.binding(CANDIDATE))
 
