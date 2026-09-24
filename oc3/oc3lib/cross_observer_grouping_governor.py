@@ -32,14 +32,14 @@ ELIGIBLE = "ELIGIBLE_FOR_AUTONOMOUS_PERMIT"
 
 SCIENTIFIC_SPEC_PATH = PROJECT / "OC3_CROSS_OBSERVER_SOURCE_GROUPING_RESEARCH_SPEC_001.md"
 SCIENTIFIC_SPEC_SHA256 = "a1073b798efc4805d2e11ebb51c5f25b8935474827c7c341c6bfd25047a7b506"
-POLICY_CORE_CONTRACT_PATH = PROJECT / "OC3_CROSS_OBSERVER_GROUPING_AUTONOMY_POLICY_CORE_CONTRACT_001.md"
-POLICY_CORE_MANIFEST_PATH = PROJECT / "oc3/INPUTS/OC3_CROSS_OBSERVER_GROUPING_POLICY_CORE_MANIFEST_001.json"
-MANDATE_DOCUMENT_PATH = PROJECT / "OC3_CROSS_OBSERVER_GROUPING_AUTONOMY_MANDATE_001.md"
-MANDATE_PATH = PROJECT / "oc3/INPUTS/OC3_CROSS_OBSERVER_GROUPING_AUTONOMY_MANDATE_001.json"
-RUNBOOK_PATH = PROJECT / "OC3_CROSS_OBSERVER_GROUPING_AUTONOMOUS_RESEARCH_RUNBOOK_001.md"
-STANDING_AUTHORIZATION_PATH = PROJECT / "oc3/OC3_CROSS_OBSERVER_GROUPING_STANDING_AUTHORIZATION_001.json"
+POLICY_CORE_CONTRACT_PATH = PROJECT / "OC3_CROSS_OBSERVER_GROUPING_AUTONOMY_POLICY_CORE_CONTRACT_002.md"
+POLICY_CORE_MANIFEST_PATH = PROJECT / "oc3/INPUTS/OC3_CROSS_OBSERVER_GROUPING_POLICY_CORE_MANIFEST_002.json"
+MANDATE_DOCUMENT_PATH = PROJECT / "OC3_CROSS_OBSERVER_GROUPING_AUTONOMY_MANDATE_002.md"
+MANDATE_PATH = PROJECT / "oc3/INPUTS/OC3_CROSS_OBSERVER_GROUPING_AUTONOMY_MANDATE_002.json"
+RUNBOOK_PATH = PROJECT / "OC3_CROSS_OBSERVER_GROUPING_AUTONOMOUS_RESEARCH_RUNBOOK_002.md"
+STANDING_AUTHORIZATION_PATH = PROJECT / "oc3/OC3_CROSS_OBSERVER_GROUPING_STANDING_AUTHORIZATION_002.json"
 AUTHORIZATION_PATH = STANDING_AUTHORIZATION_PATH
-STATE_PATH = PROJECT / "oc3/OC3_CROSS_OBSERVER_GROUPING_AUTONOMY_STATE_001.json"
+STATE_PATH = PROJECT / "oc3/OC3_CROSS_OBSERVER_GROUPING_AUTONOMY_STATE_002.json"
 LEDGER_ROOT = PROJECT / "oc3/CROSS_OBSERVER_GROUPING_AUTONOMY_LEDGER"
 CONSUMPTION_ROOT = LEDGER_ROOT / "PERMIT_CONSUMPTION"
 HISTORICAL_POLICY_MANIFEST_PATH = PROJECT / "oc3/INPUTS/OC3_OBSERVATIONAL_MULTIPLICITY_POLICY_CORE_MANIFEST_002.json"
@@ -72,7 +72,7 @@ PROHIBITED_SCOPE_KEYS = (
     "training", "embeddings", "clustering", "image_or_pixel_access", "label_access",
 )
 POLICY_CORE_MEMBERS = (
-    "OC3_CROSS_OBSERVER_GROUPING_AUTONOMY_POLICY_CORE_CONTRACT_001.md",
+    "OC3_CROSS_OBSERVER_GROUPING_AUTONOMY_POLICY_CORE_CONTRACT_002.md",
     "oc3/oc3_cross_observer_grouping_governor.py",
     "oc3/oc3lib/cross_observer_grouping_governor.py",
 )
@@ -126,7 +126,7 @@ def _refusal(code: str) -> dict[str, object]:
 def validate_policy_core_manifest(path: Path = POLICY_CORE_MANIFEST_PATH) -> dict[str, object]:
     value = _load_sealed(path, "POLICY_CORE_MANIFEST_INVALID")
     if (set(value) != {"active_mutation_result", "contract", "files", "schema_version", "sealed"} or
-            value.get("schema_version") != "OC3_CROSS_OBSERVER_GROUPING_POLICY_CORE_MANIFEST_001" or
+            value.get("schema_version") != "OC3_CROSS_OBSERVER_GROUPING_POLICY_CORE_MANIFEST_002" or
             value.get("active_mutation_result") != STOP_REQUIRES_HUMAN):
         raise GovernorError("POLICY_CORE_MANIFEST_INVALID")
     contract = value.get("contract", {})
@@ -151,14 +151,14 @@ def validate_mandate(path: Path = MANDATE_PATH) -> dict[str, object]:
         "firewall", "governing_specification", "mandate_document", "mission_id", "mission_scope",
         "policy_core_manifest", "prohibited_scopes", "runbook", "schema_version", "sealed",
         "standing_authorization_path", "stop_state"}
-    if (set(value) != required or value.get("schema_version") != "OC3_CROSS_OBSERVER_GROUPING_AUTONOMY_MANDATE_001" or
+    if (set(value) != required or value.get("schema_version") != "OC3_CROSS_OBSERVER_GROUPING_AUTONOMY_MANDATE_002" or
             value.get("authorization_state") != "PENDING_HUMAN_AUTHORIZATION" or value.get("active") is not False or
             value.get("mission_id") != MISSION_ID or value.get("mission_scope") != MISSION_SCOPE or
             value.get("autonomy_branch") != AUTONOMY_BRANCH or
             tuple(value.get("allowed_scientific_outcomes", [])) != TERMINAL_OUTCOMES or
             tuple(value.get("allowed_authority_classes", [])) != AUTHORITY_CLASSES or
             tuple(value.get("prohibited_scopes", [])) != PROHIBITED_SCOPE_KEYS or
-            value.get("autonomous_action_contract") != "OC3_CROSS_OBSERVER_GROUPING_ACTION_CONTRACT_001" or
+            value.get("autonomous_action_contract") != "OC3_CROSS_OBSERVER_GROUPING_ACTION_CONTRACT_002" or
             value.get("stop_state") != STOP_REQUIRES_HUMAN):
         raise GovernorError("AUTONOMY_MANDATE_INVALID")
     if value.get("budgets") != {"application_body_bytes_parent":16777216,
@@ -218,7 +218,7 @@ def validate_state(path: Path = STATE_PATH) -> dict[str, object]:
         "standing_authorization", "standing_authorization_initial_state_contract",
         "standing_authorization_initial_state_sha256", "standing_authorization_path", "state",
         "stop_reason", "terminal_outcomes"}
-    if (set(value) != required or value.get("schema_version") != "OC3_CROSS_OBSERVER_GROUPING_AUTONOMY_STATE_001" or
+    if (set(value) != required or value.get("schema_version") != "OC3_CROSS_OBSERVER_GROUPING_AUTONOMY_STATE_002" or
             value.get("mission_id") != MISSION_ID or value.get("autonomy_branch") != AUTONOMY_BRANCH or
             type(value.get("sequence")) is not int or value["sequence"] < 0 or
             type(value.get("permits_issued")) is not int or value["permits_issued"] < 0 or
@@ -264,7 +264,7 @@ def validate_standing_authorization(path: Path, *, expected_initial_state_sha256
         "initial_state_path", "initial_state_sha256", "mandate_path",
         "mandate_sha256", "mission_id", "mission_scope", "policy_core_manifest_path",
         "policy_core_manifest_sha256", "schema_version", "sealed"}
-    if (set(value) != required or value.get("schema_version") != "OC3_CROSS_OBSERVER_GROUPING_STANDING_AUTHORIZATION_001" or
+    if (set(value) != required or value.get("schema_version") != "OC3_CROSS_OBSERVER_GROUPING_STANDING_AUTHORIZATION_002" or
             value.get("authorization_state") != "STANDING_HUMAN_AUTONOMY_AUTHORIZATION" or
             value.get("authorized") is not True or not isinstance(value.get("authorized_by"), str) or
             not value["authorized_by"].strip() or value.get("continuation_policy") !=
@@ -297,7 +297,7 @@ def validate_action_validation_receipt(binding: object, contract: dict[str, obje
     receipt = _load_sealed(path, "ACTION_VALIDATION_RECEIPT_INVALID")
     required = {"action_kind", "candidate_payload_sha256", "frozen_specification", "implementation_binding",
                 "network_requests", "schema_version", "scope", "sealed", "stage_id", "validated", "validator"}
-    if (set(receipt) != required or receipt.get("schema_version") != "OC3_CROSS_OBSERVER_GROUPING_ACTION_VALIDATION_RECEIPT_001" or
+    if (set(receipt) != required or receipt.get("schema_version") != "OC3_CROSS_OBSERVER_GROUPING_ACTION_VALIDATION_RECEIPT_002" or
             receipt.get("validated") is not True or receipt.get("network_requests") != 0 or
             receipt.get("action_kind") != contract["action_kind"] or
             receipt.get("candidate_payload_sha256") != contract["candidate_payload_sha256"] or
@@ -315,17 +315,30 @@ def validate_literal_resource_manifest(binding: object) -> dict[str, object]:
     if (manifest.get("broad_crawling") is not False or manifest.get("mirror_substitution") is not False or
             not isinstance(resources, list) or not resources):
         raise GovernorError("AUTONOMY_RESOURCE_MANIFEST_INVALID")
-    required = {"application_body_byte_cap", "evidence_class", "expected_representation", "host", "id",
-                "immutable_revision_required", "method", "purpose", "redirects", "retries", "url"}
+    required = {"accepted_content_types", "application_body_byte_cap", "evidence_capture_mode",
+                "evidence_class", "expected_representation", "host", "id", "method", "purpose",
+                "redirects", "retries", "revision_identity", "url"}
     for resource in resources:
-        if (not isinstance(resource, dict) or not required.issubset(resource) or
+        if (not isinstance(resource, dict) or set(resource) != required or
                 not isinstance(resource.get("url"), str) or not resource["url"].startswith("https://") or
                 not isinstance(resource.get("host"), str) or not resource["host"] or
                 resource.get("method") not in ("GET", "HEAD") or
                 type(resource.get("application_body_byte_cap")) is not int or resource["application_body_byte_cap"] < 0 or
                 type(resource.get("redirects")) is not int or resource["redirects"] < 0 or
-                type(resource.get("retries")) is not int or resource["retries"] < 0 or
-                resource.get("immutable_revision_required") is not True):
+                type(resource.get("retries")) is not int or resource["retries"] < 0):
+            raise GovernorError("AUTONOMY_RESOURCE_MANIFEST_INVALID")
+        mode = resource.get("evidence_capture_mode")
+        revision = resource.get("revision_identity")
+        if mode == "HASHED_RESPONSE_SNAPSHOT":
+            if revision is not None:
+                raise GovernorError("AUTONOMY_RESOURCE_MANIFEST_INVALID")
+        elif mode == "REVISION_PINNED_RESOURCE":
+            if (not isinstance(revision, dict) or set(revision) !=
+                    {"authority", "identifier", "verification_method"} or
+                    any(not isinstance(revision[key], str) or not revision[key].strip()
+                        for key in revision)):
+                raise GovernorError("AUTONOMY_RESOURCE_MANIFEST_INVALID")
+        else:
             raise GovernorError("AUTONOMY_RESOURCE_MANIFEST_INVALID")
     return manifest
 
@@ -340,7 +353,7 @@ def validate_autonomous_action_candidate(path: Path) -> tuple[dict[str, object],
         "retry_policy", "schema_version",
         "scientific_firewall", "scope", "stage_id", "standing_mandate_sha256"}
     if (not isinstance(contract, dict) or set(contract) != required or
-            contract.get("schema_version") != "OC3_CROSS_OBSERVER_GROUPING_ACTION_CONTRACT_001" or
+            contract.get("schema_version") != "OC3_CROSS_OBSERVER_GROUPING_ACTION_CONTRACT_002" or
             contract.get("candidate_hash_mode") != "CANONICAL_ROOT_EXCLUDING_AUTONOMY_POLICY_AND_SEALED" or
             contract.get("full_candidate_identity") != "FULL_FILE_SHA256_BOUND_BY_STATE_AUTHORIZATION_PERMIT_AND_LEDGER" or
             contract.get("stage_id") != candidate.get("stage_id") or contract.get("scope") != candidate.get("scope") or
@@ -384,7 +397,7 @@ def validate_autonomous_action_candidate(path: Path) -> tuple[dict[str, object],
     return candidate, contract
 
 def _registered_binding(candidate_path: Path, candidate: dict[str, object], contract: dict[str, object], *, first=False) -> dict[str, object]:
-    return {"action_contract_schema":"OC3_CROSS_OBSERVER_GROUPING_ACTION_CONTRACT_001","action_kind":contract["action_kind"],
+    return {"action_contract_schema":"OC3_CROSS_OBSERVER_GROUPING_ACTION_CONTRACT_002","action_kind":contract["action_kind"],
         "candidate_path":_relative(candidate_path),"candidate_sha256":file_sha256(candidate_path),
         "candidate_payload_sha256":contract["candidate_payload_sha256"],
         "registration_state":"FIRST_PENDING_AUTONOMOUS_ACTION" if first else "PENDING_AUTONOMOUS_ACTION",
@@ -471,7 +484,7 @@ def build_permit(*, candidate_path: Path, state_path: Path, standing_authorizati
     if evaluation["decision"] != ELIGIBLE: raise GovernorError(str(evaluation["decision"]))
     _utc(issued_at_utc); _, contract = validate_autonomous_action_candidate(candidate_path); state = validate_state(state_path)
     candidate_sha = file_sha256(candidate_path)
-    return sealed({"action_kind":contract["action_kind"],"authorization_basis":"STANDING_CROSS_OBSERVER_GROUPING_AUTONOMY_MANDATE_001",
+    return sealed({"action_kind":contract["action_kind"],"authorization_basis":"STANDING_CROSS_OBSERVER_GROUPING_AUTONOMY_MANDATE_002",
         "body_budget_reserved":contract["application_body_reservation"],"candidate_path":_relative(candidate_path),
         "authority_classes":contract["authority_classes_used"],
         "candidate_payload_sha256":contract["candidate_payload_sha256"],"candidate_sha256":candidate_sha,
@@ -529,7 +542,7 @@ def validate_permit(permit_path: Path, *, candidate_path: Path, state_path: Path
         "standing_authorization_sha256","state_before_sha256"}
     if (set(permit) != required or permit.get("schema_version") != "OC3_CROSS_OBSERVER_GROUPING_EXECUTION_PERMIT_002" or
             permit.get("permit_type") != "AUTONOMOUS_EXECUTION_PERMIT" or
-            permit.get("authorization_basis") != "STANDING_CROSS_OBSERVER_GROUPING_AUTONOMY_MANDATE_001" or
+            permit.get("authorization_basis") != "STANDING_CROSS_OBSERVER_GROUPING_AUTONOMY_MANDATE_002" or
             permit.get("mandate_sha256") != file_sha256(MANDATE_PATH) or
             permit.get("policy_core_manifest_sha256") != file_sha256(POLICY_CORE_MANIFEST_PATH) or
             permit.get("standing_authorization_sha256") != file_sha256(standing_authorization_path) or

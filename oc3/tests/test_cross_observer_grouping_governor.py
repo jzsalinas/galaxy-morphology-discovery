@@ -55,16 +55,18 @@ class CrossObserverGroupingGovernorTests(unittest.TestCase):
         receipt = self.write(f"receipt_{self.counter}.json", sealed({
             "action_kind": name, "candidate_payload_sha256": payload_sha,
             "frozen_specification": payload["specification"], "implementation_binding": implementation,
-            "network_requests": 0, "schema_version": "OC3_CROSS_OBSERVER_GROUPING_ACTION_VALIDATION_RECEIPT_001",
+            "network_requests": 0, "schema_version": "OC3_CROSS_OBSERVER_GROUPING_ACTION_VALIDATION_RECEIPT_002",
             "scope": scope, "stage_id": stage, "validated": True,
             "validator": self.binding(gov.PROJECT / "oc3/oc3lib/cross_observer_grouping.py")}))
         manifest_binding = None
         if requests:
             manifest = self.write(f"manifest_{self.counter}.json", sealed({"broad_crawling": False,
                 "mirror_substitution": False, "resources": [{"application_body_byte_cap": body,
+                    "accepted_content_types": ["text/plain"],
+                    "evidence_capture_mode": "HASHED_RESPONSE_SNAPSHOT",
                     "evidence_class": authority, "expected_representation": "text/plain",
                     "host": "example.invalid", "id": f"RESOURCE-{self.counter}",
-                    "immutable_revision_required": True, "method": "GET", "purpose": "synthetic replay",
+                    "method": "GET", "purpose": "synthetic replay", "revision_identity": None,
                     "redirects": 0, "retries": retries, "url": f"https://example.invalid/{self.counter}"}],
                 "schema_version": "SYNTHETIC_LITERAL_RESOURCE_MANIFEST_001"}))
             manifest_binding = self.binding(manifest)
@@ -81,7 +83,7 @@ class CrossObserverGroupingGovernorTests(unittest.TestCase):
             "resume_policy": {"allowed": False, "prospectively_frozen": True},
             "retry_reservation": retries,
             "retry_policy": {"exact_same_resource": True, "prospectively_frozen": True},
-            "schema_version": "OC3_CROSS_OBSERVER_GROUPING_ACTION_CONTRACT_001",
+            "schema_version": "OC3_CROSS_OBSERVER_GROUPING_ACTION_CONTRACT_002",
             "scientific_firewall": {key: 0 for key in gov.FIREWALL_KEYS}, "scope": scope,
             "stage_id": stage, "standing_mandate_sha256": file_sha256(gov.MANDATE_PATH)}
         if mutate:
@@ -111,7 +113,7 @@ class CrossObserverGroupingGovernorTests(unittest.TestCase):
             "mission_id": gov.MISSION_ID, "mission_scope": gov.MISSION_SCOPE,
             "policy_core_manifest_path": str(gov.POLICY_CORE_MANIFEST_PATH.relative_to(gov.PROJECT)),
             "policy_core_manifest_sha256": file_sha256(gov.POLICY_CORE_MANIFEST_PATH),
-            "schema_version": "OC3_CROSS_OBSERVER_GROUPING_STANDING_AUTHORIZATION_001"}))
+            "schema_version": "OC3_CROSS_OBSERVER_GROUPING_STANDING_AUTHORIZATION_002"}))
 
     def active(self, first):
         state = self.waiting(first); auth = self.authorization(state, first)

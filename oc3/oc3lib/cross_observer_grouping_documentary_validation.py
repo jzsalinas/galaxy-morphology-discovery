@@ -9,23 +9,25 @@ from .cross_observer_grouping import (
     PROJECT, file_sha256, load_canonical_json, sha256_bytes, validate_sealed,
 )
 
-STAGE_ID = "OC3-CROSS-OBSERVER-GROUPING-DOCUMENTARY-FEASIBILITY-001"
+STAGE_ID = "OC3-CROSS-OBSERVER-GROUPING-DOCUMENTARY-EVIDENCE-ACQUISITION-002"
 SCOPE = "PUBLIC_DOCUMENTARY_AND_SCHEMA_METADATA_ONLY"
-SPEC = PROJECT / "OC3_CROSS_OBSERVER_GROUPING_DOCUMENTARY_FEASIBILITY_SPEC_001.md"
-MANIFEST = PROJECT / "oc3/INPUTS/OC3_CROSS_OBSERVER_GROUPING_DOCUMENTARY_RESOURCE_MANIFEST_001.json"
-CANDIDATE = PROJECT / "oc3/INPUTS/OC3_CROSS_OBSERVER_GROUPING_DOCUMENTARY_FEASIBILITY_CANDIDATE_001.json"
-RECEIPT = PROJECT / "oc3/INPUTS/OC3_CROSS_OBSERVER_GROUPING_DOCUMENTARY_FEASIBILITY_CANDIDATE_VALIDATION_001.json"
-PERMIT = PROJECT / "oc3/CROSS_OBSERVER_GROUPING_AUTONOMY_PERMITS/OC3_CROSS_OBSERVER_GROUPING_DOCUMENTARY_FEASIBILITY_PERMIT_001.json"
-AUTHORIZATION = PROJECT / "oc3/OC3_CROSS_OBSERVER_GROUPING_STANDING_AUTHORIZATION_001.json"
-STATE = PROJECT / "oc3/OC3_CROSS_OBSERVER_GROUPING_AUTONOMY_STATE_001.json"
-OUTPUT = PROJECT / "oc3/cross_observer_grouping/OC3-CROSS-OBSERVER-GROUPING-DOCUMENTARY-FEASIBILITY-001"
+SPEC = PROJECT / "OC3_CROSS_OBSERVER_GROUPING_DOCUMENTARY_FEASIBILITY_SPEC_002.md"
+MANIFEST = PROJECT / "oc3/INPUTS/OC3_CROSS_OBSERVER_GROUPING_DOCUMENTARY_RESOURCE_MANIFEST_002.json"
+CANDIDATE = PROJECT / "oc3/INPUTS/OC3_CROSS_OBSERVER_GROUPING_DOCUMENTARY_FEASIBILITY_CANDIDATE_002.json"
+RECEIPT = PROJECT / "oc3/INPUTS/OC3_CROSS_OBSERVER_GROUPING_DOCUMENTARY_FEASIBILITY_CANDIDATE_VALIDATION_002.json"
+PERMIT = PROJECT / "oc3/CROSS_OBSERVER_GROUPING_AUTONOMY_PERMITS/OC3_CROSS_OBSERVER_GROUPING_DOCUMENTARY_FEASIBILITY_PERMIT_002.json"
+AUTHORIZATION = PROJECT / "oc3/OC3_CROSS_OBSERVER_GROUPING_STANDING_AUTHORIZATION_002.json"
+STATE = PROJECT / "oc3/OC3_CROSS_OBSERVER_GROUPING_AUTONOMY_STATE_002.json"
+POLICY_MANIFEST = PROJECT / "oc3/INPUTS/OC3_CROSS_OBSERVER_GROUPING_POLICY_CORE_MANIFEST_002.json"
+OUTPUT = PROJECT / "oc3/cross_observer_grouping/OC3-CROSS-OBSERVER-GROUPING-DOCUMENTARY-EVIDENCE-ACQUISITION-002"
 EXECUTABLE = PROJECT / "oc3/.venv/bin/python"
 SCRIPT = PROJECT / "oc3/oc3_cross_observer_grouping_documentary.py"
 
 IMPLEMENTATION_FILES = (
-    "OC3_CROSS_OBSERVER_GROUPING_DOCUMENTARY_FEASIBILITY_SPEC_001.md",
+    "OC3_CROSS_OBSERVER_GROUPING_DOCUMENTARY_FEASIBILITY_SPEC_002.md",
     "oc3/oc3_cross_observer_grouping_documentary.py",
     "oc3/oc3lib/cross_observer_grouping.py",
+    "oc3/oc3lib/cross_observer_grouping_documentary_provenance.py",
     "oc3/oc3lib/cross_observer_grouping_documentary_validation.py",
 )
 
@@ -40,7 +42,7 @@ def implementation_aggregate() -> str:
 
 def expected_command_argv() -> list[str]:
     return [
-        str(EXECUTABLE), str(SCRIPT), "--research-documentary-feasibility",
+        str(EXECUTABLE), str(SCRIPT), "--acquire-documentary-evidence",
         "--candidate", str(CANDIDATE), "--permit", str(PERMIT),
         "--standing-authorization", str(AUTHORIZATION), "--autonomy-state", str(STATE),
         "--output-directory", str(OUTPUT),
@@ -53,7 +55,7 @@ def validate_manifest() -> dict[str, object]:
                 "mirror_substitution", "network_request_cap", "resources", "retries",
                 "schema_version", "sealed", "stage_id"}
     if (set(manifest) != required or manifest["schema_version"] !=
-            "OC3_CROSS_OBSERVER_GROUPING_DOCUMENTARY_RESOURCE_MANIFEST_001" or
+            "OC3_CROSS_OBSERVER_GROUPING_DOCUMENTARY_RESOURCE_MANIFEST_002" or
             manifest["stage_id"] != STAGE_ID or manifest["network_request_cap"] != 6 or
             manifest["application_body_byte_cap"] != 12_582_912 or
             manifest["concurrency"] != 1 or manifest["retries"] != 0 or
@@ -70,6 +72,10 @@ def validate_manifest() -> dict[str, object]:
     if any(item.get("method") != "GET" or item.get("redirects") != 0 or
            item.get("retries") != 0 for item in resources):
         raise DocumentaryValidationError("RESOURCE_TRANSPORT_INVALID")
+    if any(item.get("evidence_capture_mode") != "HASHED_RESPONSE_SNAPSHOT" or
+           item.get("revision_identity") is not None or
+           "immutable_revision_required" in item for item in resources):
+        raise DocumentaryValidationError("RESOURCE_CAPTURE_MODE_INVALID")
     if sum(item["application_body_byte_cap"] for item in resources) != 12_582_912:
         raise DocumentaryValidationError("RESOURCE_CAP_INVALID")
     datalab = resources[3:5]
@@ -81,7 +87,7 @@ def validate_manifest() -> dict[str, object]:
 
 def validate_candidate(path: Path = CANDIDATE) -> dict[str, object]:
     candidate = validate_sealed(load_canonical_json(path))
-    if (candidate.get("schema_version") != "OC3_CROSS_OBSERVER_GROUPING_DOCUMENTARY_CANDIDATE_001" or
+    if (candidate.get("schema_version") != "OC3_CROSS_OBSERVER_GROUPING_DOCUMENTARY_CANDIDATE_002" or
             candidate.get("stage_id") != STAGE_ID or candidate.get("scope") != SCOPE or
             candidate.get("candidate_state") != "PENDING_STANDING_HUMAN_AUTHORIZATION" or
             candidate.get("standing_authorization_present") is not False or
@@ -95,6 +101,10 @@ def validate_candidate(path: Path = CANDIDATE) -> dict[str, object]:
     manifest = validate_manifest()
     if candidate.get("resource_manifest") != {"path": str(MANIFEST.relative_to(PROJECT)), "sha256": file_sha256(MANIFEST)}:
         raise DocumentaryValidationError("RESOURCE_MANIFEST_BINDING_INVALID")
+    if candidate.get("policy_core_manifest") != {
+            "path": str(POLICY_MANIFEST.relative_to(PROJECT)),
+            "sha256": file_sha256(POLICY_MANIFEST)}:
+        raise DocumentaryValidationError("POLICY_CORE_BINDING_INVALID")
     if candidate.get("resource_caps") != {"application_body_bytes": 12_582_912,
             "compute_seconds": 300, "concurrency": 1, "network_requests": 6,
             "output_bytes": 13_631_488, "ram_bytes": 536_870_912, "retries": 0,
@@ -102,6 +112,13 @@ def validate_candidate(path: Path = CANDIDATE) -> dict[str, object]:
         raise DocumentaryValidationError("RESOURCE_CAP_INVALID")
     if manifest["network_request_cap"] != candidate["resource_caps"]["network_requests"]:
         raise DocumentaryValidationError("RESOURCE_CAP_INVALID")
+    if candidate.get("documentary_transport_boundary") != {
+            "acquisition_passes_semantic_gate": False,
+            "offline_semantic_review_required": True,
+            "photsys_documentary_token_allowed": True,
+            "photsys_scientific_values_read": 0,
+            "source_rows_read": 0}:
+        raise DocumentaryValidationError("DOCUMENTARY_BOUNDARY_INVALID")
     return candidate
 
 

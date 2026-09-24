@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+from datetime import datetime, timezone
 import hashlib
 import json
 import os
@@ -16,6 +17,10 @@ for _key in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS",
     os.environ[_key] = "1"
 
 from oc3lib.cross_observer_grouping import PROJECT, load_canonical_json, sealed, write_json_immutable
+from oc3lib.cross_observer_grouping_documentary_provenance import (
+    ACQUISITION_TERMINAL, REQUIRED_CLAIMS, assert_acquisition_cannot_finalize_grouping,
+    validate_local_snapshot, validate_transport_evidence,
+)
 from oc3lib.cross_observer_grouping_documentary_validation import (
     CANDIDATE, DocumentaryValidationError, validate_candidate, validate_runtime_invocation,
 )
@@ -30,7 +35,7 @@ def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(description="Bounded OC3 cross-observer documentary feasibility action")
     modes = result.add_mutually_exclusive_group(required=True)
     modes.add_argument("--validate-candidate", action="store_true")
-    modes.add_argument("--research-documentary-feasibility", action="store_true")
+    modes.add_argument("--acquire-documentary-evidence", action="store_true")
     result.add_argument("--candidate", type=Path, default=CANDIDATE)
     result.add_argument("--permit", type=Path)
     result.add_argument("--standing-authorization", type=Path)
@@ -56,6 +61,19 @@ def _read_bounded(response, cap: int, total_remaining: int,
     return b"".join(chunks)
 
 
+def _optional_content_length(headers) -> int | None:
+    value = headers.get("Content-Length")
+    return None if value is None else int(value)
+
+
+def _write_raw_snapshot(path: Path, body: bytes) -> None:
+    with path.open("xb") as stream:
+        stream.write(body)
+        stream.flush()
+        os.fsync(stream.fileno())
+    path.chmod(0o444)
+
+
 def _acquire(candidate: dict[str, object], output: Path,
              counters: dict[str, int]) -> dict[str, object]:
     manifest = load_canonical_json((PROJECT / candidate["resource_manifest"]["path"]).resolve())
@@ -75,31 +93,45 @@ def _acquire(candidate: dict[str, object], output: Path,
                 raise DocumentaryValidationError("CONTENT_TYPE_INVALID")
             body = _read_bounded(response, resource["application_body_byte_cap"],
                                  12_582_912 - total, counters)
+            final_url = response.geturl()
+            record = {
+                "application_body_bytes": len(body),
+                "capture_mode": resource["evidence_capture_mode"],
+                "content_length": _optional_content_length(response.headers),
+                "content_type": content_type,
+                "etag": response.headers.get("ETag"),
+                "final_url": final_url,
+                "last_modified": response.headers.get("Last-Modified"),
+                "requested_url": resource["url"],
+                "resource_id": resource["id"],
+                "retrieved_at_utc": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+                "sha256": hashlib.sha256(body).hexdigest(),
+                "status": response.status,
+            }
+            validate_transport_evidence(record)
         finally:
             response.close()
         total += len(body)
         target = raw / f"{resource['id']}.body"
-        target.write_bytes(body)
-        evidence.append({"application_body_bytes": len(body), "content_type": content_type,
-                         "final_url": resource["url"], "id": resource["id"],
-                         "sha256": hashlib.sha256(body).hexdigest(), "status": 200})
+        _write_raw_snapshot(target, body)
+        validate_local_snapshot(target, record["sha256"])
+        evidence.append(record)
     transport = sealed({"application_body_bytes": total, "network_requests": len(evidence),
-                        "resources": evidence, "schema_version": "OC3_CROSS_OBSERVER_DOCUMENTARY_TRANSPORT_001"})
+                        "resources": evidence, "schema_version": "OC3_CROSS_OBSERVER_DOCUMENTARY_TRANSPORT_002"})
     write_json_immutable(output / "TRANSPORT_EVIDENCE.json", transport)
-    claims = sealed({"claims": [{"claim": name, "classification": classification,
-                    "status": "EVIDENCE_ACQUIRED_REQUIRES_EXACT_SEMANTIC_REVIEW"} for name, classification in (
-                        ("CATALOG_SOURCE_IDENTITY", "OFFICIAL_PROVIDER_FACT"),
-                        ("RESOLVED_CATALOG_SEMANTICS", "OFFICIAL_PROVIDER_FACT"),
-                        ("REGIONAL_DATALAB_TABLES", "DATA_ACCESS_FACT"),
-                        ("ASTROMETRIC_FIELD_SEMANTICS", "OFFICIAL_PROVIDER_FACT"),
-                        ("CROSS_IDENTIFICATION_ASSUMPTIONS", "PRIMARY_LITERATURE_FORMALISM"),
-                        ("BOUNDED_PILOT_WITHOUT_THRESHOLD", "UNRESOLVED"),
-                    )], "schema_version": "OC3_CROSS_OBSERVER_DOCUMENTARY_CLAIM_MATRIX_001"})
-    write_json_immutable(output / "CLAIM_MATRIX.json", claims)
+    review_input = sealed({
+        "documentary_gate_decided": False,
+        "required_claims": list(REQUIRED_CLAIMS),
+        "schema_version": "OC3_CROSS_OBSERVER_DOCUMENTARY_REVIEW_INPUT_002",
+        "source_rows_read": 0,
+        "state": "PENDING_SEPARATELY_CONTRACTED_OFFLINE_SEMANTIC_REVIEW",
+    })
+    write_json_immutable(output / "OFFLINE_SEMANTIC_REVIEW_INPUT.json", review_input)
     report = ("# Cross-Observer Grouping Documentary Feasibility\n\n"
               f"Acquired {len(evidence)} exact documentary/schema resources ({total} body bytes).\n\n"
-              "The acquired bodies require a separate exact semantic review before a source-level pilot "
-              "or matcher threshold can be specified. No source rows were read and no radius was selected.\n")
+              "The exact bodies are immutable local retrieval snapshots; no upstream immutability is assumed. "
+              "A separately contracted offline semantic review must classify all ten required claims before "
+              "the documentary Gate can be decided. No source rows were read and no radius was selected.\n")
     report_path = output / "DOCUMENTARY_FEASIBILITY_REPORT.md"
     with report_path.open("x", encoding="utf-8") as stream:
         stream.write(report)
@@ -113,7 +145,8 @@ def _acquire(candidate: dict[str, object], output: Path,
                            "training_operations": 0, "embedding_operations": 0,
                            "clustering_operations": 0, "panel_v3_operations": 0, "p1_operations": 0},
                        "scope": candidate["scope"], "stage_id": candidate["stage_id"],
-                       "state": "DOCUMENTARY_EVIDENCE_ACQUIRED_PENDING_OFFLINE_SEMANTIC_REVIEW"})
+                       "state": ACQUISITION_TERMINAL})
+    assert_acquisition_cannot_finalize_grouping(terminal["state"])
     write_json_immutable(output / "TERMINAL.json", terminal)
     return terminal
 
@@ -133,7 +166,6 @@ def main(argv=None) -> int:
         from oc3lib.cross_observer_grouping_governor import consume_permit, validate_permit
         validate_permit(args.permit, candidate_path=args.candidate, state_path=args.autonomy_state,
                         standing_authorization_path=args.standing_authorization)
-        from datetime import datetime, timezone
         consume_permit(args.permit, candidate_path=args.candidate, state_path=args.autonomy_state,
                        standing_authorization_path=args.standing_authorization,
                        consumed_at_utc=datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"))
