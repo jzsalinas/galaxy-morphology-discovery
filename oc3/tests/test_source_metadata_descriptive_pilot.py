@@ -167,14 +167,14 @@ class SourceMetadataBootstrapTests(unittest.TestCase):
         self.assertEqual((candidate["network_requests"], candidate["source_rows_read"], candidate["matching_operations"]), (0, 0, 0))
         self.assertFalse(candidate["frame_materialized"])
 
-    def test_governor_mandate_and_state_inactive(self):
+    def test_predecessor_governor_is_formally_stopped_and_inactive(self):
         gov.validate_static_authorities(); mandate = gov.validate_mandate(); state = gov.validate_state()
         self.assertEqual(mandate["budgets"]["network_requests_parent"], 5)
         self.assertEqual(mandate["budgets"]["application_body_bytes_parent"], 67108864)
-        self.assertEqual((state["state"], state["active"], state["permits_issued"]),
-                         (gov.STATE_WAITING, False, 0))
-        self.assertFalse(gov.STANDING_AUTHORIZATION_PATH.exists())
-        self.assertFalse((gov.PROJECT / validate_candidate()["autonomy_policy"]["permit_output_path"]).exists())
+        self.assertEqual((state["state"], state["active"], state["permits_issued"], state["stop_reason"]),
+                         (gov.STOP_REQUIRES_HUMAN, False, 0, "CONSUMED_FRAME_PERMIT_NO_TERMINAL"))
+        self.assertTrue(gov.STANDING_AUTHORIZATION_PATH.exists())
+        self.assertTrue((gov.PROJECT / validate_candidate()["autonomy_policy"]["permit_output_path"]).exists())
         self.assertEqual(gov.evaluate_candidate(CANDIDATE),
                          {"decision": gov.MANDATE_NOT_ACTIVE, "permit_state": gov.NO_PERMIT_ISSUED})
 
