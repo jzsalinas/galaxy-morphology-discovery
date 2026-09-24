@@ -660,6 +660,10 @@ class ManifestContractTripwireOutcomeTests(Base):
             "OC3_CROSS_OBSERVER_GROUPING_DOCUMENTARY_FEASIBILITY_CANDIDATE_VALIDATION_002.json",
             "OC3_CROSS_OBSERVER_GROUPING_DOCUMENTARY_RESOURCE_MANIFEST_002.json",
             "OC3_CROSS_OBSERVER_GROUPING_POLICY_CORE_MANIFEST_002.json"}
+        cross_observer_grouping_datalab_diagnostic = cross_observer_grouping_provenance_v2 | {
+            "OC3_CROSS_OBSERVER_GROUPING_DATALAB_RESPONSE_DIAGNOSTIC_CANDIDATE_001.json",
+            "OC3_CROSS_OBSERVER_GROUPING_DATALAB_RESPONSE_DIAGNOSTIC_MANIFEST_001.json",
+            "OC3_CROSS_OBSERVER_GROUPING_DATALAB_RESPONSE_DIAGNOSTIC_VALIDATION_001.json"}
         eligibility_p0 = eligibility_implementation | {
             "OC3_GALAXY_ELIGIBILITY_PANEL_MANIFEST.json",
             "OC3_GALAXY_ELIGIBILITY_P1_AUTHORIZATION_CANDIDATE_001.json"}
@@ -684,6 +688,7 @@ class ManifestContractTripwireOutcomeTests(Base):
                                     observational_multiplicity_grouping_gate,
                                     cross_observer_grouping_bootstrap,
                                     cross_observer_grouping_provenance_v2,
+                                    cross_observer_grouping_datalab_diagnostic,
                                     eligibility_p0))
         technical_names = {item.name for item in (PROJECT / "oc3/TECHNICAL_INDEX").iterdir()}
         technical_base = {"OC3_LOCATIONS.json", "OC3_SELECTION_FLOW.csv",

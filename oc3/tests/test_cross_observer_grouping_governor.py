@@ -143,11 +143,11 @@ class CrossObserverGroupingGovernorTests(unittest.TestCase):
             transitioned_at_utc=f"2026-09-24T00:{index*10+5:02d}:00Z", reason="SYNTHETIC_COMPLETE")
         return permit
 
-    def test_bootstrap_is_inactive_and_exactly_bound(self):
+    def test_production_state_is_active_and_first_candidate_remains_bound(self):
         result = gov.validate_all(); state = load_canonical_json(gov.STATE_PATH)
         self.assertEqual((result["active"], result["permits_issued"], result["state"]),
-                         (False, 0, gov.STATE_WAITING))
-        self.assertFalse(gov.STANDING_AUTHORIZATION_PATH.exists())
+                         (True, 1, gov.STATE_ACTIVE))
+        self.assertTrue(gov.STANDING_AUTHORIZATION_PATH.exists())
         self.assertEqual(state["first_candidate"], self.binding(CANDIDATE))
 
     def test_policy_core_is_generic(self):
@@ -191,10 +191,10 @@ class CrossObserverGroupingGovernorTests(unittest.TestCase):
             documentary.urllib.request.build_opener = original
         self.assertEqual(counters, {"application_body_bytes": 0, "network_requests_started": 1})
 
-    def test_inactive_mission_cannot_issue_permit(self):
+    def test_active_mission_without_registered_action_cannot_issue_permit(self):
         result = gov.evaluate_candidate(CANDIDATE)
         self.assertEqual((result["decision"], result["permit_state"]),
-                         (gov.MANDATE_NOT_ACTIVE, gov.NO_PERMIT_ISSUED))
+                         ("NO_REGISTERED_PENDING_ACTION", gov.NO_PERMIT_ISSUED))
 
     def test_authority_budget_and_firewall_refusals(self):
         first = self.candidate("OFFLINE", gov.AUTHORITY_CLASSES[0])
