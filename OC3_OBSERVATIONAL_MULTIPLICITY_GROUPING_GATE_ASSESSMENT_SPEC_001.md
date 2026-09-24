@@ -4,7 +4,7 @@
 
 Prospective offline action under the active observational-multiplicity mandate. It asks whether the evidence frozen after `GLOBAL_VIEW_RELATION_VALIDATED` is sufficient to close the source/object grouping gate required for confirmatory splitting and same-object observer-replication claims.
 
-Stage: `OC3-OBSERVATIONAL-MULTIPLICITY-GROUPING-GATE-ASSESSMENT-001`
+Stage: `OC3-OBSERVATIONAL-MULTIPLICITY-GROUPING-GATE-ASSESSMENT-001`  
 Scope: `OFFLINE_GROUPING_GATE_ASSESSMENT_ONLY`
 
 ## Closed evidence
