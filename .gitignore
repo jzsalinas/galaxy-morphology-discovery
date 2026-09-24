@@ -74,6 +74,21 @@ oc3/CONFOUND_AUDIT/OC3-OBSERVATIONAL-CONFOUND-AUDIT-001/
 # Deterministic offline preprocessing/invariance perturbation pilot runtime
 oc3/PERTURBATION_PILOT/OC3-PREPROCESSING-INVARIANCE-PERTURBATION-PILOT-001/
 
+# Future observational-multiplicity audit runtime
+oc3/observational_multiplicity/
+
+# Historical PHOTSYS mission runtime evidence (preserved locally)
+oc3/photsys_archive_head_probe/
+oc3/photsys_archive_range_size_probe/
+oc3/photsys_authority_full_acquisition/
+oc3/photsys_byte_histogram/
+oc3/photsys_desitarget_blob_bundle/
+oc3/photsys_desitarget_git_object_probe/
+oc3/photsys_desitarget_selected_blobs/
+oc3/photsys_myers_provenance/
+oc3/photsys_selective_value_validation/
+oc3/photsys_zero_byte_provenance/
+
 # Generic temporary acquisition state
 **/STAGING/
 

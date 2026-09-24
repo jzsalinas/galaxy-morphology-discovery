@@ -10,11 +10,13 @@ Leer `GALAXY_RESEARCH_SEED.md`, `CODEX_PHASE_C0_SPEC.md` y `C0_EXECUTION_DECISIO
 - Nunca reinterpretar evidencia histórica retrospectivamente.
 - Fallar cerrado en límites científicos, de procedencia e integridad.
 
-## Estado activo
+## Estado de misiones
 
-- Estado autoritativo: `oc3/OC3_AUTONOMY_STATE_001.json`.
-- Mandato prospectivo: `OC3_AUTONOMY_MANDATE_001.md` y `oc3/INPUTS/OC3_AUTONOMY_MANDATE_001.json`.
-- Runbook: `OC3_AUTONOMOUS_RESEARCH_RUNBOOK_001.md`.
+- La misión PHOTSYS es histórica y terminal en `oc3/OC3_AUTONOMY_STATE_001.json`; no reabrirla ni reutilizar su autorización.
+- Estado prospectivo actual: `oc3/OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_STATE_001.json`.
+- Mandato prospectivo actual: `OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_MANDATE_001.md` y `oc3/INPUTS/OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_MANDATE_001.json`.
+- Runbook actual: `OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMOUS_RESEARCH_RUNBOOK_001.md`.
+- Mientras no exista una autorización permanente nueva, la misión permanece inactiva y no puede emitir permisos.
 
 ## Regla autónoma
 

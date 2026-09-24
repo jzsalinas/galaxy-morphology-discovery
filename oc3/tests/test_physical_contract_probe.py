@@ -613,6 +613,27 @@ class ManifestContractTripwireOutcomeTests(Base):
             "OC3_AUTONOMY_POLICY_CORE_MANIFEST_001.json",
             "OC3_PHOTSYS_DESITARGET_ARCHIVE_RANGE_SIZE_ACTION_VALIDATION_RECEIPT_003.json",
             "OC3_PHOTSYS_DESITARGET_ARCHIVE_RANGE_SIZE_PROBE_CANDIDATE_003.json"}
+        photsys_terminal_inputs = photsys_autonomy_hardened | {
+            "OC3_PHOTSYS_DESITARGET_COMMIT_OBJECT_RESOURCE_MANIFEST_001.json",
+            "OC3_PHOTSYS_DESITARGET_COMMIT_OBJECT_PROBE_CANDIDATE_001.json",
+            "OC3_PHOTSYS_DESITARGET_COMMIT_OBJECT_ACTION_VALIDATION_RECEIPT_001.json",
+            "OC3_PHOTSYS_DESITARGET_RECURSIVE_TREE_RESOURCE_MANIFEST_001.json",
+            "OC3_PHOTSYS_DESITARGET_RECURSIVE_TREE_PROBE_CANDIDATE_001.json",
+            "OC3_PHOTSYS_DESITARGET_RECURSIVE_TREE_ACTION_VALIDATION_RECEIPT_001.json",
+            "OC3_PHOTSYS_DESITARGET_MANDATORY_BLOB_BUNDLE_RESOURCE_MANIFEST_001.json",
+            "OC3_PHOTSYS_DESITARGET_MANDATORY_BLOB_BUNDLE_CANDIDATE_001.json",
+            "OC3_PHOTSYS_DESITARGET_MANDATORY_BLOB_BUNDLE_ACTION_VALIDATION_RECEIPT_001.json",
+            "OC3_PHOTSYS_MYERS_RANDOM_CATALOG_RESOURCE_MANIFEST_001.json",
+            "OC3_PHOTSYS_MYERS_RANDOM_CATALOG_PROVENANCE_CANDIDATE_001.json",
+            "OC3_PHOTSYS_MYERS_RANDOM_CATALOG_ACTION_VALIDATION_RECEIPT_001.json",
+            "OC3_PHOTSYS_DESITARGET_SELECTED_PRODUCTION_BLOBS_RESOURCE_MANIFEST_001.json",
+            "OC3_PHOTSYS_DESITARGET_SELECTED_PRODUCTION_BLOBS_CANDIDATE_001.json",
+            "OC3_PHOTSYS_DESITARGET_SELECTED_PRODUCTION_BLOBS_ACTION_VALIDATION_RECEIPT_001.json"}
+        observational_multiplicity_bootstrap = photsys_terminal_inputs | {
+            "OC3_OBSERVATIONAL_MULTIPLICITY_AUTONOMY_MANDATE_001.json",
+            "OC3_OBSERVATIONAL_MULTIPLICITY_POLICY_CORE_MANIFEST_001.json",
+            "OC3_GLOBAL_VIEW_RELATION_AUDIT_CANDIDATE_001.json",
+            "OC3_GLOBAL_VIEW_RELATION_AUDIT_CANDIDATE_VALIDATION_001.json"}
         eligibility_p0 = eligibility_implementation | {
             "OC3_GALAXY_ELIGIBILITY_PANEL_MANIFEST.json",
             "OC3_GALAXY_ELIGIBILITY_P1_AUTHORIZATION_CANDIDATE_001.json"}
@@ -629,6 +650,8 @@ class ManifestContractTripwireOutcomeTests(Base):
                                     photsys_archive_range_candidate,
                                     photsys_autonomy_bootstrap,
                                     photsys_autonomy_hardened,
+                                    photsys_terminal_inputs,
+                                    observational_multiplicity_bootstrap,
                                     eligibility_p0))
         technical_names = {item.name for item in (PROJECT / "oc3/TECHNICAL_INDEX").iterdir()}
         technical_base = {"OC3_LOCATIONS.json", "OC3_SELECTION_FLOW.csv",

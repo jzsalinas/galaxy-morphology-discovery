@@ -64,7 +64,9 @@ class AutonomyLifecycleTests(unittest.TestCase):
         parsed,contract=ag.validate_autonomous_action_candidate(candidate)
         body.update({"active":False,"current_stage":ag.STATE_WAITING,"registered_pending_action":
             ag._registered_binding(candidate,parsed,contract,first=True),"standing_authorization":None,
-            "standing_authorization_initial_state_sha256":None,"state":ag.STATE_WAITING})
+            "standing_authorization_initial_state_sha256":None,"state":ag.STATE_WAITING,
+            "requests_remaining":18,"body_budget_remaining":17544938,
+            "scientific_outcome":None,"stop_reason":None})
         return self.write("state.json",sealed(body))
     def authorization(self,state,**updates):
         body={"authorization_state":"STANDING_HUMAN_AUTONOMY_AUTHORIZATION","authorized":True,
@@ -83,12 +85,14 @@ class AutonomyLifecycleTests(unittest.TestCase):
             ledger_directory=ledger,activated_at_utc="2026-09-24T00:01:00Z",current_branch=ag.AUTONOMY_BRANCH)
         return state,auth,ledger
 
-    def test_01_static_policy_core_and_waiting_state(self):
+    def test_01_static_policy_core_and_closed_production_state(self):
         self.assertEqual(ag.validate_policy_core_manifest()["active_mutation_result"],ag.STOP_REQUIRES_HUMAN)
-        self.assertEqual(ag.validate_state()["state"],ag.STATE_WAITING)
-    def test_02_no_authorization_refuses(self):
+        state=ag.validate_state()
+        self.assertEqual(state["state"],ag.STATE_SCIENTIFIC_TERMINAL)
+        self.assertEqual(state["scientific_outcome"],"PHOTSYS_0x00_SEMANTICS_INCONCLUSIVE")
+    def test_02_closed_production_mission_refuses(self):
         result=ag.evaluate_policy(candidate_path=ag.PROJECT/"oc3/INPUTS/OC3_PHOTSYS_DESITARGET_ARCHIVE_RANGE_SIZE_PROBE_CANDIDATE_003.json")
-        self.assertEqual(result,{"decision":ag.MANDATE_NOT_ACTIVE,"permit_state":ag.NO_PERMIT_ISSUED})
+        self.assertEqual(result,{"decision":"NO_REGISTERED_PENDING_ACTION","permit_state":ag.NO_PERMIT_ISSUED})
     def test_03_activation_positive_zero_budget(self):
         candidate=self.candidate("DOC",ag.ALLOWED_AUTHORITY_CLASSES[0]); state=self.waiting(candidate); auth=self.authorization(state)
         before=load_canonical_json(state); updated=ag.activate_standing_autonomy(state_path=state,
