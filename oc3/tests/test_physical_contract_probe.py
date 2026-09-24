@@ -648,6 +648,12 @@ class ManifestContractTripwireOutcomeTests(Base):
         observational_multiplicity_grouping_gate = observational_multiplicity_runtime_binding | {
             "OC3_GROUPING_GATE_ASSESSMENT_CANDIDATE_001.json",
             "OC3_GROUPING_GATE_ASSESSMENT_CANDIDATE_VALIDATION_001.json"}
+        cross_observer_grouping_bootstrap = observational_multiplicity_grouping_gate | {
+            "OC3_CROSS_OBSERVER_GROUPING_AUTONOMY_MANDATE_001.json",
+            "OC3_CROSS_OBSERVER_GROUPING_DOCUMENTARY_FEASIBILITY_CANDIDATE_001.json",
+            "OC3_CROSS_OBSERVER_GROUPING_DOCUMENTARY_FEASIBILITY_CANDIDATE_VALIDATION_001.json",
+            "OC3_CROSS_OBSERVER_GROUPING_DOCUMENTARY_RESOURCE_MANIFEST_001.json",
+            "OC3_CROSS_OBSERVER_GROUPING_POLICY_CORE_MANIFEST_001.json"}
         eligibility_p0 = eligibility_implementation | {
             "OC3_GALAXY_ELIGIBILITY_PANEL_MANIFEST.json",
             "OC3_GALAXY_ELIGIBILITY_P1_AUTHORIZATION_CANDIDATE_001.json"}
@@ -670,6 +676,7 @@ class ManifestContractTripwireOutcomeTests(Base):
                                     observational_multiplicity_policy_v2,
                                     observational_multiplicity_runtime_binding,
                                     observational_multiplicity_grouping_gate,
+                                    cross_observer_grouping_bootstrap,
                                     eligibility_p0))
         technical_names = {item.name for item in (PROJECT / "oc3/TECHNICAL_INDEX").iterdir()}
         technical_base = {"OC3_LOCATIONS.json", "OC3_SELECTION_FLOW.csv",
