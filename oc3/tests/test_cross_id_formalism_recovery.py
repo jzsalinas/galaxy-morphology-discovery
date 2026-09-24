@@ -9,7 +9,7 @@ from oc3lib import cross_id_formalism_recovery as science
 from oc3lib import cross_id_formalism_recovery_governor as gov
 from oc3lib.cross_id_formalism_recovery_acquisition_validation import (
     CANDIDATE, expected_command_argv, validate_candidate, validate_manifest,
-    validate_runtime_invocation,
+    validate_historical_artifacts, validate_runtime_invocation,
 )
 from oc3lib.cross_observer_grouping import file_sha256, load_canonical_json, sealed, sha256_bytes
 
@@ -18,15 +18,31 @@ class CrossIdFormalismRecoveryTests(unittest.TestCase):
     def test_primary_resources_are_exact_and_ordered(self):
         resources=validate_manifest()["resources"]
         self.assertEqual([x["url"] for x in resources],[
-            "https://arxiv.org/abs/0707.1611",
-            "https://adsabs.harvard.edu/pdf/2008ASPC..394..165B"])
+            "https://arxiv.org/abs/0707.1611v3",
+            "https://www.aspbooks.org/publications/394/165.pdf"])
         self.assertEqual([x["evidence_class"] for x in resources],
                          ["PRIMARY_CROSS_IDENTIFICATION_LITERATURE"]*2)
 
     def test_conference_proceeding_is_not_apj(self):
         proceeding=validate_manifest()["resources"][1]
-        self.assertEqual(proceeding["bibliographic_identity"],"BIBCODE:2008ASPC..394..165B")
+        self.assertIn("ASP Conference Series",proceeding["bibliographic_identity"])
+        self.assertIn("Volume 394",proceeding["bibliographic_identity"])
+        self.assertIn("page 165",proceeding["bibliographic_identity"])
         self.assertNotIn("ApJ",str(proceeding))
+        self.assertNotIn("679",str(proceeding))
+
+    def test_historical_candidate_and_manifest_are_byte_exact(self):
+        validate_historical_artifacts()
+        self.assertEqual(file_sha256(gov.PROJECT/"oc3/INPUTS/OC3_CROSS_ID_FORMALISM_RECOVERY_RESOURCE_MANIFEST_001.json"),
+                         "27da1978f4b20a18bcfbefbcc4198f84d71739c0d839e432b67209dd152fa7de")
+        self.assertEqual(file_sha256(gov.PROJECT/"oc3/INPUTS/OC3_CROSS_ID_FORMALISM_RECOVERY_FIRST_CANDIDATE_001.json"),
+                         "03145a5cb0fc18b75c07bcfd1493b358c038dea432f9c9aa1b1133c41e8dd3ea")
+
+    def test_active_candidate_excludes_ads_route_and_uses_permit_002(self):
+        candidate=validate_candidate()
+        self.assertNotIn("adsabs.harvard.edu",str(candidate))
+        self.assertTrue(candidate["autonomy_policy"]["permit_output_path"].endswith(
+            "OC3_CROSS_ID_FORMALISM_RECOVERY_PRIMARY_EVIDENCE_PERMIT_002.json"))
 
     def test_snapshots_have_closed_transport(self):
         manifest=validate_manifest()

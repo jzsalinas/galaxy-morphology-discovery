@@ -9,17 +9,17 @@ from .cross_id_formalism_recovery import (
     validate_sealed,
 )
 
-STAGE_ID = "OC3-CROSS-ID-FORMALISM-PRIMARY-EVIDENCE-ACQUISITION-001"
+STAGE_ID = "OC3-CROSS-ID-FORMALISM-PRIMARY-EVIDENCE-ACQUISITION-002"
 SCOPE = "PRIMARY_LITERATURE_ACQUISITION_ONLY"
 SPEC = PROJECT / "OC3_CROSS_ID_FORMALISM_RECOVERY_FIRST_ACQUISITION_SPEC_001.md"
-MANIFEST = PROJECT / "oc3/INPUTS/OC3_CROSS_ID_FORMALISM_RECOVERY_RESOURCE_MANIFEST_001.json"
-CANDIDATE = PROJECT / "oc3/INPUTS/OC3_CROSS_ID_FORMALISM_RECOVERY_FIRST_CANDIDATE_001.json"
-RECEIPT = PROJECT / "oc3/INPUTS/OC3_CROSS_ID_FORMALISM_RECOVERY_FIRST_CANDIDATE_VALIDATION_001.json"
-PERMIT = PROJECT / "oc3/CROSS_ID_FORMALISM_RECOVERY_AUTONOMY_PERMITS/OC3_CROSS_ID_FORMALISM_RECOVERY_PRIMARY_EVIDENCE_PERMIT_001.json"
+MANIFEST = PROJECT / "oc3/INPUTS/OC3_CROSS_ID_FORMALISM_RECOVERY_RESOURCE_MANIFEST_002.json"
+CANDIDATE = PROJECT / "oc3/INPUTS/OC3_CROSS_ID_FORMALISM_RECOVERY_FIRST_CANDIDATE_002.json"
+RECEIPT = PROJECT / "oc3/INPUTS/OC3_CROSS_ID_FORMALISM_RECOVERY_FIRST_CANDIDATE_VALIDATION_002.json"
+PERMIT = PROJECT / "oc3/CROSS_ID_FORMALISM_RECOVERY_AUTONOMY_PERMITS/OC3_CROSS_ID_FORMALISM_RECOVERY_PRIMARY_EVIDENCE_PERMIT_002.json"
 AUTHORIZATION = PROJECT / "oc3/OC3_CROSS_ID_FORMALISM_RECOVERY_STANDING_AUTHORIZATION_001.json"
 STATE = PROJECT / "oc3/OC3_CROSS_ID_FORMALISM_RECOVERY_AUTONOMY_STATE_001.json"
 POLICY_MANIFEST = PROJECT / "oc3/INPUTS/OC3_CROSS_ID_FORMALISM_RECOVERY_POLICY_CORE_MANIFEST_001.json"
-OUTPUT = PROJECT / "oc3/cross_id_formalism_recovery/OC3-CROSS-ID-FORMALISM-PRIMARY-EVIDENCE-ACQUISITION-001"
+OUTPUT = PROJECT / "oc3/cross_id_formalism_recovery/OC3-CROSS-ID-FORMALISM-PRIMARY-EVIDENCE-ACQUISITION-002"
 EXECUTABLE = PROJECT / "oc3/.venv/bin/python"
 SCRIPT = PROJECT / "oc3/oc3_cross_id_formalism_recovery_acquisition.py"
 
@@ -44,13 +44,24 @@ def expected_command_argv() -> list[str]:
             "--standing-authorization", str(AUTHORIZATION),
             "--autonomy-state", str(STATE), "--output-directory", str(OUTPUT)]
 
+def validate_historical_artifacts() -> None:
+    expected = {
+        "oc3/INPUTS/OC3_CROSS_ID_FORMALISM_RECOVERY_RESOURCE_MANIFEST_001.json":
+            "27da1978f4b20a18bcfbefbcc4198f84d71739c0d839e432b67209dd152fa7de",
+        "oc3/INPUTS/OC3_CROSS_ID_FORMALISM_RECOVERY_FIRST_CANDIDATE_001.json":
+            "03145a5cb0fc18b75c07bcfd1493b358c038dea432f9c9aa1b1133c41e8dd3ea",
+    }
+    for relative, digest in expected.items():
+        if file_sha256(PROJECT / relative) != digest:
+            raise RecoveryValidationError("HISTORICAL_PREAUTHORIZATION_ARTIFACT_MUTATED")
+
 def validate_manifest() -> dict[str, object]:
     value = validate_sealed(load_canonical_json(MANIFEST))
     required = {"application_body_byte_cap","broad_crawling","concurrency",
                 "mirror_substitution","network_request_cap","resources","retries",
                 "schema_version","sealed","stage_id"}
     if (set(value) != required or value["schema_version"] !=
-            "OC3_CROSS_ID_FORMALISM_RECOVERY_RESOURCE_MANIFEST_001" or
+            "OC3_CROSS_ID_FORMALISM_RECOVERY_RESOURCE_MANIFEST_002" or
             value["stage_id"] != STAGE_ID or value["network_request_cap"] != 2 or
             value["application_body_byte_cap"] != 4_718_592 or value["concurrency"] != 1 or
             value["retries"] != 0 or value["broad_crawling"] is not False or
@@ -60,10 +71,11 @@ def validate_manifest() -> dict[str, object]:
     if not isinstance(resources, list) or len(resources) != 2:
         raise RecoveryValidationError("RESOURCE_COUNT_INVALID")
     expected = (
-        ("BUDAVARI_SZALAY_ARXIV_ABSTRACT", "https://arxiv.org/abs/0707.1611",
-         "arxiv.org", ["text/html","application/xhtml+xml"], 524_288, "ARXIV:0707.1611"),
-        ("BUDAVARI_SZALAY_ASPC_394_165", "https://adsabs.harvard.edu/pdf/2008ASPC..394..165B",
-         "adsabs.harvard.edu", ["application/pdf"], 4_194_304, "BIBCODE:2008ASPC..394..165B"),
+        ("BUDAVARI_SZALAY_ARXIV_ABSTRACT_V3", "https://arxiv.org/abs/0707.1611v3",
+         "arxiv.org", ["text/html","application/xhtml+xml"], 524_288, "ARXIV:0707.1611v3"),
+        ("BUDAVARI_SZALAY_ASPC_394_165_DIRECT_PUBLISHER", "https://www.aspbooks.org/publications/394/165.pdf",
+         "www.aspbooks.org", ["application/pdf"], 4_194_304,
+         "Budavári, T.; Szalay, A. S.; Nieto-Santisteban, M.; Probabilistic Cross-Identification of Astronomical Sources; Astronomical Data Analysis Software and Systems XVII; ASP Conference Series; Volume 394; page 165; 2008"),
     )
     required_resource = {"accepted_content_types","application_body_byte_cap",
         "bibliographic_identity","evidence_capture_mode","evidence_class",
@@ -79,14 +91,15 @@ def validate_manifest() -> dict[str, object]:
                 item["evidence_class"] != "PRIMARY_CROSS_IDENTIFICATION_LITERATURE" or
                 item["revision_identity"] is not None):
             raise RecoveryValidationError("RESOURCE_IDENTITY_INVALID")
-    if "ApJ" in resources[1]["bibliographic_identity"]:
+    if "ApJ" in resources[1]["bibliographic_identity"] or "679" in resources[1]["bibliographic_identity"]:
         raise RecoveryValidationError("CONFERENCE_PROCEEDING_MISIDENTIFIED")
     return value
 
 def validate_candidate(path: Path = CANDIDATE) -> dict[str, object]:
+    validate_historical_artifacts()
     validate_claim_vocabulary()
     value = validate_sealed(load_canonical_json(path))
-    if (value.get("schema_version") != "OC3_CROSS_ID_FORMALISM_RECOVERY_FIRST_CANDIDATE_001" or
+    if (value.get("schema_version") != "OC3_CROSS_ID_FORMALISM_RECOVERY_FIRST_CANDIDATE_002" or
             value.get("stage_id") != STAGE_ID or value.get("scope") != SCOPE or
             value.get("candidate_state") != "PENDING_STANDING_HUMAN_AUTHORIZATION" or
             value.get("standing_authorization_present") is not False or value.get("permit_issued") is not False):
