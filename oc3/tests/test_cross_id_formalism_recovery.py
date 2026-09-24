@@ -11,6 +11,12 @@ from oc3lib.cross_id_formalism_recovery_acquisition_validation import (
     CANDIDATE, expected_command_argv, validate_candidate, validate_manifest,
     validate_historical_artifacts, validate_runtime_invocation,
 )
+from oc3lib.cross_id_formalism_recovery_offline_review_validation import (
+    CANDIDATE as OFFLINE_CANDIDATE,
+    expected_command_argv as offline_expected_command_argv,
+    validate_candidate as validate_offline_candidate,
+    validate_runtime_invocation as validate_offline_runtime_invocation,
+)
 from oc3lib.cross_observer_grouping import file_sha256, load_canonical_json, sealed, sha256_bytes
 
 
@@ -88,13 +94,15 @@ class CrossIdFormalismRecoveryTests(unittest.TestCase):
         self.assertNotIn("MATCH_RADIUS",source)
         self.assertNotIn("ARCSEC_THRESHOLD",source)
 
-    def test_first_candidate_is_state_bound_and_inactive(self):
+    def test_first_candidate_remains_bound_at_governed_stop(self):
         state=load_canonical_json(gov.STATE_PATH)
         self.assertEqual(state["first_candidate"],{
             "path":str(CANDIDATE.relative_to(gov.PROJECT)),"sha256":file_sha256(CANDIDATE)})
         self.assertEqual((state["state"],state["active"],state["permits_issued"]),
-            (gov.STATE_WAITING,False,0))
-        self.assertFalse(gov.STANDING_AUTHORIZATION_PATH.exists())
+            (gov.STOP_REQUIRES_HUMAN,False,1))
+        self.assertTrue(gov.STANDING_AUTHORIZATION_PATH.exists())
+        self.assertEqual(state["stop_reason"],
+            "OFFLINE_REVIEW_CONSUMED_PERMIT_IMPLEMENTATION_MARKER_MISMATCH")
 
     def test_exact_argv_and_preflight(self):
         candidate=validate_candidate(); command=expected_command_argv()
@@ -103,7 +111,7 @@ class CrossIdFormalismRecoveryTests(unittest.TestCase):
         with self.assertRaises(Exception):
             validate_runtime_invocation(candidate,executable=changed[0],script_path=changed[1],argument_vector=changed[2:])
 
-    def test_inactive_mission_refuses_permit(self):
+    def test_stopped_mission_refuses_permit(self):
         result=gov.evaluate_candidate(CANDIDATE)
         self.assertEqual(result,{"decision":gov.MANDATE_NOT_ACTIVE,"permit_state":gov.NO_PERMIT_ISSUED})
 
@@ -124,6 +132,27 @@ class CrossIdFormalismRecoveryTests(unittest.TestCase):
         self.assertTrue(all(value==0 for value in state["firewall_counters"].values()))
         candidate=validate_candidate()
         self.assertTrue(all(value==0 for value in candidate["autonomy_policy"]["scientific_firewall"].values()))
+
+    def test_offline_review_candidate_is_exact_and_zero_network(self):
+        candidate=validate_offline_candidate()
+        self.assertEqual((candidate["network_requests"],candidate["source_rows_read"]),(0,0))
+        self.assertEqual(candidate["claim_order"],list(science.REOPENED_CLAIMS))
+        self.assertFalse(candidate["search_bound_selected"])
+        self.assertFalse(candidate["scientific_threshold_selected"])
+
+    def test_offline_review_argv_is_exact(self):
+        candidate=validate_offline_candidate(); command=offline_expected_command_argv()
+        validate_offline_runtime_invocation(candidate,executable=command[0],script_path=command[1],argument_vector=command[2:])
+        changed=list(command); changed[-1]+="-changed"
+        with self.assertRaises(Exception):
+            validate_offline_runtime_invocation(candidate,executable=changed[0],script_path=changed[1],argument_vector=changed[2:])
+
+    def test_offline_review_uses_only_acquired_primary_evidence(self):
+        candidate=validate_offline_candidate()
+        paths=[item["path"] for item in candidate["input_bindings"]]
+        self.assertEqual(len(paths),4)
+        self.assertTrue(all("PRIMARY-EVIDENCE-ACQUISITION-002" in path for path in paths))
+        self.assertTrue(all("tractor" not in path.lower() for path in paths))
 
 
 class CrossIdGovernorLifecycleTests(unittest.TestCase):
@@ -175,7 +204,12 @@ class CrossIdGovernorLifecycleTests(unittest.TestCase):
 
     def activate(self,first):
         production=load_canonical_json(gov.STATE_PATH); body={k:v for k,v in production.items() if k!="sealed"}
-        body.update({"first_candidate":self.binding(first),"current_stage":"FIRST_ACTION_PREPARED"})
+        body.update({"active":False,"body_budget_remaining":8_388_608,
+            "first_candidate":self.binding(first),"current_stage":"FIRST_ACTION_PREPARED",
+            "last_completed_stage":None,"last_terminal":None,"permits_issued":0,
+            "registered_pending_action":None,"requests_remaining":4,"scientific_outcome":None,
+            "sequence":0,"standing_authorization":None,"standing_authorization_initial_state_sha256":None,
+            "state":gov.STATE_WAITING,"stop_reason":None})
         state=self.write("state.json",sealed(body))
         auth=self.write("authorization.json",sealed({"authorization_state":"STANDING_HUMAN_AUTONOMY_AUTHORIZATION",
             "authorized":True,"authorized_at_utc":"2026-09-24T00:00:00Z","authorized_by":"Synthetic Reviewer",
