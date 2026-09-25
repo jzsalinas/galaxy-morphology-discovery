@@ -4,20 +4,101 @@ import signal
 import sys
 import tempfile
 import unittest
+from dataclasses import replace
 from pathlib import Path
 
 import numpy as np
+from astropy.io import fits
 
 from oc3lib.core import canonical
 from oc3lib.cross_observer_grouping import file_sha256, load_canonical_json, sealed, sha256_bytes
 from oc3lib import source_metadata_descriptive_pilot as reference
-from oc3lib import source_metadata_pilot_frame_recovery as science
-from oc3lib import source_metadata_pilot_frame_recovery_governor as gov
-from oc3lib.source_metadata_pilot_frame_recovery_validation import (
+from oc3lib import source_metadata_pilot_frame_schema_recovery as science
+from oc3lib import source_metadata_pilot_frame_schema_recovery_governor as gov
+from oc3lib.observational_multiplicity import REGIONAL_FIELDS as HISTORICAL_REGIONAL_FIELDS
+from oc3lib.provider_physical_contracts import (
+    PRODUCTION_PHYSICAL_CONTRACTS, PhysicalRole,
+)
+from oc3lib.source_metadata_pilot_frame_schema_recovery_validation import (
     CANDIDATE, EXPECTED_INPUTS, expected_supervisor_argv, expected_worker_command,
     validate_candidate, validate_invocation,
 )
-from oc3_source_metadata_pilot_frame_recovery_supervisor import run_child_once, supervise
+from oc3_source_metadata_pilot_frame_schema_recovery_supervisor import run_child_once, supervise
+
+
+def _value(tform, count=1):
+    if tform.endswith("A"):
+        return np.asarray([b"0001p001"] * count, dtype="S8")
+    if tform == "L": return np.asarray([True] * count, dtype=bool)
+    repeat = int(tform[:-1]) if tform[:-1].isdigit() else 1
+    code = tform[-1]
+    dtype = {"I":np.int16,"J":np.int32,"E":np.float32,"D":np.float64}[code]
+    shape = (count, repeat) if repeat > 1 else (count,)
+    return np.ones(shape, dtype=dtype)
+
+
+def physical_fixture(path, contract, *, names=None):
+    names = list(names if names is not None else [column.ttype for column in contract.columns])
+    formats = [column.tform for column in contract.columns]
+    if len(names) != len(formats):
+        formats = formats[:len(names)]
+    columns = [fits.Column(name=name, format=form, array=_value(form))
+               for name,form in zip(names,formats)]
+    fits.HDUList([fits.PrimaryHDU(),fits.BinTableHDU.from_columns(columns)]).writeto(path,checksum=False)
+    return replace(contract,naxis2=1)
+
+
+class ProviderCaseContractTests(unittest.TestCase):
+    def setUp(self):
+        self.temp=tempfile.TemporaryDirectory(prefix="oc3_schema_recovery_synthetic_")
+        self.root=Path(self.temp.name)
+
+    def tearDown(self): self.temp.cleanup()
+
+    def test_root_uppercase_physical_names_succeed(self):
+        contract=PRODUCTION_PHYSICAL_CONTRACTS[PhysicalRole.ROOT_SUMMARY]
+        path=self.root/"root.fits"; adjusted=physical_fixture(path,contract)
+        value=science.read_root_physical(path,adjusted)
+        self.assertEqual(value["identity"].size,1)
+
+    def test_regional_lowercase_identity_succeeds_and_normalizes(self):
+        contract=PRODUCTION_PHYSICAL_CONTRACTS[PhysicalRole.NORTH_SUMMARY]
+        path=self.root/"north.fits"; adjusted=physical_fixture(path,contract)
+        value=science.read_regional_identity_physical(path,PhysicalRole.NORTH_SUMMARY,adjusted)
+        self.assertEqual(value.dtype.names,("brickname","brickid"))
+        self.assertEqual((str(value[0]["brickname"]),int(value[0]["brickid"])),("0001p001",1))
+
+    def assert_schema_failure(self,names):
+        contract=PRODUCTION_PHYSICAL_CONTRACTS[PhysicalRole.NORTH_SUMMARY]
+        path=self.root/f"bad-{len(list(self.root.iterdir()))}.fits"
+        adjusted=physical_fixture(path,contract,names=names)
+        with self.assertRaisesRegex(science.FrameRecoveryError,science.PHYSICAL_SCHEMA_CONTRACT_MISMATCH):
+            science.read_regional_identity_physical(path,PhysicalRole.NORTH_SUMMARY,adjusted)
+
+    def test_uppercase_and_mixed_case_aliases_fail(self):
+        base=[column.ttype for column in PRODUCTION_PHYSICAL_CONTRACTS[PhysicalRole.NORTH_SUMMARY].columns]
+        for replacement in ("BRICKNAME","BrickName","brickName"):
+            with self.subTest(replacement=replacement):
+                self.assert_schema_failure([replacement,*base[1:]])
+
+    def test_missing_brickname_and_missing_brickid_fail(self):
+        base=[column.ttype for column in PRODUCTION_PHYSICAL_CONTRACTS[PhysicalRole.NORTH_SUMMARY].columns]
+        for missing in ("brickname","brickid"):
+            with self.subTest(missing=missing): self.assert_schema_failure([x for x in base if x!=missing])
+
+    def test_reordered_ttype_columns_fail(self):
+        base=[column.ttype for column in PRODUCTION_PHYSICAL_CONTRACTS[PhysicalRole.NORTH_SUMMARY].columns]
+        base[0],base[1]=base[1],base[0]
+        self.assert_schema_failure(base)
+
+    def test_historical_projection_regression(self):
+        self.assertEqual(science.REGIONAL_PHYSICAL_IDENTITY_FIELDS,("brickname","brickid"))
+        self.assertEqual(HISTORICAL_REGIONAL_FIELDS,
+            ("brickname","brickid","ra","dec","ra1","ra2","dec1","dec2"))
+        self.assertEqual(tuple(column.ttype for column in
+            PRODUCTION_PHYSICAL_CONTRACTS[PhysicalRole.NORTH_SUMMARY].columns)[0],"brickname")
+        self.assertEqual(tuple(column.ttype for column in
+            PRODUCTION_PHYSICAL_CONTRACTS[PhysicalRole.NORTH_SUMMARY].columns)[43],"brickid")
 
 
 def columns(rows):
@@ -135,15 +216,15 @@ class SupervisorTests(unittest.TestCase):
         self.assertGreater(result["stdout"]["byte_count"],32)
 
     def test_permit_consumption_precedes_worker_launch(self):
-        import oc3_source_metadata_pilot_frame_recovery_supervisor as supervisor
+        import oc3_source_metadata_pilot_frame_schema_recovery_supervisor as supervisor
         source=inspect.getsource(supervisor.main)
         self.assertLess(source.index("consume_permit("),source.index("supervise(candidate"))
         self.assertEqual(inspect.getsource(supervisor.supervise).count("run_child_once("),1)
 
     def test_diagnostic_contract_fields_are_frozen(self):
-        self.assertEqual(science.DIAGNOSTIC_SCHEMA,"OC3_FRAME_RECOVERY_EXECUTION_DIAGNOSTIC_001")
+        self.assertEqual(science.DIAGNOSTIC_SCHEMA,"OC3_FRAME_SCHEMA_RECOVERY_EXECUTION_DIAGNOSTIC_001")
         self.assertEqual(science.STREAM_CAPTURE_CAP,262144)
-        source=inspect.getsource(__import__("oc3_source_metadata_pilot_frame_recovery_supervisor"))
+        source=inspect.getsource(__import__("oc3_source_metadata_pilot_frame_schema_recovery_supervisor"))
         for field in ("terminating_signal","max_rss_kib_linux","stdout","stderr","pilot_frame_exists","phase_checkpoint_reached"):
             self.assertIn(field,source)
 
@@ -153,7 +234,8 @@ class SupervisorTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(dir=gov.PROJECT/"oc3") as temporary:
             output=Path(temporary)/"synthetic-output"
             terminal=supervise(candidate,output)
-            self.assertEqual(terminal["state"],"PILOT_FRAME_WORKER_FAILED")
+            self.assertEqual(terminal["state"],"PILOT_FRAME_SCHEMA_WORKER_FAILED")
+            self.assertEqual(terminal["failure_class"],science.WORKER_RUNTIME_FAILURE)
             self.assertTrue((output/"START_INTENT.json").is_file())
             self.assertTrue((output/"EXECUTION_DIAGNOSTIC.json").is_file())
             self.assertTrue((output/"TERMINAL.json").is_file())
@@ -177,18 +259,15 @@ class GovernanceBootstrapTests(unittest.TestCase):
         validate_invocation(candidate,expected_supervisor_argv())
         validate_invocation(candidate,expected_worker_command(),worker=True)
         self.assertEqual((candidate["network_requests"],candidate["source_rows_read"],candidate["targets_materialized"],candidate["holdouts_materialized"]),(0,0,0,0))
-        self.assertEqual(candidate["technical_cause"],"UNKNOWN")
+        self.assertEqual(candidate["preceding_failure_class"],"IMPLEMENTATION_SCHEMA_CASE_MISMATCH")
+        self.assertEqual(candidate["historical_predecessor_technical_cause"],"UNKNOWN")
 
-    def test_closed_state_preserves_single_consumed_permit(self):
+    def test_waiting_state_no_authorization_or_permit(self):
         gov.validate_static_authorities(); gov.validate_mandate(); state=gov.validate_state()
-        self.assertEqual((state["state"],state["active"],state["permits_issued"]),
-                         (gov.STATE_TERMINAL,False,1))
-        self.assertEqual(state["scientific_outcome"],
-                         "SOURCE_METADATA_PILOT_FRAME_RECOVERY_INTEGRITY_FAILED")
-        self.assertTrue(gov.STANDING_AUTHORIZATION_PATH.is_file())
-        permit=gov.PROJECT/validate_candidate()["autonomy_policy"]["permit_output_path"]
-        self.assertTrue(permit.is_file())
-        self.assertTrue(gov._consumption_marker_path(permit).is_file())
+        self.assertEqual((state["state"],state["active"],state["permits_issued"]),(gov.STATE_WAITING,False,0))
+        self.assertFalse(gov.STANDING_AUTHORIZATION_PATH.exists())
+        self.assertFalse((gov.PROJECT/validate_candidate()["autonomy_policy"]["permit_output_path"]).exists())
+        self.assertEqual(gov.evaluate_candidate(CANDIDATE),{"decision":gov.MANDATE_NOT_ACTIVE,"permit_state":gov.NO_PERMIT_ISSUED})
 
     def test_zero_budget_firewall_and_terminal_vocabulary(self):
         mandate=gov.validate_mandate()
@@ -196,8 +275,8 @@ class GovernanceBootstrapTests(unittest.TestCase):
             "concurrency":1,"network_requests_parent":0,"network_requests_remaining":0,
             "retries_default":0,"retries_max_per_exact_resource":0})
         self.assertTrue(all(value==0 for value in mandate["firewall"].values()))
-        self.assertEqual(gov.TERMINAL_OUTCOMES,("SOURCE_METADATA_PILOT_FRAME_RECOVERED",
-            "SOURCE_METADATA_PILOT_FRAME_RECOVERY_INTEGRITY_FAILED","SOURCE_METADATA_PILOT_FRAME_RECOVERY_INCONCLUSIVE"))
+        self.assertEqual(gov.TERMINAL_OUTCOMES,("SOURCE_METADATA_PILOT_FRAME_SCHEMA_RECOVERED",
+            "SOURCE_METADATA_PILOT_FRAME_SCHEMA_RECOVERY_INTEGRITY_FAILED","SOURCE_METADATA_PILOT_FRAME_SCHEMA_RECOVERY_INCONCLUSIVE"))
 
     def test_policy_core_contains_single_use_and_terminal_closure(self):
         source=inspect.getsource(gov)
@@ -206,7 +285,7 @@ class GovernanceBootstrapTests(unittest.TestCase):
         self.assertNotIn("MAX_SOURCE_ROWS_PER_DOMAIN",source)
 
     def test_worker_has_no_permit_or_network_api(self):
-        source=(gov.PROJECT/"oc3/oc3_source_metadata_pilot_frame_recovery_worker.py").read_text()
+        source=(gov.PROJECT/"oc3/oc3_source_metadata_pilot_frame_schema_recovery_worker.py").read_text()
         for forbidden in ("consume_permit","validate_permit","requests.","urllib","httpx"):
             self.assertNotIn(forbidden,source)
 
