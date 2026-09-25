@@ -48,16 +48,31 @@ class FrozenRecoveryContractTests(unittest.TestCase):
         self.assertEqual(closure["runtime_terminal_sha256"],
             "464a165b3281f5ec5c84617880e98d653bc1171c5eaa4d9b314d5464387b7d0e")
 
-    def test_static_authorities_and_first_candidate_are_inactive(self):
+    def test_run_002_postauthorization_terminal_state_is_explicit(self):
         values=gov.validate_static_authorities(); candidate=gov.validate_first_candidate(); state=gov.validate_state()
         self.assertEqual(candidate["action_kind"],"TECHNICAL_RESPONSE_DIAGNOSTIC")
         self.assertEqual((candidate["network_request_reservation"],candidate["application_body_reservation"]),(1,65536))
         self.assertEqual((state["state"],state["active"],state["permits_issued"]),
-            (gov.STATE_WAITING,False,0))
-        self.assertFalse(gov.STANDING_AUTHORIZATION.exists())
-        self.assertFalse((PROJECT/candidate["permit_path"]).exists())
-        self.assertFalse((PROJECT/candidate["worker_capability_path"]).exists())
+            (STOP_REQUIRES_HUMAN,False,1))
+        self.assertEqual(state["stop_reason"],"POLICY_CORE_PATH_CANONICALIZATION_REPAIR_REQUIRED")
+        self.assertEqual(file_sha256(gov.STANDING_AUTHORIZATION),
+            "0b727b876091fa9508b50f651457308e22c6fd1024a9c248328e0ed6f0bb3250")
+        self.assertTrue((PROJECT/candidate["permit_path"]).exists())
+        self.assertEqual(state["last_action_terminal_sha256"],
+            "e41bbe3fb709a66051b91caf07a01f60128a9f15946eaff45f9e765049b105b8")
         self.assertEqual(values["budget"]["MAX_RECOVERY_GENERATIONS"],4)
+
+    def test_preauthorization_state_contract_is_distinct(self):
+        state={k:v for k,v in gov.validate_state().items() if k!="sealed"}
+        state.update({"active":False,"current_stage":gov.STATE_WAITING,"permits_issued":0,
+            "standing_authorization":None,"state":gov.STATE_WAITING,"stop_reason":None})
+        with tempfile.NamedTemporaryFile(dir=PROJECT/"oc3",delete=False) as stream:
+            path=Path(stream.name); stream.write(canonical(sealed(state))+b"\n")
+        try:
+            validated=gov.validate_state(path)
+            self.assertEqual((validated["state"],validated["standing_authorization"]),
+                (gov.STATE_WAITING,None))
+        finally: path.unlink()
 
     def test_scientific_invariant_query_and_holdout_mutations_fail(self):
         original=load_canonical_json(gov.INVARIANTS)

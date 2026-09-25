@@ -55,6 +55,20 @@ class ProductionHarness:
             standing_authorization_path=self.auth,implementation_aggregate=gov.implementation_aggregate())
         self.first.write_bytes(canonical(first)+b"\n")
         state={k:v for k,v in gov.validate_state().items() if k!="sealed"}
+        state.update({"active":False,"active_adapter":None,"active_adapter_binding":None,
+            "adapter_states":{"official_noirlab_tap_public_v1":"AVAILABLE_UNVALIDATED",
+                "query_manager_public_anonymous_v1":"AVAILABLE_UNVALIDATED"},
+            "agentic_repair_request":None,"code_repair_generation":0,
+            "current_stage":"FIRST_ACTION_PREPARED","last_action_terminal":gov.binding(parent),
+            "last_action_terminal_sha256":file_sha256(parent),"last_classification":None,
+            "material_body_bytes_remaining":67_108_864,"material_requests_remaining":5,
+            "next_action_kind":"TECHNICAL_RESPONSE_DIAGNOSTIC","permits_issued":0,
+            "recovery_generation":0,"registered_pending_action":None,"scientific_outcome":None,
+            "sequence":0,"standing_authorization":None,"state":gov.STATE_WAITING,
+            "stop_reason":None,"technical_body_bytes_remaining":2_097_152,
+            "technical_failure_occurrences":{},"technical_requests_remaining":8,
+            "validated_patch_manifest":None,"validated_test_receipts":None,
+            "validated_transport_contract":None})
         state["first_candidate"]={"path":str(self.first.relative_to(PROJECT)),"sha256":file_sha256(self.first)}
         self.state.write_bytes(canonical(sealed(state))+b"\n")
         auth=sealed({"action_registry":gov.binding(gov.ACTION_REGISTRY),"authorized":True,
