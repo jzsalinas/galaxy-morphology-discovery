@@ -262,11 +262,11 @@ class GovernanceBootstrapTests(unittest.TestCase):
         self.assertEqual(candidate["preceding_failure_class"],"IMPLEMENTATION_SCHEMA_CASE_MISMATCH")
         self.assertEqual(candidate["historical_predecessor_technical_cause"],"UNKNOWN")
 
-    def test_waiting_state_no_authorization_or_permit(self):
+    def test_closed_terminal_state_preserves_authorization_and_consumed_permit(self):
         gov.validate_static_authorities(); gov.validate_mandate(); state=gov.validate_state()
-        self.assertEqual((state["state"],state["active"],state["permits_issued"]),(gov.STATE_WAITING,False,0))
-        self.assertFalse(gov.STANDING_AUTHORIZATION_PATH.exists())
-        self.assertFalse((gov.PROJECT/validate_candidate()["autonomy_policy"]["permit_output_path"]).exists())
+        self.assertEqual((state["state"],state["active"],state["permits_issued"]),(gov.STATE_TERMINAL,False,1))
+        self.assertTrue(gov.STANDING_AUTHORIZATION_PATH.exists())
+        self.assertTrue((gov.PROJECT/validate_candidate()["autonomy_policy"]["permit_output_path"]).exists())
         self.assertEqual(gov.evaluate_candidate(CANDIDATE),{"decision":gov.MANDATE_NOT_ACTIVE,"permit_state":gov.NO_PERMIT_ISSUED})
 
     def test_zero_budget_firewall_and_terminal_vocabulary(self):

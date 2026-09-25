@@ -77,6 +77,9 @@ oc3/PERTURBATION_PILOT/OC3-PREPROCESSING-INVARIANCE-PERTURBATION-PILOT-001/
 # Future observational-multiplicity audit runtime
 oc3/observational_multiplicity/
 
+# Frozen source-metadata acquisition raw CSV bodies
+oc3/source_metadata_acquisition_pilot/**/RAW_IMMUTABLE/
+
 # Historical PHOTSYS mission runtime evidence (preserved locally)
 oc3/photsys_archive_head_probe/
 oc3/photsys_archive_range_size_probe/
