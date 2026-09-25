@@ -59,6 +59,18 @@ def _final_report(ledger: Path, state: dict[str, object], reason: str):
         "technical_requests_remaining":state["technical_requests_remaining"]}))
 
 
+def _handoff_evidence(state: dict[str, object], terminal_path: Path) -> list[dict[str, str]]:
+    paths=[]
+    prior=state.get("last_action_terminal")
+    if isinstance(prior,dict):
+        prior_path=PROJECT/prior["path"]
+        if prior_path.is_file(): paths.append(gov.binding(prior_path))
+    documentary=terminal_path.parent/"DOCUMENTARY_EVIDENCE.json"
+    if documentary.is_file(): paths.append(gov.binding(documentary))
+    paths.append(gov.binding(terminal_path))
+    return paths
+
+
 def _run_mission(*, state_path: Path=gov.STATE, authorization_path: Path=gov.STANDING_AUTHORIZATION,
         first_candidate_path: Path=gov.FIRST_CANDIDATE, ledger: Path=gov.LEDGER_ROOT,
         executor: Callable[[dict[str, object]],dict[str, object]]|None=None) -> dict[str, object]:
@@ -77,6 +89,22 @@ def _run_mission(*, state_path: Path=gov.STATE, authorization_path: Path=gov.STA
     while True:
         state=gov.validate_state(state_path)
         if state["state"] in (gov.STATE_TERMINAL,STOP_REQUIRES_HUMAN): return state
+        if state["current_stage"] == "AWAITING_AGENTIC_TECHNICAL_REPAIR":
+            try:
+                resumed=gov.complete_agentic_handoff(state_path=state_path)
+            except RecoveryEnvelopeError as exc:
+                stopped=gov.stop_mission(state_path=state_path,reason=exc.code)
+                _record(ledger,f"{stopped['sequence']:03d}_STOP.json",{
+                    "event":"STOP_REQUIRES_HUMAN","reason":stopped["stop_reason"]})
+                _final_report(ledger,stopped,str(stopped["stop_reason"])); return stopped
+            if resumed["current_stage"] == "AWAITING_AGENTIC_TECHNICAL_REPAIR":
+                return resumed
+            _record(ledger,f"{resumed['sequence']:03d}_AGENTIC_REPAIR_ARTIFACTS_VALIDATED.json",{
+                "event":"AGENTIC_REPAIR_ARTIFACTS_VALIDATED",
+                "patch_manifest":resumed["validated_patch_manifest"],
+                "test_receipts":resumed["validated_test_receipts"],
+                "transport_contract":resumed["validated_transport_contract"]})
+            state=resumed
         if state["current_stage"] == "AWAITING_NEXT_ACTION_REGISTRATION":
             if state["recovery_generation"] == 0:
                 candidate_path=first_candidate_path; candidate=gov.validate_first_candidate(candidate_path)
@@ -120,6 +148,20 @@ def _run_mission(*, state_path: Path=gov.STATE, authorization_path: Path=gov.STA
             "event":"ACTION_GATES_CONSUMED","permit_consumption":gov.binding(permit_marker)})
         _record(ledger,f"{state['sequence']:03d}_{candidate['stage_id']}_ACTION_COMPLETED.json",{
             "event":"ACTION_COMPLETED","terminal":gov.binding(terminal_path)})
+        terminal=load_canonical_json(terminal_path)
+        if (candidate["action_kind"] == "OFFICIAL_SERVICE_DOCUMENTARY_PROBE" and
+                terminal.get("failure_class") == "DOCUMENTARY_EVIDENCE_ACQUIRED"):
+            state=gov.begin_agentic_handoff(state_path=state_path,candidate_path=candidate_path,
+                terminal_path=terminal_path,evidence=_handoff_evidence(state,terminal_path))
+            if state["current_stage"] != "AWAITING_AGENTIC_TECHNICAL_REPAIR":
+                _record(ledger,f"{state['sequence']:03d}_ACTION_TRANSITION.json",{
+                    "classification":state["last_classification"],"event":"ACTION_TRANSITION",
+                    "terminal":gov.binding(terminal_path)})
+                _final_report(ledger,state,str(state["stop_reason"])); return state
+            _record(ledger,f"{state['sequence']:03d}_AGENTIC_REPAIR_HANDOFF.json",{
+                "agentic_repair_request":state["agentic_repair_request"],
+                "event":"AGENTIC_REPAIR_REQUIRED","standing_authorization":state["standing_authorization"]})
+            return state
         state,classification=gov.transition_action(state_path=state_path,candidate_path=candidate_path,
             terminal_path=terminal_path)
         _record(ledger,f"{state['sequence']:03d}_ACTION_TRANSITION.json",{
@@ -155,10 +197,13 @@ def main(argv=None):
     parser.add_argument("--run-mission",action="store_true",required=True)
     parser.add_argument("--state",type=Path,default=gov.STATE)
     parser.add_argument("--standing-authorization",type=Path,default=gov.STANDING_AUTHORIZATION)
+    parser.add_argument("--resume",action="store_true")
     args=parser.parse_args(argv)
     try:
         state=run_mission(state_path=args.state,authorization_path=args.standing_authorization)
-        print(json.dumps({"mission_state":state["state"],"network_mode":"AUTHORIZED_PRODUCTION"},sort_keys=True)); return 0
+        result="AGENTIC_REPAIR_REQUIRED" if state["current_stage"]=="AWAITING_AGENTIC_TECHNICAL_REPAIR" else state["state"]
+        print(json.dumps({"mission_state":state["state"],"network_mode":"AUTHORIZED_PRODUCTION",
+            "runner_result":result},sort_keys=True)); return 0
     except Exception as exc:
         print(json.dumps({"error":getattr(exc,"code",str(exc)),"state":"RUNNER_BLOCKED"},sort_keys=True),file=sys.stderr); return 2
 

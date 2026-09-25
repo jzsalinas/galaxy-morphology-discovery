@@ -70,15 +70,19 @@ def build_next_candidate(*, state: Mapping[str, object], parent_terminal_path: P
         prefix = request_class.lower()
         if requests > remaining[f"{prefix}_requests"] or body > remaining[f"{prefix}_body_bytes"]:
             raise RecoveryEnvelopeError("RECOVERY_BUDGET_EXHAUSTED")
-    technical_patch_manifest = None
+    technical_patch_manifest = None; technical_transport_contract = None; test_receipts = None
     if rule["technical_patch_manifest_required"]:
-        technical_patch_manifest = {"path":
-            f"oc3/INPUTS/TECHNICAL_PATCH_MANIFEST_{generation:02d}.json", "sha256": None}
+        technical_patch_manifest = state.get("validated_patch_manifest")
+        technical_transport_contract = state.get("validated_transport_contract")
+        test_receipts = state.get("validated_test_receipts")
+        if not all(isinstance(x, Mapping) for x in (technical_patch_manifest,technical_transport_contract,test_receipts)):
+            raise RecoveryEnvelopeError("AGENTIC_REPAIR_ARTIFACTS_NOT_VALIDATED")
     adapter = None
     if rule.get("active_adapter_required"):
         adapter = state.get("active_adapter")
         authorities = _load(technical_authorities_path)
-        if adapter not in authorities["adapter_ids"]:
+        if (adapter not in authorities["adapter_ids"] or
+                state.get("adapter_states",{}).get(adapter) not in ("VALIDATED_FOR_MISSION","ACTIVE")):
             raise RecoveryEnvelopeError("TECHNICAL_ADAPTER_NOT_VALIDATED")
     executable = str(PROJECT / "oc3/.venv/bin/python")
     supervisor = str(PROJECT / rule["supervisor_implementation"]["path"])
@@ -111,6 +115,8 @@ def build_next_candidate(*, state: Mapping[str, object], parent_terminal_path: P
         "technical_budget_reservation": {"body_bytes": body if request_class == "TECHNICAL" else 0,
             "requests": requests if request_class == "TECHNICAL" else 0},
         "technical_patch_manifest": technical_patch_manifest,
+        "technical_transport_contract": technical_transport_contract,
+        "test_receipts": test_receipts,
         "trigger_failure_class": classification["failure_class"],
         "worker_argv": worker_command, "worker_argv_sha256": sha256_bytes(canonical(worker_command)),
         "worker_capability_path": paths["worker_capability_path"]})
@@ -131,7 +137,8 @@ def build_first_candidate(*, parent_terminal_path: Path, action_registry_path: P
         "last_action_terminal_sha256": file_sha256(parent_terminal_path), "recovery_generation": 0,
         "technical_requests_remaining": 8, "technical_body_bytes_remaining": 2_097_152,
         "material_requests_remaining": 5, "material_body_bytes_remaining": 67_108_864,
-        "active_adapter": None}
+        "active_adapter": None, "adapter_states": {}, "validated_patch_manifest": None,
+        "validated_transport_contract": None, "validated_test_receipts": None}
     _, candidate = build_next_candidate(state=bootstrap_state,
         parent_terminal_path=parent_terminal_path, action_registry_path=action_registry_path,
         technical_authorities_path=technical_authorities_path,

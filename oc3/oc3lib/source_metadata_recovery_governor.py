@@ -141,9 +141,17 @@ def validate_static_authorities() -> dict[str, dict[str, object]]:
             if row[key] != binding(target):
                 raise RecoveryEnvelopeError("RECOVERY_ACTION_IMPLEMENTATION_CHANGED")
     authorities = values["technical_authorities"]
+    adapters=authorities.get("adapters")
     if (authorities.get("schema_version") != "OC3_SOURCE_METADATA_RECOVERY_TECHNICAL_AUTHORITIES_001" or
             not isinstance(authorities.get("resources"), list) or
-            any(set(row) != {"authority_class", "id", "purpose", "url"} for row in authorities["resources"])):
+            not isinstance(adapters, list) or
+            any(set(row) != {"authority_class", "id", "purpose", "url"} for row in authorities["resources"]) or
+            any(not isinstance(row,dict) or set(row) != {"adapter_id", "implementation", "initial_state"} or
+                not isinstance(row["implementation"],dict) or
+                row["initial_state"] != "AVAILABLE_UNVALIDATED" or
+                row["implementation"] != binding(PROJECT / row["implementation"].get("path", ""))
+                for row in adapters) or
+            authorities.get("adapter_ids") != [row["adapter_id"] for row in adapters]):
         raise RecoveryEnvelopeError("TECHNICAL_AUTHORITIES_INVALID")
     policy = values["policy"]
     if (policy.get("generic_policy_core") is not True or
@@ -177,7 +185,7 @@ def validate_candidate(path: Path) -> dict[str, object]:
         "recovery_graph", "remaining_budgets", "request_class", "resume", "retries",
         "schema_version", "scientific_invariants", "sealed", "stage_id", "technical_authorities",
         "technical_budget_reservation", "technical_patch_manifest", "trigger_failure_class",
-        "worker_argv", "worker_argv_sha256", "worker_capability_path"}
+        "technical_transport_contract", "test_receipts", "worker_argv", "worker_argv_sha256", "worker_capability_path"}
     if (set(value) != required or value.get("schema_version") != "RECOVERY_ACTION_FACTORY_V2" or
             value.get("action_kind") not in ACTION_FAMILIES or value.get("request_class") not in ("TECHNICAL", "MATERIAL", "OFFLINE") or
             value.get("resume") is not False or value.get("retries") != 0 or
@@ -255,12 +263,13 @@ def validate_generated_candidate(path: Path, *, state_path: Path, parent_termina
 
 def validate_state(path: Path = STATE) -> dict[str, object]:
     value = _load(path, "RECOVERY_STATE_INVALID")
-    required = {"active", "active_adapter", "body_budget_material_parent", "code_repair_generation", "current_stage",
+    required = {"active", "active_adapter", "adapter_states", "agentic_repair_request", "body_budget_material_parent", "code_repair_generation", "current_stage",
         "first_candidate", "last_action_terminal", "last_action_terminal_sha256", "last_classification", "material_body_bytes_remaining",
         "material_requests_remaining", "mission_id", "mission_scope", "next_action_kind", "permits_issued",
         "recovery_generation", "registered_pending_action", "requests_material_parent", "schema_version", "sealed",
         "sequence", "scientific_outcome", "standing_authorization", "state", "stop_reason",
-        "technical_body_bytes_remaining", "technical_failure_occurrences", "technical_requests_remaining"}
+        "technical_body_bytes_remaining", "technical_failure_occurrences", "technical_requests_remaining",
+        "validated_patch_manifest", "validated_test_receipts", "validated_transport_contract"}
     if (set(value) != required or value.get("schema_version") != "OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_STATE_001" or
             value.get("mission_id") != MISSION_ID or value.get("mission_scope") != MISSION_SCOPE):
         raise RecoveryEnvelopeError("RECOVERY_STATE_INVALID")
@@ -270,6 +279,14 @@ def validate_state(path: Path = STATE) -> dict[str, object]:
         raise RecoveryEnvelopeError("RECOVERY_ACTIVE_STATE_INVALID")
     if value["state"] in (STATE_TERMINAL, STOP_REQUIRES_HUMAN) and value["active"] is not False:
         raise RecoveryEnvelopeError("RECOVERY_TERMINAL_STATE_INVALID")
+    allowed_adapter_states={"AVAILABLE_UNVALIDATED","VALIDATED_FOR_MISSION","REJECTED","ACTIVE"}
+    if (not isinstance(value["adapter_states"],dict) or
+            any(item not in allowed_adapter_states for item in value["adapter_states"].values()) or
+            (value["active_adapter"] is not None and
+             value["adapter_states"].get(value["active_adapter"]) != "ACTIVE") or
+            (value["current_stage"] == "AWAITING_AGENTIC_TECHNICAL_REPAIR" and
+             (value["active"] is not True or not isinstance(value["agentic_repair_request"],dict)))):
+        raise RecoveryEnvelopeError("RECOVERY_ADAPTER_STATE_INVALID")
     return value
 
 
@@ -425,6 +442,107 @@ def consume_worker_capability(*, capability_path: Path, candidate_path: Path,
     return marker
 
 
+def agentic_paths(generation: int) -> dict[str, Path]:
+    return {"request": LEDGER_ROOT / f"AGENTIC_REPAIR_REQUEST_{generation:02d}.json",
+        "patch": PROJECT / f"oc3/INPUTS/TECHNICAL_PATCH_MANIFEST_{generation:02d}.json",
+        "contract": PROJECT / f"oc3/INPUTS/TECHNICAL_TRANSPORT_CONTRACT_{generation:02d}.json",
+        "receipts": PROJECT / f"oc3/INPUTS/TECHNICAL_REPAIR_TEST_RECEIPTS_{generation:02d}.json"}
+
+
+def begin_agentic_handoff(*, state_path: Path, candidate_path: Path, terminal_path: Path,
+                          evidence: list[dict[str, str]]) -> dict[str, object]:
+    state=validate_state(state_path); candidate=validate_candidate(candidate_path)
+    terminal=_load(terminal_path,"RECOVERY_ACTION_TERMINAL_INVALID")
+    if (candidate["action_kind"] != "OFFICIAL_SERVICE_DOCUMENTARY_PROBE" or
+            terminal.get("failure_class") != "DOCUMENTARY_EVIDENCE_ACQUIRED" or
+            state["registered_pending_action"] != binding(candidate_path) or not evidence or
+            any(item != binding(PROJECT / item.get("path", "")) for item in evidence)):
+        raise RecoveryEnvelopeError("AGENTIC_REPAIR_HANDOFF_INVALID")
+    accounted=dict(terminal); accounted["terminal_sha256"]=file_sha256(terminal_path)
+    classification={"decision":RECOVER_AUTONOMOUSLY,"failure_class":"DOCUMENTARY_EVIDENCE_ACQUIRED",
+        "next_action_kind":"OFFLINE_TECHNICAL_REPAIR","reason":"AGENTIC_EXECUTION_LAYER_HANDOFF"}
+    updated=account_action(state,accounted,classification,_load(RECOVERY_BUDGET,"RECOVERY_BUDGET_INVALID"))
+    updated.pop("sealed",None); updated["last_action_terminal"]=binding(terminal_path)
+    updated["permits_issued"]=state["permits_issued"]+1
+    if updated.get("active") is not True:
+        sealed_state=sealed(updated); _atomic_state(state_path,sealed_state); return sealed_state
+    updated["current_stage"]="AWAITING_AGENTIC_TECHNICAL_REPAIR"
+    paths=agentic_paths(updated["recovery_generation"]+1)
+    request=sealed({"action_registry":binding(ACTION_REGISTRY),"active_adapter":state["active_adapter"],
+        "allowed_path_prefixes":_load(MUTABLE_SURFACE,"MUTABLE_TECHNICAL_SURFACE_INVALID")["allowed_path_prefixes"],
+        "current_git_head":__import__("subprocess").run(["git","rev-parse","HEAD"],cwd=PROJECT,check=True,capture_output=True,text=True).stdout.strip(),
+        "diagnostic_and_documentary_evidence":evidence,"mission_id":MISSION_ID,
+        "mutable_technical_surface":binding(MUTABLE_SURFACE),"parent_action_terminal":binding(terminal_path),
+        "query_semantic_hashes":{r["id"]:r["semantic_sha256"] for r in _load(INVARIANTS,"SCIENTIFIC_INVARIANTS_INVALID")["queries"]},
+        "recovery_generation":updated["recovery_generation"]+1,"recovery_graph":binding(RECOVERY_GRAPH),
+        "required_tests":["FOCUSED_TECHNICAL","AFFECTED_RECOVERY","SOCKET_FIREWALLED_FULL_REGRESSION"],
+        "schema_version":"OC3_SOURCE_METADATA_AGENTIC_REPAIR_REQUEST_001",
+        "scientific_invariants":binding(INVARIANTS),"technical_contract_conclusions":[],
+        "trigger_failure_class":"DOCUMENTARY_EVIDENCE_ACQUIRED"})
+    write_json_immutable(paths["request"],request); updated["agentic_repair_request"]=binding(paths["request"])
+    sealed_state=sealed(updated); _atomic_state(state_path,sealed_state); return sealed_state
+
+
+def complete_agentic_handoff(*, state_path: Path) -> dict[str, object]:
+    state=validate_state(state_path)
+    if state["current_stage"] != "AWAITING_AGENTIC_TECHNICAL_REPAIR" or state["active"] is not True:
+        raise RecoveryEnvelopeError("AGENTIC_REPAIR_HANDOFF_INVALID")
+    paths=agentic_paths(int(state["recovery_generation"])+1)
+    if not all(paths[k].is_file() for k in ("patch","contract","receipts")):
+        return state
+    patch=_load(paths["patch"],"TECHNICAL_PATCH_MANIFEST_INVALID")
+    from .autonomous_recovery_envelope import validate_patch_manifest
+    validate_patch_manifest(patch,_load(MUTABLE_SURFACE,"MUTABLE_TECHNICAL_SURFACE_INVALID"))
+    request_binding=state.get("agentic_repair_request")
+    if not isinstance(request_binding,dict): raise RecoveryEnvelopeError("AGENTIC_REPAIR_HANDOFF_INVALID")
+    request=_load(PROJECT/request_binding["path"],"AGENTIC_REPAIR_HANDOFF_INVALID")
+    invariants=_load(INVARIANTS,"SCIENTIFIC_INVARIANTS_INVALID")
+    hashes={r["id"]:r["semantic_sha256"] for r in invariants["queries"]}
+    if (request_binding != binding(PROJECT/request_binding["path"]) or
+            patch.get("base_commit") != request.get("current_git_head") or
+            patch.get("parent_action_terminal") != state.get("last_action_terminal") or
+            patch.get("recovery_generation") != int(state["recovery_generation"])+1 or
+            patch.get("scientific_invariants_sha256_before") != file_sha256(INVARIANTS) or
+            patch.get("scientific_invariants_sha256_after") != file_sha256(INVARIANTS) or
+            patch.get("recovery_graph_sha256_before") != file_sha256(RECOVERY_GRAPH) or
+            patch.get("recovery_graph_sha256_after") != file_sha256(RECOVERY_GRAPH) or
+            patch.get("query_semantic_hashes_before") != hashes or
+            patch.get("query_semantic_hashes_after") != hashes):
+        raise RecoveryEnvelopeError("TECHNICAL_PATCH_IMMUTABLE_CONTRACT_CHANGED")
+    contract=_load(paths["contract"],"TECHNICAL_TRANSPORT_CONTRACT_INVALID")
+    required={"adapter_id","authentication_mode","endpoint","evidence","http_method","parameter_serialization",
+        "query_semantic_hashes","query_semantic_preservation_rule","redirect_policy","response_representation",
+        "schema_version","sealed"}
+    authorities=_load(TECHNICAL_AUTHORITIES,"TECHNICAL_AUTHORITIES_INVALID")
+    adapter_ids=[row["adapter_id"] for row in authorities["adapters"]]
+    if (set(contract)!=required or contract["adapter_id"] not in adapter_ids or
+            contract["query_semantic_hashes"]!=hashes or contract["query_semantic_preservation_rule"]!="BYTE_IDENTICAL_FROZEN_ADQL" or
+            not isinstance(contract["endpoint"],str) or not contract["endpoint"] or
+            contract["http_method"] not in ("GET","POST") or
+            not isinstance(contract["parameter_serialization"],str) or not contract["parameter_serialization"] or
+            not isinstance(contract["response_representation"],str) or not contract["response_representation"] or
+            not isinstance(contract["authentication_mode"],str) or not contract["authentication_mode"] or
+            not isinstance(contract["redirect_policy"],str) or not contract["redirect_policy"] or
+            not contract["evidence"] or
+            any(item not in request.get("diagnostic_and_documentary_evidence",[]) for item in contract["evidence"])):
+        raise RecoveryEnvelopeError("TECHNICAL_TRANSPORT_CONTRACT_INVALID")
+    for item in contract["evidence"]:
+        if binding(PROJECT/item["path"]) != item: raise RecoveryEnvelopeError("TECHNICAL_TRANSPORT_CONTRACT_INVALID")
+    receipts=_load(paths["receipts"],"TECHNICAL_REPAIR_TEST_RECEIPTS_INVALID")
+    if (set(receipts) != {"all_required_passed","real_network_requests","schema_version","sealed","tests_executed"} or
+            receipts.get("schema_version") != "OC3_SOURCE_METADATA_TECHNICAL_REPAIR_TEST_RECEIPTS_001" or
+            receipts.get("all_required_passed") is not True or receipts.get("real_network_requests")!=0 or
+            receipts.get("tests_executed") != request.get("required_tests")):
+        raise RecoveryEnvelopeError("TECHNICAL_REPAIR_TEST_RECEIPTS_INVALID")
+    body={k:v for k,v in state.items() if k!="sealed"}
+    body.update({"current_stage":"AWAITING_NEXT_ACTION_REGISTRATION",
+        "last_classification":{"decision":RECOVER_AUTONOMOUSLY,"failure_class":"DOCUMENTARY_TRANSPORT_CONTRACT_RESOLVED",
+            "next_action_kind":"OFFLINE_TECHNICAL_REPAIR","reason":"VALIDATED_AGENTIC_TRANSPORT_CONTRACT"},
+        "validated_patch_manifest":binding(paths["patch"]),"validated_transport_contract":binding(paths["contract"]),
+        "validated_test_receipts":binding(paths["receipts"]),"sequence":state["sequence"]+1})
+    updated=sealed(body); _atomic_state(state_path,updated); return updated
+
+
 def transition_action(*, state_path: Path, candidate_path: Path, terminal_path: Path) -> tuple[dict[str, object], dict[str, object]]:
     state = validate_state(state_path); candidate = validate_candidate(candidate_path)
     if state["registered_pending_action"] != binding(candidate_path):
@@ -438,9 +556,23 @@ def transition_action(*, state_path: Path, candidate_path: Path, terminal_path: 
     updated["last_action_terminal"] = binding(terminal_path)
     if terminal.get("adapter_activated") is not None:
         authorities = _load(TECHNICAL_AUTHORITIES, "TECHNICAL_AUTHORITIES_INVALID")
-        if terminal["adapter_activated"] not in authorities["adapter_ids"]:
+        contract=candidate.get("technical_transport_contract")
+        patch=candidate.get("technical_patch_manifest"); receipts=candidate.get("test_receipts")
+        if (candidate["action_kind"] != "OFFLINE_TECHNICAL_REPAIR" or
+                terminal.get("failure_class") != "TECHNICAL_PATCH_VALIDATED" or
+                terminal["adapter_activated"] not in [row["adapter_id"] for row in authorities["adapters"]] or
+                not isinstance(contract,dict) or contract != state.get("validated_transport_contract") or
+                patch != state.get("validated_patch_manifest") or receipts != state.get("validated_test_receipts") or
+                terminal.get("technical_transport_contract") != contract or
+                terminal.get("patch_manifest") != patch or terminal.get("test_receipts") != receipts or
+                state.get("adapter_states",{}).get(terminal["adapter_activated"])!="AVAILABLE_UNVALIDATED"):
             raise RecoveryEnvelopeError("TECHNICAL_ADAPTER_NOT_VALIDATED")
-        updated["active_adapter"] = terminal["adapter_activated"]
+        updated["adapter_states"]=dict(state["adapter_states"])
+        if updated.get("active") is True:
+            updated["active_adapter"] = terminal["adapter_activated"]
+            updated["adapter_states"][terminal["adapter_activated"]]="ACTIVE"
+        else:
+            updated["adapter_states"][terminal["adapter_activated"]]="VALIDATED_FOR_MISSION"
     updated["permits_issued"] = state["permits_issued"] + 1
     updated.pop("sealed", None)
     sealed_state = sealed(updated); _atomic_state(state_path, sealed_state)

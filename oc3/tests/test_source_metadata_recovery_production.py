@@ -1,5 +1,6 @@
 from contextlib import ExitStack
 from copy import deepcopy
+import inspect
 from pathlib import Path
 import tempfile
 import unittest
@@ -10,6 +11,7 @@ from oc3lib.cross_observer_grouping import PROJECT, file_sha256, load_canonical_
 from oc3lib.autonomous_recovery_envelope import RecoveryEnvelopeError, STOP_REQUIRES_HUMAN
 from oc3lib import source_metadata_recovery_factory as factory
 from oc3lib import source_metadata_recovery_governor as gov
+from oc3lib import source_metadata_recovery_executors as executors
 from oc3_source_metadata_recovery_mission_runner import run_mission
 
 
@@ -19,6 +21,7 @@ class ProductionHarness:
         self.root=Path(self.temp.name)
         self.state=self.root/"state.json"; self.auth=self.root/"authorization.json"
         self.first=self.root/"first.json"; self.ledger=self.root/"ledger"
+        self.repair_files=[]
         self.old_paths=factory._paths
         def paths(kind,generation):
             stem=f"G{generation:02d}-{kind}"
@@ -29,6 +32,13 @@ class ProductionHarness:
                 "output_directory":str(output),"permit_path":str(base/f"permits/{stem}.json"),
                 "worker_capability_path":str(output/"WORKER_CAPABILITY.json")}
         factory._paths=paths
+        self.agentic_root=self.root/"agentic"
+        def agentic_paths(generation):
+            return {"request":self.agentic_root/f"AGENTIC_REPAIR_REQUEST_{generation:02d}.json",
+                "patch":self.agentic_root/f"TECHNICAL_PATCH_MANIFEST_{generation:02d}.json",
+                "contract":self.agentic_root/f"TECHNICAL_TRANSPORT_CONTRACT_{generation:02d}.json",
+                "receipts":self.agentic_root/f"TECHNICAL_REPAIR_TEST_RECEIPTS_{generation:02d}.json"}
+        self.agentic_paths=agentic_paths
         parent=PROJECT/"oc3/source_metadata_acquisition_pilot/OC3-SOURCE-METADATA-ACQUISITION-PILOT-001/TERMINAL.json"
         first=factory.build_first_candidate(parent_terminal_path=parent,action_registry_path=gov.ACTION_REGISTRY,
             technical_authorities_path=gov.TECHNICAL_AUTHORITIES,scientific_invariants_path=gov.INVARIANTS,
@@ -52,9 +62,56 @@ class ProductionHarness:
         self.stack.enter_context(patch.object(gov,"FIRST_CANDIDATE",self.first))
         self.stack.enter_context(patch.object(gov,"PERMIT_CONSUMPTION",self.root/"permit_consumption"))
         self.stack.enter_context(patch.object(gov,"CAPABILITY_CONSUMPTION",self.root/"capability_consumption"))
+        self.stack.enter_context(patch.object(gov,"agentic_paths",agentic_paths))
 
     def close(self):
-        self.stack.close(); factory._paths=self.old_paths; self.temp.cleanup()
+        self.stack.close(); factory._paths=self.old_paths
+        for path in self.repair_files:
+            if path.exists(): path.unlink()
+        self.temp.cleanup()
+
+    def create_agentic_artifacts(self, *, adapter_id="query_manager_public_anonymous_v1",
+                                 changed_path=None,
+                                 mutate_queries=False):
+        state=gov.validate_state(self.state); generation=state["recovery_generation"]+1
+        paths=self.agentic_paths(generation); self.agentic_root.mkdir(parents=True,exist_ok=True)
+        request=load_canonical_json(paths["request"])
+        hashes=request["query_semantic_hashes"]
+        after_hashes=dict(hashes)
+        if mutate_queries: after_hashes["schema"]="0"*64
+        if changed_path is None:
+            target=PROJECT/f"oc3/recovery_tests/source_metadata/agentic_{self.root.name}.txt"
+            target.parent.mkdir(parents=True,exist_ok=True); target.write_text("synthetic bounded repair\n")
+            self.repair_files.append(target); changed_path=str(target.relative_to(PROJECT)); before=None
+        else:
+            target=PROJECT/changed_path; before=file_sha256(target) if target.is_file() else None
+        current=file_sha256(target) if target.is_file() else None
+        patch_manifest=sealed({"base_commit":request["current_git_head"],
+            "changed_paths":[{"after_sha256":current,"before_sha256":before,"path":changed_path}],
+            "claimed_repair_scope":"TECHNICAL_ADAPTER_ONLY","firewall_hash_after":file_sha256(gov.MUTABLE_SURFACE),
+            "firewall_hash_before":file_sha256(gov.MUTABLE_SURFACE),
+            "parent_action_terminal":state["last_action_terminal"],"patch_diff_sha256":"0"*64,
+            "query_semantic_hashes_after":after_hashes,"query_semantic_hashes_before":hashes,
+            "recovery_generation":generation,"recovery_graph_sha256_after":file_sha256(gov.RECOVERY_GRAPH),
+            "recovery_graph_sha256_before":file_sha256(gov.RECOVERY_GRAPH),
+            "schema_version":"TECHNICAL_PATCH_MANIFEST_1",
+            "scientific_invariants_sha256_after":file_sha256(gov.INVARIANTS),
+            "scientific_invariants_sha256_before":file_sha256(gov.INVARIANTS),
+            "technical_failure_class":"DOCUMENTARY_EVIDENCE_ACQUIRED",
+            "tests_executed":request["required_tests"]})
+        paths["patch"].write_bytes(canonical(patch_manifest)+b"\n")
+        contract=sealed({"adapter_id":adapter_id,"authentication_mode":"ANONYMOUS_PUBLIC",
+            "endpoint":"https://example.invalid/query","evidence":[request["diagnostic_and_documentary_evidence"][-1]],
+            "http_method":"GET","parameter_serialization":"URL_QUERY_PARAMETERS",
+            "query_semantic_hashes":hashes,"query_semantic_preservation_rule":"BYTE_IDENTICAL_FROZEN_ADQL",
+            "redirect_policy":"FORBID","response_representation":"CSV",
+            "schema_version":"OC3_SOURCE_METADATA_TECHNICAL_TRANSPORT_CONTRACT_001"})
+        paths["contract"].write_bytes(canonical(contract)+b"\n")
+        receipts=sealed({"all_required_passed":True,"real_network_requests":0,
+            "schema_version":"OC3_SOURCE_METADATA_TECHNICAL_REPAIR_TEST_RECEIPTS_001",
+            "tests_executed":request["required_tests"]})
+        paths["receipts"].write_bytes(canonical(receipts)+b"\n")
+        return paths
 
     @staticmethod
     def terminal(candidate,failure,**extra):
@@ -68,21 +125,40 @@ class ProductionRunnerTests(unittest.TestCase):
     def setUp(self): self.h=ProductionHarness()
     def tearDown(self): self.h.close()
 
+    def reach_handoff(self):
+        def executor(c):
+            failure="TECHNICAL_DIAGNOSTIC_CLASSIFIED" if c["action_kind"]=="TECHNICAL_RESPONSE_DIAGNOSTIC" else "DOCUMENTARY_EVIDENCE_ACQUIRED"
+            return self.h.terminal(c,failure)
+        return run_mission(state_path=self.h.state,authorization_path=self.h.auth,
+            first_candidate_path=self.h.first,ledger=self.h.ledger,executor=executor),executor
+
     def test_actual_runner_multi_action_to_scientific_terminal(self):
         outcomes={"TECHNICAL_RESPONSE_DIAGNOSTIC":"TECHNICAL_DIAGNOSTIC_CLASSIFIED",
-            "OFFICIAL_SERVICE_DOCUMENTARY_PROBE":"DOCUMENTARY_TRANSPORT_CONTRACT_RESOLVED",
+            "OFFICIAL_SERVICE_DOCUMENTARY_PROBE":"DOCUMENTARY_EVIDENCE_ACQUIRED",
             "OFFLINE_TECHNICAL_REPAIR":"TECHNICAL_PATCH_VALIDATED",
             "MATERIAL_SOURCE_METADATA_ACQUISITION":"SOURCE_METADATA_ACQUISITION_COMPLETED"}
         seen=[]
         def executor(c):
             seen.append(c["action_kind"]); extra={}
-            if c["action_kind"]=="OFFLINE_TECHNICAL_REPAIR": extra["adapter_activated"]="query_manager_public_anonymous_v1"
+            if c["action_kind"]=="OFFLINE_TECHNICAL_REPAIR":
+                return {k:v for k,v in executors.offline_repair(c,PROJECT/c["output_directory"]).items() if k!="sealed"}
             return self.h.terminal(c,outcomes[c["action_kind"]],**extra)
-        state=run_mission(state_path=self.h.state,authorization_path=self.h.auth,
+        authorization_sha=file_sha256(self.h.auth)
+        handoff=run_mission(state_path=self.h.state,authorization_path=self.h.auth,
             first_candidate_path=self.h.first,ledger=self.h.ledger,executor=executor)
+        self.assertEqual(handoff["current_stage"],"AWAITING_AGENTIC_TECHNICAL_REPAIR")
+        self.assertTrue(handoff["active"]); self.assertIsNone(handoff["registered_pending_action"])
+        self.assertEqual(len(list((self.h.root/"permits").glob("*.json"))),2)
+        artifacts=self.h.create_agentic_artifacts()
+        changed=load_canonical_json(artifacts["patch"])["changed_paths"][0]["path"]
+        with patch.object(executors,"_git_changed_paths",return_value=[changed]), \
+                patch.object(executors,"_git_blob_sha256",return_value=None):
+            state=run_mission(state_path=self.h.state,authorization_path=self.h.auth,
+                first_candidate_path=self.h.first,ledger=self.h.ledger,executor=executor)
         self.assertEqual(seen,["TECHNICAL_RESPONSE_DIAGNOSTIC","OFFICIAL_SERVICE_DOCUMENTARY_PROBE",
             "OFFLINE_TECHNICAL_REPAIR","MATERIAL_SOURCE_METADATA_ACQUISITION"])
         self.assertEqual(state["state"],gov.STATE_TERMINAL)
+        self.assertEqual(file_sha256(self.h.auth),authorization_sha)
         self.assertEqual(len(list((self.h.root/"permits").glob("*.json"))),4)
         self.assertEqual(len(list((self.h.root/"capability_consumption").glob("*.json"))),4)
 
@@ -95,10 +171,7 @@ class ProductionRunnerTests(unittest.TestCase):
         self.assertEqual(len(list((self.h.root/"candidates").glob("*.json"))),2)
 
     def test_resource_bound_finalizes_and_credentials_stop(self):
-        def resource(c):
-            if c["action_kind"]=="TECHNICAL_RESPONSE_DIAGNOSTIC":
-                return self.h.terminal(c,"TECHNICAL_PATCH_VALIDATED",adapter_activated="query_manager_public_anonymous_v1")
-            return self.h.terminal(c,"SOURCE_COUNT_RESOURCE_BOUND")
+        def resource(c): return self.h.terminal(c,"SOURCE_COUNT_RESOURCE_BOUND")
         state=run_mission(state_path=self.h.state,authorization_path=self.h.auth,
             first_candidate_path=self.h.first,ledger=self.h.ledger,executor=resource)
         self.assertEqual((state["state"],state["scientific_outcome"]),(gov.STATE_TERMINAL,"SOURCE_COUNT_RESOURCE_BOUND"))
@@ -114,9 +187,8 @@ class ProductionRunnerTests(unittest.TestCase):
         calls=[]
         def executor(c):
             calls.append(c["action_kind"])
-            if c["action_kind"] == "TECHNICAL_RESPONSE_DIAGNOSTIC":
-                return self.h.terminal(c,"TECHNICAL_PATCH_VALIDATED",adapter_activated="query_manager_public_anonymous_v1")
-            return self.h.terminal(c,"SOURCE_METADATA_ACQUISITION_COMPLETED")
+            return self.h.terminal(c,"TECHNICAL_DIAGNOSTIC_CLASSIFIED" if
+                c["action_kind"] == "TECHNICAL_RESPONSE_DIAGNOSTIC" else "CREDENTIALS_REQUIRED")
         original=gov.expected_child
         with patch.object(gov,"expected_child",side_effect=RuntimeError("synthetic crash after durable transition")):
             with self.assertRaises(RuntimeError):
@@ -128,7 +200,57 @@ class ProductionRunnerTests(unittest.TestCase):
         (self.h.ledger/"RUNNER_CRASH.json").unlink()
         state=run_mission(state_path=self.h.state,authorization_path=self.h.auth,
             first_candidate_path=self.h.first,ledger=self.h.ledger,executor=executor)
-        self.assertEqual(state["state"],gov.STATE_TERMINAL)
+        self.assertEqual(state["state"],STOP_REQUIRES_HUMAN)
+
+    def test_missing_patch_keeps_handoff_and_invalid_or_unsupported_artifacts_stop(self):
+        handoff,executor=self.reach_handoff()
+        permits=handoff["permits_issued"]
+        unchanged=run_mission(state_path=self.h.state,authorization_path=self.h.auth,
+            first_candidate_path=self.h.first,ledger=self.h.ledger,executor=executor)
+        self.assertEqual((unchanged["current_stage"],unchanged["permits_issued"]),
+            ("AWAITING_AGENTIC_TECHNICAL_REPAIR",permits))
+        self.h.create_agentic_artifacts(adapter_id="unsupported_adapter")
+        stopped=run_mission(state_path=self.h.state,authorization_path=self.h.auth,
+            first_candidate_path=self.h.first,ledger=self.h.ledger,executor=executor)
+        self.assertEqual((stopped["state"],stopped["stop_reason"]),
+            (STOP_REQUIRES_HUMAN,"TECHNICAL_TRANSPORT_CONTRACT_INVALID"))
+
+    def test_patch_outside_surface_and_query_hash_change_stop(self):
+        _,executor=self.reach_handoff()
+        self.h.create_agentic_artifacts(changed_path="oc3/oc3lib/source_metadata_recovery_governor.py")
+        stopped=run_mission(state_path=self.h.state,authorization_path=self.h.auth,
+            first_candidate_path=self.h.first,ledger=self.h.ledger,executor=executor)
+        self.assertEqual(stopped["stop_reason"],"TECHNICAL_PATCH_OUTSIDE_MUTABLE_SURFACE")
+
+        self.h.close(); self.h=ProductionHarness(); _,executor=self.reach_handoff()
+        self.h.create_agentic_artifacts(mutate_queries=True)
+        stopped=run_mission(state_path=self.h.state,authorization_path=self.h.auth,
+            first_candidate_path=self.h.first,ledger=self.h.ledger,executor=executor)
+        self.assertEqual(stopped["stop_reason"],"TECHNICAL_PATCH_IMMUTABLE_CONTRACT_CHANGED")
+
+    def test_material_candidate_requires_validated_active_adapter(self):
+        state={k:v for k,v in gov.validate_state(self.h.state).items() if k!="sealed"}
+        state.update({"active":True,"state":"ACTIVE","registered_pending_action":None,
+            "last_classification":{"decision":"RECOVER_AUTONOMOUSLY","failure_class":"TECHNICAL_PATCH_VALIDATED",
+                "next_action_kind":"MATERIAL_SOURCE_METADATA_ACQUISITION"},
+            "next_action_kind":"MATERIAL_SOURCE_METADATA_ACQUISITION","active_adapter":"query_manager_public_anonymous_v1",
+            "adapter_states":{"query_manager_public_anonymous_v1":"AVAILABLE_UNVALIDATED"}})
+        parent=PROJECT/state["last_action_terminal"]["path"]
+        with self.assertRaisesRegex(RecoveryEnvelopeError,"TECHNICAL_ADAPTER_NOT_VALIDATED"):
+            factory.build_next_candidate(state=state,parent_terminal_path=parent,
+                action_registry_path=gov.ACTION_REGISTRY,technical_authorities_path=gov.TECHNICAL_AUTHORITIES,
+                scientific_invariants_path=gov.INVARIANTS,recovery_graph_path=gov.RECOVERY_GRAPH,
+                recovery_budget_path=gov.RECOVERY_BUDGET,mutable_surface_path=gov.MUTABLE_SURFACE,
+                state_path=self.h.state,standing_authorization_path=self.h.auth,
+                implementation_aggregate=gov.implementation_aggregate())
+
+    def test_documentary_and_adapter_executor_semantics_are_not_hard_coded(self):
+        documentary=inspect.getsource(executors.documentary_probe)
+        repair=inspect.getsource(executors.offline_repair)
+        self.assertIn('"DOCUMENTARY_EVIDENCE_ACQUIRED"',documentary)
+        self.assertNotIn('"DOCUMENTARY_TRANSPORT_CONTRACT_RESOLVED"',documentary)
+        self.assertNotIn("query_manager_public_anonymous_v1",repair)
+        self.assertIn('contract.get("adapter_id")',repair)
 
     def test_registry_and_frozen_science(self):
         values=gov.validate_static_authorities()

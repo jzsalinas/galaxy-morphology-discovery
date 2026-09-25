@@ -44,7 +44,7 @@ def documentary_probe(candidate, output: Path, authorities: dict[str, object]):
             "http_status":response.getcode(),"resource_id":resource["id"]})
     write_json_immutable(output / "DOCUMENTARY_EVIDENCE.json", sealed({"records":records,
         "schema_version":"OC3_SOURCE_METADATA_DOCUMENTARY_EVIDENCE_001"}))
-    return _terminal(candidate, "DOCUMENTARY_TRANSPORT_CONTRACT_RESOLVED", requests=len(records), body=used)
+    return _terminal(candidate, "DOCUMENTARY_EVIDENCE_ACQUIRED", requests=len(records), body=used)
 
 
 def integrity_triage(candidate, output: Path):
@@ -70,22 +70,47 @@ def _git_changed_paths(base_commit: str, allowed_prefixes: tuple[str, ...]) -> l
     return sorted(paths)
 
 
+def _git_blob_sha256(base_commit: str, path: str) -> str | None:
+    result = subprocess.run(["git","show",f"{base_commit}:{path}"],cwd=PROJECT,
+        check=False,capture_output=True)
+    return hashlib.sha256(result.stdout).hexdigest() if result.returncode == 0 else None
+
+
 def offline_repair(candidate, output: Path):
-    binding = candidate.get("technical_patch_manifest")
-    if not isinstance(binding, dict):
+    patch_binding = candidate.get("technical_patch_manifest")
+    contract_binding = candidate.get("technical_transport_contract")
+    receipt_binding = candidate.get("test_receipts")
+    if not all(isinstance(item, dict) for item in (patch_binding, contract_binding, receipt_binding)):
         raise RecoveryEnvelopeError("TECHNICAL_PATCH_MANIFEST_REQUIRED")
-    path = PROJECT / binding["path"]
-    if binding.get("sha256") is not None and file_sha256(path) != binding["sha256"]:
+    path = PROJECT / patch_binding["path"]
+    if file_sha256(path) != patch_binding["sha256"]:
         raise RecoveryEnvelopeError("TECHNICAL_PATCH_MANIFEST_INVALID")
+    contract_path = PROJECT / contract_binding["path"]
+    receipts_path = PROJECT / receipt_binding["path"]
+    if (file_sha256(contract_path) != contract_binding["sha256"] or
+            file_sha256(receipts_path) != receipt_binding["sha256"]):
+        raise RecoveryEnvelopeError("TECHNICAL_REPAIR_ARTIFACT_BINDING_INVALID")
     manifest = load_canonical_json(path)
+    contract = load_canonical_json(contract_path)
     surface = load_canonical_json(PROJECT / candidate["mutable_technical_surface"]["path"])
     validate_patch_manifest(manifest, surface)
     actual = _git_changed_paths(manifest["base_commit"],tuple(surface["allowed_path_prefixes"]))
     declared = sorted(row["path"] for row in manifest["changed_paths"])
     if actual != declared:
         raise RecoveryEnvelopeError("TECHNICAL_PATCH_GIT_DIFF_MISMATCH")
+    rows={row["path"]:row for row in manifest["changed_paths"]}
+    for changed_path in actual:
+        current=PROJECT/changed_path
+        after=file_sha256(current) if current.is_file() else None
+        if (rows[changed_path]["before_sha256"] != _git_blob_sha256(manifest["base_commit"],changed_path) or
+                rows[changed_path]["after_sha256"] != after):
+            raise RecoveryEnvelopeError("TECHNICAL_PATCH_GIT_DIFF_MISMATCH")
+    adapter_id = contract.get("adapter_id")
+    if not isinstance(adapter_id, str) or not adapter_id:
+        raise RecoveryEnvelopeError("TECHNICAL_TRANSPORT_CONTRACT_INVALID")
     return _terminal(candidate, "TECHNICAL_PATCH_VALIDATED", request_class="OFFLINE",
-        adapter_activated="query_manager_public_anonymous_v1", patch_manifest=binding)
+        adapter_activated=adapter_id, patch_manifest=patch_binding,
+        technical_transport_contract=contract_binding, test_receipts=receipt_binding)
 
 
 def material_acquisition(candidate, output: Path, invariants: dict[str, object]):
