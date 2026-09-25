@@ -1,9 +1,12 @@
 # OC3 Source-Metadata Autonomous Recovery Runbook 001
 
-Validate the closed predecessor bindings, Scientific Invariants Manifest, Recovery Graph, Recovery Budget, Mutable Technical Surface, Policy Core manifest, pending mandate, waiting state and first diagnostic candidate offline. Bootstrap performs no network and creates no standing authorization, permit or capability.
+1. Validate every frozen authority and standing-authorization binding.
+2. Activate once, register the deterministic first candidate and issue its single-use permit.
+3. Execute through the supervisor/capability boundary and persist the sealed action terminal.
+4. Transition durably, classify with the Recovery Graph and account only the action's budget class.
+5. On recovery, derive and persist the exact child, register, permit and execute it without human interruption.
+6. On scientific finalization, preserve the complete trace and invariant hashes. On STOP, preserve the reason and do not issue another permit.
 
-After a future standing authorization binds the exact bootstrap identities, activate the mission through the governor. For each action: register the candidate; validate its parent terminal, generation, budgets, authority classes, implementation and exact argv; issue one permit; consume it in the supervisor; create and consume one worker capability; record request intent; execute within the candidate reservation; transition with actual technical or material deltas; classify the action terminal through the Recovery Graph.
+`CONTROL_PLANE_RESUME_ALLOWED=true`. `MATERIAL_ACTION_REPLAY_ALLOWED=false`. `TECHNICAL_NETWORK_ACTION_REPLAY_ALLOWED=false`. A consumed action with no terminal stops for human review.
 
-`RECOVER_AUTONOMOUSLY` leaves the mission active and awaiting registration, then the immutable factory generates and validates the next bounded candidate. `FINALIZE_SCIENTIFIC` creates one frozen mission outcome. `STOP_REQUIRES_HUMAN` closes autonomy. Never finalize merely because one action is technically inconclusive.
-
-An offline repair is eligible only after a routed action terminal. It changes only allowlisted paths and must carry `TECHNICAL_PATCH_MANIFEST_<N>.json`; the patch validator proves invariant, graph, query, firewall and budget identities unchanged. Failed validation stops for human review. Runtime response bodies and source tables remain local; compact governance evidence belongs in Git. Do not push, merge main or rewrite history autonomously.
+An offline repair is eligible only after a routed terminal. It changes only allowlisted paths and must create the deterministic `TECHNICAL_PATCH_MANIFEST_<N>.json`; Git-diff validation proves immutable contracts unchanged before material continuation.

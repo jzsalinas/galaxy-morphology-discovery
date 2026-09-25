@@ -19,6 +19,9 @@ from oc3lib.source_metadata_recovery_governor import (
     validate_candidate, validate_worker_capability,
 )
 from recovery_adapters.source_metadata.technical_response_diagnostic import BODY_CAP, classify_representation
+from oc3lib.cross_observer_grouping import load_canonical_json
+from oc3lib.source_metadata_recovery_executors import execute_action
+from oc3lib.source_metadata_recovery_governor import INVARIANTS, TECHNICAL_AUTHORITIES
 
 
 def parser():
@@ -54,7 +57,7 @@ def execute_diagnostic(candidate, output):
     raw = output / "RAW_IMMUTABLE"; raw.mkdir()
     with (raw / "schema_response.body").open("xb") as stream:
         stream.write(body); stream.flush(); os.fsync(stream.fileno())
-    terminal = sealed({"application_body_bytes_read": len(body), "diagnostic_class": classification,
+    terminal = sealed({"action_kind": candidate["action_kind"], "application_body_bytes_read": len(body), "diagnostic_class": classification,
         "failure_class": "TECHNICAL_DIAGNOSTIC_CLASSIFIED" if classification else "DATALAB_TRANSPORT_FAILURE",
         "http_status": status, "network_requests_started": 1, "request_class": "TECHNICAL",
         "response_body_sha256": hashlib.sha256(body).hexdigest(), "response_content_type": content_type,
@@ -77,7 +80,10 @@ def main(argv=None):
             authorization_path=args.standing_authorization, state_path=args.state)
         consume_worker_capability(capability_path=args.execution_capability,
             candidate_path=args.candidate, consumed_at_utc=utc_now())
-        terminal = execute_diagnostic(candidate, args.output)
+        terminal = execute_action(candidate, args.output,
+            load_canonical_json(TECHNICAL_AUTHORITIES), load_canonical_json(INVARIANTS))
+        if not (args.output / "TERMINAL.json").exists():
+            write_json_immutable(args.output / "TERMINAL.json", terminal)
         print(json.dumps(terminal, sort_keys=True)); return 0
     except Exception as exc:
         print(json.dumps({"error": getattr(exc, "code", str(exc)), "network_requests": 0,

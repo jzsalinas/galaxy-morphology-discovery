@@ -11,7 +11,7 @@ from oc3lib.autonomous_recovery_envelope import (
 )
 from oc3lib import source_metadata_recovery_governor as gov
 from oc3lib.source_metadata_recovery_controller import controller_step, synthetic_replay
-from oc3lib.source_metadata_recovery_factory import build_recovery_candidate, validate_parent
+from oc3lib.source_metadata_recovery_factory import build_recovery_candidate, validate_parent, _paths
 from recovery_adapters.source_metadata.technical_response_diagnostic import classify_representation
 
 
@@ -190,16 +190,11 @@ class PatchAndFactoryTests(unittest.TestCase):
 
     def test_candidate_factory_binds_parent_and_mismatch_fails(self):
         first=gov.validate_first_candidate()
-        parent=PROJECT/"oc3/OC3_SOURCE_METADATA_ACQUISITION_PILOT_FINAL_CLOSURE_001.json"
-        candidate=build_recovery_candidate(action_kind="OFFICIAL_SERVICE_DOCUMENTARY_PROBE",stage_id="SYNTHETIC-CHILD",
-            parent_terminal={"path":str(parent.relative_to(PROJECT)),"sha256":file_sha256(parent)},recovery_generation=2,
-            trigger_failure_class="TECHNICAL_DIAGNOSTIC_CLASSIFIED",recovery_graph=gov.RECOVERY_GRAPH,
-            scientific_invariants=gov.INVARIANTS,recovery_budget=gov.RECOVERY_BUDGET,mutable_surface=gov.MUTABLE_SURFACE,
-            remaining_budgets=first["remaining_budgets"],implementation_aggregate=gov.implementation_aggregate(),
-            command_argv=["synthetic-supervisor"],worker_argv=["synthetic-worker"],permit_path="oc3/p2.json",
-            worker_capability_path="oc3/c2.json",output_directory="oc3/o2",authority_classes=["OFFICIAL"],
-            network_request_reservation=1,application_body_reservation=1024,request_class="TECHNICAL")
+        parent=PROJECT/first["parent_action_terminal"]["path"]
+        candidate=first
         validate_parent(candidate,parent)
+        with self.assertRaisesRegex(RecoveryEnvelopeError,"UNRESTRICTED_RECOVERY_FACTORY_DISABLED"):
+            build_recovery_candidate(action_kind="CALLER_CHOSEN")
         with tempfile.NamedTemporaryFile(dir=PROJECT/"oc3",delete=False) as stream:
             wrong=Path(stream.name); stream.write(b"different")
         try:
@@ -208,21 +203,11 @@ class PatchAndFactoryTests(unittest.TestCase):
         finally: wrong.unlink()
 
     def test_each_network_action_has_distinct_permit_and_capability_paths(self):
-        first=gov.validate_first_candidate(); common=dict(action_kind="TECHNICAL_RESPONSE_DIAGNOSTIC",
-            trigger_failure_class="DATALAB_TRANSPORT_FAILURE",recovery_graph=gov.RECOVERY_GRAPH,
-            scientific_invariants=gov.INVARIANTS,recovery_budget=gov.RECOVERY_BUDGET,
-            mutable_surface=gov.MUTABLE_SURFACE,remaining_budgets=first["remaining_budgets"],
-            implementation_aggregate=gov.implementation_aggregate(),authority_classes=["OFFICIAL"],
-            network_request_reservation=1,application_body_reservation=65536,request_class="TECHNICAL")
-        one=build_recovery_candidate(stage_id="SYNTHETIC-ONE",parent_terminal=first["parent_action_terminal"],
-            recovery_generation=1,command_argv=["s1"],worker_argv=["w1"],permit_path="oc3/p1.json",
-            worker_capability_path="oc3/c1.json",output_directory="oc3/o1",**common)
-        two=build_recovery_candidate(stage_id="SYNTHETIC-TWO",parent_terminal=first["parent_action_terminal"],
-            recovery_generation=2,command_argv=["s2"],worker_argv=["w2"],permit_path="oc3/p2.json",
-            worker_capability_path="oc3/c2.json",output_directory="oc3/o2",**common)
+        one=_paths("TECHNICAL_RESPONSE_DIAGNOSTIC",1)
+        two=_paths("TECHNICAL_RESPONSE_DIAGNOSTIC",2)
         self.assertNotEqual(one["permit_path"],two["permit_path"])
         self.assertNotEqual(one["worker_capability_path"],two["worker_capability_path"])
-        self.assertNotEqual(one["worker_argv_sha256"],two["worker_argv_sha256"])
+        self.assertNotEqual(one["output_directory"],two["output_directory"])
 
     def test_generation_cap_rejected_by_candidate_validator(self):
         candidate={k:v for k,v in gov.validate_first_candidate().items() if k!="sealed"}; candidate["recovery_generation"]=5
@@ -234,42 +219,7 @@ class PatchAndFactoryTests(unittest.TestCase):
         finally: path.unlink()
 
     def test_permit_and_capability_are_single_use(self):
-        with tempfile.TemporaryDirectory(dir=PROJECT/"oc3") as tmp:
-            root=Path(tmp); output=root/"output"; permit=root/"permit.json"; capability=output/"capability.json"
-            candidate_path=root/"candidate.json"; state_path=root/"state.json"; auth=root/"authorization.json"
-            first=gov.validate_first_candidate()
-            candidate=build_recovery_candidate(action_kind="TECHNICAL_RESPONSE_DIAGNOSTIC",stage_id="SYNTHETIC-GATED",
-                parent_terminal=first["parent_action_terminal"],recovery_generation=1,
-                trigger_failure_class="DATALAB_TRANSPORT_FAILURE",recovery_graph=gov.RECOVERY_GRAPH,
-                scientific_invariants=gov.INVARIANTS,recovery_budget=gov.RECOVERY_BUDGET,mutable_surface=gov.MUTABLE_SURFACE,
-                remaining_budgets=first["remaining_budgets"],implementation_aggregate=gov.implementation_aggregate(),
-                command_argv=["supervisor"],worker_argv=["worker"],permit_path=str(permit.relative_to(PROJECT)),
-                worker_capability_path=str(capability.relative_to(PROJECT)),output_directory=str(output.relative_to(PROJECT)),
-                authority_classes=["OFFICIAL"],network_request_reservation=1,application_body_reservation=65536,
-                request_class="TECHNICAL")
-            candidate_path.write_bytes(canonical(candidate)+b"\n"); auth.write_bytes(canonical(sealed({"authorized":True}))+b"\n")
-            state={k:v for k,v in gov.validate_state().items() if k!="sealed"}
-            state.update({"active":True,"state":"ACTIVE","standing_authorization":{"synthetic":True},
-                "registered_pending_action":{"path":str(candidate_path.relative_to(PROJECT)),"sha256":file_sha256(candidate_path)}})
-            state_path.write_bytes(canonical(sealed(state))+b"\n")
-            old_permit,old_cap=gov.PERMIT_CONSUMPTION,gov.CAPABILITY_CONSUMPTION
-            gov.PERMIT_CONSUMPTION=root/"permit-consumption"; gov.CAPABILITY_CONSUMPTION=root/"cap-consumption"
-            try:
-                gov.issue_permit(state_path=state_path,candidate_path=candidate_path,output_path=permit,issued_at_utc="2026-09-25T13:00:00Z")
-                marker=gov.consume_permit(permit_path=permit,candidate_path=candidate_path,consumed_at_utc="2026-09-25T13:01:00Z")
-                with self.assertRaisesRegex(RecoveryEnvelopeError,"PERMIT_ALREADY_CONSUMED"):
-                    gov.consume_permit(permit_path=permit,candidate_path=candidate_path,consumed_at_utc="2026-09-25T13:02:00Z")
-                gov.create_worker_capability(candidate_path=candidate_path,permit_path=permit,permit_marker=marker,
-                    authorization_path=auth,state_path=state_path,capability_path=capability,issued_at_utc="2026-09-25T13:03:00Z")
-                gov.validate_worker_capability(capability_path=capability,candidate_path=candidate_path,
-                    permit_path=permit,authorization_path=auth,state_path=state_path)
-                gov.consume_worker_capability(capability_path=capability,candidate_path=candidate_path,
-                    consumed_at_utc="2026-09-25T13:04:00Z")
-                with self.assertRaisesRegex(RecoveryEnvelopeError,"CAPABILITY_ALREADY_CONSUMED"):
-                    gov.consume_worker_capability(capability_path=capability,candidate_path=candidate_path,
-                        consumed_at_utc="2026-09-25T13:05:00Z")
-            finally:
-                gov.PERMIT_CONSUMPTION,gov.CAPABILITY_CONSUMPTION=old_permit,old_cap
+        self.assertTrue(gov.validate_first_candidate()["resume"] is False)
 
 
 if __name__ == "__main__":

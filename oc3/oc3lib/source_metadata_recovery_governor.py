@@ -15,7 +15,9 @@ from .autonomous_recovery_envelope import (
     FINALIZE_SCIENTIFIC, RECOVER_AUTONOMOUSLY, STOP_REQUIRES_HUMAN,
     RecoveryEnvelopeError, account_action, classify_action_terminal, validate_recovery_graph,
 )
-from .source_metadata_recovery_factory import ACTION_FAMILIES, binding
+from .source_metadata_recovery_factory import (
+    ACTION_FAMILIES, binding, build_first_candidate, build_next_candidate,
+)
 
 MISSION_ID = "OC3-SOURCE-METADATA-AUTONOMOUS-RECOVERY-ENVELOPE-001"
 MISSION_SCOPE = "SOURCE_METADATA_ACQUISITION_WITH_BOUNDED_TECHNICAL_RECOVERY"
@@ -33,7 +35,10 @@ MUTABLE_SURFACE = PROJECT / "oc3/INPUTS/OC3_SOURCE_METADATA_MUTABLE_TECHNICAL_SU
 RECOVERY_BUDGET = PROJECT / "oc3/INPUTS/OC3_SOURCE_METADATA_RECOVERY_BUDGET_001.json"
 POLICY_MANIFEST = PROJECT / "oc3/INPUTS/OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_POLICY_CORE_MANIFEST_001.json"
 MANDATE = PROJECT / "oc3/INPUTS/OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_MANDATE_001.json"
-FIRST_CANDIDATE = PROJECT / "oc3/INPUTS/OC3_SOURCE_METADATA_RECOVERY_FIRST_CANDIDATE_001.json"
+PRODUCTION_FIRST_CANDIDATE = PROJECT / "oc3/INPUTS/OC3_SOURCE_METADATA_RECOVERY_FIRST_CANDIDATE_001.json"
+FIRST_CANDIDATE = PRODUCTION_FIRST_CANDIDATE
+ACTION_REGISTRY = PROJECT / "oc3/INPUTS/OC3_SOURCE_METADATA_RECOVERY_ACTION_REGISTRY_001.json"
+TECHNICAL_AUTHORITIES = PROJECT / "oc3/INPUTS/OC3_SOURCE_METADATA_RECOVERY_TECHNICAL_AUTHORITIES_001.json"
 STATE = PROJECT / "oc3/OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_STATE_001.json"
 STANDING_AUTHORIZATION = PROJECT / "oc3/OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_STANDING_AUTHORIZATION_001.json"
 LEDGER_ROOT = PROJECT / "oc3/SOURCE_METADATA_AUTONOMOUS_RECOVERY_LEDGER"
@@ -45,9 +50,12 @@ IMPLEMENTATION_FILES = (
     "oc3/oc3lib/source_metadata_recovery_controller.py",
     "oc3/oc3lib/source_metadata_recovery_factory.py",
     "oc3/oc3lib/source_metadata_recovery_governor.py",
+    "oc3/oc3lib/source_metadata_recovery_executors.py",
+    "oc3/oc3_source_metadata_recovery_mission_runner.py",
     "oc3/oc3_source_metadata_recovery_supervisor.py",
     "oc3/oc3_source_metadata_recovery_worker.py",
     "oc3/recovery_adapters/source_metadata/technical_response_diagnostic.py",
+    "oc3/recovery_adapters/source_metadata/transport_registry.py",
 )
 
 
@@ -106,10 +114,37 @@ def validate_static_authorities() -> dict[str, dict[str, object]]:
         "surface": _load(MUTABLE_SURFACE, "MUTABLE_TECHNICAL_SURFACE_INVALID"),
         "budget": _load(RECOVERY_BUDGET, "RECOVERY_BUDGET_INVALID"),
         "policy": _load(POLICY_MANIFEST, "RECOVERY_POLICY_CORE_INVALID"),
-        "mandate": _load(MANDATE, "RECOVERY_MANDATE_INVALID")}
+        "mandate": _load(MANDATE, "RECOVERY_MANDATE_INVALID"),
+        "action_registry": _load(ACTION_REGISTRY, "RECOVERY_ACTION_REGISTRY_INVALID"),
+        "technical_authorities": _load(TECHNICAL_AUTHORITIES, "TECHNICAL_AUTHORITIES_INVALID")}
     validate_recovery_graph(values["graph"])
     validate_recovery_budget(values["budget"])
     validate_scientific_invariants(values["invariants"])
+    registry = values["action_registry"]
+    if (registry.get("schema_version") != "OC3_SOURCE_METADATA_RECOVERY_ACTION_REGISTRY_001" or
+            [row.get("action_kind") for row in registry.get("actions", [])] != list(ACTION_FAMILIES)):
+        raise RecoveryEnvelopeError("RECOVERY_ACTION_REGISTRY_INVALID")
+    required_action = {"action_kind", "active_adapter_required", "allowed_authority_classes",
+        "capability_naming_template", "command_template_id", "eligible_trigger_failure_classes",
+        "maximum_body_bytes_per_action", "maximum_requests_per_action", "network_capability_required",
+        "output_directory_naming_template", "parent_terminal_required", "permit_naming_template",
+        "request_class", "stage_id_naming_template", "supervisor_implementation",
+        "technical_patch_manifest_required", "worker_implementation"}
+    mandate = values["mandate"]
+    for row in registry["actions"]:
+        if set(row) != required_action or row["request_class"] not in ("TECHNICAL", "MATERIAL", "OFFLINE"):
+            raise RecoveryEnvelopeError("RECOVERY_ACTION_REGISTRY_INVALID")
+        if not set(row["allowed_authority_classes"]).issubset(set(mandate["allowed_authority_classes"])):
+            raise RecoveryEnvelopeError("RECOVERY_AUTHORITY_CLASS_EXPANSION")
+        for key in ("supervisor_implementation", "worker_implementation"):
+            target = PROJECT / row[key]["path"]
+            if row[key] != binding(target):
+                raise RecoveryEnvelopeError("RECOVERY_ACTION_IMPLEMENTATION_CHANGED")
+    authorities = values["technical_authorities"]
+    if (authorities.get("schema_version") != "OC3_SOURCE_METADATA_RECOVERY_TECHNICAL_AUTHORITIES_001" or
+            not isinstance(authorities.get("resources"), list) or
+            any(set(row) != {"authority_class", "id", "purpose", "url"} for row in authorities["resources"])):
+        raise RecoveryEnvelopeError("TECHNICAL_AUTHORITIES_INVALID")
     policy = values["policy"]
     if (policy.get("generic_policy_core") is not True or
             policy.get("active_mutation_result") != STOP_REQUIRES_HUMAN or
@@ -119,7 +154,6 @@ def validate_static_authorities() -> dict[str, dict[str, object]]:
         path = PROJECT / str(item.get("path", ""))
         if not path.is_file() or item.get("sha256") != file_sha256(path):
             raise RecoveryEnvelopeError("RECOVERY_POLICY_CORE_CHANGED")
-    mandate = values["mandate"]
     if (mandate.get("active") is not False or mandate.get("mission_id") != MISSION_ID or
             mandate.get("mission_scope") != MISSION_SCOPE or mandate.get("autonomy_branch") != AUTONOMY_BRANCH or
             mandate.get("allowed_action_families") != list(ACTION_FAMILIES) or
@@ -127,6 +161,8 @@ def validate_static_authorities() -> dict[str, dict[str, object]]:
             mandate.get("recovery_graph") != binding(RECOVERY_GRAPH) or
             mandate.get("mutable_technical_surface") != binding(MUTABLE_SURFACE) or
             mandate.get("recovery_budget") != binding(RECOVERY_BUDGET) or
+            mandate.get("action_registry") != binding(ACTION_REGISTRY) or
+            mandate.get("technical_authorities") != binding(TECHNICAL_AUTHORITIES) or
             mandate.get("policy_core_manifest") != binding(POLICY_MANIFEST)):
         raise RecoveryEnvelopeError("RECOVERY_MANDATE_PREMATURELY_ACTIVE")
     return values
@@ -134,21 +170,22 @@ def validate_static_authorities() -> dict[str, dict[str, object]]:
 
 def validate_candidate(path: Path) -> dict[str, object]:
     value = _load(path, "RECOVERY_CANDIDATE_INVALID")
-    required = {"action_kind", "application_body_reservation", "authority_classes", "command_argv",
+    required = {"action_kind", "active_adapter", "action_registry", "application_body_reservation", "authority_classes", "command_argv",
         "command_argv_sha256", "implementation_aggregate", "material_budget_reservation",
         "mutable_technical_surface", "network_request_reservation", "output_directory",
         "parent_action_terminal", "permit_path", "recovery_budget", "recovery_generation",
         "recovery_graph", "remaining_budgets", "request_class", "resume", "retries",
-        "schema_version", "scientific_invariants", "sealed", "stage_id",
+        "schema_version", "scientific_invariants", "sealed", "stage_id", "technical_authorities",
         "technical_budget_reservation", "technical_patch_manifest", "trigger_failure_class",
         "worker_argv", "worker_argv_sha256", "worker_capability_path"}
-    if (set(value) != required or value.get("schema_version") != "RECOVERY_ACTION_FACTORY_V1" or
+    if (set(value) != required or value.get("schema_version") != "RECOVERY_ACTION_FACTORY_V2" or
             value.get("action_kind") not in ACTION_FAMILIES or value.get("request_class") not in ("TECHNICAL", "MATERIAL", "OFFLINE") or
             value.get("resume") is not False or value.get("retries") != 0 or
             value.get("implementation_aggregate") != implementation_aggregate()):
         raise RecoveryEnvelopeError("RECOVERY_CANDIDATE_INVALID")
     expected = (("scientific_invariants", INVARIANTS), ("recovery_graph", RECOVERY_GRAPH),
-        ("mutable_technical_surface", MUTABLE_SURFACE), ("recovery_budget", RECOVERY_BUDGET))
+        ("mutable_technical_surface", MUTABLE_SURFACE), ("recovery_budget", RECOVERY_BUDGET),
+        ("action_registry", ACTION_REGISTRY), ("technical_authorities", TECHNICAL_AUTHORITIES))
     if any(value[key] != binding(path_) for key, path_ in expected):
         raise RecoveryEnvelopeError("RECOVERY_CANDIDATE_AUTHORITY_MISMATCH")
     if (sha256_bytes(canonical(value["command_argv"])) != value["command_argv_sha256"] or
@@ -163,6 +200,15 @@ def validate_candidate(path: Path) -> dict[str, object]:
             value["application_body_reservation"] > budget["MAX_TECHNICAL_BODY_BYTES"] or
             value["application_body_reservation"] > budget["MAX_TECHNICAL_BODY_BYTES_PER_REQUEST"]):
         raise RecoveryEnvelopeError("TECHNICAL_BUDGET_OVERFLOW")
+    registry = _load(ACTION_REGISTRY, "RECOVERY_ACTION_REGISTRY_INVALID")
+    rule = next((row for row in registry["actions"] if row["action_kind"] == value["action_kind"]), None)
+    mandate = _load(MANDATE, "RECOVERY_MANDATE_INVALID")
+    if (rule is None or value["request_class"] != rule["request_class"] or
+            value["authority_classes"] != rule["allowed_authority_classes"] or
+            not set(value["authority_classes"]).issubset(set(mandate["allowed_authority_classes"])) or
+            value["network_request_reservation"] != rule["maximum_requests_per_action"] or
+            value["application_body_reservation"] != rule["maximum_body_bytes_per_action"]):
+        raise RecoveryEnvelopeError("RECOVERY_CANDIDATE_REGISTRY_MISMATCH")
     return value
 
 
@@ -173,13 +219,44 @@ def validate_first_candidate(path: Path = FIRST_CANDIDATE) -> dict[str, object]:
             value["material_budget_reservation"] != {"body_bytes": 0, "requests": 0} or
             value["technical_budget_reservation"] != {"body_bytes": 65_536, "requests": 1}):
         raise RecoveryEnvelopeError("FIRST_RECOVERY_CANDIDATE_INVALID")
+    parent = PROJECT / value["parent_action_terminal"]["path"]
+    expected = build_first_candidate(parent_terminal_path=parent, action_registry_path=ACTION_REGISTRY,
+        technical_authorities_path=TECHNICAL_AUTHORITIES, scientific_invariants_path=INVARIANTS,
+        recovery_graph_path=RECOVERY_GRAPH, recovery_budget_path=RECOVERY_BUDGET,
+        mutable_surface_path=MUTABLE_SURFACE, state_path=STATE,
+        standing_authorization_path=STANDING_AUTHORIZATION,
+        implementation_aggregate=implementation_aggregate())
+    if path.resolve() == PRODUCTION_FIRST_CANDIDATE.resolve() and value != expected:
+        raise RecoveryEnvelopeError("FIRST_RECOVERY_CANDIDATE_INVALID")
+    return value
+
+
+def expected_child(state: dict[str, object], parent_terminal_path: Path, *, state_path: Path,
+                   authorization_path: Path) -> tuple[Path, dict[str, object]]:
+    return build_next_candidate(state=state, parent_terminal_path=parent_terminal_path,
+        action_registry_path=ACTION_REGISTRY, technical_authorities_path=TECHNICAL_AUTHORITIES,
+        scientific_invariants_path=INVARIANTS, recovery_graph_path=RECOVERY_GRAPH,
+        recovery_budget_path=RECOVERY_BUDGET, mutable_surface_path=MUTABLE_SURFACE,
+        state_path=state_path, standing_authorization_path=authorization_path,
+        implementation_aggregate=implementation_aggregate())
+
+
+def validate_generated_candidate(path: Path, *, state_path: Path, parent_terminal_path: Path) -> dict[str, object]:
+    value = validate_candidate(path); state = validate_state(state_path)
+    auth = state.get("standing_authorization")
+    if not isinstance(auth, dict):
+        raise RecoveryEnvelopeError("RECOVERY_STANDING_AUTHORIZATION_INVALID")
+    expected_path, expected = expected_child(state, parent_terminal_path, state_path=state_path,
+        authorization_path=PROJECT / auth["path"])
+    if path.resolve() != expected_path.resolve() or value != expected:
+        raise RecoveryEnvelopeError("RECOVERY_CHILD_ACTION_STATE_MISMATCH")
     return value
 
 
 def validate_state(path: Path = STATE) -> dict[str, object]:
     value = _load(path, "RECOVERY_STATE_INVALID")
-    required = {"active", "body_budget_material_parent", "code_repair_generation", "current_stage",
-        "first_candidate", "last_action_terminal_sha256", "last_classification", "material_body_bytes_remaining",
+    required = {"active", "active_adapter", "body_budget_material_parent", "code_repair_generation", "current_stage",
+        "first_candidate", "last_action_terminal", "last_action_terminal_sha256", "last_classification", "material_body_bytes_remaining",
         "material_requests_remaining", "mission_id", "mission_scope", "next_action_kind", "permits_issued",
         "recovery_generation", "registered_pending_action", "requests_material_parent", "schema_version", "sealed",
         "sequence", "scientific_outcome", "standing_authorization", "state", "stop_reason",
@@ -197,7 +274,7 @@ def validate_state(path: Path = STATE) -> dict[str, object]:
 
 
 def activate(*, state_path: Path, authorization_path: Path, activated_at_utc: str) -> dict[str, object]:
-    state = validate_state(state_path); auth = _load(authorization_path, "RECOVERY_STANDING_AUTHORIZATION_INVALID")
+    state = validate_state(state_path); auth = validate_standing_authorization(authorization_path, state_path=state_path)
     if state["state"] != STATE_WAITING or auth.get("authorized") is not True or auth.get("initial_state_sha256") != file_sha256(state_path):
         raise RecoveryEnvelopeError("RECOVERY_ACTIVATION_INVALID")
     body = {k: v for k, v in state.items() if k != "sealed"}
@@ -209,7 +286,15 @@ def activate(*, state_path: Path, authorization_path: Path, activated_at_utc: st
 
 
 def register_action(*, state_path: Path, candidate_path: Path) -> dict[str, object]:
-    state = validate_state(state_path); candidate = validate_candidate(candidate_path)
+    state = validate_state(state_path)
+    if candidate_path.resolve() == FIRST_CANDIDATE.resolve() and state["recovery_generation"] == 0:
+        candidate = validate_first_candidate(candidate_path)
+    else:
+        parent = state.get("last_action_terminal")
+        if not isinstance(parent, dict):
+            raise RecoveryEnvelopeError("PARENT_ACTION_TERMINAL_MISMATCH")
+        candidate = validate_generated_candidate(candidate_path, state_path=state_path,
+            parent_terminal_path=PROJECT / parent["path"])
     if state["state"] != STATE_ACTIVE or state["registered_pending_action"] is not None:
         raise RecoveryEnvelopeError("RECOVERY_ACTION_REGISTRATION_INVALID")
     expected_parent = state["last_action_terminal_sha256"]
@@ -350,7 +435,14 @@ def transition_action(*, state_path: Path, candidate_path: Path, terminal_path: 
     budget = _load(RECOVERY_BUDGET, "RECOVERY_BUDGET_INVALID")
     classification = classify_action_terminal(terminal, graph)
     updated = account_action(state, terminal, classification, budget)
+    updated["last_action_terminal"] = binding(terminal_path)
+    if terminal.get("adapter_activated") is not None:
+        authorities = _load(TECHNICAL_AUTHORITIES, "TECHNICAL_AUTHORITIES_INVALID")
+        if terminal["adapter_activated"] not in authorities["adapter_ids"]:
+            raise RecoveryEnvelopeError("TECHNICAL_ADAPTER_NOT_VALIDATED")
+        updated["active_adapter"] = terminal["adapter_activated"]
     updated["permits_issued"] = state["permits_issued"] + 1
+    updated.pop("sealed", None)
     sealed_state = sealed(updated); _atomic_state(state_path, sealed_state)
     return sealed_state, sealed(classification)
 
@@ -362,5 +454,45 @@ def finalize_mission(*, state_path: Path, outcome: str) -> dict[str, object]:
     body = {k: v for k, v in state.items() if k != "sealed"}
     body.update({"active": False, "current_stage": STATE_TERMINAL, "scientific_outcome": outcome,
         "state": STATE_TERMINAL, "sequence": state["sequence"] + 1})
+    updated = sealed(body); _atomic_state(state_path, updated)
+    return updated
+
+
+def validate_standing_authorization(path: Path, *, state_path: Path,
+                                    require_initial_state: bool = True) -> dict[str, object]:
+    value = _load(path, "RECOVERY_STANDING_AUTHORIZATION_INVALID")
+    required = {"action_registry", "authorized", "candidate_factory_sha256", "initial_state_sha256",
+        "mandate", "mission_id", "mission_runner_sha256", "mutable_technical_surface",
+        "policy_core_manifest", "recovery_budget", "recovery_graph", "schema_version",
+        "scientific_invariants", "sealed", "technical_authorities"}
+    if (set(value) != required or value.get("schema_version") != "OC3_SOURCE_METADATA_RECOVERY_STANDING_AUTHORIZATION_001" or
+            value.get("authorized") is not True or value.get("mission_id") != MISSION_ID or
+            (require_initial_state and value.get("initial_state_sha256") != file_sha256(state_path)) or
+            value.get("mandate") != binding(MANDATE) or value.get("policy_core_manifest") != binding(POLICY_MANIFEST) or
+            value.get("scientific_invariants") != binding(INVARIANTS) or value.get("recovery_graph") != binding(RECOVERY_GRAPH) or
+            value.get("recovery_budget") != binding(RECOVERY_BUDGET) or value.get("mutable_technical_surface") != binding(MUTABLE_SURFACE) or
+            value.get("action_registry") != binding(ACTION_REGISTRY) or
+            value.get("technical_authorities") != binding(TECHNICAL_AUTHORITIES) or
+            value.get("mission_runner_sha256") != file_sha256(PROJECT / "oc3/oc3_source_metadata_recovery_mission_runner.py") or
+            value.get("candidate_factory_sha256") != file_sha256(PROJECT / "oc3/oc3lib/source_metadata_recovery_factory.py")):
+        raise RecoveryEnvelopeError("RECOVERY_STANDING_AUTHORIZATION_INVALID")
+    return value
+
+
+def write_candidate_idempotent(path: Path, candidate: dict[str, object]) -> None:
+    data = canonical(candidate) + b"\n"
+    if path.exists():
+        if path.read_bytes() != data:
+            raise RecoveryEnvelopeError("RECOVERY_CHILD_CANDIDATE_CONFLICT")
+        return
+    write_json_immutable(path, candidate)
+
+
+def stop_mission(*, state_path: Path, reason: str) -> dict[str, object]:
+    state = validate_state(state_path)
+    body = {k: v for k, v in state.items() if k != "sealed"}
+    body.update({"active": False, "current_stage": STOP_REQUIRES_HUMAN,
+        "next_action_kind": None, "state": STOP_REQUIRES_HUMAN,
+        "stop_reason": reason, "sequence": state["sequence"] + 1})
     updated = sealed(body); _atomic_state(state_path, updated)
     return updated
