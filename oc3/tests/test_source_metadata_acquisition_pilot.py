@@ -420,7 +420,8 @@ class BootstrapGovernanceTests(unittest.TestCase):
             state={k:v for k,v in load_canonical_json(gov.STATE_PATH).items() if k!="sealed"}
             state.update({"active":False,"current_stage":"FIRST_ACTION_PREPARED",
                 "first_candidate":binding(candidate_path),"last_completed_stage":None,"last_terminal":None,
-                "permits_issued":0,"registered_pending_action":None,"scientific_outcome":None,"sequence":0,
+                "body_budget_remaining":science.BODY_CAP,"permits_issued":0,"registered_pending_action":None,
+                "requests_remaining":science.REQUEST_CAP,"scientific_outcome":None,"sequence":0,
                 "standing_authorization":None,"standing_authorization_initial_state_sha256":None,
                 "state":gov.STATE_WAITING,"stop_reason":None})
             write(state_path,sealed(state))
@@ -483,11 +484,11 @@ class BootstrapGovernanceTests(unittest.TestCase):
         self.assertEqual(candidate["implementation_aggregate"],implementation_aggregate())
         self.assertEqual(tuple(candidate[x] for x in ("network_requests","schema_rows_observed","source_counts_observed","source_rows_observed")),(0,0,0,0))
 
-    def test_governor_waits_without_authorization_or_permit(self):
+    def test_closed_predecessor_governor_is_terminal_and_inactive(self):
         gov.validate_static_authorities(); mandate=gov.validate_mandate(); state=gov.validate_state()
-        self.assertEqual((state["state"],state["active"],state["permits_issued"]),(gov.STATE_WAITING,False,0))
+        self.assertEqual((state["state"],state["active"],state["permits_issued"]),(gov.STATE_TERMINAL,False,1))
         self.assertEqual((mandate["budgets"]["network_requests_parent"],mandate["budgets"]["application_body_bytes_parent"]),(5,67108864))
-        self.assertFalse(gov.STANDING_AUTHORIZATION_PATH.exists()); self.assertFalse((gov.PROJECT/validate_candidate()["autonomy_policy"]["permit_output_path"]).exists())
+        self.assertTrue(gov.STANDING_AUTHORIZATION_PATH.exists()); self.assertTrue((gov.PROJECT/validate_candidate()["autonomy_policy"]["permit_output_path"]).exists())
         self.assertEqual(gov.evaluate_candidate(),{"decision":gov.MANDATE_NOT_ACTIVE,"permit_state":gov.NO_PERMIT_ISSUED})
 
     def test_predecessor_exact_bindings_and_terminal_commit(self):

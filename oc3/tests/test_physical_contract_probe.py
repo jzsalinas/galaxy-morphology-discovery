@@ -720,6 +720,14 @@ class ManifestContractTripwireOutcomeTests(Base):
             "OC3_SOURCE_METADATA_ACQUISITION_PILOT_CANDIDATE_VALIDATION_001.json",
             "OC3_SOURCE_METADATA_ACQUISITION_PILOT_POLICY_CORE_MANIFEST_001.json",
             "OC3_SOURCE_METADATA_ACQUISITION_QUERY_MANIFEST_001.json"}
+        source_metadata_autonomous_recovery = source_metadata_acquisition_pilot | {
+            "OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_MANDATE_001.json",
+            "OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_POLICY_CORE_MANIFEST_001.json",
+            "OC3_SOURCE_METADATA_MUTABLE_TECHNICAL_SURFACE_001.json",
+            "OC3_SOURCE_METADATA_RECOVERY_BUDGET_001.json",
+            "OC3_SOURCE_METADATA_RECOVERY_FIRST_CANDIDATE_001.json",
+            "OC3_SOURCE_METADATA_RECOVERY_GRAPH_001.json",
+            "OC3_SOURCE_METADATA_RECOVERY_SCIENTIFIC_INVARIANTS_001.json"}
         eligibility_p0 = eligibility_implementation | {
             "OC3_GALAXY_ELIGIBILITY_PANEL_MANIFEST.json",
             "OC3_GALAXY_ELIGIBILITY_P1_AUTHORIZATION_CANDIDATE_001.json"}
@@ -757,6 +765,7 @@ class ManifestContractTripwireOutcomeTests(Base):
                                     source_metadata_pilot_frame_recovery,
                                     source_metadata_pilot_frame_schema_recovery,
                                     source_metadata_acquisition_pilot,
+                                    source_metadata_autonomous_recovery,
                                     eligibility_p0))
         technical_names = {item.name for item in (PROJECT / "oc3/TECHNICAL_INDEX").iterdir()}
         technical_base = {"OC3_LOCATIONS.json", "OC3_SELECTION_FLOW.csv",
