@@ -19,7 +19,9 @@ for _key in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS", "NUME
 
 from oc3lib.cross_observer_grouping import file_sha256, load_canonical_json, sealed, validate_sealed, write_json_immutable
 from oc3lib.source_metadata_acquisition_pilot import OUTCOMES
-from oc3lib.source_metadata_acquisition_pilot_validation import CANDIDATE, validate_candidate, validate_invocation
+from oc3lib.source_metadata_acquisition_pilot_validation import (
+    CANDIDATE, create_worker_capability, validate_candidate, validate_invocation,
+)
 
 STREAM_CAPTURE_CAP = 262_144
 
@@ -62,12 +64,16 @@ def run_child(command):
         "max_rss_note":"ru_maxrss maximum over completed children; KiB on Linux; not an OOM inference"}}
 
 
-def run_worker(candidate, output, candidate_path=CANDIDATE):
+def run_worker(candidate, output, *, candidate_path, permit_path, standing_authorization_path,
+               autonomy_state_path, permit_consumption_marker):
     """Launch exactly one bound worker and preserve bounded failure evidence."""
     output.mkdir(parents=True,exist_ok=False)
     write_json_immutable(output/"START_INTENT.json",sealed({"candidate_sha256":file_sha256(candidate_path),
         "created_output_before_worker":True,"schema_version":"OC3_SOURCE_METADATA_ACQUISITION_START_INTENT_001",
         "stage_id":candidate["stage_id"],"started_at_utc":_utc(),"worker_command_sha256":candidate["worker_command_sha256"]}))
+    create_worker_capability(candidate=candidate,candidate_path=candidate_path,permit_path=permit_path,
+        standing_authorization_path=standing_authorization_path,autonomy_state_path=autonomy_state_path,
+        output_directory=output,permit_consumption_marker=permit_consumption_marker,issued_at_utc=_utc())
     child=run_child(candidate["worker_command"])
     terminal_path=output/"TERMINAL.json"
     if child["return_code"] != 0 or not terminal_path.is_file():
@@ -116,9 +122,11 @@ def main(argv=None):
         from oc3lib.source_metadata_acquisition_pilot_governor import consume_permit,validate_permit
         validate_permit(args.permit,candidate_path=args.candidate,state_path=args.autonomy_state,
             standing_authorization_path=args.standing_authorization)
-        consume_permit(args.permit,candidate_path=args.candidate,state_path=args.autonomy_state,
+        consumption_marker=consume_permit(args.permit,candidate_path=args.candidate,state_path=args.autonomy_state,
             standing_authorization_path=args.standing_authorization,consumed_at_utc=_utc())
-        terminal=run_worker(candidate,args.output_directory,args.candidate)
+        terminal=run_worker(candidate,args.output_directory,candidate_path=args.candidate,permit_path=args.permit,
+            standing_authorization_path=args.standing_authorization,autonomy_state_path=args.autonomy_state,
+            permit_consumption_marker=consumption_marker)
         print(json.dumps(terminal,sort_keys=True)); return 0
     except Exception as exc:
         print(json.dumps({"error":getattr(exc,"code",str(exc)),"state":"SOURCE_METADATA_ACQUISITION_SUPERVISOR_BLOCKED"},sort_keys=True),file=sys.stderr); return 2

@@ -17,7 +17,10 @@ from oc3lib.source_metadata_acquisition_pilot import (
     OUTCOMES, REQUEST_ORDER, RESPONSE_CAPS, TARGET_GUARD_UNION, bounded_get, frame_support,
     load_text, parse_counts, parse_schema, terminal_outcome_for, validate_source_rows,
 )
-from oc3lib.source_metadata_acquisition_pilot_validation import CANDIDATE, FRAME, FRAME_SHA256, validate_candidate
+from oc3lib.source_metadata_acquisition_pilot_validation import (
+    CANDIDATE, FRAME, FRAME_SHA256, consume_worker_capability, validate_candidate,
+    validate_worker_capability, validate_worker_invocation,
+)
 
 
 def _terminal(candidate, accounting, outcome, error_code, holdout_counts=0, holdout_rows=0,
@@ -129,17 +132,26 @@ def parser():
     result.add_argument("--run-acquisition-worker", action="store_true", required=True)
     result.add_argument("--candidate", type=Path, default=CANDIDATE)
     result.add_argument("--output", type=Path, required=True)
+    result.add_argument("--execution-capability", type=Path)
     return result
 
 
 def main(argv=None):
     args = parser().parse_args(argv)
     try:
+        if args.execution_capability is None:
+            raise AcquisitionError("WORKER_EXECUTION_CAPABILITY_REQUIRED")
         candidate = validate_candidate(args.candidate)
+        validate_worker_invocation(candidate,[sys.executable,sys.argv[0],*sys.argv[1:]])
+        validate_worker_capability(args.execution_capability,candidate=candidate,candidate_path=args.candidate,
+            output_directory=args.output)
+        consume_worker_capability(args.execution_capability,candidate=candidate,candidate_path=args.candidate,
+            output_directory=args.output)
         terminal = execute(candidate, args.output)
         print(json.dumps(terminal, sort_keys=True)); return 0
     except Exception as exc:
-        print(json.dumps({"error":getattr(exc,"code",type(exc).__name__),"state":"WORKER_BLOCKED"},sort_keys=True),file=sys.stderr)
+        print(json.dumps({"error":getattr(exc,"code",type(exc).__name__),"network_requests":0,
+            "state":"WORKER_BLOCKED"},sort_keys=True),file=sys.stderr)
         return 2
 
 

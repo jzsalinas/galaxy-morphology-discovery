@@ -42,6 +42,10 @@ Exactly one outcome is allowed: `SOURCE_METADATA_ACQUISITION_COMPLETED`, `SOURCE
 
 ## Governance and firewall
 
-The mission uses a frozen generic Policy Core, state-bound first candidate, standing human authorization, a single-use permit, exact supervisor/worker argv, actual accounting, append-only ledger, scientific terminal and `STOP_REQUIRES_HUMAN`. Bootstrap creates no authorization or permit and performs no network request.
+The pre-authorization review found `DIRECT_NETWORK_WORKER_GOVERNANCE_BYPASS`: the first bootstrap worker could construct network transport when invoked directly without proving supervisor permit consumption. No unauthorized material access is known to have occurred. This is an implementation/governance defect, not a scientific-design defect.
+
+The corrected causal chain is standing human authorization, governor activation, action registration, single-use governor permit, supervisor permit consumption, supervisor-created single-use worker execution capability, worker capability consumption, request intent, and only then network material access. The worker must validate the sealed capability and atomically create its immutable consumption marker before constructing or invoking any transport opener. A crash never restores the capability. Missing, mismatched or previously consumed capability fails with zero network requests.
+
+The mission uses a frozen generic Policy Core, state-bound first candidate, standing human authorization, a single-use permit, exact supervisor/worker argv, actual accounting, append-only ledger, scientific terminal and `STOP_REQUIRES_HUMAN`. Bootstrap creates no authorization, permit or worker capability and performs no network request.
 
 Holdout count requests, holdout row requests and holdout source-derived cells must remain zero. Combined Tractor access, crossmatch, q3c, cone search, matching, angular separation, radii, search-bound or scientific-threshold selection, group IDs, PHOTSYS, TYPE, DCHISQ, Sersic/shape, photometry, photo-z, pixels, morphology, labels, models, training, embeddings, clustering, Panel V3 and P1 remain zero.
