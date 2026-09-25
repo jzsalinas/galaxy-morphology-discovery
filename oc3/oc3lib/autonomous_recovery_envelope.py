@@ -149,7 +149,8 @@ def validate_patch_manifest(manifest: dict[str, object], mutable_surface: dict[s
         "scientific_invariants_sha256_after", "scientific_invariants_sha256_before",
         "technical_failure_class", "tests_executed", "query_semantic_hashes_after",
         "query_semantic_hashes_before"}
-    if set(manifest) - {"sealed"} != required:
+    observed = set(manifest) - {"sealed"}
+    if observed not in (required, required | {"run_id"}):
         raise RecoveryEnvelopeError("TECHNICAL_PATCH_MANIFEST_INVALID")
     allowed = tuple(mutable_surface.get("allowed_path_prefixes", []))
     changed = manifest.get("changed_paths")

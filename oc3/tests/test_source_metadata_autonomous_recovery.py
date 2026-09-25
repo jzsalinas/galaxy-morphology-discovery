@@ -212,7 +212,13 @@ class PatchAndFactoryTests(unittest.TestCase):
     def test_generation_cap_rejected_by_candidate_validator(self):
         candidate={k:v for k,v in gov.validate_first_candidate().items() if k!="sealed"}; candidate["recovery_generation"]=5
         with tempfile.NamedTemporaryFile(dir=PROJECT/"oc3",delete=False) as stream:
-            path=Path(stream.name); stream.write(canonical(sealed(candidate))+b"\n")
+            path=Path(stream.name)
+            candidate["candidate_path"]=str(path.relative_to(PROJECT))
+            for key in ("command_argv","worker_argv"):
+                argv=list(candidate[key]); argv[argv.index("--candidate")+1]=str(path); candidate[key]=argv
+            candidate["command_argv_sha256"]=sha256_bytes(canonical(candidate["command_argv"]))
+            candidate["worker_argv_sha256"]=sha256_bytes(canonical(candidate["worker_argv"]))
+            stream.write(canonical(sealed(candidate))+b"\n")
         try:
             with self.assertRaisesRegex(RecoveryEnvelopeError,"RECOVERY_GENERATION_LIMIT"):
                 gov.validate_candidate(path)

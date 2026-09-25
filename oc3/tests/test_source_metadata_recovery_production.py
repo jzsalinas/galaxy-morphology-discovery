@@ -1,8 +1,11 @@
 from contextlib import ExitStack
 from copy import deepcopy
+from contextlib import redirect_stderr, redirect_stdout
+import io
 import inspect
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -14,6 +17,8 @@ from oc3lib import source_metadata_recovery_factory as factory
 from oc3lib import source_metadata_recovery_governor as gov
 from oc3lib import source_metadata_recovery_executors as executors
 from oc3_source_metadata_recovery_mission_runner import run_mission
+import oc3_source_metadata_recovery_supervisor as supervisor
+import oc3_source_metadata_recovery_worker as worker
 
 
 class ProductionHarness:
@@ -24,6 +29,7 @@ class ProductionHarness:
         self.first=self.root/"first.json"; self.ledger=self.root/"ledger"
         self.repair_files=[]
         self.old_paths=factory._paths
+        self.old_first_candidate_relative=factory.FIRST_CANDIDATE_RELATIVE
         def paths(kind,generation):
             stem=f"G{generation:02d}-{kind}"
             base=self.root.relative_to(PROJECT)
@@ -33,6 +39,7 @@ class ProductionHarness:
                 "output_directory":str(output),"permit_path":str(base/f"permits/{stem}.json"),
                 "worker_capability_path":str(output/"WORKER_CAPABILITY.json")}
         factory._paths=paths
+        factory.FIRST_CANDIDATE_RELATIVE=str(self.first.relative_to(PROJECT))
         self.agentic_root=self.root/"agentic"
         def agentic_paths(generation):
             return {"request":self.agentic_root/f"AGENTIC_REPAIR_REQUEST_{generation:02d}.json",
@@ -52,11 +59,13 @@ class ProductionHarness:
         self.state.write_bytes(canonical(sealed(state))+b"\n")
         auth=sealed({"action_registry":gov.binding(gov.ACTION_REGISTRY),"authorized":True,
             "candidate_factory_sha256":file_sha256(PROJECT/"oc3/oc3lib/source_metadata_recovery_factory.py"),
+            "first_candidate":gov.binding(self.first),
             "initial_state_sha256":file_sha256(self.state),"mandate":gov.binding(gov.MANDATE),
             "mission_id":gov.MISSION_ID,"mission_runner_sha256":file_sha256(PROJECT/"oc3/oc3_source_metadata_recovery_mission_runner.py"),
             "mutable_technical_surface":gov.binding(gov.MUTABLE_SURFACE),"policy_core_manifest":gov.binding(gov.POLICY_MANIFEST),
+            "predecessor_run":gov.binding(gov.RUN_001_CLOSURE),"run_id":gov.RUN_ID,
             "recovery_budget":gov.binding(gov.RECOVERY_BUDGET),"recovery_graph":gov.binding(gov.RECOVERY_GRAPH),
-            "schema_version":"OC3_SOURCE_METADATA_RECOVERY_STANDING_AUTHORIZATION_001",
+            "schema_version":"OC3_SOURCE_METADATA_RECOVERY_STANDING_AUTHORIZATION_002",
             "scientific_invariants":gov.binding(gov.INVARIANTS),"technical_authorities":gov.binding(gov.TECHNICAL_AUTHORITIES)})
         self.auth.write_bytes(canonical(auth)+b"\n")
         self.stack=ExitStack()
@@ -67,6 +76,7 @@ class ProductionHarness:
 
     def close(self):
         self.stack.close(); factory._paths=self.old_paths
+        factory.FIRST_CANDIDATE_RELATIVE=self.old_first_candidate_relative
         for path in self.repair_files:
             if path.exists(): path.unlink()
         self.temp.cleanup()
@@ -99,7 +109,7 @@ class ProductionHarness:
             "query_semantic_hashes_after":after_hashes,"query_semantic_hashes_before":hashes,
             "recovery_generation":generation,"recovery_graph_sha256_after":file_sha256(gov.RECOVERY_GRAPH),
             "recovery_graph_sha256_before":file_sha256(gov.RECOVERY_GRAPH),
-            "schema_version":"TECHNICAL_PATCH_MANIFEST_1",
+            "run_id":gov.RUN_ID,"schema_version":"TECHNICAL_PATCH_MANIFEST_1",
             "scientific_invariants_sha256_after":file_sha256(gov.INVARIANTS),
             "scientific_invariants_sha256_before":file_sha256(gov.INVARIANTS),
             "technical_failure_class":"DOCUMENTARY_EVIDENCE_ACQUIRED",
@@ -113,10 +123,10 @@ class ProductionHarness:
             "http_method":"GET","implementation_path":implementation_path,
             "parameter_serialization":"URL_QUERY_PARAMETERS",
             "query_semantic_hashes":hashes,"query_semantic_preservation_rule":"BYTE_IDENTICAL_FROZEN_ADQL",
-            "redirect_policy":"FORBID","response_representation":"CSV",
+            "redirect_policy":"FORBID","response_representation":"CSV","run_id":gov.RUN_ID,
             "schema_version":"OC3_SOURCE_METADATA_TECHNICAL_TRANSPORT_CONTRACT_001"})
         paths["contract"].write_bytes(canonical(contract)+b"\n")
-        receipts=sealed({"all_required_passed":True,"real_network_requests":0,
+        receipts=sealed({"all_required_passed":True,"real_network_requests":0,"run_id":gov.RUN_ID,
             "schema_version":"OC3_SOURCE_METADATA_TECHNICAL_REPAIR_TEST_RECEIPTS_001",
             "tests_executed":request["required_tests"]})
         paths["receipts"].write_bytes(canonical(receipts)+b"\n")
@@ -126,13 +136,14 @@ class ProductionHarness:
     def terminal(candidate,failure,**extra):
         return {"action_kind":candidate["action_kind"],"application_body_bytes_read":0,
             "failure_class":failure,"network_requests_started":0,"request_class":candidate["request_class"],
-            "schema_version":"SYNTHETIC_ACTION_TERMINAL_001","source_values_accepted":0,
+            "run_id":candidate["run_id"],"schema_version":"SYNTHETIC_ACTION_TERMINAL_001","source_values_accepted":0,
             "stage_id":candidate["stage_id"],**extra}
 
 
 class ProductionRunnerTests(unittest.TestCase):
     def setUp(self): self.h=ProductionHarness()
-    def tearDown(self): self.h.close()
+    def tearDown(self):
+        if self.h is not None: self.h.close()
 
     def reach_handoff(self):
         def executor(c):
@@ -203,6 +214,83 @@ class ProductionRunnerTests(unittest.TestCase):
         self.assertEqual(file_sha256(self.h.auth),authorization_sha)
         self.assertEqual(len(list((self.h.root/"permits").glob("*.json"))),4)
         self.assertEqual(len(list((self.h.root/"capability_consumption").glob("*.json"))),4)
+
+    def test_first_candidate_crosses_real_supervisor_and_worker_path_gates_offline(self):
+        state=gov.activate(state_path=self.h.state,authorization_path=self.h.auth,
+            activated_at_utc="2026-01-01T00:00:00Z")
+        self.assertEqual(state["run_id"],gov.RUN_ID)
+        gov.register_action(state_path=self.h.state,candidate_path=self.h.first)
+        candidate=gov.validate_first_candidate(self.h.first)
+        permit=PROJECT/candidate["permit_path"]
+        gov.issue_permit(state_path=self.h.state,candidate_path=self.h.first,
+            output_path=permit,issued_at_utc="2026-01-01T00:00:01Z")
+
+        def fake_action(c, output, authorities, invariants):
+            return {"action_kind":c["action_kind"],"application_body_bytes_read":0,
+                "failure_class":"CREDENTIALS_REQUIRED","network_requests_started":0,
+                "request_class":c["request_class"],"run_id":c["run_id"],
+                "schema_version":"SYNTHETIC_PATH_GATE_TERMINAL_001",
+                "source_values_accepted":0,"stage_id":c["stage_id"]}
+
+        def invoke_worker(command, **kwargs):
+            out=io.StringIO(); err=io.StringIO()
+            with patch.object(sys,"argv",command[1:]), patch.object(worker,"execute_action",side_effect=fake_action), \
+                    redirect_stdout(out), redirect_stderr(err):
+                return_code=worker.main(command[2:])
+            return subprocess.CompletedProcess(command,return_code,out.getvalue(),err.getvalue())
+
+        out=io.StringIO(); err=io.StringIO()
+        with patch.object(sys,"argv",candidate["command_argv"][1:]), \
+                patch.object(supervisor.subprocess,"run",side_effect=invoke_worker), \
+                redirect_stdout(out), redirect_stderr(err):
+            return_code=supervisor.main(candidate["command_argv"][2:])
+        self.assertEqual(return_code,0,err.getvalue())
+        self.assertTrue(gov.permit_consumption_path(permit).is_file())
+        capability=PROJECT/candidate["worker_capability_path"]
+        self.assertTrue(capability.is_file())
+        self.assertTrue(gov.capability_consumption_path(capability).is_file())
+        self.assertTrue((PROJECT/candidate["output_directory"]/"TERMINAL.json").is_file())
+        self.assertEqual(load_canonical_json(capability)["candidate_path"],candidate["candidate_path"])
+        self.assertEqual(load_canonical_json(capability)["run_id"],gov.RUN_ID)
+
+    def test_run_001_permit_and_authorization_cannot_cross_into_run_002(self):
+        run_001_permit=PROJECT/"oc3/SOURCE_METADATA_AUTONOMOUS_RECOVERY_PERMITS/OC3-SOURCE-METADATA-RECOVERY-G01-TECHNICAL_RESPONSE_DIAGNOSTIC.json"
+        run_001_auth=PROJECT/"oc3/OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_STANDING_AUTHORIZATION_001.json"
+        self.assertTrue(run_001_permit.is_file()); self.assertTrue(run_001_auth.is_file())
+        with self.assertRaises(RecoveryEnvelopeError):
+            gov.validate_permit(permit_path=run_001_permit,candidate_path=self.h.first)
+        with self.assertRaises(RecoveryEnvelopeError):
+            gov.validate_standing_authorization(run_001_auth,state_path=self.h.state)
+        historical_marker=PROJECT/"oc3/SOURCE_METADATA_AUTONOMOUS_RECOVERY_LEDGER/PERMIT_CONSUMPTION"/f"{file_sha256(run_001_permit)}.json"
+        self.assertFalse(historical_marker.exists())
+        self.assertFalse((PROJECT/gov.validate_first_candidate(self.h.first)["worker_capability_path"]).exists())
+
+    def test_permit_and_capability_alternate_candidate_paths_fail_closed(self):
+        gov.activate(state_path=self.h.state,authorization_path=self.h.auth,
+            activated_at_utc="2026-01-01T00:00:00Z")
+        gov.register_action(state_path=self.h.state,candidate_path=self.h.first)
+        candidate=gov.validate_first_candidate(self.h.first); permit=PROJECT/candidate["permit_path"]
+        gov.issue_permit(state_path=self.h.state,candidate_path=self.h.first,
+            output_path=permit,issued_at_utc="2026-01-01T00:00:01Z")
+        original=permit.read_bytes(); value={k:v for k,v in load_canonical_json(permit).items() if k!="sealed"}
+        value["candidate_path"]="oc3/alternate-candidate.json"
+        permit.write_bytes(canonical(sealed(value))+b"\n")
+        with self.assertRaisesRegex(RecoveryEnvelopeError,"RECOVERY_PERMIT_INVALID"):
+            gov.validate_permit(permit_path=permit,candidate_path=self.h.first)
+        permit.write_bytes(original)
+        marker=gov.consume_permit(permit_path=permit,candidate_path=self.h.first,
+            consumed_at_utc="2026-01-01T00:00:02Z")
+        output=PROJECT/candidate["output_directory"]; output.mkdir(parents=True)
+        capability=PROJECT/candidate["worker_capability_path"]
+        gov.create_worker_capability(candidate_path=self.h.first,permit_path=permit,
+            permit_marker=marker,authorization_path=self.h.auth,state_path=self.h.state,
+            capability_path=capability,issued_at_utc="2026-01-01T00:00:03Z")
+        value={k:v for k,v in load_canonical_json(capability).items() if k!="sealed"}
+        value["candidate_path"]="oc3/alternate-candidate.json"
+        capability.write_bytes(canonical(sealed(value))+b"\n")
+        with self.assertRaisesRegex(RecoveryEnvelopeError,"RECOVERY_WORKER_CAPABILITY_INVALID"):
+            gov.validate_worker_capability(capability_path=capability,candidate_path=self.h.first,
+                permit_path=permit,authorization_path=self.h.auth,state_path=self.h.state)
 
     def test_actual_runner_failure_loop_stops_without_fourth_candidate(self):
         calls=[]
@@ -355,6 +443,68 @@ class ProductionRunnerTests(unittest.TestCase):
         self.assertEqual([x["action_kind"] for x in values["action_registry"]["actions"]],list(factory.ACTION_FAMILIES))
         self.assertEqual(file_sha256(gov.INVARIANTS),"0d2b304e815a949cf7f69d44cd43148eb663fadb68afb47a7e9f767635a329f3")
         self.assertEqual(file_sha256(gov.RECOVERY_GRAPH),"19e7d6226d6550efbd32c62a4268d682e448f15fb3c490550471286943587fb7")
+
+    def test_production_first_candidate_is_byte_recomputed_and_self_bound(self):
+        self.h.close(); self.h=None
+        candidate=gov.validate_first_candidate(gov.FIRST_CANDIDATE)
+        parent=PROJECT/candidate["parent_action_terminal"]["path"]
+        expected=factory.build_first_candidate(parent_terminal_path=parent,
+            action_registry_path=gov.ACTION_REGISTRY,technical_authorities_path=gov.TECHNICAL_AUTHORITIES,
+            scientific_invariants_path=gov.INVARIANTS,recovery_graph_path=gov.RECOVERY_GRAPH,
+            recovery_budget_path=gov.RECOVERY_BUDGET,mutable_surface_path=gov.MUTABLE_SURFACE,
+            state_path=gov.STATE,standing_authorization_path=gov.STANDING_AUTHORIZATION,
+            implementation_aggregate=gov.implementation_aggregate())
+        self.assertEqual(gov.FIRST_CANDIDATE.read_bytes(),canonical(expected)+b"\n")
+        canonical_path=str(gov.FIRST_CANDIDATE.relative_to(PROJECT))
+        self.assertEqual(candidate["candidate_path"],canonical_path)
+        for argv in (candidate["command_argv"],candidate["worker_argv"]):
+            self.assertEqual(argv[argv.index("--candidate")+1],str(gov.FIRST_CANDIDATE))
+
+    def test_candidate_path_tampering_and_same_byte_copy_fail_closed(self):
+        candidate=gov.validate_first_candidate(self.h.first)
+        with tempfile.TemporaryDirectory(dir=PROJECT/"oc3") as directory:
+            root=Path(directory); base_path=root/"candidate.json"
+            base={k:v for k,v in candidate.items() if k!="sealed"}
+            base["candidate_path"]=str(base_path.relative_to(PROJECT))
+            for key in ("command_argv","worker_argv"):
+                argv=list(base[key]); argv[argv.index("--candidate")+1]=str(base_path); base[key]=argv
+            from oc3lib.cross_observer_grouping import sha256_bytes
+            base["command_argv_sha256"]=sha256_bytes(canonical(base["command_argv"]))
+            base["worker_argv_sha256"]=sha256_bytes(canonical(base["worker_argv"]))
+
+            def write(value): base_path.write_bytes(canonical(sealed(value))+b"\n")
+            write(base); gov.validate_candidate(base_path)
+            copied=root/"copied.json"; copied.write_bytes(base_path.read_bytes())
+            with self.assertRaisesRegex(RecoveryEnvelopeError,"RECOVERY_CANDIDATE_SELF_PATH_MISMATCH"):
+                gov.validate_candidate(copied)
+            linked=root/"linked.json"; linked.symlink_to(base_path)
+            with self.assertRaisesRegex(RecoveryEnvelopeError,"RECOVERY_CANDIDATE_SELF_PATH_MISMATCH"):
+                gov.validate_candidate(linked)
+            moved=root/"moved.json"; base_path.rename(moved)
+            with self.assertRaisesRegex(RecoveryEnvelopeError,"RECOVERY_CANDIDATE_SELF_PATH_MISMATCH"):
+                gov.validate_candidate(moved)
+            moved.rename(base_path)
+            for name,mutate in {
+                "self":lambda v:v.__setitem__("candidate_path","oc3/alternate.json"),
+                "supervisor":lambda v:v["command_argv"].__setitem__(v["command_argv"].index("--candidate")+1,"/tmp/alternate.json"),
+                "worker":lambda v:v["worker_argv"].__setitem__(v["worker_argv"].index("--candidate")+1,"/tmp/alternate.json"),
+            }.items():
+                with self.subTest(name=name):
+                    changed=deepcopy(base); mutate(changed)
+                    changed["command_argv_sha256"]=sha256_bytes(canonical(changed["command_argv"]))
+                    changed["worker_argv_sha256"]=sha256_bytes(canonical(changed["worker_argv"]))
+                    write(changed)
+                    with self.assertRaisesRegex(RecoveryEnvelopeError,"RECOVERY_CANDIDATE_SELF_PATH_MISMATCH"):
+                        gov.validate_candidate(base_path)
+
+    def test_first_and_child_candidates_use_distinct_factory_derived_namespaces(self):
+        self.h.close(); self.h=None
+        first=gov.validate_first_candidate()
+        self.assertEqual(first["candidate_path"],factory.FIRST_CANDIDATE_RELATIVE)
+        child=factory._paths("OFFICIAL_SERVICE_DOCUMENTARY_PROBE",2)
+        self.assertTrue(child["candidate_path"].startswith(
+            "oc3/SOURCE_METADATA_AUTONOMOUS_RECOVERY_RUN_002_LEDGER/CANDIDATES/"))
+        self.assertNotEqual(first["candidate_path"],child["candidate_path"])
 
     def test_generated_child_tampering_matrix_fails_recomputation(self):
         def executor(c): return self.h.terminal(c,"TECHNICAL_DIAGNOSTIC_CLASSIFIED")

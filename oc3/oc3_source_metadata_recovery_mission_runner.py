@@ -17,6 +17,9 @@ from oc3lib import source_metadata_recovery_governor as gov
 
 
 def _record(ledger: Path, name: str, value: dict[str, object]):
+    if value.get("run_id", gov.RUN_ID) != gov.RUN_ID:
+        raise RecoveryEnvelopeError("RECOVERY_RUN_ID_MISMATCH")
+    value={**value,"run_id":gov.RUN_ID}
     ledger.mkdir(parents=True,exist_ok=True)
     write_json_immutable(ledger/name,sealed(value))
 
@@ -31,7 +34,10 @@ def _synthetic_action(candidate_path: Path, candidate: dict[str, object], permit
         permit_marker=marker,authorization_path=authorization_path,state_path=state_path,
         capability_path=capability,issued_at_utc=gov.utc_now())
     gov.consume_worker_capability(capability_path=capability,candidate_path=candidate_path,consumed_at_utc=gov.utc_now())
-    terminal=sealed(executor(candidate))
+    result=executor(candidate)
+    if result.get("run_id") != candidate["run_id"]:
+        raise RecoveryEnvelopeError("RECOVERY_RUN_ID_MISMATCH")
+    terminal=sealed(result)
     write_json_immutable(output/"TERMINAL.json",terminal)
 
 
@@ -53,7 +59,8 @@ def _final_report(ledger: Path, state: dict[str, object], reason: str):
         "active_adapter":state.get("active_adapter"),"material_body_bytes_remaining":state["material_body_bytes_remaining"],
         "material_requests_remaining":state["material_requests_remaining"],"mission_terminal_reason":reason,
         "permits_issued":state["permits_issued"],"recovery_graph_sha256":file_sha256(gov.RECOVERY_GRAPH),
-        "recovery_generation":state["recovery_generation"],"schema_version":"OC3_SOURCE_METADATA_RECOVERY_MISSION_FINAL_REPORT_001",
+        "recovery_generation":state["recovery_generation"],"run_id":gov.RUN_ID,
+        "schema_version":"OC3_SOURCE_METADATA_RECOVERY_MISSION_FINAL_REPORT_002",
         "scientific_invariants_sha256":file_sha256(gov.INVARIANTS),"state":state["state"],
         "technical_body_bytes_remaining":state["technical_body_bytes_remaining"],
         "technical_requests_remaining":state["technical_requests_remaining"]}))

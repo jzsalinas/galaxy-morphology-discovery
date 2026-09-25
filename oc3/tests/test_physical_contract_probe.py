@@ -732,6 +732,12 @@ class ManifestContractTripwireOutcomeTests(Base):
         source_metadata_autonomous_recovery |= {
             "OC3_SOURCE_METADATA_RECOVERY_TECHNICAL_AUTHORITIES_001.json",
             "OC3_SOURCE_METADATA_RECOVERY_TECHNICAL_AUTHORITIES_002.json"}
+        source_metadata_autonomous_recovery_run_002 = source_metadata_autonomous_recovery | {
+            "OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_MANDATE_002.json",
+            "OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_POLICY_CORE_MANIFEST_002.json",
+            "OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_RUN_001_CLOSURE_001.json",
+            "OC3_SOURCE_METADATA_RECOVERY_ACTION_REGISTRY_002.json",
+            "OC3_SOURCE_METADATA_RECOVERY_FIRST_CANDIDATE_002.json"}
         eligibility_p0 = eligibility_implementation | {
             "OC3_GALAXY_ELIGIBILITY_PANEL_MANIFEST.json",
             "OC3_GALAXY_ELIGIBILITY_P1_AUTHORIZATION_CANDIDATE_001.json"}
@@ -770,6 +776,7 @@ class ManifestContractTripwireOutcomeTests(Base):
                                     source_metadata_pilot_frame_schema_recovery,
                                     source_metadata_acquisition_pilot,
                                     source_metadata_autonomous_recovery,
+                                    source_metadata_autonomous_recovery_run_002,
                                     eligibility_p0))
         technical_names = {item.name for item in (PROJECT / "oc3/TECHNICAL_INDEX").iterdir()}
         technical_base = {"OC3_LOCATIONS.json", "OC3_SELECTION_FLOW.csv",

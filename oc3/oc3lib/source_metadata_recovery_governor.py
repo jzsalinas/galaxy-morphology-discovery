@@ -18,7 +18,8 @@ from .autonomous_recovery_envelope import (
     RecoveryEnvelopeError, account_action, classify_action_terminal, validate_recovery_graph,
 )
 from .source_metadata_recovery_factory import (
-    ACTION_FAMILIES, binding, build_first_candidate, build_next_candidate,
+    ACTION_FAMILIES, FIRST_CANDIDATE_RELATIVE, RUN_ID, binding,
+    build_first_candidate, build_next_candidate,
 )
 
 MISSION_ID = "OC3-SOURCE-METADATA-AUTONOMOUS-RECOVERY-ENVELOPE-001"
@@ -28,23 +29,24 @@ STATE_WAITING = "WAITING_FOR_STANDING_HUMAN_AUTHORIZATION"
 STATE_ACTIVE = "ACTIVE"
 STATE_TERMINAL = "SCIENTIFIC_TERMINAL"
 
-SPEC = PROJECT / "OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_ENVELOPE_SPEC_001.md"
-POLICY_CONTRACT = PROJECT / "OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_POLICY_CORE_CONTRACT_001.md"
-RUNBOOK = PROJECT / "OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_RUNBOOK_001.md"
+SPEC = PROJECT / "OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_PRODUCTION_SPEC_003.md"
+POLICY_CONTRACT = PROJECT / "OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_POLICY_CORE_CONTRACT_002.md"
+RUNBOOK = PROJECT / "OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_RUNBOOK_002.md"
 INVARIANTS = PROJECT / "oc3/INPUTS/OC3_SOURCE_METADATA_RECOVERY_SCIENTIFIC_INVARIANTS_001.json"
 RECOVERY_GRAPH = PROJECT / "oc3/INPUTS/OC3_SOURCE_METADATA_RECOVERY_GRAPH_001.json"
 MUTABLE_SURFACE = PROJECT / "oc3/INPUTS/OC3_SOURCE_METADATA_MUTABLE_TECHNICAL_SURFACE_001.json"
 RECOVERY_BUDGET = PROJECT / "oc3/INPUTS/OC3_SOURCE_METADATA_RECOVERY_BUDGET_001.json"
-POLICY_MANIFEST = PROJECT / "oc3/INPUTS/OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_POLICY_CORE_MANIFEST_001.json"
-MANDATE = PROJECT / "oc3/INPUTS/OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_MANDATE_001.json"
-PRODUCTION_FIRST_CANDIDATE = PROJECT / "oc3/INPUTS/OC3_SOURCE_METADATA_RECOVERY_FIRST_CANDIDATE_001.json"
+POLICY_MANIFEST = PROJECT / "oc3/INPUTS/OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_POLICY_CORE_MANIFEST_002.json"
+MANDATE = PROJECT / "oc3/INPUTS/OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_MANDATE_002.json"
+RUN_001_CLOSURE = PROJECT / "oc3/INPUTS/OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_RUN_001_CLOSURE_001.json"
+PRODUCTION_FIRST_CANDIDATE = PROJECT / FIRST_CANDIDATE_RELATIVE
 FIRST_CANDIDATE = PRODUCTION_FIRST_CANDIDATE
-ACTION_REGISTRY = PROJECT / "oc3/INPUTS/OC3_SOURCE_METADATA_RECOVERY_ACTION_REGISTRY_001.json"
+ACTION_REGISTRY = PROJECT / "oc3/INPUTS/OC3_SOURCE_METADATA_RECOVERY_ACTION_REGISTRY_002.json"
 TECHNICAL_AUTHORITIES = PROJECT / "oc3/INPUTS/OC3_SOURCE_METADATA_RECOVERY_TECHNICAL_AUTHORITIES_002.json"
-STATE = PROJECT / "oc3/OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_STATE_001.json"
-STANDING_AUTHORIZATION = PROJECT / "oc3/OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_STANDING_AUTHORIZATION_001.json"
-LEDGER_ROOT = PROJECT / "oc3/SOURCE_METADATA_AUTONOMOUS_RECOVERY_LEDGER"
-PERMIT_ROOT = PROJECT / "oc3/SOURCE_METADATA_AUTONOMOUS_RECOVERY_PERMITS"
+STATE = PROJECT / "oc3/OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_STATE_002.json"
+STANDING_AUTHORIZATION = PROJECT / "oc3/OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_STANDING_AUTHORIZATION_002.json"
+LEDGER_ROOT = PROJECT / "oc3/SOURCE_METADATA_AUTONOMOUS_RECOVERY_RUN_002_LEDGER"
+PERMIT_ROOT = PROJECT / "oc3/SOURCE_METADATA_AUTONOMOUS_RECOVERY_RUN_002_PERMITS"
 PERMIT_CONSUMPTION = LEDGER_ROOT / "PERMIT_CONSUMPTION"
 CAPABILITY_CONSUMPTION = LEDGER_ROOT / "WORKER_CAPABILITY_CONSUMPTION"
 IMPLEMENTATION_FILES = (
@@ -115,13 +117,14 @@ def validate_static_authorities() -> dict[str, dict[str, object]]:
         "budget": _load(RECOVERY_BUDGET, "RECOVERY_BUDGET_INVALID"),
         "policy": _load(POLICY_MANIFEST, "RECOVERY_POLICY_CORE_INVALID"),
         "mandate": _load(MANDATE, "RECOVERY_MANDATE_INVALID"),
+        "run_001_closure": _load(RUN_001_CLOSURE, "RECOVERY_PREDECESSOR_RUN_INVALID"),
         "action_registry": _load(ACTION_REGISTRY, "RECOVERY_ACTION_REGISTRY_INVALID"),
         "technical_authorities": _load(TECHNICAL_AUTHORITIES, "TECHNICAL_AUTHORITIES_INVALID")}
     validate_recovery_graph(values["graph"])
     validate_recovery_budget(values["budget"])
     validate_scientific_invariants(values["invariants"])
     registry = values["action_registry"]
-    if (registry.get("schema_version") != "OC3_SOURCE_METADATA_RECOVERY_ACTION_REGISTRY_001" or
+    if (registry.get("schema_version") != "OC3_SOURCE_METADATA_RECOVERY_ACTION_REGISTRY_002" or
             [row.get("action_kind") for row in registry.get("actions", [])] != list(ACTION_FAMILIES)):
         raise RecoveryEnvelopeError("RECOVERY_ACTION_REGISTRY_INVALID")
     required_action = {"action_kind", "active_adapter_required", "allowed_authority_classes",
@@ -169,7 +172,8 @@ def validate_static_authorities() -> dict[str, dict[str, object]]:
         if adapter["bootstrap_sha256"] != historical:
             raise RecoveryEnvelopeError("TECHNICAL_AUTHORITIES_INVALID")
     policy = values["policy"]
-    if (policy.get("generic_policy_core") is not True or
+    if (policy.get("schema_version") != "OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_POLICY_CORE_MANIFEST_002" or
+            policy.get("run_id") != RUN_ID or policy.get("generic_policy_core") is not True or
             policy.get("active_mutation_result") != STOP_REQUIRES_HUMAN or
             not isinstance(policy.get("files"), list)):
         raise RecoveryEnvelopeError("RECOVERY_POLICY_CORE_INVALID")
@@ -177,7 +181,23 @@ def validate_static_authorities() -> dict[str, dict[str, object]]:
         path = PROJECT / str(item.get("path", ""))
         if not path.is_file() or item.get("sha256") != file_sha256(path):
             raise RecoveryEnvelopeError("RECOVERY_POLICY_CORE_CHANGED")
-    if (mandate.get("active") is not False or mandate.get("mission_id") != MISSION_ID or
+    closure = values["run_001_closure"]
+    if (closure.get("schema_version") != "OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_RUN_001_CLOSURE_001" or
+            closure.get("run_id") != "OC3-SOURCE-METADATA-AUTONOMOUS-RECOVERY-RUN-001" or
+            closure.get("stop_commit") != "57b520d3d3f849b9d0c0c554984f5688fe62786a" or
+            closure.get("final_state_sha256") != "364905c88a55e65d6429caadea3614b4de34b2990eea1b2cc23cde435ae784ea" or
+            closure.get("ledger_aggregate_sha256") != "af2db3858b15f23a4fdf5ef2365a8ebc2da7528455eaf9a28c178528b7d1178b" or
+            closure.get("contradiction_evidence_sha256") != "6f3831aa4a0e8f7ea6a5a64d08f66af0addba66996440fa693a7d0af22dcaf96" or
+            closure.get("issued_permit_sha256") != "badd14e4d398ff444a361bd929cfaed32f8bb3603bcf4a28b10d73bd2eaba314" or
+            closure.get("permit_consumed") is not False or closure.get("network_requests") != 0 or
+            closure.get("body_bytes") != 0 or closure.get("source_rows") != 0 or
+            closure.get("worker_capabilities") != 0 or
+            closure.get("stop_reason") != "FIRST_CANDIDATE_EXECUTION_PATH_BINDING_CONTRADICTION" or
+            closure.get("finding") != "FIRST_CANDIDATE_SELF_PATH_BINDING_DEFECT"):
+        raise RecoveryEnvelopeError("RECOVERY_PREDECESSOR_RUN_INVALID")
+    if (mandate.get("schema_version") != "OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_MANDATE_002" or
+            mandate.get("active") is not False or mandate.get("mission_id") != MISSION_ID or
+            mandate.get("run_id") != RUN_ID or
             mandate.get("mission_scope") != MISSION_SCOPE or mandate.get("autonomy_branch") != AUTONOMY_BRANCH or
             mandate.get("allowed_action_families") != list(ACTION_FAMILIES) or
             mandate.get("scientific_invariants") != binding(INVARIANTS) or
@@ -186,34 +206,67 @@ def validate_static_authorities() -> dict[str, dict[str, object]]:
             mandate.get("recovery_budget") != binding(RECOVERY_BUDGET) or
             mandate.get("action_registry") != binding(ACTION_REGISTRY) or
             mandate.get("technical_authorities") != binding(TECHNICAL_AUTHORITIES) or
+            mandate.get("first_candidate") != binding(PRODUCTION_FIRST_CANDIDATE) or
+            mandate.get("candidate_factory") != binding(PROJECT / "oc3/oc3lib/source_metadata_recovery_factory.py") or
+            mandate.get("mission_runner") != binding(PROJECT / "oc3/oc3_source_metadata_recovery_mission_runner.py") or
+            mandate.get("runbook") != binding(RUNBOOK) or mandate.get("specification") != binding(SPEC) or
+            mandate.get("standing_authorization_path") != str(STANDING_AUTHORIZATION.relative_to(PROJECT)) or
+            mandate.get("predecessor_run") != binding(RUN_001_CLOSURE) or
             mandate.get("policy_core_manifest") != binding(POLICY_MANIFEST)):
         raise RecoveryEnvelopeError("RECOVERY_MANDATE_PREMATURELY_ACTIVE")
     return values
 
 
+def validate_candidate_self_binding(candidate_path: Path,
+                                    candidate: Mapping[str, object]) -> None:
+    """Enforce one physical candidate file and one canonical execution path."""
+    try:
+        actual = candidate_path if candidate_path.is_absolute() else PROJECT / candidate_path
+        absolute = actual.absolute()
+        resolved = actual.resolve(strict=True)
+        relative = str(absolute.relative_to(PROJECT))
+        if absolute != resolved or candidate.get("candidate_path") != relative:
+            raise ValueError
+        for key in ("command_argv", "worker_argv"):
+            argv = candidate.get(key)
+            if not isinstance(argv, list) or argv.count("--candidate") != 1:
+                raise ValueError
+            index = argv.index("--candidate")
+            if index + 1 >= len(argv):
+                raise ValueError
+            bound = Path(str(argv[index + 1]))
+            bound_absolute = bound.absolute()
+            if bound_absolute != absolute or bound.resolve(strict=True) != resolved:
+                raise ValueError
+        if (sha256_bytes(canonical(candidate["command_argv"])) != candidate.get("command_argv_sha256") or
+                sha256_bytes(canonical(candidate["worker_argv"])) != candidate.get("worker_argv_sha256")):
+            raise ValueError
+    except Exception as exc:
+        raise RecoveryEnvelopeError("RECOVERY_CANDIDATE_SELF_PATH_MISMATCH") from exc
+
+
 def validate_candidate(path: Path) -> dict[str, object]:
     value = _load(path, "RECOVERY_CANDIDATE_INVALID")
-    required = {"action_kind", "active_adapter", "active_adapter_binding", "action_registry", "application_body_reservation", "authority_classes", "command_argv",
+    required = {"action_kind", "active_adapter", "active_adapter_binding", "action_registry", "application_body_reservation", "authority_classes", "candidate_path", "command_argv",
         "command_argv_sha256", "implementation_aggregate", "material_budget_reservation",
         "mutable_technical_surface", "network_request_reservation", "output_directory",
         "parent_action_terminal", "permit_path", "recovery_budget", "recovery_generation",
-        "recovery_graph", "remaining_budgets", "request_class", "resume", "retries",
+        "recovery_graph", "remaining_budgets", "request_class", "resume", "retries", "run_id",
         "schema_version", "scientific_invariants", "sealed", "stage_id", "technical_authorities",
         "technical_budget_reservation", "technical_patch_manifest", "trigger_failure_class",
         "technical_transport_contract", "test_receipts", "worker_argv", "worker_argv_sha256", "worker_capability_path"}
-    if (set(value) != required or value.get("schema_version") != "RECOVERY_ACTION_FACTORY_V2" or
+    if (set(value) != required or value.get("schema_version") != "RECOVERY_ACTION_FACTORY_V3" or
+            value.get("run_id") != RUN_ID or
             value.get("action_kind") not in ACTION_FAMILIES or value.get("request_class") not in ("TECHNICAL", "MATERIAL", "OFFLINE") or
             value.get("resume") is not False or value.get("retries") != 0 or
             value.get("implementation_aggregate") != implementation_aggregate()):
         raise RecoveryEnvelopeError("RECOVERY_CANDIDATE_INVALID")
+    validate_candidate_self_binding(path, value)
     expected = (("scientific_invariants", INVARIANTS), ("recovery_graph", RECOVERY_GRAPH),
         ("mutable_technical_surface", MUTABLE_SURFACE), ("recovery_budget", RECOVERY_BUDGET),
         ("action_registry", ACTION_REGISTRY), ("technical_authorities", TECHNICAL_AUTHORITIES))
     if any(value[key] != binding(path_) for key, path_ in expected):
         raise RecoveryEnvelopeError("RECOVERY_CANDIDATE_AUTHORITY_MISMATCH")
-    if (sha256_bytes(canonical(value["command_argv"])) != value["command_argv_sha256"] or
-            sha256_bytes(canonical(value["worker_argv"])) != value["worker_argv_sha256"]):
-        raise RecoveryEnvelopeError("RECOVERY_CANDIDATE_ARGV_MISMATCH")
     budget = _load(RECOVERY_BUDGET, "RECOVERY_BUDGET_INVALID")
     if (type(value["recovery_generation"]) is not int or value["recovery_generation"] < 1 or
             value["recovery_generation"] > budget["MAX_RECOVERY_GENERATIONS"]):
@@ -298,13 +351,15 @@ def validate_state(path: Path = STATE) -> dict[str, object]:
     value = _load(path, "RECOVERY_STATE_INVALID")
     required = {"active", "active_adapter", "active_adapter_binding", "adapter_states", "agentic_repair_request", "body_budget_material_parent", "code_repair_generation", "current_stage",
         "first_candidate", "last_action_terminal", "last_action_terminal_sha256", "last_classification", "material_body_bytes_remaining",
-        "material_requests_remaining", "mission_id", "mission_scope", "next_action_kind", "permits_issued",
+        "material_requests_remaining", "mission_id", "mission_scope", "next_action_kind", "permits_issued", "predecessor_run",
         "recovery_generation", "registered_pending_action", "requests_material_parent", "schema_version", "sealed",
-        "sequence", "scientific_outcome", "standing_authorization", "state", "stop_reason",
+        "run_id", "sequence", "scientific_outcome", "standing_authorization", "state", "stop_reason",
         "technical_body_bytes_remaining", "technical_failure_occurrences", "technical_requests_remaining",
         "validated_patch_manifest", "validated_test_receipts", "validated_transport_contract"}
-    if (set(value) != required or value.get("schema_version") != "OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_STATE_001" or
-            value.get("mission_id") != MISSION_ID or value.get("mission_scope") != MISSION_SCOPE):
+    if (set(value) != required or value.get("schema_version") != "OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_STATE_002" or
+            value.get("mission_id") != MISSION_ID or value.get("run_id") != RUN_ID or
+            value.get("mission_scope") != MISSION_SCOPE or value.get("predecessor_run") != binding(RUN_001_CLOSURE) or
+            value.get("first_candidate") != binding(FIRST_CANDIDATE)):
         raise RecoveryEnvelopeError("RECOVERY_STATE_INVALID")
     if value["state"] == STATE_WAITING and (value["active"] is not False or value["standing_authorization"] is not None):
         raise RecoveryEnvelopeError("RECOVERY_WAITING_STATE_INVALID")
@@ -374,8 +429,8 @@ def issue_permit(*, state_path: Path, candidate_path: Path, output_path: Path,
         "candidate_sha256": file_sha256(candidate_path), "issued_at_utc": issued_at_utc,
         "network_request_reservation": candidate["network_request_reservation"],
         "permit_id": f"RECOVERY-PERMIT-{state['sequence']:06d}-{file_sha256(candidate_path)[:12]}",
-        "request_class": candidate["request_class"],
-        "schema_version": "OC3_AUTONOMOUS_RECOVERY_EXECUTION_PERMIT_001", "single_use": True,
+        "request_class": candidate["request_class"], "run_id": RUN_ID,
+        "schema_version": "OC3_AUTONOMOUS_RECOVERY_EXECUTION_PERMIT_002", "single_use": True,
         "stage_id": candidate["stage_id"], "state_before_sha256": file_sha256(state_path),
         "worker_argv_sha256": candidate["worker_argv_sha256"]})
     write_json_immutable(output_path, permit)
@@ -392,8 +447,11 @@ def validate_permit(*, permit_path: Path, candidate_path: Path,
     candidate = validate_candidate(candidate_path)
     required = {"application_body_reservation", "candidate_path", "candidate_sha256", "issued_at_utc",
         "network_request_reservation", "permit_id", "request_class", "schema_version", "sealed",
-        "single_use", "stage_id", "state_before_sha256", "worker_argv_sha256"}
-    if (set(permit) != required or permit.get("schema_version") != "OC3_AUTONOMOUS_RECOVERY_EXECUTION_PERMIT_001" or
+        "single_use", "stage_id", "state_before_sha256", "worker_argv_sha256", "run_id"}
+    expected_path = str(candidate_path.resolve().relative_to(PROJECT))
+    if (set(permit) != required or permit.get("schema_version") != "OC3_AUTONOMOUS_RECOVERY_EXECUTION_PERMIT_002" or
+            permit.get("run_id") != RUN_ID or permit.get("candidate_path") != expected_path or
+            candidate.get("candidate_path") != expected_path or
             permit.get("candidate_sha256") != file_sha256(candidate_path) or
             permit.get("network_request_reservation") != candidate["network_request_reservation"] or
             permit.get("application_body_reservation") != candidate["application_body_reservation"] or
@@ -410,9 +468,10 @@ def consume_permit(*, permit_path: Path, candidate_path: Path, consumed_at_utc: 
     marker = permit_consumption_path(permit_path)
     if marker.exists():
         raise RecoveryEnvelopeError("RECOVERY_PERMIT_ALREADY_CONSUMED")
-    write_json_immutable(marker, sealed({"candidate_sha256": file_sha256(candidate_path),
+    write_json_immutable(marker, sealed({"candidate_path": str(candidate_path.resolve().relative_to(PROJECT)),
+        "candidate_sha256": file_sha256(candidate_path), "run_id": RUN_ID,
         "consumed_at_utc": consumed_at_utc, "permit_sha256": file_sha256(permit_path),
-        "schema_version": "OC3_AUTONOMOUS_RECOVERY_PERMIT_CONSUMPTION_001"}))
+        "schema_version": "OC3_AUTONOMOUS_RECOVERY_PERMIT_CONSUMPTION_002"}))
     return marker
 
 
@@ -430,11 +489,12 @@ def create_worker_capability(*, candidate_path: Path, permit_path: Path,
         raise RecoveryEnvelopeError("RECOVERY_WORKER_CAPABILITY_INVALID")
     capability = sealed({"application_body_reservation": candidate["application_body_reservation"],
         "authorization_sha256": file_sha256(authorization_path),
+        "candidate_path": candidate["candidate_path"],
         "candidate_sha256": file_sha256(candidate_path), "issued_at_utc": issued_at_utc,
         "mission_id": MISSION_ID, "network_request_reservation": candidate["network_request_reservation"],
         "output_directory": candidate["output_directory"], "permit_sha256": file_sha256(permit_path),
-        "request_class": candidate["request_class"],
-        "schema_version": "OC3_AUTONOMOUS_RECOVERY_WORKER_CAPABILITY_001", "single_use": True,
+        "request_class": candidate["request_class"], "run_id": RUN_ID,
+        "schema_version": "OC3_AUTONOMOUS_RECOVERY_WORKER_CAPABILITY_002", "single_use": True,
         "stage_id": candidate["stage_id"], "state_sha256": file_sha256(state_path),
         "worker_argv_sha256": candidate["worker_argv_sha256"]})
     write_json_immutable(capability_path, capability)
@@ -445,10 +505,13 @@ def validate_worker_capability(*, capability_path: Path, candidate_path: Path,
         permit_path: Path, authorization_path: Path, state_path: Path) -> dict[str, object]:
     capability = _load(capability_path, "RECOVERY_WORKER_CAPABILITY_INVALID")
     candidate = validate_candidate(candidate_path)
-    required = {"application_body_reservation", "authorization_sha256", "candidate_sha256", "issued_at_utc",
+    required = {"application_body_reservation", "authorization_sha256", "candidate_path", "candidate_sha256", "issued_at_utc",
         "mission_id", "network_request_reservation", "output_directory", "permit_sha256", "request_class",
-        "schema_version", "sealed", "single_use", "stage_id", "state_sha256", "worker_argv_sha256"}
-    if (set(capability) != required or capability.get("schema_version") != "OC3_AUTONOMOUS_RECOVERY_WORKER_CAPABILITY_001" or
+        "run_id", "schema_version", "sealed", "single_use", "stage_id", "state_sha256", "worker_argv_sha256"}
+    expected_path = str(candidate_path.resolve().relative_to(PROJECT))
+    if (set(capability) != required or capability.get("schema_version") != "OC3_AUTONOMOUS_RECOVERY_WORKER_CAPABILITY_002" or
+            capability.get("run_id") != RUN_ID or capability.get("candidate_path") != expected_path or
+            candidate.get("candidate_path") != expected_path or
             capability.get("candidate_sha256") != file_sha256(candidate_path) or
             capability.get("permit_sha256") != file_sha256(permit_path) or
             capability.get("authorization_sha256") != file_sha256(authorization_path) or
@@ -470,22 +533,25 @@ def validate_worker_capability(*, capability_path: Path, candidate_path: Path,
 def consume_worker_capability(*, capability_path: Path, candidate_path: Path,
                               consumed_at_utc: str) -> Path:
     capability = _load(capability_path, "RECOVERY_WORKER_CAPABILITY_INVALID")
-    if capability.get("candidate_sha256") != file_sha256(candidate_path):
+    if (capability.get("run_id") != RUN_ID or
+            capability.get("candidate_path") != str(candidate_path.resolve().relative_to(PROJECT)) or
+            capability.get("candidate_sha256") != file_sha256(candidate_path)):
         raise RecoveryEnvelopeError("RECOVERY_WORKER_CAPABILITY_INVALID")
     marker = capability_consumption_path(capability_path)
     if marker.exists():
         raise RecoveryEnvelopeError("RECOVERY_WORKER_CAPABILITY_ALREADY_CONSUMED")
-    write_json_immutable(marker, sealed({"candidate_sha256": file_sha256(candidate_path),
+    write_json_immutable(marker, sealed({"candidate_path": str(candidate_path.resolve().relative_to(PROJECT)),
+        "candidate_sha256": file_sha256(candidate_path), "run_id": RUN_ID,
         "capability_sha256": file_sha256(capability_path), "consumed_at_utc": consumed_at_utc,
-        "schema_version": "OC3_AUTONOMOUS_RECOVERY_CAPABILITY_CONSUMPTION_001"}))
+        "schema_version": "OC3_AUTONOMOUS_RECOVERY_CAPABILITY_CONSUMPTION_002"}))
     return marker
 
 
 def agentic_paths(generation: int) -> dict[str, Path]:
     return {"request": LEDGER_ROOT / f"AGENTIC_REPAIR_REQUEST_{generation:02d}.json",
-        "patch": PROJECT / f"oc3/INPUTS/TECHNICAL_PATCH_MANIFEST_{generation:02d}.json",
-        "contract": PROJECT / f"oc3/INPUTS/TECHNICAL_TRANSPORT_CONTRACT_{generation:02d}.json",
-        "receipts": PROJECT / f"oc3/INPUTS/TECHNICAL_REPAIR_TEST_RECEIPTS_{generation:02d}.json"}
+        "patch": PROJECT / f"oc3/INPUTS/TECHNICAL_PATCH_MANIFEST_RUN_002_{generation:02d}.json",
+        "contract": PROJECT / f"oc3/INPUTS/TECHNICAL_TRANSPORT_CONTRACT_RUN_002_{generation:02d}.json",
+        "receipts": PROJECT / f"oc3/INPUTS/TECHNICAL_REPAIR_TEST_RECEIPTS_RUN_002_{generation:02d}.json"}
 
 
 def begin_agentic_handoff(*, state_path: Path, candidate_path: Path, terminal_path: Path,
@@ -493,6 +559,7 @@ def begin_agentic_handoff(*, state_path: Path, candidate_path: Path, terminal_pa
     state=validate_state(state_path); candidate=validate_candidate(candidate_path)
     terminal=_load(terminal_path,"RECOVERY_ACTION_TERMINAL_INVALID")
     if (candidate["action_kind"] != "OFFICIAL_SERVICE_DOCUMENTARY_PROBE" or
+            candidate.get("run_id") != RUN_ID or terminal.get("run_id") != RUN_ID or
             terminal.get("failure_class") != "DOCUMENTARY_EVIDENCE_ACQUIRED" or
             state["registered_pending_action"] != binding(candidate_path) or not evidence or
             any(item != binding(PROJECT / item.get("path", "")) for item in evidence)):
@@ -510,7 +577,7 @@ def begin_agentic_handoff(*, state_path: Path, candidate_path: Path, terminal_pa
     request=sealed({"action_registry":binding(ACTION_REGISTRY),"active_adapter":state["active_adapter"],
         "allowed_path_prefixes":_load(MUTABLE_SURFACE,"MUTABLE_TECHNICAL_SURFACE_INVALID")["allowed_path_prefixes"],
         "current_git_head":__import__("subprocess").run(["git","rev-parse","HEAD"],cwd=PROJECT,check=True,capture_output=True,text=True).stdout.strip(),
-        "diagnostic_and_documentary_evidence":evidence,"mission_id":MISSION_ID,
+        "diagnostic_and_documentary_evidence":evidence,"mission_id":MISSION_ID,"run_id":RUN_ID,
         "mutable_technical_surface":binding(MUTABLE_SURFACE),"parent_action_terminal":binding(terminal_path),
         "query_semantic_hashes":{r["id"]:r["semantic_sha256"] for r in _load(INVARIANTS,"SCIENTIFIC_INVARIANTS_INVALID")["queries"]},
         "recovery_generation":updated["recovery_generation"]+1,"recovery_graph":binding(RECOVERY_GRAPH),
@@ -538,6 +605,7 @@ def complete_agentic_handoff(*, state_path: Path) -> dict[str, object]:
     invariants=_load(INVARIANTS,"SCIENTIFIC_INVARIANTS_INVALID")
     hashes={r["id"]:r["semantic_sha256"] for r in invariants["queries"]}
     if (request_binding != binding(PROJECT/request_binding["path"]) or
+            request.get("run_id") != RUN_ID or patch.get("run_id") != RUN_ID or
             patch.get("base_commit") != request.get("current_git_head") or
             patch.get("parent_action_terminal") != state.get("last_action_terminal") or
             patch.get("recovery_generation") != int(state["recovery_generation"])+1 or
@@ -551,10 +619,10 @@ def complete_agentic_handoff(*, state_path: Path) -> dict[str, object]:
     contract=_load(paths["contract"],"TECHNICAL_TRANSPORT_CONTRACT_INVALID")
     required={"adapter_id","authority_resource_ids","authentication_mode","endpoint","evidence","http_method","implementation_path","parameter_serialization",
         "query_semantic_hashes","query_semantic_preservation_rule","redirect_policy","response_representation",
-        "schema_version","sealed"}
+        "run_id","schema_version","sealed"}
     authorities=_load(TECHNICAL_AUTHORITIES,"TECHNICAL_AUTHORITIES_INVALID")
     adapter=next((row for row in authorities["adapters"] if row["adapter_id"]==contract.get("adapter_id")),None)
-    if (set(contract)!=required or adapter is None or
+    if (set(contract)!=required or contract.get("run_id") != RUN_ID or adapter is None or
             contract["implementation_path"] != adapter["implementation_path"] or
             not isinstance(contract["authority_resource_ids"],list) or not contract["authority_resource_ids"] or
             not set(contract["authority_resource_ids"]).issubset(set(adapter["allowed_authority_resource_ids"])) or
@@ -571,7 +639,8 @@ def complete_agentic_handoff(*, state_path: Path) -> dict[str, object]:
     for item in contract["evidence"]:
         if binding(PROJECT/item["path"]) != item: raise RecoveryEnvelopeError("TECHNICAL_TRANSPORT_CONTRACT_INVALID")
     receipts=_load(paths["receipts"],"TECHNICAL_REPAIR_TEST_RECEIPTS_INVALID")
-    if (set(receipts) != {"all_required_passed","real_network_requests","schema_version","sealed","tests_executed"} or
+    if (set(receipts) != {"all_required_passed","real_network_requests","run_id","schema_version","sealed","tests_executed"} or
+            receipts.get("run_id") != RUN_ID or
             receipts.get("schema_version") != "OC3_SOURCE_METADATA_TECHNICAL_REPAIR_TEST_RECEIPTS_001" or
             receipts.get("all_required_passed") is not True or receipts.get("real_network_requests")!=0 or
             receipts.get("tests_executed") != request.get("required_tests")):
@@ -590,6 +659,8 @@ def transition_action(*, state_path: Path, candidate_path: Path, terminal_path: 
     if state["registered_pending_action"] != binding(candidate_path):
         raise RecoveryEnvelopeError("RECOVERY_ACTION_TRANSITION_INVALID")
     terminal = _load(terminal_path, "RECOVERY_ACTION_TERMINAL_INVALID")
+    if terminal.get("run_id") != RUN_ID:
+        raise RecoveryEnvelopeError("RECOVERY_RUN_ID_MISMATCH")
     terminal = dict(terminal); terminal["terminal_sha256"] = file_sha256(terminal_path)
     graph = _load(RECOVERY_GRAPH, "RECOVERY_GRAPH_INVALID")
     budget = _load(RECOVERY_BUDGET, "RECOVERY_BUDGET_INVALID")
@@ -650,13 +721,15 @@ def finalize_mission(*, state_path: Path, outcome: str) -> dict[str, object]:
 def validate_standing_authorization(path: Path, *, state_path: Path,
                                     require_initial_state: bool = True) -> dict[str, object]:
     value = _load(path, "RECOVERY_STANDING_AUTHORIZATION_INVALID")
-    required = {"action_registry", "authorized", "candidate_factory_sha256", "initial_state_sha256",
-        "mandate", "mission_id", "mission_runner_sha256", "mutable_technical_surface",
+    required = {"action_registry", "authorized", "candidate_factory_sha256", "first_candidate", "initial_state_sha256",
+        "mandate", "mission_id", "mission_runner_sha256", "mutable_technical_surface", "predecessor_run", "run_id",
         "policy_core_manifest", "recovery_budget", "recovery_graph", "schema_version",
         "scientific_invariants", "sealed", "technical_authorities"}
-    if (set(value) != required or value.get("schema_version") != "OC3_SOURCE_METADATA_RECOVERY_STANDING_AUTHORIZATION_001" or
-            value.get("authorized") is not True or value.get("mission_id") != MISSION_ID or
+    if (set(value) != required or value.get("schema_version") != "OC3_SOURCE_METADATA_RECOVERY_STANDING_AUTHORIZATION_002" or
+            value.get("authorized") is not True or value.get("mission_id") != MISSION_ID or value.get("run_id") != RUN_ID or
             (require_initial_state and value.get("initial_state_sha256") != file_sha256(state_path)) or
+            value.get("first_candidate") != binding(FIRST_CANDIDATE) or
+            value.get("predecessor_run") != binding(RUN_001_CLOSURE) or
             value.get("mandate") != binding(MANDATE) or value.get("policy_core_manifest") != binding(POLICY_MANIFEST) or
             value.get("scientific_invariants") != binding(INVARIANTS) or value.get("recovery_graph") != binding(RECOVERY_GRAPH) or
             value.get("recovery_budget") != binding(RECOVERY_BUDGET) or value.get("mutable_technical_surface") != binding(MUTABLE_SURFACE) or

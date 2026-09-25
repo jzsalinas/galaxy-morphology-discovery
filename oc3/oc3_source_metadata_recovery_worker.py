@@ -40,7 +40,7 @@ def execute_diagnostic(candidate, output):
     intent = output / "REQUEST_INTENT.json"
     url = query_url(SCHEMA_QUERY)
     write_json_immutable(intent, sealed({"literal_url": url, "query_id": "schema",
-        "request_class": "TECHNICAL", "schema_version": "OC3_SOURCE_METADATA_TECHNICAL_REQUEST_INTENT_001",
+        "request_class": "TECHNICAL", "run_id":candidate["run_id"], "schema_version": "OC3_SOURCE_METADATA_TECHNICAL_REQUEST_INTENT_001",
         "started_at_utc": utc_now()}))
     opener = urllib.request.build_opener(RejectRedirect())
     request = urllib.request.Request(url, headers=frozen_headers(), method="GET")
@@ -60,6 +60,7 @@ def execute_diagnostic(candidate, output):
     terminal = sealed({"action_kind": candidate["action_kind"], "application_body_bytes_read": len(body), "diagnostic_class": classification,
         "failure_class": "TECHNICAL_DIAGNOSTIC_CLASSIFIED" if classification else "DATALAB_TRANSPORT_FAILURE",
         "http_status": status, "network_requests_started": 1, "request_class": "TECHNICAL",
+        "run_id":candidate["run_id"],
         "response_body_sha256": hashlib.sha256(body).hexdigest(), "response_content_type": content_type,
         "schema_rows_observed": 0, "schema_version": "OC3_SOURCE_METADATA_TECHNICAL_DIAGNOSTIC_TERMINAL_001",
         "source_counts_observed": 0, "source_rows_observed": 0, "source_values_accepted": 0,

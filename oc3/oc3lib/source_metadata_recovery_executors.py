@@ -21,7 +21,7 @@ from recovery_adapters.source_metadata.transport_registry import get_adapter
 def _terminal(candidate, failure, *, request_class=None, requests=0, body=0, **extra):
     return sealed({"action_kind": candidate["action_kind"], "application_body_bytes_read": body,
         "failure_class": failure, "network_requests_started": requests,
-        "request_class": request_class or candidate["request_class"], "schema_version":
+        "request_class": request_class or candidate["request_class"], "run_id": candidate["run_id"], "schema_version":
         "OC3_SOURCE_METADATA_RECOVERY_ACTION_TERMINAL_002", "source_values_accepted": 0,
         "stage_id": candidate["stage_id"], **extra})
 
@@ -33,6 +33,7 @@ def documentary_probe(candidate, output: Path, authorities: dict[str, object]):
     for index, resource in enumerate(resources[:candidate["network_request_reservation"]], 1):
         intent = sealed({"resource_id": resource["id"], "schema_version":
             "OC3_RECOVERY_DOCUMENTARY_REQUEST_INTENT_001", "url": resource["url"]})
+        intent = sealed({**{k:v for k,v in intent.items() if k != "sealed"}, "run_id":candidate["run_id"]})
         write_json_immutable(output / f"REQUEST_INTENT_{index:02d}.json", intent)
         request = urllib.request.Request(resource["url"], method="GET", headers={"Accept-Encoding":"identity"})
         response = urllib.request.urlopen(request, timeout=300)
@@ -42,7 +43,7 @@ def documentary_probe(candidate, output: Path, authorities: dict[str, object]):
         path = raw / f"{resource['id']}.body"; path.write_bytes(data); used += len(data)
         records.append({"body_sha256":hashlib.sha256(data).hexdigest(),"content_type":response.headers.get("Content-Type", ""),
             "http_status":response.getcode(),"resource_id":resource["id"]})
-    write_json_immutable(output / "DOCUMENTARY_EVIDENCE.json", sealed({"records":records,
+    write_json_immutable(output / "DOCUMENTARY_EVIDENCE.json", sealed({"records":records,"run_id":candidate["run_id"],
         "schema_version":"OC3_SOURCE_METADATA_DOCUMENTARY_EVIDENCE_001"}))
     return _terminal(candidate, "DOCUMENTARY_EVIDENCE_ACQUIRED", requests=len(records), body=used)
 
@@ -51,7 +52,7 @@ def integrity_triage(candidate, output: Path):
     parent = load_canonical_json(PROJECT / candidate["parent_action_terminal"]["path"])
     proven = bool(parent.get("response_content_type") or parent.get("diagnostic_class")) and parent.get("source_values_accepted",0) == 0
     failure = "DATALAB_SCHEMA_MISMATCH" if proven else "AUTHORITY_CLASS_EXPANSION"
-    write_json_immutable(output / "TRIAGE.json", sealed({"representation_level_proven":proven,
+    write_json_immutable(output / "TRIAGE.json", sealed({"representation_level_proven":proven,"run_id":candidate["run_id"],
         "schema_version":"OC3_SOURCE_METADATA_TECHNICAL_TRIAGE_001"}))
     return _terminal(candidate, failure, request_class="OFFLINE", representation_level_proven=proven)
 
@@ -92,6 +93,9 @@ def offline_repair(candidate, output: Path):
         raise RecoveryEnvelopeError("TECHNICAL_REPAIR_ARTIFACT_BINDING_INVALID")
     manifest = load_canonical_json(path)
     contract = load_canonical_json(contract_path)
+    receipts = load_canonical_json(receipts_path)
+    if any(value.get("run_id") != candidate.get("run_id") for value in (manifest, contract, receipts)):
+        raise RecoveryEnvelopeError("RECOVERY_RUN_ID_MISMATCH")
     authorities = load_canonical_json(PROJECT / candidate["technical_authorities"]["path"])
     registry_adapter=next((row for row in authorities["adapters"]
         if row["adapter_id"]==contract.get("adapter_id")),None)
@@ -171,7 +175,7 @@ def material_acquisition(candidate, output: Path, invariants: dict[str, object])
         failure="SOURCE_METADATA_ACQUISITION_COMPLETED"
     except AcquisitionError as exc:
         failure=exc.code
-    write_json_immutable(output/"TRANSPORT_EVIDENCE.json",sealed({"adapter":candidate["active_adapter"],
+    write_json_immutable(output/"TRANSPORT_EVIDENCE.json",sealed({"adapter":candidate["active_adapter"],"run_id":candidate["run_id"],
         "records":records,"schema_version":"OC3_SOURCE_METADATA_RECOVERY_MATERIAL_TRANSPORT_001"}))
     return _terminal(candidate,failure,request_class="MATERIAL",requests=len(records),body=total)
 

@@ -40,7 +40,8 @@ def main(argv=None):
             consumed_at_utc=utc_now())
         args.output.mkdir(parents=True, exist_ok=False)
         write_json_immutable(args.output / "START_INTENT.json", sealed({
-            "candidate_sha256": file_sha256(args.candidate), "permit_sha256": file_sha256(args.permit),
+            "candidate_path":candidate["candidate_path"], "candidate_sha256": file_sha256(args.candidate),
+            "permit_sha256": file_sha256(args.permit), "run_id":candidate["run_id"],
             "schema_version": "OC3_SOURCE_METADATA_RECOVERY_START_INTENT_001",
             "stage_id": candidate["stage_id"], "started_at_utc": utc_now()}))
         capability_path = PROJECT / candidate["worker_capability_path"]
@@ -49,7 +50,8 @@ def main(argv=None):
             state_path=args.state, capability_path=capability_path, issued_at_utc=utc_now())
         result = subprocess.run(candidate["worker_argv"], capture_output=True, text=True, check=False)
         write_json_immutable(args.output / "SUPERVISOR_RESULT.json", sealed({
-            "return_code": result.returncode, "schema_version": "OC3_SOURCE_METADATA_RECOVERY_SUPERVISOR_RESULT_001",
+            "return_code": result.returncode, "run_id":candidate["run_id"],
+            "schema_version": "OC3_SOURCE_METADATA_RECOVERY_SUPERVISOR_RESULT_001",
             "stderr_sha256": __import__("hashlib").sha256(result.stderr.encode()).hexdigest(),
             "stdout_sha256": __import__("hashlib").sha256(result.stdout.encode()).hexdigest()}))
         if result.returncode != 0:
