@@ -2,6 +2,7 @@ from contextlib import ExitStack
 from copy import deepcopy
 import inspect
 from pathlib import Path
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -76,6 +77,8 @@ class ProductionHarness:
         state=gov.validate_state(self.state); generation=state["recovery_generation"]+1
         paths=self.agentic_paths(generation); self.agentic_root.mkdir(parents=True,exist_ok=True)
         request=load_canonical_json(paths["request"])
+        authorities=load_canonical_json(gov.TECHNICAL_AUTHORITIES)
+        registry_adapter=next((row for row in authorities["adapters"] if row["adapter_id"]==adapter_id),None)
         hashes=request["query_semantic_hashes"]
         after_hashes=dict(hashes)
         if mutate_queries: after_hashes["schema"]="0"*64
@@ -84,7 +87,9 @@ class ProductionHarness:
             target.parent.mkdir(parents=True,exist_ok=True); target.write_text("synthetic bounded repair\n")
             self.repair_files.append(target); changed_path=str(target.relative_to(PROJECT)); before=None
         else:
-            target=PROJECT/changed_path; before=file_sha256(target) if target.is_file() else None
+            target=PROJECT/changed_path
+            registered=next((row for row in authorities["adapters"] if row["implementation_path"]==changed_path),None)
+            before=registered["bootstrap_sha256"] if registered else (file_sha256(target) if target.is_file() else None)
         current=file_sha256(target) if target.is_file() else None
         patch_manifest=sealed({"base_commit":request["current_git_head"],
             "changed_paths":[{"after_sha256":current,"before_sha256":before,"path":changed_path}],
@@ -100,9 +105,13 @@ class ProductionHarness:
             "technical_failure_class":"DOCUMENTARY_EVIDENCE_ACQUIRED",
             "tests_executed":request["required_tests"]})
         paths["patch"].write_bytes(canonical(patch_manifest)+b"\n")
-        contract=sealed({"adapter_id":adapter_id,"authentication_mode":"ANONYMOUS_PUBLIC",
+        implementation_path=(registry_adapter or {"implementation_path":"oc3/recovery_adapters/source_metadata/unsupported.py"})["implementation_path"]
+        resource_ids=(registry_adapter or {"allowed_authority_resource_ids":["NOIRLAB_DATALAB_USER_MANUAL"]})["allowed_authority_resource_ids"]
+        contract=sealed({"adapter_id":adapter_id,"authority_resource_ids":resource_ids,
+            "authentication_mode":"ANONYMOUS_PUBLIC",
             "endpoint":"https://example.invalid/query","evidence":[request["diagnostic_and_documentary_evidence"][-1]],
-            "http_method":"GET","parameter_serialization":"URL_QUERY_PARAMETERS",
+            "http_method":"GET","implementation_path":implementation_path,
+            "parameter_serialization":"URL_QUERY_PARAMETERS",
             "query_semantic_hashes":hashes,"query_semantic_preservation_rule":"BYTE_IDENTICAL_FROZEN_ADQL",
             "redirect_policy":"FORBID","response_representation":"CSV",
             "schema_version":"OC3_SOURCE_METADATA_TECHNICAL_TRANSPORT_CONTRACT_001"})
@@ -131,6 +140,39 @@ class ProductionRunnerTests(unittest.TestCase):
             return self.h.terminal(c,failure)
         return run_mission(state_path=self.h.state,authorization_path=self.h.auth,
             first_candidate_path=self.h.first,ledger=self.h.ledger,executor=executor),executor
+
+    def run_real_adapter_repair(self, *, drift=False):
+        self.reach_handoff()
+        adapter_path="oc3/recovery_adapters/source_metadata/transport_registry.py"
+        target=PROJECT/adapter_path; original=target.read_bytes()
+        bootstrap_sha=file_sha256(target); material_candidates=[]
+        try:
+            target.write_bytes(original+b"\n# bounded synthetic repaired adapter bytes\n")
+            repaired_sha=file_sha256(target)
+            self.assertNotEqual(repaired_sha,bootstrap_sha)
+            self.assertEqual(gov.validate_static_authorities()["technical_authorities"]["adapters"][0]["bootstrap_sha256"],bootstrap_sha)
+            artifacts=self.h.create_agentic_artifacts(changed_path=adapter_path)
+            def executor(candidate):
+                if candidate["action_kind"]=="OFFLINE_TECHNICAL_REPAIR":
+                    result=executors.offline_repair(candidate,PROJECT/candidate["output_directory"])
+                    return {k:v for k,v in result.items() if k!="sealed"}
+                if candidate["action_kind"]=="MATERIAL_SOURCE_METADATA_ACQUISITION":
+                    material_candidates.append(candidate)
+                    if drift: target.write_bytes(target.read_bytes()+b"# post-validation drift\n")
+                    if drift:
+                        result=executors.material_acquisition(candidate,PROJECT/candidate["output_directory"],
+                            load_canonical_json(gov.INVARIANTS))
+                        return {k:v for k,v in result.items() if k!="sealed"}
+                    executors.validate_material_adapter_binding(candidate)
+                    return self.h.terminal(candidate,"SOURCE_METADATA_ACQUISITION_COMPLETED")
+                raise AssertionError(candidate["action_kind"])
+            with patch.object(executors,"_git_changed_paths",return_value=[adapter_path]), \
+                    patch.object(executors,"_git_blob_sha256",return_value=bootstrap_sha):
+                state=run_mission(state_path=self.h.state,authorization_path=self.h.auth,
+                    first_candidate_path=self.h.first,ledger=self.h.ledger,executor=executor)
+            return state,material_candidates,repaired_sha
+        finally:
+            target.write_bytes(original)
 
     def test_actual_runner_multi_action_to_scientific_terminal(self):
         outcomes={"TECHNICAL_RESPONSE_DIAGNOSTIC":"TECHNICAL_DIAGNOSTIC_CLASSIFIED",
@@ -252,6 +294,62 @@ class ProductionRunnerTests(unittest.TestCase):
         self.assertNotIn("query_manager_public_anonymous_v1",repair)
         self.assertIn('contract.get("adapter_id")',repair)
 
+    def test_real_adapter_repair_binds_new_runtime_sha_without_bootstrap_rejection(self):
+        state,candidates,repaired_sha=self.run_real_adapter_repair()
+        self.assertEqual(state["state"],gov.STATE_TERMINAL)
+        self.assertEqual(len(candidates),1)
+        binding=candidates[0]["active_adapter_binding"]
+        self.assertEqual(binding["implementation_sha256"],repaired_sha)
+        self.assertEqual(binding["implementation_path"],"oc3/recovery_adapters/source_metadata/transport_registry.py")
+        self.assertEqual(state["active_adapter_binding"],binding)
+
+    def test_post_validation_adapter_drift_stops_before_material_network(self):
+        state,candidates,_=self.run_real_adapter_repair(drift=True)
+        self.assertEqual(len(candidates),1)
+        self.assertEqual((state["state"],state["stop_reason"]),(STOP_REQUIRES_HUMAN,"ADAPTER_IMPLEMENTATION_DRIFT"))
+        terminal=load_canonical_json(PROJECT/state["last_action_terminal"]["path"])
+        self.assertEqual(terminal["failure_class"],"ADAPTER_IMPLEMENTATION_DRIFT")
+        self.assertEqual(terminal["network_requests_started"],0)
+        output=PROJECT/candidates[0]["output_directory"]
+        self.assertFalse((output/"REQUEST_INTENT.json").exists())
+        self.assertFalse((output/"RAW_IMMUTABLE").exists())
+
+    def test_git_derived_real_adapter_change_is_exact_in_isolated_repository(self):
+        with tempfile.TemporaryDirectory(dir=PROJECT/"oc3") as directory:
+            root=Path(directory); relative="oc3/recovery_adapters/source_metadata/adapter.py"
+            target=root/relative; target.parent.mkdir(parents=True); target.write_text("bootstrap\n")
+            subprocess.run(["git","init","-q"],cwd=root,check=True)
+            subprocess.run(["git","config","user.email","synthetic@example.invalid"],cwd=root,check=True)
+            subprocess.run(["git","config","user.name","Synthetic Test"],cwd=root,check=True)
+            subprocess.run(["git","add",relative],cwd=root,check=True)
+            subprocess.run(["git","commit","-qm","bootstrap"],cwd=root,check=True)
+            base=subprocess.run(["git","rev-parse","HEAD"],cwd=root,check=True,capture_output=True,text=True).stdout.strip()
+            before=file_sha256(target); target.write_text("repaired\n")
+            with patch.object(executors,"PROJECT",root):
+                self.assertEqual(executors._git_changed_paths(base,("oc3/recovery_adapters/source_metadata/",)),[relative])
+                self.assertEqual(executors._git_blob_sha256(base,relative),before)
+
+    def test_tap_identity_is_prospective_and_cannot_materialize_unvalidated(self):
+        authorities=gov.validate_static_authorities()["technical_authorities"]
+        tap=next(row for row in authorities["adapters"] if row["adapter_id"]=="official_noirlab_tap_public_v1")
+        self.assertEqual(tap["initial_state"],"AVAILABLE_UNVALIDATED")
+        self.assertIsNone(tap["bootstrap_sha256"])
+        self.assertFalse((PROJECT/tap["implementation_path"]).exists())
+        state={k:v for k,v in gov.validate_state(self.h.state).items() if k!="sealed"}
+        state.update({"active":True,"state":"ACTIVE","registered_pending_action":None,
+            "last_classification":{"decision":"RECOVER_AUTONOMOUSLY","failure_class":"TECHNICAL_PATCH_VALIDATED",
+                "next_action_kind":"MATERIAL_SOURCE_METADATA_ACQUISITION"},
+            "next_action_kind":"MATERIAL_SOURCE_METADATA_ACQUISITION","active_adapter":"official_noirlab_tap_public_v1",
+            "active_adapter_binding":None})
+        parent=PROJECT/state["last_action_terminal"]["path"]
+        with self.assertRaisesRegex(RecoveryEnvelopeError,"TECHNICAL_ADAPTER_NOT_VALIDATED"):
+            factory.build_next_candidate(state=state,parent_terminal_path=parent,
+                action_registry_path=gov.ACTION_REGISTRY,technical_authorities_path=gov.TECHNICAL_AUTHORITIES,
+                scientific_invariants_path=gov.INVARIANTS,recovery_graph_path=gov.RECOVERY_GRAPH,
+                recovery_budget_path=gov.RECOVERY_BUDGET,mutable_surface_path=gov.MUTABLE_SURFACE,
+                state_path=self.h.state,standing_authorization_path=self.h.auth,
+                implementation_aggregate=gov.implementation_aggregate())
+
     def test_registry_and_frozen_science(self):
         values=gov.validate_static_authorities()
         self.assertEqual([x["action_kind"] for x in values["action_registry"]["actions"]],list(factory.ACTION_FAMILIES))
@@ -281,6 +379,7 @@ class ProductionRunnerTests(unittest.TestCase):
             "output":lambda x:x.__setitem__("output_directory","oc3/evil"),
             "permit":lambda x:x.__setitem__("permit_path","oc3/evil.json"),
             "capability":lambda x:x.__setitem__("worker_capability_path","oc3/evil-cap.json"),
+            "adapter_binding":lambda x:x.__setitem__("active_adapter_binding",{"adapter_id":"forged"}),
             "budgets":lambda x:x["remaining_budgets"].__setitem__("technical_requests",999)}
         from oc3lib.cross_observer_grouping import sha256_bytes
         for name,mutate in mutations.items():

@@ -8,7 +8,9 @@
 6. When documentary evidence has been acquired, enter `AWAITING_AGENTIC_TECHNICAL_REPAIR`, persist the sealed repair request and return `AGENTIC_REPAIR_REQUIRED` without creating a repair candidate or permit.
 7. The same authorized Codex mission inspects the bound evidence, edits only the Mutable Technical Surface, creates the generation-derived patch manifest and transport contract, runs the required tests, writes their receipts and invokes Mission Runner with `--resume`. This handoff does not require a new human instruction or standing authorization.
 8. On resume, missing artifacts preserve the handoff; invalid artifacts or a required control-plane/scientific change produce `STOP_REQUIRES_HUMAN`; valid artifacts produce the deterministic repair-validation candidate.
-9. On scientific finalization, preserve the complete trace and invariant hashes. On STOP, preserve the reason and do not issue another permit.
+9. Repair validation computes the selected implementation SHA from the registered mutable path and persists it in `active_adapter_binding` with the exact patch, contract and receipt bindings. Bootstrap SHA is provenance and cannot reject a validated repaired version.
+10. Before material access, rehash the registered implementation and compare it with `active_adapter_binding`. Drift stops before request intent or network.
+11. On scientific finalization, preserve the complete trace and invariant hashes. On STOP, preserve the reason and do not issue another permit.
 
 `CONTROL_PLANE_RESUME_ALLOWED=true`. `MATERIAL_ACTION_REPLAY_ALLOWED=false`. `TECHNICAL_NETWORK_ACTION_REPLAY_ALLOWED=false`. A consumed action with no terminal stops for human review.
 

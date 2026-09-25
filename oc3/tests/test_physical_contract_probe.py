@@ -730,7 +730,8 @@ class ManifestContractTripwireOutcomeTests(Base):
             "OC3_SOURCE_METADATA_RECOVERY_GRAPH_001.json",
             "OC3_SOURCE_METADATA_RECOVERY_SCIENTIFIC_INVARIANTS_001.json"}
         source_metadata_autonomous_recovery |= {
-            "OC3_SOURCE_METADATA_RECOVERY_TECHNICAL_AUTHORITIES_001.json"}
+            "OC3_SOURCE_METADATA_RECOVERY_TECHNICAL_AUTHORITIES_001.json",
+            "OC3_SOURCE_METADATA_RECOVERY_TECHNICAL_AUTHORITIES_002.json"}
         eligibility_p0 = eligibility_implementation | {
             "OC3_GALAXY_ELIGIBILITY_PANEL_MANIFEST.json",
             "OC3_GALAXY_ELIGIBILITY_P1_AUTHORIZATION_CANDIDATE_001.json"}

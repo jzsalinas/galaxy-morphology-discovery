@@ -77,12 +77,17 @@ def build_next_candidate(*, state: Mapping[str, object], parent_terminal_path: P
         test_receipts = state.get("validated_test_receipts")
         if not all(isinstance(x, Mapping) for x in (technical_patch_manifest,technical_transport_contract,test_receipts)):
             raise RecoveryEnvelopeError("AGENTIC_REPAIR_ARTIFACTS_NOT_VALIDATED")
-    adapter = None
+    adapter = None; active_adapter_binding = None
     if rule.get("active_adapter_required"):
         adapter = state.get("active_adapter")
         authorities = _load(technical_authorities_path)
+        active_adapter_binding=state.get("active_adapter_binding")
+        registry_adapter=next((row for row in authorities["adapters"] if row["adapter_id"]==adapter),None)
         if (adapter not in authorities["adapter_ids"] or
-                state.get("adapter_states",{}).get(adapter) not in ("VALIDATED_FOR_MISSION","ACTIVE")):
+                state.get("adapter_states",{}).get(adapter) != "ACTIVE" or
+                not isinstance(active_adapter_binding,Mapping) or registry_adapter is None or
+                active_adapter_binding.get("adapter_id") != adapter or
+                active_adapter_binding.get("implementation_path") != registry_adapter["implementation_path"]):
             raise RecoveryEnvelopeError("TECHNICAL_ADAPTER_NOT_VALIDATED")
     executable = str(PROJECT / "oc3/.venv/bin/python")
     supervisor = str(PROJECT / rule["supervisor_implementation"]["path"])
@@ -98,6 +103,7 @@ def build_next_candidate(*, state: Mapping[str, object], parent_terminal_path: P
         "--permit", str(permit_path), "--standing-authorization", str(standing_authorization_path),
         "--state", str(state_path), "--output", str(output), "--execution-capability", str(capability)]
     candidate = sealed({"action_kind": action_kind, "active_adapter": adapter,
+        "active_adapter_binding": active_adapter_binding,
         "action_registry": binding(action_registry_path), "application_body_reservation": body,
         "authority_classes": list(rule["allowed_authority_classes"]),
         "command_argv": command, "command_argv_sha256": sha256_bytes(canonical(command)),
@@ -137,7 +143,7 @@ def build_first_candidate(*, parent_terminal_path: Path, action_registry_path: P
         "last_action_terminal_sha256": file_sha256(parent_terminal_path), "recovery_generation": 0,
         "technical_requests_remaining": 8, "technical_body_bytes_remaining": 2_097_152,
         "material_requests_remaining": 5, "material_body_bytes_remaining": 67_108_864,
-        "active_adapter": None, "adapter_states": {}, "validated_patch_manifest": None,
+        "active_adapter": None, "active_adapter_binding": None, "adapter_states": {}, "validated_patch_manifest": None,
         "validated_transport_contract": None, "validated_test_receipts": None}
     _, candidate = build_next_candidate(state=bootstrap_state,
         parent_terminal_path=parent_terminal_path, action_registry_path=action_registry_path,

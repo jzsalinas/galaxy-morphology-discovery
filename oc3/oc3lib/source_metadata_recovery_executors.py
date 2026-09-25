@@ -92,6 +92,11 @@ def offline_repair(candidate, output: Path):
         raise RecoveryEnvelopeError("TECHNICAL_REPAIR_ARTIFACT_BINDING_INVALID")
     manifest = load_canonical_json(path)
     contract = load_canonical_json(contract_path)
+    authorities = load_canonical_json(PROJECT / candidate["technical_authorities"]["path"])
+    registry_adapter=next((row for row in authorities["adapters"]
+        if row["adapter_id"]==contract.get("adapter_id")),None)
+    if (registry_adapter is None or contract.get("implementation_path") != registry_adapter["implementation_path"]):
+        raise RecoveryEnvelopeError("TECHNICAL_TRANSPORT_CONTRACT_INVALID")
     surface = load_canonical_json(PROJECT / candidate["mutable_technical_surface"]["path"])
     validate_patch_manifest(manifest, surface)
     actual = _git_changed_paths(manifest["base_commit"],tuple(surface["allowed_path_prefixes"]))
@@ -106,14 +111,38 @@ def offline_repair(candidate, output: Path):
                 rows[changed_path]["after_sha256"] != after):
             raise RecoveryEnvelopeError("TECHNICAL_PATCH_GIT_DIFF_MISMATCH")
     adapter_id = contract.get("adapter_id")
-    if not isinstance(adapter_id, str) or not adapter_id:
+    implementation_path=PROJECT/registry_adapter["implementation_path"]
+    if not isinstance(adapter_id, str) or not adapter_id or not implementation_path.is_file():
         raise RecoveryEnvelopeError("TECHNICAL_TRANSPORT_CONTRACT_INVALID")
+    implementation_sha=file_sha256(implementation_path)
+    if implementation_sha != registry_adapter["bootstrap_sha256"]:
+        row=next((item for item in manifest["changed_paths"]
+            if item["path"]==registry_adapter["implementation_path"]),None)
+        if row is None or row["after_sha256"] != implementation_sha:
+            raise RecoveryEnvelopeError("TECHNICAL_PATCH_GIT_DIFF_MISMATCH")
     return _terminal(candidate, "TECHNICAL_PATCH_VALIDATED", request_class="OFFLINE",
         adapter_activated=adapter_id, patch_manifest=patch_binding,
+        adapter_implementation_binding={"adapter_id":adapter_id,
+            "implementation_path":registry_adapter["implementation_path"],
+            "implementation_sha256":implementation_sha},
         technical_transport_contract=contract_binding, test_receipts=receipt_binding)
 
 
+def validate_material_adapter_binding(candidate: dict[str, object]) -> None:
+    active=candidate.get("active_adapter_binding")
+    if (not isinstance(active,dict) or active.get("adapter_id") != candidate.get("active_adapter") or
+            not isinstance(active.get("implementation_path"),str)):
+        raise RecoveryEnvelopeError("ADAPTER_IMPLEMENTATION_DRIFT")
+    implementation=PROJECT/active["implementation_path"]
+    if not implementation.is_file() or file_sha256(implementation) != active.get("implementation_sha256"):
+        raise RecoveryEnvelopeError("ADAPTER_IMPLEMENTATION_DRIFT")
+
+
 def material_acquisition(candidate, output: Path, invariants: dict[str, object]):
+    try:
+        validate_material_adapter_binding(candidate)
+    except RecoveryEnvelopeError:
+        return _terminal(candidate,"ADAPTER_IMPLEMENTATION_DRIFT",request_class="MATERIAL")
     queries = {row["id"]: row for row in invariants["queries"]}
     if tuple(queries) != REQUEST_ORDER or any(query_sha256(queries[q]["literal_adql"]) != queries[q]["semantic_sha256"] for q in REQUEST_ORDER):
         raise RecoveryEnvelopeError("SCIENTIFIC_QUERY_SEMANTICS_INVALID")
