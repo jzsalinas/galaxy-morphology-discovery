@@ -21,4 +21,3 @@ Status: **PROSPECTIVE; WAITING FOR EXPLICIT HUMAN AUTHORIZATION**.
 
 Preauthorization state: `RUN_004_EXECUTION = NOT_STARTED`, network requests 0,
 material actions 0.
-

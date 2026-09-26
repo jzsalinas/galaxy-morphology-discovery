@@ -31,4 +31,3 @@ All integrity, authority, scientific, provider, rights, budget and ambiguity sto
 Policy Core 003 remain fail-closed. Active policy mutation, recursive repair-policy
 mutation, historical evidence mutation, or an unresolved binding conflict produces
 `STOP_REQUIRES_HUMAN`.
-

@@ -1553,7 +1553,7 @@ test_transport_is_reachable_only_with_valid_authorization (recovery_tests.source
 test_exact_run004_input_additions_and_other_production_tripwires (__main__.Run004LifecycleTripwireTests.test_exact_run004_input_additions_and_other_production_tripwires) ... ok
 
 ----------------------------------------------------------------------
-Ran 1553 tests in 58.516s
+Ran 1553 tests in 79.966s
 
 OK
 {"network_requests":0,"state":"READY"}
@@ -1605,4 +1605,4 @@ options:
   --stage-request-cap STAGE_REQUEST_CAP
   --stage-retry-request-pool STAGE_RETRY_REQUEST_POOL
   --expected-body-bytes EXPECTED_BODY_BYTES
-{"failed": 0, "passed": 1553, "real_network_requests": 0, "replaced_lifecycle_assertions": 4, "run_003_closed_base_commit": "260abd2ab49977453176b939f07803aad0772b65", "run_004_exact_input_additions": 11, "seconds": 59.47, "skipped": 0, "synthetic_only": true, "tests": 1553}
+{"failed": 0, "passed": 1553, "real_network_requests": 0, "replaced_lifecycle_assertions": 4, "run_003_closed_base_commit": "260abd2ab49977453176b939f07803aad0772b65", "run_004_exact_input_additions": 11, "seconds": 81.592, "skipped": 0, "synthetic_only": true, "tests": 1553}

@@ -63,4 +63,3 @@ the cryptographic execution identity; the human is not required to invoke it man
 | resource scope | 0 |
 | budget | 0 |
 | acceptance criteria | 0 |
-

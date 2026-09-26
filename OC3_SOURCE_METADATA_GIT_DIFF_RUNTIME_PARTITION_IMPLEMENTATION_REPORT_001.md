@@ -52,9 +52,9 @@ base commit `260abd2ab49977453176b939f07803aad0772b65` and requires exactly the
 
 Logs:
 
-- focused: `oc3/environment_setup/OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_RUN_004_FOCUSED_TESTS_001.log`, SHA-256 `94c3c45fae6d0294a3ae0feecdcd40fd807233bbebe42ea79bfacdd8de8f1c0f`;
-- full: `oc3/environment_setup/OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_RUN_004_FULL_REGRESSION_001.log`, SHA-256 `285aac7f38d5904b3094f31c06fd611206813fe98f0b48cb3f7382fa65a5a25d`;
-- replay receipt: `oc3/environment_setup/OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_RUN_004_OFFLINE_REPLAY_RECEIPT_001.json`, SHA-256 `a724e6898a1a79301246add529191f44bce7bba270d640805a3693aee5a4f46b`.
+- focused: `oc3/environment_setup/OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_RUN_004_FOCUSED_TESTS_001.log`, SHA-256 `f9fca9730a22ed4eab6b19de6c242fc5f62782fa61d3cd2e0a1d44e8635a8aa5`;
+- full: `oc3/environment_setup/OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_RUN_004_FULL_REGRESSION_001.log`, SHA-256 `dd657a025894a55c2d3f1b36095f827044140a054b6fe5ddb28660357bcee73b`;
+- replay receipt: `oc3/environment_setup/OC3_SOURCE_METADATA_AUTONOMOUS_RECOVERY_RUN_004_OFFLINE_REPLAY_RECEIPT_001.json`, SHA-256 `f6c70f255bbf9d2f93795dd0cd895acb25a9a520dfa84c0ce129b02dc98244c2`.
 
 ## Frozen identities and drift
 
@@ -68,4 +68,3 @@ rights, resource scope, budgets and acceptance criteria each have drift zero.
 The mutable technical surface remains exactly the two previously frozen
 prefixes. No network request, material acquisition, permit, capability,
 standing authorization or Run-004 execution occurred.
-

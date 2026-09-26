@@ -30,6 +30,6 @@ test_011_run003_terminal_state_remains_exact (oc3.tests.test_source_metadata_rec
 test_012_mutable_surface_was_not_broadened (oc3.tests.test_source_metadata_recovery_run004_preparation.Run004PreparationTests.test_012_mutable_surface_was_not_broadened) ... ok
 
 ----------------------------------------------------------------------
-Ran 30 tests in 0.142s
+Ran 30 tests in 0.311s
 
 OK
