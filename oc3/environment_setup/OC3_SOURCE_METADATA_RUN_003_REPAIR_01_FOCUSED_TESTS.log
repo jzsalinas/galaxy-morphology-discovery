@@ -1,0 +1,8 @@
+test_body_cap_is_enforced_before_csv_parsing (recovery_tests.source_metadata.test_query_manager_public_anonymous_v1_run003.QueryManagerPublicAnonymousRun003Tests.test_body_cap_is_enforced_before_csv_parsing) ... ok
+test_unvalidated_or_unknown_adapter_fails_closed (recovery_tests.source_metadata.test_query_manager_public_anonymous_v1_run003.QueryManagerPublicAnonymousRun003Tests.test_unvalidated_or_unknown_adapter_fails_closed) ... ok
+test_validated_adapter_preserves_query_and_accepts_csv_bytes_with_wrong_content_type (recovery_tests.source_metadata.test_query_manager_public_anonymous_v1_run003.QueryManagerPublicAnonymousRun003Tests.test_validated_adapter_preserves_query_and_accepts_csv_bytes_with_wrong_content_type) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.002s
+
+OK
