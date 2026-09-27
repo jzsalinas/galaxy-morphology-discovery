@@ -80,6 +80,9 @@ oc3/observational_multiplicity/
 # Frozen source-metadata acquisition raw CSV bodies
 oc3/source_metadata_acquisition_pilot/**/RAW_IMMUTABLE/
 
+# Human-invoked source-metadata acquisition runtime (RAW and evidence stay local)
+oc3/manual_source_metadata_acquisition_001/
+
 # Historical PHOTSYS mission runtime evidence (preserved locally)
 oc3/photsys_archive_head_probe/
 oc3/photsys_archive_range_size_probe/
